@@ -1,0 +1,42 @@
+name: free-source-probe
+
+# Probes FREE public sources from GitHub's network (the development sandbox blocks
+# several of them). A handful of cached requests; paid/unknown-cost sources are never
+# called (cost audit + cost_policy gate).
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/data/probe_sources.py"
+      - ".github/workflows/source-probe.yml"
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Probe
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: python scripts/data/probe_sources.py | tee probe.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-probe-${{ github.run_id }}
+          path: probe.json
