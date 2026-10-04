@@ -99,7 +99,7 @@ published tip-off win probability and is used only as a public benchmark.
 | 2024–2025 | — | **none exist in the archive** | — | — |
 | 2026 | DraftKings | 4,799 | 4,799 | **yes** |
 
-Harvest cost: 37,407 free requests to raw.githubusercontent.com (≈30 GB transferred,
+Harvest cost: ~40,600 free requests to raw.githubusercontent.com (incl. retries; ≈30 GB transferred,
 179 MB kept). Audit file: `research/baseline/line_orientation_audit.json`.
 
 **Data-quality rules (found during the baseline audit, applied in
