@@ -112,3 +112,38 @@ def test_capture_goes_through_cost_policy():
         f.return_value = mock.Mock(json=lambda: {"series": []})
         capture.discover_series()
     assert f.call_args.args[0] == "kalshi_public"
+
+
+def test_event_ticker_and_title_parsing():
+    from datetime import date
+
+    from cbb_edge.kalshi import mapping
+
+    assert mapping.event_date("KXNCAAMBGAME-26NOV04DUKEUNC") == date(2026, 11, 4)
+    assert mapping.event_date("garbage") is None
+    assert mapping.title_teams("Duke at North Carolina Winner?") == ("Duke", "North Carolina")
+    assert mapping.title_teams("Kansas vs. Kentucky") == ("Kansas", "Kentucky")
+
+
+def test_market_maps_to_unique_canonical_game():
+    from datetime import date
+
+    import pandas as pd
+
+    from cbb_edge.data.ids import teams
+    from cbb_edge.kalshi import mapping
+
+    duke = teams.resolve("Duke", "espn")
+    unc = teams.resolve("North Carolina", "espn")
+    games = pd.DataFrame(
+        {
+            "game_id": [1, 2],
+            "game_date_et": [date(2026, 11, 4), date(2026, 12, 4)],
+            "home_team_id": [unc, duke],
+            "away_team_id": [duke, unc],
+        }
+    )
+    m = {"event_ticker": "KXNCAAMBGAME-26NOV04DUKEUNC", "title": "Duke at North Carolina Winner?"}
+    assert mapping.map_market(m, games) == (1, "ok")
+    bad = {"event_ticker": "KXNCAAMBGAME-26NOV04XXXYYY", "title": "Dook at Nort Carolina Winner?"}
+    assert mapping.map_market(bad, games) == (None, "unresolved_team")

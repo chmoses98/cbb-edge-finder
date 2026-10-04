@@ -16,7 +16,12 @@ from typing import Any
 # and KXMAKEMARMAD (tournament futures), legacy KXNCAAB* (GAME/ACC/SEC/IVY).
 # Look-alikes that are NOT men's basketball: KXNCAABB* / KXNCAABASEBALL /
 # KXTEAMSINNCAABBWS (college baseball), KXNCAAWB* / KXWMARMAD* (women's basketball).
-CBB_TICKER = re.compile(r"^KX(NCAAMB|MARMAD|MAKEMARMAD|NCAAB(?!B|ASEBALL))", re.I)
+# KXNCAAM<conf> (e.g. KXNCAAMACC, KXNCAAMSEC) are legacy men's basketball conference
+# series; other KXNCAAM<sport> series are excluded below and by the title sport filter.
+CBB_TICKER = re.compile(
+    r"^KX(NCAAMB|MARMAD|MAKEMARMAD|NCAAB(?!B|ASEBALL)|NCAAM(?!LAX|SOCCER|WRESTLING|HOCKEY))",
+    re.I,
+)
 NOT_CBB_TICKER = re.compile(
     r"^KX(NCAABB|NCAABASEBALL|NCAAWB|WMARMAD|TEAMSINNCAABB|NCAAMLAX|NCAAMSOCCER|"
     r"NCAAMWRESTLING)",
@@ -29,6 +34,7 @@ CBB_WORDS = re.compile(
     r"ncaab\b)",
     re.I,
 )
+COLLEGE = re.compile(r"(college|ncaa|march madness|ncaab)", re.I)
 WOMEN = re.compile(
     r"(women|wcbb|ncaaw|wncaa|ncaawb|baseball|lacrosse|soccer|wrestling|hockey|football|"
     r"volleyball|softball)",
@@ -62,7 +68,10 @@ def is_cbb_series(series: dict[str, Any]) -> bool:
     )
     if NOT_CBB_TICKER.search(ticker) or WOMEN.search(blob):
         return False
-    return bool(CBB_TICKER.search(ticker) or CBB_WORDS.search(blob))
+    if CBB_TICKER.search(ticker):
+        return True
+    # word rules: basketball AND a college marker (excludes USA Basketball, NBA, ...)
+    return bool(CBB_WORDS.search(blob) and COLLEGE.search(blob))
 
 
 def classify_market(series: dict[str, Any], market: dict[str, Any]) -> str:

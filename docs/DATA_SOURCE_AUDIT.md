@@ -69,6 +69,9 @@ published tip-off win probability and is used only as a public benchmark.
   Lineup rows carry rim / mid-range / three attempts and makes.
 * Stable IDs: NCAA contest ids (strings), NCAA team/player ids; ESPN team ids on
   possessions.
+* ID join test (2025): NCAA contests join to ESPN games on the exact key
+  (ET date, home ESPN team id, away ESPN team id) for 89.9% of 6,291 contests; the rest
+  mostly lack an ESPN id (non-D-I opponents). No name matching is used.
 * Status: downloaded 2010–2026 (lineups, matchup stints, possessions, schedule) into
   bronze with manifests. Not yet joined into silver — this is the data for arm B6
   (lineups/on-off) and the rim-vs-rim matchup experiment.
