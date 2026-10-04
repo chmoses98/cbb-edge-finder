@@ -114,3 +114,25 @@ def test_orient_lines_flips_reversed_neutral_site_quotes():
     assert d.loc[3, "orientation"] == "unknown" and not d.loc[3, "line_usable"]
     assert d.loc[4, "line_suspect"] and not d.loc[4, "line_usable"]
     assert d.loc[1, "line_usable"] and d.loc[2, "line_usable"]
+
+
+def test_projection_site_providers_excluded_from_market():
+    from cbb_edge.market.espn_lines import orient_to_games
+
+    games = pd.DataFrame({"game_id": [1, 2], "home_espn_id": [10, 20], "away_espn_id": [11, 21]})
+    lines = pd.DataFrame(
+        {
+            "game_id": [1, 2],
+            "pc_home_espn_id": [10, 20],
+            "pc_away_espn_id": [11, 21],
+            "home_spread_close": [-3.0, -4.0],
+            "home_spread_open": [None, None],
+            "home_ml_close": [-150.0, -180.0],
+            "away_ml_close": [130.0, 160.0],
+            "home_ml_open": [None, None],
+            "away_ml_open": [None, None],
+            "provider": ["consensus", "teamrankings"],
+        }
+    )
+    d = orient_to_games(lines, games).set_index("game_id")
+    assert d.loc[1, "line_usable"] and not d.loc[2, "line_usable"]

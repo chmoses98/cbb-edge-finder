@@ -163,6 +163,10 @@ def parse_pickcenter(rec: dict[str, Any]) -> dict[str, Any] | None:
 
 
 HOME_COLS = ("home_spread_close", "home_spread_open")
+# Market sources only. ESPN pickcenter also carries lines from analytics/projection
+# sites (numberfire, teamrankings); those are not sportsbook prices and are excluded
+# from the MARKET benchmark (decided by provider identity, not by outcomes).
+MARKET_PROVIDERS = frozenset({"consensus", "DraftKings", "Caesars Sportsbook (New Jersey)"})
 ML_PAIRS = (("home_ml_close", "away_ml_close"), ("home_ml_open", "away_ml_open"))
 
 
@@ -196,6 +200,9 @@ def orient_to_games(lines: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
     sp = d["home_spread_close"]
     d["line_suspect"] = ml.notna() & sp.abs().ge(3) & ((ml < 0) != (sp < 0))
     d["line_usable"] = d["orientation"].ne("unknown") & ~d["line_suspect"]
+    if "provider" in d:
+        d["market_provider"] = d["provider"].isin(MARKET_PROVIDERS)
+        d["line_usable"] &= d["market_provider"]
     return d.drop(columns=["home_espn_id", "away_espn_id"])
 
 

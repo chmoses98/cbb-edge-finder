@@ -86,16 +86,32 @@ published tip-off win probability and is used only as a public benchmark.
   rest. Consolidated per season to `bronze/github_raw/espn_lines/espn_lines_{season}.parquet`.
 * Coverage found (sampled 10 games per season, then full harvest):
 
-| Season | Provider | Spread | Total | Open + close | Harvested games with a line |
-|---|---|---|---|---|---|
-| 2008, 2012 | — | no | no | no | not harvested (none in sample) |
-| 2015–2017 | consensus / teamrankings | yes | rarely | no | not harvested |
-| 2018 | consensus / teamrankings | yes | partial | no | see `research/baseline/metrics.json` |
-| 2019–2020 | consensus / numberfire | yes | yes | no | harvested |
-| 2021–2022 | Caesars (NJ) | yes | yes | no | harvested |
-| 2023 | consensus (teamrankings 2%) | yes | yes | no | 5,714 (all games, incl. non-D-I) |
-| 2024–2025 | — | **no** | **no** | — | none exist in the archive |
-| 2026 | DraftKings | yes | yes | **yes** | 4,799 (of 5,752 completed D-I vs D-I) |
+| Season | Providers in pickcenter | Games with a line | Usable market lines (D-I+non-D-I) | Open + close |
+|---|---|---|---|---|
+| 2008, 2012 | — | none in sample | — | no |
+| 2015–2017 | consensus / teamrankings | spread only (sampled) | not harvested | no |
+| 2018 | consensus 3,926 / teamrankings 1,479 / numberfire 133 | 5,538 | 3,880 | no |
+| 2019 | numberfire 3,415 / consensus 2,056 / teamrankings 127 | 5,598 | 2,056 | no |
+| 2020 | consensus 5,285 | 5,330 | 5,185 | no |
+| 2021 | consensus 3,812 | 3,941 | 3,769 | no |
+| 2022 | consensus 5,070 / teamrankings 414 | 5,487 | 4,969 | no |
+| 2023 | consensus 5,597 / teamrankings 117 | 5,714 | 5,499 | no |
+| 2024–2025 | — | **none exist in the archive** | — | — |
+| 2026 | DraftKings | 4,799 | 4,799 | **yes** |
+
+Harvest cost: 37,407 free requests to raw.githubusercontent.com (≈30 GB transferred,
+179 MB kept). Audit file: `research/baseline/line_orientation_audit.json`.
+
+**Data-quality rules (found during the baseline audit, applied in
+`cbb_edge/market/espn_lines.py::orient_to_games`):**
+
+1. Lines are oriented by the ESPN team ids they are quoted for, never by position.
+2. 2–5% of pre-2026 lines (mostly neutral-site games) have |spread| ≥ 3 with a sign that
+   contradicts the same record's moneyline favorite. They were concentrated in the
+   largest model-vs-line disagreements (~20%) and produced a spurious "58% ATS" result.
+   They are excluded (`line_suspect`).
+3. numberfire and teamrankings are analytics/projection sites, not sportsbooks; their
+   rows are excluded from the MARKET benchmark (decided by provider identity).
 
 * Timestamp caveat: before 2026 the line has **no timestamp**; it was captured after the
   game and is treated as an approximate closing line. It is never used as an earlier

@@ -53,6 +53,7 @@ def load_lines(games: pd.DataFrame) -> pd.DataFrame:
         flipped=("orientation", lambda x: int((x == "flipped").sum())),
         unknown=("orientation", lambda x: int((x == "unknown").sum())),
         suspect=("line_suspect", "sum"),
+        non_market_provider=("market_provider", lambda x: int((~x).sum())),
         usable=("line_usable", "sum"),
     )
     print("line orientation audit:\n", audit.to_string(), flush=True)

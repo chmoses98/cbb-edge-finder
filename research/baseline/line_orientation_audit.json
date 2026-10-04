@@ -1,11 +1,39 @@
 [
  {
+  "season":2018,
+  "n":5538,
+  "flipped":0,
+  "unknown":0,
+  "suspect":59,
+  "non_market_provider":1612,
+  "usable":3880
+ },
+ {
+  "season":2019,
+  "n":5598,
+  "flipped":0,
+  "unknown":0,
+  "suspect":299,
+  "non_market_provider":3542,
+  "usable":2056
+ },
+ {
+  "season":2020,
+  "n":5330,
+  "flipped":0,
+  "unknown":0,
+  "suspect":116,
+  "non_market_provider":45,
+  "usable":5185
+ },
+ {
   "season":2021,
   "n":3941,
   "flipped":0,
   "unknown":0,
   "suspect":45,
-  "usable":3896
+  "non_market_provider":129,
+  "usable":3769
  },
  {
   "season":2022,
@@ -13,7 +41,8 @@
   "flipped":0,
   "unknown":0,
   "suspect":111,
-  "usable":5376
+  "non_market_provider":414,
+  "usable":4969
  },
  {
   "season":2023,
@@ -21,7 +50,8 @@
   "flipped":0,
   "unknown":0,
   "suspect":106,
-  "usable":5608
+  "non_market_provider":117,
+  "usable":5499
  },
  {
   "season":2026,
@@ -29,6 +59,7 @@
   "flipped":0,
   "unknown":0,
   "suspect":0,
+  "non_market_provider":0,
   "usable":4799
  }
 ]
