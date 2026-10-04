@@ -123,7 +123,8 @@ def ensemble(df: pd.DataFrame, model: pd.Series, market: pd.Series, target: str)
             continue
         r = Ridge(alpha=1.0).fit(X[tr], df.loc[tr, target])
         cur = (df.season == s) & X.notna().all(axis=1)
-        out[cur] = r.predict(X[cur])
+        if cur.any():
+            out[cur] = r.predict(X[cur])
     return out
 
 

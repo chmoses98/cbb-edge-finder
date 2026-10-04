@@ -135,8 +135,10 @@ def _stack(
         tr = (df.season < s) & df[target].notna() & X.notna().all(axis=1)
         if df.loc[tr, "season"].nunique() < min_train_seasons:
             continue
-        model = Ridge(alpha=alpha).fit(X[tr], df.loc[tr, target])
         cur = (df.season == s) & X.notna().all(axis=1)
+        if not cur.any():
+            continue
+        model = Ridge(alpha=alpha).fit(X[tr], df.loc[tr, target])
         out[cur] = model.predict(X[cur])
     return out
 
@@ -166,6 +168,8 @@ def win_prob(df: pd.DataFrame, margin: pd.Series) -> pd.Series:
     for s in sorted(df.season.unique()):
         tr = (df.season < s) & df.home_win.notna() & margin.notna()
         cur = (df.season == s) & margin.notna()
+        if not cur.any():
+            continue
         if tr.sum() < 500:
             # fallback: normal with SD 11 (typical college margin SD)
             p[cur] = norm.cdf(margin[cur] / 11.0)
