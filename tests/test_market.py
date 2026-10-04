@@ -81,3 +81,36 @@ def test_market_join_is_exact_on_game_id():
     j = games.merge(lines, on="game_id", how="left", validate="one_to_one")
     assert j.home_spread_close.isna().sum() == 1  # unmatched stays NaN, never guessed
     assert len(j) == 3
+
+
+def test_orient_lines_flips_reversed_neutral_site_quotes():
+    from cbb_edge.market.espn_lines import orient_to_games
+
+    games = pd.DataFrame(
+        {
+            "game_id": [1, 2, 3, 4],
+            "home_espn_id": [10, 20, 30, 40],
+            "away_espn_id": [11, 21, 31, 41],
+        }
+    )
+    lines = pd.DataFrame(
+        {
+            "game_id": [1, 2, 3, 4],
+            "pc_home_espn_id": [10, 21, 99, 40],  # 2 reversed, 3 unknown team
+            "pc_away_espn_id": [11, 20, 31, 41],
+            "home_spread_close": [-5.0, -7.0, -3.0, -6.0],
+            "home_spread_open": [-4.0, -6.5, -3.0, -6.0],
+            "home_ml_close": [-200.0, -300.0, -150.0, 250.0],  # game 4: sign contradicts spread
+            "away_ml_close": [170.0, 250.0, 130.0, -300.0],
+            "home_ml_open": [None, -280.0, None, None],
+            "away_ml_open": [None, 230.0, None, None],
+        }
+    )
+    d = orient_to_games(lines, games).set_index("game_id")
+    assert d.loc[1, "orientation"] == "as_quoted" and d.loc[1, "home_spread_close"] == -5.0
+    assert d.loc[2, "orientation"] == "flipped" and d.loc[2, "home_spread_close"] == 7.0
+    assert d.loc[2, "home_spread_open"] == 6.5
+    assert d.loc[2, "home_ml_close"] == 250.0 and d.loc[2, "away_ml_close"] == -300.0
+    assert d.loc[3, "orientation"] == "unknown" and not d.loc[3, "line_usable"]
+    assert d.loc[4, "line_suspect"] and not d.loc[4, "line_usable"]
+    assert d.loc[1, "line_usable"] and d.loc[2, "line_usable"]

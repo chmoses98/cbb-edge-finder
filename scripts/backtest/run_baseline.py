@@ -29,7 +29,7 @@ from cbb_edge.backtest.evaluate import (
 )
 from cbb_edge.backtest.walkforward import EngineConfig, run
 from cbb_edge.data.http import data_dir
-from cbb_edge.market import espn_pregame
+from cbb_edge.market import espn_lines, espn_pregame
 from cbb_edge.model import arms
 from cbb_edge.model.elo import elo_projections
 
@@ -38,14 +38,26 @@ VALID = list(range(2015, 2025))
 HOLDOUT = [2025, 2026]
 OUT_JSON = Path("research/baseline/metrics.json")
 OUT_MD = Path("research/reports/BASELINE.md")
+LINE_AUDIT = Path("research/baseline/line_orientation_audit.json")
 
 
-def load_lines() -> pd.DataFrame:
+def load_lines(games: pd.DataFrame) -> pd.DataFrame:
+    """Free closing lines oriented to our home team; unusable lines dropped."""
     parts = sorted((data_dir() / "bronze" / "github_raw" / "espn_lines").glob("*.parquet"))
     if not parts:
         return pd.DataFrame(columns=["game_id"])
     df = pd.concat([pd.read_parquet(p) for p in parts], ignore_index=True)
-    return df.drop_duplicates("game_id")
+    df = espn_lines.orient_to_games(df.drop_duplicates("game_id"), games)
+    audit = df.groupby("season").agg(
+        n=("game_id", "size"),
+        flipped=("orientation", lambda x: int((x == "flipped").sum())),
+        unknown=("orientation", lambda x: int((x == "unknown").sum())),
+        suspect=("line_suspect", "sum"),
+        usable=("line_usable", "sum"),
+    )
+    print("line orientation audit:\n", audit.to_string(), flush=True)
+    LINE_AUDIT.write_text(audit.reset_index().to_json(orient="records", indent=1))
+    return df[df["line_usable"]]
 
 
 def states_for(
@@ -174,7 +186,7 @@ def main() -> None:
     elo_m = adj.game_id.map(elo)
     proj["ELO"] = arms.Projection(elo_m, proj["B0"].total)
 
-    lines = load_lines()
+    lines = load_lines(g)
     df = adj.merge(
         lines[
             [

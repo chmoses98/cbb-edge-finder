@@ -1,0 +1,34 @@
+[
+ {
+  "season":2021,
+  "n":3941,
+  "flipped":0,
+  "unknown":0,
+  "suspect":45,
+  "usable":3896
+ },
+ {
+  "season":2022,
+  "n":5487,
+  "flipped":0,
+  "unknown":0,
+  "suspect":111,
+  "usable":5376
+ },
+ {
+  "season":2023,
+  "n":5714,
+  "flipped":0,
+  "unknown":0,
+  "suspect":106,
+  "usable":5608
+ },
+ {
+  "season":2026,
+  "n":4799,
+  "flipped":0,
+  "unknown":0,
+  "suspect":0,
+  "usable":4799
+ }
+]

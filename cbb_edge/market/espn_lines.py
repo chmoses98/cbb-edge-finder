@@ -24,6 +24,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 from cbb_edge.data.bronze import manifest
@@ -95,6 +96,13 @@ def _num(x: Any) -> float | None:
         return None
 
 
+def _int(x: Any) -> int | None:
+    try:
+        return int(x)
+    except (TypeError, ValueError):
+        return None
+
+
 def parse_pickcenter(rec: dict[str, Any]) -> dict[str, Any] | None:
     """Flatten the highest-priority provider into home-perspective numbers.
 
@@ -126,6 +134,9 @@ def parse_pickcenter(rec: dict[str, Any]) -> dict[str, Any] | None:
         "home_ml_open": None,
         "away_ml_open": None,
         "has_open_close": False,
+        # ESPN team ids the line is quoted for (orientation key; see orient_to_games)
+        "pc_home_espn_id": _int(home.get("teamId")),
+        "pc_away_espn_id": _int(away.get("teamId")),
     }
     ps = pc.get("pointSpread")
     if isinstance(ps, dict) and "home" in ps:
@@ -149,6 +160,43 @@ def parse_pickcenter(rec: dict[str, Any]) -> dict[str, Any] | None:
         out["home_ml_close"] = hc if hc is not None else out["home_ml_close"]
         out["away_ml_close"] = ac if ac is not None else out["away_ml_close"]
     return out
+
+
+HOME_COLS = ("home_spread_close", "home_spread_open")
+ML_PAIRS = (("home_ml_close", "away_ml_close"), ("home_ml_open", "away_ml_open"))
+
+
+def orient_to_games(lines: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
+    """Orient every line to OUR home team using the team ids ESPN quoted it for.
+
+    ESPN's pickcenter sometimes lists neutral-site games with home/away reversed relative
+    to the schedule. Joining by position flips the spread sign for those games (found in
+    the baseline audit: 2-3% of lined games, ~20% of the largest model-vs-line edges).
+    Rules: pickcenter home == our home -> keep; == our away -> negate spreads and swap
+    moneylines; neither / missing ids -> ``orientation = "unknown"`` (excluded from
+    market research). Finally ``line_suspect`` flags |spread| >= 3 whose sign disagrees
+    with the moneyline favorite.
+    """
+    g = games[["game_id", "home_espn_id", "away_espn_id"]]
+    d = lines.merge(g, on="game_id", how="left", validate="one_to_one")
+    ph = pd.to_numeric(d["pc_home_espn_id"], errors="coerce")
+    pa = pd.to_numeric(d["pc_away_espn_id"], errors="coerce")
+    gh = pd.to_numeric(d["home_espn_id"], errors="coerce")
+    ga = pd.to_numeric(d["away_espn_id"], errors="coerce")
+    same = ((ph == gh) & (pa == ga)).fillna(False).astype(bool)
+    flip = ((ph == ga) & (pa == gh)).fillna(False).astype(bool)
+    d["orientation"] = np.select([same, flip], ["as_quoted", "flipped"], "unknown")
+    for c in HOME_COLS:
+        d[c] = pd.to_numeric(d[c], errors="coerce")
+        d.loc[flip, c] = -d.loc[flip, c]
+    for h, a in ML_PAIRS:
+        hv, av = d.loc[flip, h].copy(), d.loc[flip, a].copy()
+        d.loc[flip, h], d.loc[flip, a] = av, hv
+    ml = pd.to_numeric(d["home_ml_close"], errors="coerce")
+    sp = d["home_spread_close"]
+    d["line_suspect"] = ml.notna() & sp.abs().ge(3) & ((ml < 0) != (sp < 0))
+    d["line_usable"] = d["orientation"].ne("unknown") & ~d["line_suspect"]
+    return d.drop(columns=["home_espn_id", "away_espn_id"])
 
 
 def consolidate(season: int) -> Path:

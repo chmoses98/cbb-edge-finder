@@ -46,3 +46,4 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 * H-B4-1 Returning-minutes continuity improves early-season projections. — `H-B4.md`
 * H-B5-1..6 Matchup interactions. — `H-B5.md`
 * H-PRIOR-1 Prior decay rate (prior strength λ, carry-over ρ) — tuned on DEV only. — `H-PRIOR.md`
+* H-MKT-1 Model anticipates open→close movement (exploratory on 2026; prospective test registered) — `H-MKT.md`
