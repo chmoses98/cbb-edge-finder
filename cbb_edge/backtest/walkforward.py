@@ -49,7 +49,10 @@ class EngineConfig:
     adjust: bool = True  # False => raw rolling benchmark (B1)
     recency_tau_days: float | None = None
     roster_prior: bool = False  # B4: continuity-scaled prior
-    roster_coef: tuple[float, float] = (0.35, 0.55)  # rho = c0 + c1 * returning_share
+    # rho_i = prior_regress * (c0 + c1 * share_i) / (c0 + c1 * league_share): continuity
+    # re-weights the tuned regression team by team, keeping its league-average strength.
+    # (c0, c1) estimated on DEV seasons: research/baseline/roster_prior_dev.json
+    roster_coef: tuple[float, float] = (0.548, 0.358)
     stats: tuple[str, ...] = tuple(STATS)
     lam_mu: float = 3000.0
     lam_eta: float = 3000.0
@@ -156,7 +159,8 @@ def _apply_roster_prior(
     if pri.last_off is None or pri.last_def is None:
         return pri
     s = np.where(np.isfinite(share), share, league_share)
-    rho = np.clip(cfg.roster_coef[0] + cfg.roster_coef[1] * s, 0.0, 1.0)
+    c0, c1 = cfg.roster_coef
+    rho = np.clip(cfg.prior_regress * (c0 + c1 * s) / (c0 + c1 * league_share), 0.0, 1.0)
     off = {k: rho * pri.last_off[k] for k in pri.last_off}
     deff = {k: rho * pri.last_def[k] for k in pri.last_def}
     return SeasonPriors(pri.team_ids, off, deff, pri.mu, pri.eta, pri.last_off, pri.last_def)

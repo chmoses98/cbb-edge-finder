@@ -18,6 +18,33 @@ def test_cbb_series_detection():
         {"ticker": "KXNCAAWBGAME", "title": "Women's college basketball"}
     )
     assert not taxonomy.is_cbb_series({"ticker": "KXNBAGAME", "title": "NBA game"})
+    # look-alikes observed in the live series list
+    for t in (
+        "KXNCAABBGAME",
+        "KXNCAABASEBALL",
+        "KXTEAMSINNCAABBWS",
+        "KXWMARMAD",
+        "KXNCAAWBSPREAD",
+        "KXWMARMADROUND",
+        "KXNCAAMLAXGAME",
+        "KXNCAAMSOCCERGAME",
+        "KXNCAAMWRESTLING125",
+    ):
+        assert not taxonomy.is_cbb_series({"ticker": t, "title": ""}), t
+    for t in (
+        "KXNCAAMBGAME",
+        "KXNCAAMBSPREAD",
+        "KXNCAAMBTOTAL",
+        "KXNCAAMB1HSPREAD",
+        "KXMARMADSEED",
+        "KXMAKEMARMAD",
+        "KXNCAABGAME",
+    ):
+        assert taxonomy.is_cbb_series({"ticker": t, "title": ""}), t
+    assert not taxonomy.is_cbb_series({"ticker": "KXNCAAMX", "title": "NCAA Men's Wrestling"})
+    assert taxonomy.is_cbb_series(
+        {"ticker": "KXNCAAMACC", "title": "ACC men's basketball champion"}
+    )
 
 
 def test_family_classification():

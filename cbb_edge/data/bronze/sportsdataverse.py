@@ -31,6 +31,12 @@ DATASETS: dict[str, tuple[str, str]] = {
     "schedule_crosswalk": ("mbb_crosswalk", "mbb_schedule_crosswalk_{season}"),
     "player_crosswalk": ("mbb_crosswalk", "mbb_player_crosswalk_{season}"),
     "standings": ("espn_mens_college_basketball_standings", "standings_{season}"),
+    # stats.ncaa.org-derived (sportsdataverse/ncaa-mbb-hoops-data); NCAA contest ids
+    "ncaa_lineups": ("ncaa_mbb_lineups", "ncaa_mbb_lineups_{season}"),
+    "ncaa_matchup_stints": ("ncaa_mbb_matchup_stints", "ncaa_mbb_matchup_stints_{season}"),
+    "ncaa_possessions": ("ncaa_mbb_possessions", "ncaa_mbb_possessions_{season}"),
+    "ncaa_schedule": ("ncaa_mbb_schedule", "ncaa_mbb_schedule_{season}"),
+    "ncaa_player_box": ("ncaa_mbb_player_box", "ncaa_mbb_player_box_{season}"),
 }
 
 

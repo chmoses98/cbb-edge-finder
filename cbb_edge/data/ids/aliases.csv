@@ -386,6 +386,9 @@ espn,Loyola Marymount,loyola marymount,T0230
 espn,Loyola Marymount Lions,loyola marymount lions,T0230
 espn,Loyola MD,loyola md,T0231
 espn,LSU,lsu,T0050
+espn,LSU N Orleans,lsu n orleans,T0251
+espn,LSU New Orleans,lsu new orleans,T0251
+espn,LSU New Orleans Privateers,lsu new orleans privateers,T0251
 espn,LSU Tigers,lsu tigers,T0050
 espn,Maine,maine,T0146
 espn,Maine Black Bears,maine black bears,T0146
@@ -1096,6 +1099,7 @@ espn_abbr,NIU,niu,T0258
 espn_abbr,NJIT,njit,T0337
 espn_abbr,NKU,nku,T0350
 espn_abbr,NMSU,nmsu,T0081
+espn_abbr,NOLA,nola,T0251
 espn_abbr,NORF,norf,T0255
 espn_abbr,NU,nu,T0040
 espn_abbr,NWST,nwst,T0262

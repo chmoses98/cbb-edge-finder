@@ -11,20 +11,36 @@ from __future__ import annotations
 import re
 from typing import Any
 
-CBB_TICKER = re.compile(r"^KX(NCAAMB|MARMAD|NCAAM|CBB|MCBB|NCAABB)", re.I)
-CBB_WORDS = re.compile(
-    r"(men'?s college basketball|ncaa men|march madness|college basketball|ncaab|"
-    r"ncaa tournament|final four|ncaam)",
+# Men's college basketball series observed on Kalshi (free-source probe, 2026-10-04):
+# KXNCAAMB* (games, spreads, totals, halves, conferences, awards, rankings), KXMARMAD*
+# and KXMAKEMARMAD (tournament futures), legacy KXNCAAB* (GAME/ACC/SEC/IVY).
+# Look-alikes that are NOT men's basketball: KXNCAABB* / KXNCAABASEBALL /
+# KXTEAMSINNCAABBWS (college baseball), KXNCAAWB* / KXWMARMAD* (women's basketball).
+CBB_TICKER = re.compile(r"^KX(NCAAMB|MARMAD|MAKEMARMAD|NCAAB(?!B|ASEBALL))", re.I)
+NOT_CBB_TICKER = re.compile(
+    r"^KX(NCAABB|NCAABASEBALL|NCAAWB|WMARMAD|TEAMSINNCAABB|NCAAMLAX|NCAAMSOCCER|"
+    r"NCAAMWRESTLING)",
     re.I,
 )
-WOMEN = re.compile(r"(women|wcbb|ncaaw|wncaa|ncaawb)", re.I)
+# Word rules require "basketball"-specific phrasing ("NCAA Men's" alone also matches
+# wrestling, lacrosse, soccer ...).
+CBB_WORDS = re.compile(
+    r"(men'?s college basketball|college basketball|march madness|men'?s basketball|"
+    r"ncaab\b)",
+    re.I,
+)
+WOMEN = re.compile(
+    r"(women|wcbb|ncaaw|wncaa|ncaawb|baseball|lacrosse|soccer|wrestling|hockey|football|"
+    r"volleyball|softball)",
+    re.I,
+)
 
 FAMILIES = (
     "GAME_WINNER",
     "SPREAD",
     "TOTAL",
     "TEAM_TOTAL",
-    "FIRST_HALF",
+    "HALF",
     "PLAYER_PROP",
     "FUTURES_CHAMPION",
     "FUTURES_FINAL_FOUR",
@@ -44,7 +60,7 @@ def is_cbb_series(series: dict[str, Any]) -> bool:
     blob = _text(
         ticker, series.get("title"), " ".join(series.get("tags") or []), series.get("category")
     )
-    if WOMEN.search(blob):
+    if NOT_CBB_TICKER.search(ticker) or WOMEN.search(blob):
         return False
     return bool(CBB_TICKER.search(ticker) or CBB_WORDS.search(blob))
 
@@ -58,8 +74,8 @@ def classify_market(series: dict[str, Any], market: dict[str, Any]) -> str:
         market.get("subtitle"),
         market.get("yes_sub_title"),
     ).lower()
-    if re.search(r"(1h|first half|1st half|halftime)", blob):
-        return "FIRST_HALF"
+    if re.search(r"(1h|2h|first half|second half|1st half|2nd half|halftime)", blob):
+        return "HALF"
     # 1) series ticker is the most reliable signal
     if "SPREAD" in st:
         return "SPREAD"
