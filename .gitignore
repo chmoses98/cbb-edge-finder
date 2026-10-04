@@ -1,0 +1,20 @@
+# Data lake (never committed; reproducible from manifests)
+/data/
+*.parquet
+!tests/fixtures/**/*.parquet
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+.coverage
+htmlcov/
+# Secrets
+.env
+.env.*
+!.env.example
