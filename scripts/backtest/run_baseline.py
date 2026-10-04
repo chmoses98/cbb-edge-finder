@@ -291,7 +291,7 @@ def main() -> None:
             sp_open = pd.to_numeric(df.home_spread_open, errors="coerce")
             sp_close = pd.to_numeric(df.home_spread_close, errors="coerce")
             mv = (sp_open - sp_close)[oc]  # + = line moved toward home
-            ed = (preds.loc[oc, "B3_margin"] + sp_open[oc])  # + = model likes home vs open
+            ed = preds.loc[oc, "B3_margin"] + sp_open[oc]  # + = model likes home vs open
             ok = mv.notna() & ed.notna()
             mv, ed = mv[ok].astype(float), ed[ok].astype(float)
             big = ed.abs() >= 2
@@ -301,7 +301,9 @@ def main() -> None:
                 "corr_edge_vs_move": float(np.corrcoef(ed, mv)[0, 1]) if len(ed) > 2 else None,
                 "share_move_toward_model_when_edge_ge_2": float(
                     (np.sign(mv[moved]) == np.sign(ed[moved])).mean()
-                ) if moved.any() else None,
+                )
+                if moved.any()
+                else None,
                 "n_edge_ge_2": int(big.sum()),
                 "n_edge_ge_2_line_moved": int(moved.sum()),
             }
