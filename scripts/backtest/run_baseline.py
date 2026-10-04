@@ -191,6 +191,8 @@ def main() -> None:
         how="left",
     )
     df.index = adj.index
+    for c in ("home_spread_close", "total_close", "home_spread_open", "total_open"):
+        df[c] = pd.to_numeric(df[c], errors="coerce")
     proj["MARKET"] = arms.Projection(-df["home_spread_close"], df["total_close"])
     best_basketball = "B3"
     proj["ENSEMBLE"] = arms.Projection(
@@ -286,15 +288,22 @@ def main() -> None:
         if oc.any():
             # CLV-style check where open AND close exist: does model edge vs OPEN
             # predict the open->close line move?
-            mv = (-df.home_spread_close + df.home_spread_open)[oc]  # + = moved to home
-            ed = preds.loc[oc, "B3_margin"] + df.home_spread_open[oc]
+            sp_open = pd.to_numeric(df.home_spread_open, errors="coerce")
+            sp_close = pd.to_numeric(df.home_spread_close, errors="coerce")
+            mv = (sp_open - sp_close)[oc]  # + = line moved toward home
+            ed = (preds.loc[oc, "B3_margin"] + sp_open[oc])  # + = model likes home vs open
+            ok = mv.notna() & ed.notna()
+            mv, ed = mv[ok].astype(float), ed[ok].astype(float)
+            big = ed.abs() >= 2
+            moved = big & (mv != 0)
             res["clv_open_to_close"] = {
-                "n": int(oc.sum()),
-                "corr_edge_vs_move": float(np.corrcoef(ed, mv)[0, 1]),
+                "n": int(ok.sum()),
+                "corr_edge_vs_move": float(np.corrcoef(ed, mv)[0, 1]) if len(ed) > 2 else None,
                 "share_move_toward_model_when_edge_ge_2": float(
-                    (np.sign(mv[ed.abs() >= 2]) == np.sign(ed[ed.abs() >= 2])).mean()
-                ),
-                "n_edge_ge_2": int((ed.abs() >= 2).sum()),
+                    (np.sign(mv[moved]) == np.sign(ed[moved])).mean()
+                ) if moved.any() else None,
+                "n_edge_ge_2": int(big.sum()),
+                "n_edge_ge_2_line_moved": int(moved.sum()),
             }
         res["calibration_B3"] = (
             calibration_table(preds.loc[common, "B3_wp"], df.home_win[common])
