@@ -173,9 +173,18 @@ def discovery_report(found: list[discovery.Discovery]) -> dict[str, Any]:
         "by_platform": df.loc[ok, "platform"].value_counts().to_dict(),
         "by_method": df.loc[ok, "method"].value_counts().to_dict(),
         "requests": int(df["requests"].sum()),
-        "not_found": df.loc[
-            ~ok, ["team_id", "base_url", "platform", "error", "redirect_to"]
-        ].to_dict(orient="records"),
+        "not_found": [
+            {
+                "team_id": d.team_id,
+                "base_url": d.base_url,
+                "platform": d.platform,
+                "error": d.error,
+                "redirect_to": d.redirect_to,
+                "attempts": d.attempts,
+            }
+            for d in found
+            if not d.roster_url
+        ],  # fmt: skip
         "redirects": {
             d.team_id: [
                 {
