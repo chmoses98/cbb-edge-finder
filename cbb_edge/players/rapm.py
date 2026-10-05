@@ -291,7 +291,12 @@ def player_team_features(
             & ~games["status"].isin(["STATUS_CANCELED", "STATUS_POSTPONED"])
         ]
         pgs = pg[pg["season"] == season].merge(gmeta, on="game_id", how="inner")
-        players = sorted(set(st[OFF + DEF].to_numpy().ravel()) | set(pgs["player_id"]))
+        players = set(st[OFF + DEF].to_numpy().ravel()) | set(pgs["player_id"])
+        if prev is not None:
+            # carry every previously rated player so pre-season rosters (and live seasons
+            # without possession data yet) still map to their priors
+            players |= set(prev.players)
+        players = sorted(players)
         po, pd_ = season_priors(players, prev, cfg)
         inc = IncrementalRapm(
             players, po, pd_, cfg, prev.mu if prev else 104.0, prev.eta if prev else 1.5
