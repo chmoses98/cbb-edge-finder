@@ -3,6 +3,6 @@
  "conf": true,
  "decay": false,
  "garbage": false,
- "pf": "PENDING_B12",
+ "pf": "b12",
  "extra": ["mismatch"]
 }

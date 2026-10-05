@@ -1,0 +1,5 @@
+{
+ "incumbent": "pure-0.2.0",
+ "challengers": ["pure-0.3.0"],
+ "note": "pure-0.3.0 (B15) passed the preregistered Wave 3 thresholds; it runs in SHADOW beside the incumbent from the 2026-27 season. Both are archived append-only; neither record set is ever modified."
+}

@@ -22,3 +22,33 @@ and never edited.
   ESPN lines — downstream, without touching the archived projections.
 * The 2025–26 season was observed in PR #1 and is no longer an untouched test; 2026–27
   prospective games are the cleanest test from now on.
+
+## Incumbent + shadow challenger (Wave 3)
+
+* `models/pure/active.json` lists the **incumbent** (`pure-0.2.0`, production) and the
+  **challengers** (`pure-0.3.0`, B15) run in shadow. Every run projects every active model
+  from its own frozen artifact; `load_model()` with no version returns the incumbent,
+  never "the newest file".
+* Archive paths: the incumbent keeps the original layout
+  (`projections/<season>/<date>/<game_id>/<as_of>.json`); every other version is written
+  under `projections/<version>/...`. Records carry `prospective.role`
+  (`incumbent` / `challenger`). Existing `pure-0.2.0` records are never touched, and
+  `tests/test_wave3.py::test_pure_020_artifact_unchanged` pins the `pure-0.2.0` artifact
+  hash.
+* `pure-0.3.0` needs additional live inputs, rebuilt by `cbb_edge/app/wave3_live.py`
+  with information before `as_of` only: base engine finals (conference anchor),
+  walk-forward RAPM chain → roster graph → preseason roster state, rotation × season-start
+  player ratings (roster strength), and box-score-updated player features from the frozen
+  player-prior coefficients stored in the artifact.
+* Live/research parity (2025-12-06, 127 games): `pure-0.3.0` corr 0.9993, mean |Δ| 0.30
+  pts vs the research walk-forward; `pure-0.2.0` corr 0.9994, mean |Δ| 0.27
+  (`research/wave3/live_parity.json`).
+
+## Free pre-tip line snapshots (benchmark only)
+
+`.github/workflows/espn-line-capture.yml` snapshots the ESPN public scoreboard line every
+30 minutes in season (`cbb_edge/market/espn_capture.py`, schema
+`espn-line-snapshot-v1`): provider, spread, total, moneylines, minutes to tip and horizon
+(T-24h, T-6h, T-90m, T-30m, latest), appended to the `espn-lines-archive` branch. Used
+only downstream to measure convergence to the market at fixed horizons; never a PURE
+input (CI-enforced import ban + column guard).

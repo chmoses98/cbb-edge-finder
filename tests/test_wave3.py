@@ -161,9 +161,11 @@ def test_player_prior_provider_ignores_future_box_rows():
 
 
 def test_time_to_parity():
-    c = pd.DataFrame({"games_seen": [0, 1, 2, 3], "gap": [0.6, 0.3, 0.2, 0.04]})
+    c = pd.DataFrame({"games_seen": [0, 1, 2, 3, 4], "gap": [0.6, 0.3, 0.09, 0.2, 0.04]})
     t = scorecard.time_to_parity(c)
-    assert t["+0.50"] == 1 and t["+0.25"] == 2 and t["+0.05"] == 3 and t["+0.10"] == 3
+    s, f = t["sustained"], t["first"]
+    assert s["+0.50"] == 1 and s["+0.25"] == 2 and s["+0.10"] == 4 and s["+0.05"] == 4
+    assert f["+0.10"] == 2 and f["+0.05"] == 4
 
 
 def test_pure_020_artifact_unchanged():

@@ -75,7 +75,7 @@ def wave3_inputs(
     rc = RapmConfig(**model["rapm_config"])
     ends: dict[int, SeasonRapm] = {}
     player_team_features(pf_seasons, games_info, pg_min, rc, verbose=False, end_ratings=ends)
-    ps = roster_graph.build(pg=pg, save=False)
+    ps = roster_graph.build(pg=pg, save=False, attach_rapm=False)
     r = pd.concat(
         [
             pd.DataFrame(

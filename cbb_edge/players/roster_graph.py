@@ -46,10 +46,15 @@ BOX = [
 
 
 def build(
-    seasons: list[int] | None = None, pg: pd.DataFrame | None = None, save: bool = True
+    seasons: list[int] | None = None,
+    pg: pd.DataFrame | None = None,
+    save: bool = True,
+    attach_rapm: bool = True,
 ) -> pd.DataFrame:
     """``pg`` (optional) = player-game rows to use, e.g. restricted to games available
-    before a prospective run's ``as_of``; default = the whole silver table."""
+    before a prospective run's ``as_of``; default = the whole silver table.
+    ``attach_rapm=False`` skips the saved research end-of-season RAPM files (the live
+    pipeline attaches its own walk-forward ratings)."""
     if pg is None:
         pg = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
     pg = pg[pg["team_id"].notna() & pg["min"].fillna(0).gt(0)].copy()
@@ -113,7 +118,7 @@ def build(
     main["transfers_next"] = main["next_team"].notna() & (main["next_team"] != main["team_id"])
     # end-of-season RAPM (wave-2 walk-forward run saves these; exact matches only)
     rapm = []
-    for s in sorted(main["season"].unique()):
+    for s in sorted(main["season"].unique()) if attach_rapm else []:
         p = data_dir() / "silver" / "players" / f"rapm_end_{s}.parquet"
         if p.exists():
             rapm.append(pd.read_parquet(p).assign(season=s))

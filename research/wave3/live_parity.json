@@ -1,0 +1,17 @@
+{
+ "as_of": "2025-12-06T14:00:00Z",
+ "season": 2026,
+ "note": "live prospective path (models/pure/*.json + live rebuild) vs research walk-forward predictions for the same games; differences come from full-history coefficient refit and the shorter live RAPM chain",
+ "pure-0.3.0": {
+  "n": 127,
+  "corr": 0.9992771342526248,
+  "mean_abs_diff": 0.2991960257487298,
+  "secs": 572
+ },
+ "pure-0.2.0": {
+  "n": 127,
+  "corr": 0.9994077803008103,
+  "mean_abs_diff": 0.2660179168303397,
+  "secs": 301
+ }
+}

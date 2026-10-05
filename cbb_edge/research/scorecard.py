@@ -102,16 +102,23 @@ def convergence_curve(
     return pd.DataFrame(rows)
 
 
-def time_to_parity(curve: pd.DataFrame, thresholds=(0.50, 0.25, 0.15, 0.10, 0.05)) -> dict:
-    """Smallest games_seen k from which the gap stays <= threshold for all later k."""
-    out: dict[str, int | None] = {}
+def time_to_parity(
+    curve: pd.DataFrame, thresholds=(0.50, 0.25, 0.15, 0.10, 0.05), min_n: int = 200
+) -> dict:
+    """Games seen until the PURE-vs-reference gap reaches each threshold.
+
+    ``sustained``: smallest k from which the gap stays <= threshold for every later k;
+    ``first``: first k at which the (pooled +-1 game) gap is <= threshold.
+    Points pooled from fewer than ``min_n`` games are ignored.
+    """
+    if "n" in curve:
+        curve = curve[curve["n"] >= min_n]
     g = curve["gap"].to_numpy()
     ks = curve["games_seen"].to_numpy()
+    sustained: dict[str, int | None] = {}
+    first: dict[str, int | None] = {}
     for t in thresholds:
-        hit = None
-        for i in range(len(g)):
-            if np.all(g[i:] <= t):
-                hit = int(ks[i])
-                break
-        out[f"+{t:.2f}"] = hit
-    return out
+        key = f"+{t:.2f}"
+        sustained[key] = next((int(ks[i]) for i in range(len(g)) if np.all(g[i:] <= t)), None)
+        first[key] = next((int(ks[i]) for i in range(len(g)) if g[i] <= t), None)
+    return {"sustained": sustained, "first": first}
