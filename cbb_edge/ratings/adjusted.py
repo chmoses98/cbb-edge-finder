@@ -64,8 +64,16 @@ STATS: dict[str, StatSpec] = {
         StatSpec("fg2", "fg2_pct", "fg2a", scale=100.0),
         StatSpec("fg3", "fg3_pct", "fg3a", scale=100.0),
         StatSpec("fg3a_rate", "fg3a_rate", "fga", scale=100.0),
+        # shot profile (stats.ncaa.org lineup shot zones; 2010+, NaN where unavailable)
+        StatSpec("rim_rate", "rim_rate", "sz_fga", scale=100.0),
+        StatSpec("rim_pct", "rim_pct", "sz_rima", scale=100.0),
+        StatSpec("mid_rate", "mid_rate", "sz_fga", scale=100.0),
+        StatSpec("mid_pct", "mid_pct", "sz_mida", scale=100.0),
+        StatSpec("ast_share", "ast_share", "sz_fgm", scale=100.0),
     )
 }
+BASE_STATS = ("eff", "tempo", "efg", "to", "orb", "ftr", "fg2", "fg3", "fg3a_rate")
+SHOT_STATS = ("rim_rate", "rim_pct", "mid_rate", "mid_pct", "ast_share")
 
 
 @dataclass

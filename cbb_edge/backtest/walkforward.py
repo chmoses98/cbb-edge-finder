@@ -26,7 +26,7 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 
-from cbb_edge.ratings.adjusted import STATS, Fit, fit_stat
+from cbb_edge.ratings.adjusted import BASE_STATS, STATS, Fit, fit_stat
 
 DEFAULT_LAMBDA = {
     # prior strength in units of the stat's observation weight
@@ -39,6 +39,11 @@ DEFAULT_LAMBDA = {
     "fg2": 200.0,  # 2PA
     "fg3": 180.0,  # 3PA
     "fg3a_rate": 250.0,  # FGA
+    "rim_rate": 250.0,  # lineup FGA
+    "rim_pct": 150.0,  # rim attempts
+    "mid_rate": 250.0,  # lineup FGA
+    "mid_pct": 150.0,  # mid-range attempts
+    "ast_share": 200.0,  # made FG
 }
 
 
@@ -53,7 +58,7 @@ class EngineConfig:
     # re-weights the tuned regression team by team, keeping its league-average strength.
     # (c0, c1) estimated on DEV seasons: research/baseline/roster_prior_dev.json
     roster_coef: tuple[float, float] = (0.548, 0.358)
-    stats: tuple[str, ...] = tuple(STATS)
+    stats: tuple[str, ...] = BASE_STATS
     lam_mu: float = 3000.0
     lam_eta: float = 3000.0
 
@@ -93,6 +98,11 @@ LEAGUE_PRIOR_MU = {
     "fg2": 47.5,
     "fg3": 34.5,
     "fg3a_rate": 33.0,
+    "rim_rate": 36.7,
+    "rim_pct": 60.0,
+    "mid_rate": 26.6,
+    "mid_pct": 37.0,
+    "ast_share": 52.0,
 }
 LEAGUE_PRIOR_ETA = {"eff": 1.5}
 

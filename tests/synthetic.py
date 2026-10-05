@@ -15,6 +15,7 @@ def make_league(
     season: int = 2020,
     neutral_share: float = 0.1,
     hca: float = 3.0,
+    gid_start: int = 1000,
 ):
     rng = np.random.default_rng(seed)
     teams = [f"T{i + 1:04d}" for i in range(n_teams)]
@@ -23,7 +24,7 @@ def make_league(
     pace = rng.normal(0, 3, n_teams)
     start = pd.Timestamp(f"{season - 1}-11-10 23:00", tz="UTC")
     games, tgs = [], []
-    gid = 1000
+    gid = gid_start
     for d in range(n_days):
         order = rng.permutation(n_teams)
         for k in range(0, n_teams - 1, 2):

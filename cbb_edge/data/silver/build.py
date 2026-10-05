@@ -206,8 +206,12 @@ def build_season(
     return sched, tg, pg
 
 
-def build(seasons: list[int]) -> None:
-    team_ids.build_registry(seasons)
+def build(seasons: list[int], update_registry: bool = True) -> None:
+    """Build silver tables. ``update_registry=False`` (prospective runs) keeps the
+    committed team registry untouched; unseen D-I teams then have no canonical id and
+    are logged rather than silently numbered."""
+    if update_registry:
+        team_ids.build_registry(seasons)
     out = silver_dir()
     out.mkdir(parents=True, exist_ok=True)
     gs, tgs, pgs = [], [], []
