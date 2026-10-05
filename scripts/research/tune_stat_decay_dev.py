@@ -27,15 +27,21 @@ MULTS = (0.25, 0.5, 1.0, 2.0, 4.0)
 
 
 def main() -> None:
+    """``python tune_stat_decay_dev.py [stat,stat,... mult,mult,...]`` extends the grid
+    (e.g. past a boundary optimum) and appends to the CSV."""
+    import sys
+
+    stats = sys.argv[1].split(",") if len(sys.argv) > 1 else list(BASE_STATS + SHOT_STATS)
+    mults = tuple(float(m) for m in sys.argv[2].split(",")) if len(sys.argv) > 2 else MULTS
     games, tg = load_pure_silver()
     tg = enrich_team_games(tg)
     home = tg.merge(games[["game_id", "home_espn_id"]], on="game_id")
     home = home[home["team_espn_id"] == home["home_espn_id"]].drop_duplicates("game_id")
     rows = []
     base = tuned_config()
-    for stat in BASE_STATS + SHOT_STATS:
+    for stat in stats:
         spec = STATS[stat]
-        for mult in MULTS:
+        for mult in mults:
             lam = dict(base.lam)
             lam[stat] = base.lam[stat] * mult
             cfg = tuned_config(stats=(stat,), lam=lam)
@@ -76,7 +82,10 @@ def main() -> None:
             rows.append(rec)
             print(rec, flush=True)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(rows).to_csv(OUT, index=False)
+    out = pd.DataFrame(rows)
+    if OUT.exists() and len(sys.argv) > 1:
+        out = pd.concat([pd.read_csv(OUT), out]).drop_duplicates(["stat", "mult"], keep="last")
+    out.to_csv(OUT, index=False)
 
 
 if __name__ == "__main__":

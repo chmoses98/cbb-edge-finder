@@ -173,3 +173,47 @@ def test_pure_020_artifact_unchanged():
     assert sha == hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
     assert sha == PURE_020_SHA
     assert spec["version"] == "pure-0.2.0" and spec["market_inputs"] == "NONE"
+
+
+def test_espn_line_capture_parse_and_horizons():
+    from datetime import UTC, datetime
+
+    from cbb_edge.market import espn_capture
+
+    now = datetime(2026, 11, 20, 12, 0, tzinfo=UTC)
+    board = {
+        "events": [
+            {
+                "id": "401",
+                "date": "2026-11-20T13:30Z",
+                "competitions": [
+                    {
+                        "status": {"type": {"state": "pre"}},
+                        "neutralSite": False,
+                        "competitors": [
+                            {"homeAway": "home", "id": "1"},
+                            {"homeAway": "away", "id": "2"},
+                        ],
+                        "odds": [
+                            {
+                                "provider": {"name": "ESPN BET"},
+                                "details": "H -5.5",
+                                "spread": -5.5,
+                                "overUnder": 141.5,
+                                "homeTeamOdds": {"moneyLine": -220, "favorite": True},
+                                "awayTeamOdds": {"moneyLine": 180},
+                            }
+                        ],
+                    }
+                ],
+            },
+            {
+                "id": "402",
+                "date": "2026-11-20T11:00Z",
+                "competitions": [{"status": {"type": {"state": "in"}}, "odds": [{}]}],
+            },
+        ]
+    }
+    rows = espn_capture.parse(board, now)
+    assert len(rows) == 1 and rows[0]["game_id"] == 401 and rows[0]["horizon"] == "T-90m"
+    assert espn_capture.horizon(24 * 60) == "T-24h" and espn_capture.horizon(10) == "latest"
