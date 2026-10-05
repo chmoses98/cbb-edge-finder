@@ -20,7 +20,7 @@ env:
   CBBD_MAX_REQUESTS: "0"
 
 permissions:
-  contents: read
+  contents: write  # roster-source-samples branch only (raw samples for parser development)
 
 jobs:
   probe:
@@ -48,3 +48,19 @@ jobs:
             probe.json
             probe_availability.json
             probe_rosters.json
+      - name: Commit raw roster-source samples (append-only branch)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [ -d samples ] || exit 0
+          mkdir arch && cd arch && git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin roster-source-samples; then git checkout -q -b s FETCH_HEAD; else git checkout -q --orphan s; fi
+          stamp=$(date -u +%Y%m%dT%H%M%SZ)
+          mkdir -p "$stamp" && cp -r ../samples/* "$stamp"/
+          git add -A && git commit -q -m "roster source samples $stamp"
+          git push -q origin HEAD:roster-source-samples

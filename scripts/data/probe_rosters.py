@@ -185,6 +185,47 @@ def main() -> None:
             cls = sorted(set(re.findall(r'class="([^"]*(?:roster|person|player)[^"]*)"', txt)))
             sch[t] = cls[:40]
     print("SCHOOL_CLASSES " + json.dumps(sch)[:6000])
+    save_samples()
+
+
+SAMPLES = {
+    "school_duke_roster.html": ("school_athletics", SCHOOLS[150], None),
+    "ncaa_team_list_2027.html": (
+        "ncaa_stats",
+        "https://stats.ncaa.org/team/inst_team_list",
+        {"academic_year": "2027", "conf_id": "-1", "division": "1", "sport_code": "MBB"},
+    ),
+    "ncaa_team_627275.html": ("ncaa_stats", "https://stats.ncaa.org/teams/627275", None),
+    "ncaa_team_627275_roster.html": (
+        "ncaa_stats",
+        "https://stats.ncaa.org/teams/627275/roster",
+        None,
+    ),
+    "espn_core_2027_team_13.json": (
+        "espn_public",
+        f"{CORE}/seasons/2027/teams/13/athletes",
+        {"limit": "200"},
+    ),  # fmt: skip
+}
+
+
+def save_samples(out_dir: str = "samples") -> None:
+    """Raw responses for offline parser development (committed to the
+    roster-source-samples branch by the workflow; the sandbox cannot reach them)."""
+    from pathlib import Path
+
+    d = Path(out_dir)
+    d.mkdir(exist_ok=True)
+    for name, (src, url, params) in SAMPLES.items():
+        try:
+            r = fetch(src, url, params, use_cache=False, not_found_ok=True, timeout=30,
+                      max_attempts=2)  # fmt: skip
+        except Exception as e:  # noqa: BLE001
+            (d / f"{name}.error.txt").write_text(repr(e)[:500])
+            continue
+        if r is not None:
+            (d / name).write_bytes(r.path.read_bytes())
+            (d / f"{name}.meta.json").write_text(json.dumps(r.meta, indent=1))
 
 
 if __name__ == "__main__":
