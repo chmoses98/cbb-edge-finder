@@ -6,6 +6,10 @@ name: free-source-probe
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "sources (the free-source probes) or official (Wave 7 official roster discovery across the domain registry)"
+        default: sources
   pull_request:
     paths:
       - "scripts/data/probe_sources.py"
@@ -25,6 +29,7 @@ permissions:
 
 jobs:
   probe:
+    if: github.event_name != 'workflow_dispatch' || inputs.mode != 'official'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -66,4 +71,44 @@ jobs:
           stamp=$(date -u +%Y%m%dT%H%M%SZ)
           mkdir -p "$stamp" && cp -r ../samples/* "$stamp"/
           git add -A && git commit -q -m "roster source samples $stamp"
+          git push -q origin HEAD:roster-source-samples
+
+  official:
+    # Wave 7 parser development: official roster discovery across the NCAA-derived
+    # domain registry, evidence for sites that did not parse (plus three examples per
+    # platform) committed gzipped. Polite: per-host 5 s spacing, robots.txt, <= 6 pages
+    # per site.
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'official'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Discover official rosters
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set -o pipefail
+          python scripts/data/probe_official_rosters.py | tee probe_official.json
+      - name: Commit evidence (append-only branch)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [ -d samples ] || exit 0
+          cp probe_official.json samples/official/ 2>/dev/null || true
+          mkdir arch && cd arch && git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin roster-source-samples; then git checkout -q -b s FETCH_HEAD; else git checkout -q --orphan s; fi
+          stamp=$(date -u +%Y%m%dT%H%M%SZ)
+          mkdir -p "$stamp" && cp -r ../samples/* "$stamp"/
+          git add -A && git commit -q -m "official roster samples $stamp"
           git push -q origin HEAD:roster-source-samples
