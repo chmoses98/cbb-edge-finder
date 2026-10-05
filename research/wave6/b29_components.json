@@ -1,0 +1,6 @@
+{
+ "components": [
+  "B28"
+ ],
+ "rule": "B25 + union of useful components among B26-B28 (WAVE6.md); recorded before B29 was run"
+}
