@@ -270,3 +270,8 @@ hash) is unchanged. The fixes only tighten the rules.
    applies neither component. In the live snapshot, one official roster matched 5 of
    16 names but was rated `CONFIRMED`. Its expected rotation held 5 players, and its
    transfer inputs were zero.
+
+Also fixed in the same PR, as a code bug rather than a rule change: classification was
+merged on player id alone. A player listed on two teams (a stale and a fresh listing)
+therefore took one team's label on both; 78 trusted records showed a transfer as
+`returning`. Classification is now per (player, team).

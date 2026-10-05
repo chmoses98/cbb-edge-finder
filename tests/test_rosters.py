@@ -128,6 +128,18 @@ def test_experience_is_observed_not_labelled():
     )
 
 
+def test_classification_is_per_player_and_team():
+    rows = truth.rows_frame(
+        [  # P1 played 2026 for T1; a stale feed still lists him on T1, a fresh one on T2
+            _row("espn_site", "T1", "P1", "A One", 2026),
+            _row("espn_core", "T2", "P1", None, 2027),
+        ]
+    )
+    t, _ = truth.resolve(rows, truth.team_freshness(rows, 2027), _exp(), CFG, NOW)
+    c = t.set_index("team_id")["classification"]
+    assert c["T1"] == "returning" and c["T2"] == "transfer"
+
+
 def test_state_carries_first_seen_forward():
     rows = truth.rows_frame([_row("espn_site", "T1", "P1", "A One", 2027)])
     prev = pd.DataFrame({"player_id": ["P1"], "team_id": ["T1"],

@@ -227,8 +227,9 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     new_keys = 0
     if prev_state is not None and len(prev_state):
         old = set(zip(prev_state["player_id"], prev_state["team_id"], strict=True))
+        ided = recs[recs["player_id"].notna()]  # unidentified names are never in the state
         new_keys = sum(
-            1 for k in zip(recs["player_id"], recs["team_id"], strict=True) if k not in old
+            1 for k in zip(ided["player_id"], ided["team_id"], strict=True) if k not in old
         )
     st = recs[["player_id", "team_id", "first_seen", "last_confirmed"]].dropna(subset=["player_id"])
     state_p.parent.mkdir(parents=True, exist_ok=True)

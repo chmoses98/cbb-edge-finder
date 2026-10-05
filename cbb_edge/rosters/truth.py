@@ -328,8 +328,9 @@ def resolve(
         else None
     )
     if cls is not None:
+        # per (player, team): a player listed on two teams is a returner on at most one
         t = t.merge(
-            cls.drop(columns=["team_id"]).drop_duplicates("player_id"), on="player_id", how="left"
+            cls.drop_duplicates(["player_id", "team_id"]), on=["player_id", "team_id"], how="left"
         )
     # no identity -> no observed history: "unknown", never assumed to be a newcomer
     cl = t.get("classification", pd.Series(index=t.index, dtype=object))

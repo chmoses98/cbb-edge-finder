@@ -80,13 +80,63 @@ Full detail is in `docs/ROSTER_SOURCE_AUDIT.md`.
 * append-only snapshots with first_seen / last_confirmed;
 * a daily source-quality report.
 
+**Amendment A1** (`research/hypotheses/WAVE6.md`). It was found by reading the first
+live snapshot, before any 2026–27 game was played. It tightens the rules:
+
+* the newest fresh capture of a feed defines that feed's team listing;
+* a fresh official roster defines membership. ESPN-only players it omits are STALE
+  and logged;
+* an unmatched official name is classified `unknown`, not `first_d1`;
+* a team whose official listing matches fewer than 80% of names to ESPN ids gets
+  confidence `UNKNOWN`, and P-ROSTER-1 does not apply.
+
+The first snapshot also exposed a code bug, fixed in the same PR. Classification was
+merged on player id alone, so a player listed on two teams (one stale) got one team's
+label on both: 78 trusted records showed a transfer as `returning`. It is now merged
+per (player, team).
+
 Tests: `tests/test_rosters.py`.
 
 ## E. Current 2026–27 rosters (local reconstruction, 2026-10-05)
 
 From ESPN site + SDV: 183 teams LIKELY and 182 STALE. Player status: 3,157 LIKELY,
-2,821 STALE. The first live multi-source truth snapshot, including ESPN core lists and
-school pages, is written by `roster-capture`; see section Q.
+2,821 STALE.
+
+**Live multi-source snapshot `20261005T171153Z`** (roster-capture, with amendment A1).
+Sources: ESPN site, ESPN core, SDV and 3 school pages.
+
+| source | teams current / listed |
+|---|---|
+| ESPN site | 201 / 365 |
+| ESPN core | 201 / 365 |
+| SDV copy | 129 / 318 |
+| school sites | 3 / 3 |
+
+Stale reasons:
+
+* ESPN: 95 list eligibility-exhausted players; 69 still carry the 2025-26 label (ESPN
+  core: copy of last season);
+* SDV: 108 copies of last season.
+
+| | count |
+|---|---|
+| teams CONFIRMED | 2 |
+| teams LIKELY | 178 |
+| teams STALE | 184 |
+| teams UNKNOWN (official roster 5 of 16 names identified) | 1 |
+| players CONFIRMED | 34 |
+| players LIKELY | 2,850 |
+| players STALE | 3,094 |
+| players UNKNOWN | 12 |
+
+The conflict log holds 13 entries:
+
+* 12 unmatched official names. One is an ESPN name with a dropped diacritic, kept
+  unmatched rather than fuzzy-matched;
+* 1 ESPN-only player absent from the official roster.
+
+No player is listed on two teams by fresh sources. That snapshot's classification
+counts predate the per-(player, team) fix; later snapshots carry the fix.
 
 ## F. Player classification
 
@@ -260,7 +310,7 @@ Unchanged for the frozen models: pure-0.5.0 +0.097 overall, +0.501 in game 1
 
 | archive | status |
 |---|---|
-| `roster-archive` | ESPN snapshots, plus daily truth / P-ROSTER state / quality reports from this PR |
+| `roster-archive` | ESPN snapshots, plus daily truth / P-ROSTER state / quality reports from this PR. Live since `20261005T164553Z` (pre-A1, kept as is: append-only) and `20261005T171153Z` |
 | `availability-archive` | capturing |
 | `espn-lines-archive` | capturing |
 | `kalshi-archive` | capturing |
