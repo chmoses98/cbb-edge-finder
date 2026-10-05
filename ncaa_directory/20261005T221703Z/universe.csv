@@ -1,0 +1,366 @@
+ncaa_org_id,team_id,school,division,academic_year,conference,state,reclass_year,reclass_division,provisional_member,athletics_url,athletics_host,mbb_sponsored,resolution,espn_team_id,espn_location,conference_latest,first_d1_season,resolution_confidence
+2,T0351,Abilene Christian University,I,2027,United Athletic Conference,TX,,,False,https://www.acusports.com,acusports.com,True,exact_name,2000.0,Abilene Christian,Western Athletic Conference,2014.0,HIGH
+5,T0165,University of Akron,I,2027,Mid-American Conference,OH,,,False,https://gozips.com,gozips.com,True,exact_name,2006.0,Akron,Mid-American Conference,2006.0,HIGH
+8,T0155,University of Alabama,I,2027,Southeastern Conference,AL,,,False,https://www.rolltide.com,rolltide.com,True,exact_name,333.0,Alabama,Southeastern Conference,2006.0,HIGH
+6,T0166,Alabama A&M University,I,2027,Southwestern Athletic Conf.,AL,,,False,https://www.aamusports.com,aamusports.com,True,exact_name,2010.0,Alabama A&M,Southwestern Athletic Conference,2006.0,HIGH
+7,T0167,Alabama State University,I,2027,Southwestern Athletic Conf.,AL,,,False,https://www.bamastatesports.com,bamastatesports.com,True,exact_name,2011.0,Alabama State,Southwestern Athletic Conference,2006.0,HIGH
+9,T0003,University of Alabama at Birmingham,I,2027,American Conference,AL,,,False,https://www.uabsports.com,uabsports.com,True,verified_alias,5.0,UAB,American Conference,2006.0,HIGH
+14,T0163,University at Albany,I,2027,America East Conference,NY,,,False,https://www.ualbanysports.com,ualbanysports.com,True,verified_alias,399.0,UAlbany,America East Conference,2006.0,HIGH
+17,T0168,Alcorn State University,I,2027,Southwestern Athletic Conf.,MS,,,False,https://www.alcornsports.com,alcornsports.com,True,exact_name,2016.0,Alcorn State,Southwestern Athletic Conference,2006.0,HIGH
+23,T0022,American University,I,2027,Patriot League,DC,,,False,https://www.aueagles.com,aueagles.com,True,exact_name,44.0,American University,Patriot League,2006.0,HIGH
+27,T0169,Appalachian State University,I,2027,Sun Belt Conference,NC,,,False,https://appstatesports.com,appstatesports.com,True,verified_alias,2026.0,App State,Sun Belt Conference,2006.0,HIGH
+29,T0007,University of Arizona,I,2027,Big 12 Conference,AZ,,,False,https://www.arizonawildcats.com,arizonawildcats.com,True,exact_name,12.0,Arizona,Big 12 Conference,2006.0,HIGH
+28,T0006,Arizona State University,I,2027,Big 12 Conference,AZ,,,False,https://sundevils.com,sundevils.com,True,exact_name,9.0,Arizona State,Big 12 Conference,2006.0,HIGH
+30,T0172,Arkansas State University,I,2027,Sun Belt Conference,AR,,,False,https://www.astateredwolves.com,astateredwolves.com,True,exact_name,2032.0,Arkansas State,Sun Belt Conference,2006.0,HIGH
+31,T0005,"University of Arkansas, Fayetteville",I,2027,Southeastern Conference,AR,,,False,https://arkansasrazorbacks.com/,arkansasrazorbacks.com,True,verified_alias,8.0,Arkansas,Southeastern Conference,2006.0,HIGH
+32,T0171,University of Arkansas at Little Rock,I,2027,United Athletic Conference,AR,,,False,https://lrtrojans.com,lrtrojans.com,True,verified_alias,2031.0,Little Rock,Ohio Valley Conference,2006.0,HIGH
+2678,T0170,"University of Arkansas, Pine Bluff",I,2027,Southwestern Athletic Conf.,AR,,,False,https://uapblionsroar.com/,uapblionsroar.com,True,exact_name,2029.0,Arkansas-Pine Bluff,Southwestern Athletic Conference,2006.0,HIGH
+37,T0001,Auburn University,I,2027,Southeastern Conference,AL,,,False,https://www.auburntigers.com,auburntigers.com,True,exact_name,2.0,Auburn,Southeastern Conference,2006.0,HIGH
+43,T0173,Austin Peay State University,I,2027,United Athletic Conference,TN,,,False,https://www.letsgopeay.com,letsgopeay.com,True,verified_alias,2046.0,Austin Peay,ASUN Conference,2006.0,HIGH
+47,T0174,Ball State University,I,2027,Mid-American Conference,IN,,,False,https://www.ballstatesports.com,ballstatesports.com,True,exact_name,2050.0,Ball State,Mid-American Conference,2006.0,HIGH
+51,T0109,Baylor University,I,2027,Big 12 Conference,TX,,,False,https://www.baylorbears.com,baylorbears.com,True,exact_name,239.0,Baylor,Big 12 Conference,2006.0,HIGH
+52,T0359,Bellarmine University,I,2027,Atlantic Sun Conference,KY,,,False,https://athletics.bellarmine.edu,athletics.bellarmine.edu,True,exact_name,91.0,Bellarmine,ASUN Conference,2021.0,HIGH
+14927,T0175,Belmont University,I,2027,Missouri Valley Conference,TN,,,False,https://www.belmontbruins.com,belmontbruins.com,True,exact_name,2057.0,Belmont,Missouri Valley Conference,2006.0,HIGH
+61,T0176,Bethune-Cookman University,I,2027,Southwestern Athletic Conf.,FL,,,False,https://www.bcuathletics.com,bcuathletics.com,True,exact_name,2065.0,Bethune-Cookman,Southwestern Athletic Conference,2006.0,HIGH
+62,T0177,Binghamton University,I,2027,America East Conference,NY,,,False,https://www.bubearcats.com,bubearcats.com,True,exact_name,2066.0,Binghamton,America East Conference,2006.0,HIGH
+66,T0037,Boise State University,I,2027,Pac-12 Conference,ID,,,False,https://www.broncosports.com,broncosports.com,True,exact_name,68.0,Boise State,Mountain West Conference,2006.0,HIGH
+67,T0051,Boston College,I,2027,Atlantic Coast Conference,MA,,,False,https://www.bceagles.com,bceagles.com,True,exact_name,103.0,Boston College,Atlantic Coast Conference,2006.0,HIGH
+68,T0052,Boston University,I,2027,Patriot League,MA,,,False,https://www.goterriers.com,goterriers.com,True,exact_name,104.0,Boston University,Patriot League,2006.0,HIGH
+71,T0087,Bowling Green State University,I,2027,Mid-American Conference,OH,,,False,https://www.bgsufalcons.com,bgsufalcons.com,True,verified_alias,189.0,Bowling Green,Mid-American Conference,2006.0,HIGH
+72,T0039,Bradley University,I,2027,Missouri Valley Conference,IL,,,False,https://www.bradleybraves.com,bradleybraves.com,True,exact_name,71.0,Bradley,Missouri Valley Conference,2006.0,HIGH
+77,T0116,Brigham Young University,I,2027,Big 12 Conference,UT,,,False,https://byucougars.com,byucougars.com,True,verified_alias,252.0,BYU,Big 12 Conference,2006.0,HIGH
+80,T0101,Brown University,I,2027,The Ivy League,RI,,,False,https://www.brownbears.com,brownbears.com,True,exact_name,225.0,Brown,Ivy League,2006.0,HIGH
+81,T0348,Bryant University,I,2027,America East Conference,RI,,,False,https://www.bryantbulldogs.com,bryantbulldogs.com,True,exact_name,2803.0,Bryant,America East Conference,2009.0,HIGH
+83,T0178,Bucknell University,I,2027,Patriot League,PA,,,False,https://bucknellbison.com,bucknellbison.com,True,exact_name,2083.0,Bucknell,Patriot League,2006.0,HIGH
+86,T0179,"University at Buffalo, the State University of New York",I,2027,Mid-American Conference,NY,,,False,https://www.ubbulls.com,ubbulls.com,True,verified_alias,2084.0,Buffalo,Mid-American Conference,2006.0,HIGH
+87,T0180,Butler University,I,2027,BIG EAST Conference,IN,,,False,https://www.butlersports.com,butlersports.com,True,exact_name,2086.0,Butler,Big East Conference,2006.0,HIGH
+30135,T0356,California Baptist University,I,2027,Big West Conference,CA,,,False,https://www.cbulancers.com,cbulancers.com,True,exact_name,2856.0,California Baptist,Western Athletic Conference,2019.0,HIGH
+90,T0008,California Polytechnic State University,I,2027,Big West Conference,CA,,,False,https://gopoly.com,gopoly.com,True,verified_alias,13.0,Cal Poly,Big West Conference,2006.0,HIGH
+94,T0342,"California State University, Bakersfield",I,2027,Big West Conference,CA,,,False,https://www.gorunners.com,gorunners.com,True,verified_alias,2934.0,Cal State Bakersfield,Big West Conference,2008.0,HIGH
+96,T0131,"California State University, Fresno",I,2027,Pac-12 Conference,CA,,,False,https://www.gobulldogs.com,gobulldogs.com,True,verified_alias,278.0,Fresno State,Mountain West Conference,2006.0,HIGH
+97,T0209,"California State University, Fullerton",I,2027,Big West Conference,CA,,,False,https://www.fullertontitans.com,fullertontitans.com,True,verified_alias,2239.0,Cal State Fullerton,Big West Conference,2006.0,HIGH
+101,T0260,"California State University, Northridge",I,2027,Big West Conference,CA,,,False,https://www.GoMatadors.com,gomatadors.com,True,verified_alias,2463.0,Cal State Northridge,Big West Conference,2006.0,HIGH
+102,T0009,"California State University, Sacramento",I,2027,Big West Conference,CA,,,False,https://www.hornetsports.com,hornetsports.com,True,verified_alias,16.0,Sacramento State,Big Sky Conference,2006.0,HIGH
+107,T0013,"University of California, Berkeley",I,2027,Atlantic Coast Conference,CA,,,False,https://www.calbears.com,calbears.com,True,verified_alias,25.0,California,Atlantic Coast Conference,2006.0,HIGH
+108,T0142,"University of California, Davis",I,2027,Mountain West Conference,CA,,,False,https://www.ucdavisaggies.com,ucdavisaggies.com,True,verified_alias,302.0,UC Davis,Big West Conference,2006.0,HIGH
+109,T0140,"University of California, Irvine",I,2027,Big West Conference,CA,,,False,https://ucirvinesports.com/,ucirvinesports.com,True,verified_alias,300.0,UC Irvine,Big West Conference,2006.0,HIGH
+110,T0014,"University of California, Los Angeles",I,2027,Big Ten Conference,CA,,,False,https://www.uclabruins.com,uclabruins.com,True,verified_alias,26.0,UCLA,Big Ten Conference,2006.0,HIGH
+111,T0015,"University of California, Riverside",I,2027,Big West Conference,CA,,,False,https://www.gohighlanders.com/,gohighlanders.com,True,verified_alias,27.0,UC Riverside,Big West Conference,2006.0,HIGH
+112,T0358,"University of California, San Diego",I,2027,Big West Conference,CA,,,False,https://www.ucsdtritons.com,ucsdtritons.com,True,verified_alias,28.0,UC San Diego,Big West Conference,2021.0,HIGH
+104,T0279,"University of California, Santa Barbara",I,2027,Big West Conference,CA,,,False,https://ucsbgauchos.com,ucsbgauchos.com,True,verified_alias,2540.0,UC Santa Barbara,Big West Conference,2006.0,HIGH
+115,T0181,Campbell University,I,2027,Coastal Athletic Association,NC,,,False,https://www.gocamels.com,gocamels.com,True,exact_name,2097.0,Campbell,Coastal Athletic Association,2006.0,HIGH
+116,T0182,Canisius University,I,2027,Metro Conference,NY,,,False,https://www.gogriffs.com,gogriffs.com,True,exact_name,2099.0,Canisius,Metro Atlantic Athletic Conference,2006.0,HIGH
+1004,T0335,University of Central Arkansas,I,2027,United Athletic Conference,AR,,,False,https://www.ucasports.com,ucasports.com,True,exact_name,2110.0,Central Arkansas,ASUN Conference,2007.0,HIGH
+127,T0184,Central Connecticut State University,I,2027,Northeast Conference,CT,,,False,https://www.ccsubluedevils.com,ccsubluedevils.com,True,verified_alias,2115.0,Central Connecticut,Northeast Conference,2006.0,HIGH
+128,T0185,University of Central Florida,I,2027,Big 12 Conference,FL,,,False,https://www.ucfknights.com/,ucfknights.com,True,verified_alias,2116.0,UCF,Big 12 Conference,2006.0,HIGH
+129,T0186,Central Michigan University,I,2027,Mid-American Conference,MI,,,False,https://www.cmuchippewas.com,cmuchippewas.com,True,exact_name,2117.0,Central Michigan,Mid-American Conference,2006.0,HIGH
+1014,T0105,College of Charleston (South Carolina),I,2027,Coastal Athletic Association,SC,,,False,https://www.cofcsports.com,cofcsports.com,True,verified_alias,232.0,Charleston,Coastal Athletic Association,2006.0,HIGH
+48,T0187,Charleston Southern University,I,2027,Big South Conference,SC,,,False,https://csusports.com/,csusports.com,True,exact_name,2127.0,Charleston Southern,Big South Conference,2006.0,HIGH
+136,T0188,Chicago State University,I,2027,Northeast Conference,IL,,,False,https://www.gocsucougars.com,gocsucougars.com,True,exact_name,2130.0,Chicago State,Northeast Conference,2006.0,HIGH
+140,T0189,University of Cincinnati,I,2027,Big 12 Conference,OH,,,False,https://gobearcats.com/,gobearcats.com,True,exact_name,2132.0,Cincinnati,Big 12 Conference,2006.0,HIGH
+141,T0310,The Citadel,I,2027,Southern Conference,SC,,,False,https://www.citadelsports.com,citadelsports.com,True,exact_name,2643.0,The Citadel,Southern Conference,2006.0,HIGH
+147,T0103,Clemson University,I,2027,Atlantic Coast Conference,SC,,,False,https://clemsontigers.com,clemsontigers.com,True,exact_name,228.0,Clemson,Atlantic Coast Conference,2006.0,HIGH
+148,T0151,Cleveland State University,I,2027,Horizon League,OH,,,False,https://www.csuvikings.com,csuvikings.com,True,exact_name,325.0,Cleveland State,Horizon League,2006.0,HIGH
+149,T0150,Coastal Carolina University,I,2027,Sun Belt Conference,SC,,,False,https://www.goccusports.com,goccusports.com,True,exact_name,324.0,Coastal Carolina,Sun Belt Conference,2006.0,HIGH
+153,T0190,Colgate University,I,2027,Patriot League,NY,,,False,https://gocolgateraiders.com,gocolgateraiders.com,True,exact_name,2142.0,Colgate,Patriot League,2006.0,HIGH
+157,T0018,University of Colorado Boulder,I,2027,Big 12 Conference,CO,,,False,https://www.cubuffs.com/,cubuffs.com,True,verified_alias,38.0,Colorado,Big 12 Conference,2006.0,HIGH
+156,T0017,Colorado State University,I,2027,Pac-12 Conference,CO,,,False,https://www.csurams.com,csurams.com,True,exact_name,36.0,Colorado State,Mountain West Conference,2006.0,HIGH
+158,T0083,Columbia University-Barnard College,I,2027,The Ivy League,NY,,,False,https://www.gocolumbialions.com/,gocolumbialions.com,True,verified_alias,171.0,Columbia,Ivy League,2006.0,HIGH
+164,T0019,University of Connecticut,I,2027,BIG EAST Conference,CT,,,False,https://www.uconnhuskies.com,uconnhuskies.com,True,verified_alias,41.0,UConn,Big East Conference,2006.0,HIGH
+165,T0191,Coppin State University,I,2027,Mid-Eastern Athletic Conf.,MD,,,False,https://www.coppinstatesports.com,coppinstatesports.com,True,exact_name,2154.0,Coppin State,Mid-Eastern Athletic Conference,2006.0,HIGH
+167,T0084,Cornell University,I,2027,The Ivy League,NY,,,False,https://www.cornellbigred.com,cornellbigred.com,True,exact_name,172.0,Cornell,Ivy League,2006.0,HIGH
+169,T0074,Creighton University,I,2027,BIG EAST Conference,NE,,,False,https://gocreighton.com/,gocreighton.com,True,exact_name,156.0,Creighton,Big East Conference,2006.0,HIGH
+172,T0076,Dartmouth College,I,2027,The Ivy League,NH,,,False,https://www.dartmouthsports.com,dartmouthsports.com,True,exact_name,159.0,Dartmouth,Ivy League,2006.0,HIGH
+173,T0192,Davidson College,I,2027,Atlantic 10 Conference,NC,,,False,https://www.davidsonwildcats.com,davidsonwildcats.com,True,exact_name,2166.0,Davidson,Atlantic 10 Conference,2006.0,HIGH
+175,T0193,University of Dayton,I,2027,Atlantic 10 Conference,OH,,,False,https://www.daytonflyers.com,daytonflyers.com,True,exact_name,2168.0,Dayton,Atlantic 10 Conference,2006.0,HIGH
+180,T0026,University of Delaware,I,2027,Conference USA,DE,,,False,https://www.bluehens.com,bluehens.com,True,exact_name,48.0,Delaware,Conference USA,2006.0,HIGH
+178,T0194,Delaware State University,I,2027,Mid-Eastern Athletic Conf.,DE,,,False,https://www.dsuhornets.com/,dsuhornets.com,True,exact_name,2169.0,Delaware State,Mid-Eastern Athletic Conference,2006.0,HIGH
+183,T0195,University of Denver,I,2027,West Coast Conference,CO,,,False,https://denverpioneers.com,denverpioneers.com,True,exact_name,2172.0,Denver,The Summit League,2006.0,HIGH
+176,T0144,DePaul University,I,2027,BIG EAST Conference,IL,,,False,https://www.depaulbluedemons.com,depaulbluedemons.com,True,exact_name,305.0,DePaul,Big East Conference,2006.0,HIGH
+184,T0196,University of Detroit Mercy,I,2027,Horizon League,MI,,,False,https://www.detroittitans.com,detroittitans.com,True,exact_name,2174.0,Detroit Mercy,Horizon League,2006.0,HIGH
+189,T0197,Drake University,I,2027,Missouri Valley Conference,IA,,,False,https://godrakebulldogs.com/,godrakebulldogs.com,True,exact_name,2181.0,Drake,Missouri Valley Conference,2006.0,HIGH
+191,T0198,Drexel University,I,2027,Coastal Athletic Association,PA,,,False,https://www.drexeldragons.com,drexeldragons.com,True,exact_name,2182.0,Drexel,Coastal Athletic Association,2006.0,HIGH
+193,T0069,Duke University,I,2027,Atlantic Coast Conference,NC,,,False,https://www.goduke.com,goduke.com,True,exact_name,150.0,Duke,Atlantic Coast Conference,2006.0,HIGH
+194,T0199,Duquesne University,I,2027,Atlantic 10 Conference,PA,,,False,https://www.GoDuquesne.com,goduquesne.com,True,exact_name,2184.0,Duquesne,Atlantic 10 Conference,2006.0,HIGH
+196,T0070,East Carolina University,I,2027,American Conference,NC,,,False,https://www.ecupirates.com,ecupirates.com,True,exact_name,151.0,East Carolina,American Conference,2006.0,HIGH
+198,T0200,East Tennessee State University,I,2027,Southern Conference,TN,,,False,https://www.etsubucs.com,etsubucs.com,True,exact_name,2193.0,East Tennessee State,Southern Conference,2006.0,HIGH
+199,T0369,East Texas A&M University,I,2027,Southland Conference,TX,,,False,https://www.lionathletics.com,lionathletics.com,True,exact_name,2837.0,East Texas A&M,Southland Conference,2023.0,HIGH
+201,T0201,Eastern Illinois University,I,2027,Ohio Valley Conference,IL,,,False,https://www.eiupanthers.com,eiupanthers.com,True,exact_name,2197.0,Eastern Illinois,Ohio Valley Conference,2006.0,HIGH
+202,T0202,Eastern Kentucky University,I,2027,United Athletic Conference,KY,,,False,https://www.ekusports.com,ekusports.com,True,exact_name,2198.0,Eastern Kentucky,ASUN Conference,2006.0,HIGH
+204,T0203,Eastern Michigan University,I,2027,Mid-American Conference,MI,,,False,https://www.emueagles.com,emueagles.com,True,exact_name,2199.0,Eastern Michigan,Mid-American Conference,2006.0,HIGH
+207,T0154,Eastern Washington University,I,2027,Big Sky Conference,WA,,,False,https://goeags.com,goeags.com,True,exact_name,331.0,Eastern Washington,Big Sky Conference,2006.0,HIGH
+1068,T0204,Elon University,I,2027,Coastal Athletic Association,NC,,,False,https://www.elonphoenix.com,elonphoenix.com,True,exact_name,2210.0,Elon,Coastal Athletic Association,2006.0,HIGH
+219,T0157,University of Evansville,I,2027,Missouri Valley Conference,IN,,,False,https://www.gopurpleaces.com,gopurpleaces.com,True,exact_name,339.0,Evansville,Missouri Valley Conference,2006.0,HIGH
+220,T0205,Fairfield University,I,2027,Metro Conference,CT,,,False,https://fairfieldstags.com,fairfieldstags.com,True,exact_name,2217.0,Fairfield,Metro Atlantic Athletic Conference,2006.0,HIGH
+222,T0078,"Fairleigh Dickinson University, Metropolitan Campus",I,2027,Northeast Conference,NJ,,,False,https://www.fduknights.com,fduknights.com,True,verified_alias,161.0,Fairleigh Dickinson,Northeast Conference,2006.0,HIGH
+235,T0031,University of Florida,I,2027,Southeastern Conference,FL,,,False,https://www.floridagators.com,floridagators.com,True,exact_name,57.0,Florida,Southeastern Conference,2006.0,HIGH
+228,T0027,Florida A&M University,I,2027,Southwestern Athletic Conf.,FL,,,False,https://www.famuathletics.com/,famuathletics.com,True,exact_name,50.0,Florida A&M,Southwestern Athletic Conference,2006.0,HIGH
+229,T0206,Florida Atlantic University,I,2027,American Conference,FL,,,False,https://www.fausports.com,fausports.com,True,exact_name,2226.0,Florida Atlantic,American Conference,2006.0,HIGH
+28755,T0338,Florida Gulf Coast University,I,2027,Atlantic Sun Conference,FL,,,False,https://fgcuathletics.com/,fgcuathletics.com,True,exact_name,526.0,Florida Gulf Coast,ASUN Conference,2008.0,HIGH
+231,T0207,Florida International University,I,2027,Conference USA,FL,,,False,https://www.fiusports.com,fiusports.com,True,exact_name,2229.0,Florida International,Conference USA,2006.0,HIGH
+234,T0028,Florida State University,I,2027,Atlantic Coast Conference,FL,,,False,https://www.seminoles.com,seminoles.com,True,exact_name,52.0,Florida State,Atlantic Coast Conference,2006.0,HIGH
+236,T0208,Fordham University,I,2027,Atlantic 10 Conference,NY,,,False,https://www.fordhamsports.com,fordhamsports.com,True,exact_name,2230.0,Fordham,Atlantic 10 Conference,2006.0,HIGH
+244,T0104,Furman University,I,2027,Southern Conference,SC,,,False,https://www.furmanpaladins.com,furmanpaladins.com,True,exact_name,231.0,Furman,Southern Conference,2006.0,HIGH
+1092,T0210,Gardner-Webb University,I,2027,Big South Conference,NC,,,False,https://gwusports.com/,gwusports.com,True,exact_name,2241.0,Gardner-Webb,Big South Conference,2006.0,HIGH
+248,T0211,George Mason University,I,2027,Atlantic 10 Conference,VA,,,False,https://www.gomason.com,gomason.com,True,exact_name,2244.0,George Mason,Atlantic 10 Conference,2006.0,HIGH
+249,T0023,George Washington University,I,2027,Atlantic 10 Conference,DC,,,False,https://www.gwsports.com/index.html,gwsports.com,True,exact_name,45.0,George Washington,Atlantic 10 Conference,2006.0,HIGH
+251,T0024,Georgetown University,I,2027,BIG EAST Conference,DC,,,False,https://guhoyas.com,guhoyas.com,True,exact_name,46.0,Georgetown,Big East Conference,2006.0,HIGH
+257,T0034,University of Georgia,I,2027,Southeastern Conference,GA,,,False,https://www.georgiadogs.com,georgiadogs.com,True,exact_name,61.0,Georgia,Southeastern Conference,2006.0,HIGH
+255,T0033,Georgia Institute of Technology,I,2027,Atlantic Coast Conference,GA,,,False,https://www.ramblinwreck.com,ramblinwreck.com,True,verified_alias,59.0,Georgia Tech,Atlantic Coast Conference,2006.0,HIGH
+253,T0135,Georgia Southern University,I,2027,Sun Belt Conference,GA,,,False,https://gseagles.com,gseagles.com,True,exact_name,290.0,Georgia Southern,Sun Belt Conference,2006.0,HIGH
+254,T0212,Georgia State University,I,2027,Sun Belt Conference,GA,,,False,https://georgiastatesports.com,georgiastatesports.com,True,exact_name,2247.0,Georgia State,Sun Belt Conference,2006.0,HIGH
+260,T0213,Gonzaga University,I,2027,Pac-12 Conference,WA,,,False,https://www.gozags.com,gozags.com,True,exact_name,2250.0,Gonzaga,West Coast Conference,2006.0,HIGH
+261,T0331,Grambling State University,I,2027,Southwestern Athletic Conf.,LA,,,False,https://www.gsutigers.com,gsutigers.com,True,verified_alias,2755.0,Grambling,Southwestern Athletic Conference,2006.0,HIGH
+1104,T0352,Grand Canyon University,I,2027,Mountain West Conference,AZ,,,False,https://www.gculopes.com,gculopes.com,True,exact_name,2253.0,Grand Canyon,Mountain West Conference,2014.0,HIGH
+270,T0214,Hampton University,I,2027,Coastal Athletic Association,VA,,,False,https://hamptonpirates.com,hamptonpirates.com,True,exact_name,2261.0,Hampton,Coastal Athletic Association,2006.0,HIGH
+275,T0054,Harvard University,I,2027,The Ivy League,MA,,,False,https://gocrimson.com/,gocrimson.com,True,exact_name,108.0,Harvard,Ivy League,2006.0,HIGH
+277,T0035,"University of Hawaii, Manoa",I,2027,Mountain West Conference,HI,,,False,https://hawaiiathletics.com,hawaiiathletics.com,True,verified_alias,62.0,Hawai'i,Big West Conference,2006.0,HIGH
+19651,T0215,High Point University,I,2027,Big South Conference,NC,,,False,https://www.highpointpanthers.com,highpointpanthers.com,True,exact_name,2272.0,High Point,Big South Conference,2006.0,HIGH
+283,T0216,Hofstra University,I,2027,Coastal Athletic Association,NY,,,False,https://www.gohofstra.com,gohofstra.com,True,exact_name,2275.0,Hofstra,Coastal Athletic Association,2006.0,HIGH
+285,T0053,College of the Holy Cross,I,2027,Patriot League,MA,,,False,https://goholycross.com/,goholycross.com,True,verified_alias,107.0,Holy Cross,Patriot League,2006.0,HIGH
+288,T0112,University of Houston,I,2027,Big 12 Conference,TX,,,False,https://www.uhcougars.com,uhcougars.com,True,exact_name,248.0,Houston,Big 12 Conference,2006.0,HIGH
+287,T0345,Houston Christian University,I,2027,Southland Conference,TX,,,False,https://www.hcuhuskies.com,hcuhuskies.com,True,exact_name,2277.0,Houston Christian,Southland Conference,2009.0,HIGH
+290,T0025,Howard University,I,2027,Mid-Eastern Athletic Conf.,DC,,,False,https://www.hubison.com,hubison.com,True,exact_name,47.0,Howard,Mid-Eastern Athletic Conference,2006.0,HIGH
+295,T0038,University of Idaho,I,2027,Big Sky Conference,ID,,,False,https://www.govandals.com,govandals.com,True,exact_name,70.0,Idaho,Big Sky Conference,2006.0,HIGH
+294,T0143,Idaho State University,I,2027,Big Sky Conference,ID,,,False,https://www.isubengals.com,isubengals.com,True,exact_name,304.0,Idaho State,Big Sky Conference,2006.0,HIGH
+299,T0217,Illinois State University,I,2027,Missouri Valley Conference,IL,,,False,https://GoRedbirds.com,goredbirds.com,True,exact_name,2287.0,Illinois State,Missouri Valley Conference,2006.0,HIGH
+302,T0042,University of Illinois Chicago,I,2027,Missouri Valley Conference,IL,,,False,https://www.uicflames.com,uicflames.com,True,verified_alias,82.0,UIC,Missouri Valley Conference,2006.0,HIGH
+301,T0161,University of Illinois Urbana-Champaign,I,2027,Big Ten Conference,IL,,,False,https://www.fightingillini.com,fightingillini.com,True,verified_alias,356.0,Illinois,Big Ten Conference,2006.0,HIGH
+2743,T0354,University of the Incarnate Word,I,2027,Southland Conference,TX,,,False,https://uiwcardinals.com,uiwcardinals.com,True,exact_name,2916.0,Incarnate Word,Southland Conference,2014.0,HIGH
+2699,T0044,Indiana University Indianapolis,I,2027,Horizon League,IN,,,False,https://iuindyjags.com/,iuindyjags.com,True,verified_alias,85.0,IU Indianapolis,Horizon League,2006.0,HIGH
+305,T0133,Indiana State University,I,2027,Missouri Valley Conference,IN,,,False,https://www.gosycamores.com,gosycamores.com,True,exact_name,282.0,Indiana State,Missouri Valley Conference,2006.0,HIGH
+306,T0043,"Indiana University, Bloomington",I,2027,Big Ten Conference,IN,,,False,https://www.iuhoosiers.com,iuhoosiers.com,True,verified_alias,84.0,Indiana,Big Ten Conference,2006.0,HIGH
+310,T0147,Iona University,I,2027,Metro Conference,NY,,,False,https://www.ionagaels.com,ionagaels.com,True,exact_name,314.0,Iona,Metro Atlantic Athletic Conference,2006.0,HIGH
+312,T0218,University of Iowa,I,2027,Big Ten Conference,IA,,,False,https://www.hawkeyesports.com,hawkeyesports.com,True,exact_name,2294.0,Iowa,Big Ten Conference,2006.0,HIGH
+311,T0036,Iowa State University,I,2027,Big 12 Conference,IA,,,False,https://www.cyclones.com,cyclones.com,True,exact_name,66.0,Iowa State,Big 12 Conference,2006.0,HIGH
+314,T0219,Jackson State University,I,2027,Southwestern Athletic Conf.,MS,,,False,https://www.gojsutigers.com,gojsutigers.com,True,exact_name,2296.0,Jackson State,Southwestern Athletic Conference,2006.0,HIGH
+315,T0029,Jacksonville State University,I,2027,Conference USA,AL,,,False,https://www.jaxstatesports.com,jaxstatesports.com,True,exact_name,55.0,Jacksonville State,Conference USA,2006.0,HIGH
+316,T0137,Jacksonville University,I,2027,Atlantic Sun Conference,FL,,,False,https://www.judolphins.com,judolphins.com,True,exact_name,294.0,Jacksonville,ASUN Conference,2006.0,HIGH
+317,T0119,James Madison University,I,2027,Sun Belt Conference,VA,,,False,https://www.jmusports.com,jmusports.com,True,exact_name,256.0,James Madison,Sun Belt Conference,2006.0,HIGH
+328,T0220,University of Kansas,I,2027,Big 12 Conference,KS,,,False,https://kuathletics.com,kuathletics.com,True,exact_name,2305.0,Kansas,Big 12 Conference,2006.0,HIGH
+327,T0221,Kansas State University,I,2027,Big 12 Conference,KS,,,False,https://www.kstatesports.com,kstatesports.com,True,exact_name,2306.0,Kansas State,Big 12 Conference,2006.0,HIGH
+1157,T0156,Kennesaw State University,I,2027,Conference USA,GA,,,False,https://www.ksuowls.com,ksuowls.com,True,exact_name,338.0,Kennesaw State,Conference USA,2006.0,HIGH
+331,T0222,Kent State University,I,2027,Mid-American Conference,OH,,,False,https://www.kentstatesports.com,kentstatesports.com,True,exact_name,2309.0,Kent State,Mid-American Conference,2006.0,HIGH
+334,T0047,University of Kentucky,I,2027,Southeastern Conference,KY,,,False,https://www.ukathletics.com,ukathletics.com,True,exact_name,96.0,Kentucky,Southeastern Conference,2006.0,HIGH
+340,T0224,La Salle University,I,2027,Atlantic 10 Conference,PA,,,False,https://www.goexplorers.com/,goexplorers.com,True,exact_name,2325.0,La Salle,Atlantic 10 Conference,2006.0,HIGH
+342,T0149,Lafayette College,I,2027,Patriot League,PA,,,False,https://www.goleopards.com,goleopards.com,True,exact_name,322.0,Lafayette,Patriot League,2006.0,HIGH
+346,T0223,Lamar University,I,2027,Southland Conference,TX,,,False,https://www.lamarcardinals.com,lamarcardinals.com,True,exact_name,2320.0,Lamar,Southland Conference,2006.0,HIGH
+349,T0370,Le Moyne College,I,2027,Northeast Conference,NY,,,False,https://www.lemoynedolphins.com,lemoynedolphins.com,True,exact_name,2330.0,Le Moyne,Northeast Conference,2024.0,HIGH
+352,T0225,Lehigh University,I,2027,Patriot League,PA,,,False,https://www.lehighsports.com,lehighsports.com,True,exact_name,2329.0,Lehigh,Patriot League,2006.0,HIGH
+355,T0226,Liberty University,I,2027,Conference USA,VA,,,False,https://www.LibertyFlames.com,libertyflames.com,True,exact_name,2335.0,Liberty,Conference USA,2006.0,HIGH
+30136,T0368,Lindenwood University,I,2027,Ohio Valley Conference,MO,,,False,https://lindenwoodlions.com,lindenwoodlions.com,True,exact_name,2815.0,Lindenwood,,2023.0,HIGH
+28600,T0134,Lipscomb University,I,2027,Atlantic Sun Conference,TN,,,False,https://www.lipscombsports.com,lipscombsports.com,True,exact_name,288.0,Lipscomb,ASUN Conference,2006.0,HIGH
+99,T0139,Long Beach State University,I,2027,Big West Conference,CA,,,False,https://longbeachstate.com,longbeachstate.com,True,exact_name,299.0,Long Beach State,Big West Conference,2006.0,HIGH
+361,T0334,Long Island University,I,2027,Northeast Conference,NY,,,False,https://www.liuathletics.com,liuathletics.com,True,exact_name,112358.0,Long Island University,Northeast Conference,2006.0,HIGH
+363,T0227,Longwood University,I,2027,Big South Conference,VA,,,False,https://longwoodlancers.com,longwoodlancers.com,True,exact_name,2344.0,Longwood,Big South Conference,2006.0,HIGH
+365,T0050,Louisiana State University,I,2027,Southeastern Conference,LA,,,False,https://www.lsusports.net,lsusports.net,True,verified_alias,99.0,LSU,Southeastern Conference,2006.0,HIGH
+366,T0228,Louisiana Tech University,I,2027,Sun Belt Conference,LA,,,False,https://www.latechsports.com/,latechsports.com,True,exact_name,2348.0,Louisiana Tech,Conference USA,2006.0,HIGH
+671,T0145,University of Louisiana at Lafayette,I,2027,Sun Belt Conference,LA,,,False,https://www.ragincajuns.com,ragincajuns.com,True,verified_alias,309.0,Louisiana,Sun Belt Conference,2006.0,HIGH
+498,T0248,University of Louisiana Monroe,I,2027,Sun Belt Conference,LA,,,False,https://www.ulmwarhawks.com,ulmwarhawks.com,True,verified_alias,2433.0,UL Monroe,Sun Belt Conference,2006.0,HIGH
+367,T0048,University of Louisville,I,2027,Atlantic Coast Conference,KY,,,False,https://www.gocards.com,gocards.com,True,exact_name,97.0,Louisville,Atlantic Coast Conference,2006.0,HIGH
+370,T0230,Loyola Marymount University,I,2027,West Coast Conference,CA,,,False,https://www.LMULions.com,lmulions.com,True,exact_name,2351.0,Loyola Marymount,West Coast Conference,2006.0,HIGH
+371,T0229,Loyola University Chicago,I,2027,Atlantic 10 Conference,IL,,,False,https://www.loyolaramblers.com,loyolaramblers.com,True,verified_alias,2350.0,Loyola Chicago,Atlantic 10 Conference,2006.0,HIGH
+369,T0231,Loyola University Maryland,I,2027,Patriot League,MD,,,False,https://www.loyolagreyhounds.com,loyolagreyhounds.com,True,verified_alias,2352.0,Loyola Maryland,Patriot League,2006.0,HIGH
+380,T0146,University of Maine,I,2027,America East Conference,ME,,,False,https://goblackbears.com,goblackbears.com,True,exact_name,311.0,Maine,America East Conference,2006.0,HIGH
+381,T0232,Manhattan University,I,2027,Metro Conference,NY,,,False,https://www.gojaspers.com,gojaspers.com,True,exact_name,2363.0,Manhattan,Metro Atlantic Athletic Conference,2006.0,HIGH
+386,T0233,Marist University,I,2027,Metro Conference,NY,,,False,https://goredfoxes.com,goredfoxes.com,True,exact_name,2368.0,Marist,Metro Atlantic Athletic Conference,2006.0,HIGH
+387,T0126,Marquette University,I,2027,BIG EAST Conference,WI,,,False,https://www.gomarquette.com,gomarquette.com,True,exact_name,269.0,Marquette,Big East Conference,2006.0,HIGH
+388,T0129,Marshall University,I,2027,Sun Belt Conference,WV,,,False,https://www.herdzone.com,herdzone.com,True,exact_name,276.0,Marshall,Sun Belt Conference,2006.0,HIGH
+393,T0236,University of Maryland Eastern Shore,I,2027,Mid-Eastern Athletic Conf.,MD,,,False,https://umeshawksports.com/,umeshawksports.com,True,exact_name,2379.0,Maryland Eastern Shore,Mid-Eastern Athletic Conference,2006.0,HIGH
+391,T0235,"University of Maryland, Baltimore County",I,2027,America East Conference,MD,,,False,https://UMBCRetrievers.com,umbcretrievers.com,True,verified_alias,2378.0,UMBC,America East Conference,2006.0,HIGH
+392,T0059,"University of Maryland, College Park",I,2027,Big Ten Conference,MD,,,False,https://www.umterps.com,umterps.com,True,verified_alias,120.0,Maryland,Big Ten Conference,2006.0,HIGH
+400,T0056,"University of Massachusetts, Amherst",I,2027,Mid-American Conference,MA,,,False,https://www.umassathletics.com,umassathletics.com,True,verified_alias,113.0,Massachusetts,Mid-American Conference,2006.0,HIGH
+368,T0353,University of Massachusetts Lowell,I,2027,America East Conference,MA,,,False,https://www.goriverhawks.com,goriverhawks.com,True,verified_alias,2349.0,UMass Lowell,America East Conference,2014.0,HIGH
+402,T0234,McNeese State University,I,2027,Southland Conference,LA,,,False,https://www.mcneesesports.com,mcneesesports.com,True,verified_alias,2377.0,McNeese,Southland Conference,2006.0,HIGH
+404,T0106,University of Memphis,I,2027,American Conference,TN,,,False,https://www.gotigersgo.com,gotigersgo.com,True,exact_name,235.0,Memphis,American Conference,2006.0,HIGH
+406,T0237,Mercer University,I,2027,Southern Conference,GA,,,False,https://www.mercerbears.com,mercerbears.com,True,exact_name,2382.0,Mercer,Southern Conference,2006.0,HIGH
+408,T0371,Mercyhurst University,I,2027,Northeast Conference,PA,,,False,https://www.hurstathletics.com,hurstathletics.com,True,exact_name,2385.0,Mercyhurst,Northeast Conference,2025.0,HIGH
+410,T0357,Merrimack College,I,2027,Metro Conference,MA,2.0,1.0,False,https://www.merrimackathletics.com,merrimackathletics.com,True,exact_name,2771.0,Merrimack,Metro Atlantic Athletic Conference,2020.0,HIGH
+415,T0238,University of Miami (Florida),I,2027,Atlantic Coast Conference,FL,,,False,https://miamihurricanes.com,miamihurricanes.com,True,verified_alias,2390.0,Miami,Atlantic Coast Conference,2006.0,HIGH
+414,T0088,Miami University (Ohio),I,2027,Mid-American Conference,OH,,,False,https://www.miamiredhawks.com,miamiredhawks.com,True,verified_alias,193.0,Miami (OH),Mid-American Conference,2006.0,HIGH
+418,T0061,University of Michigan,I,2027,Big Ten Conference,MI,,,False,https://www.mgoblue.com,mgoblue.com,True,exact_name,130.0,Michigan,Big Ten Conference,2006.0,HIGH
+416,T0060,Michigan State University,I,2027,Big Ten Conference,MI,,,False,https://msuspartans.com/,msuspartans.com,True,exact_name,127.0,Michigan State,Big Ten Conference,2006.0,HIGH
+419,T0239,Middle Tennessee State University,I,2027,Conference USA,TN,,,False,https://www.goblueraiders.com,goblueraiders.com,True,verified_alias,2393.0,Middle Tennessee,Conference USA,2006.0,HIGH
+428,T0062,"University of Minnesota, Twin Cities",I,2027,Big Ten Conference,MN,,,False,https://www.gophersports.com,gophersports.com,True,verified_alias,135.0,Minnesota,Big Ten Conference,2006.0,HIGH
+433,T0066,University of Mississippi,I,2027,Southeastern Conference,MS,,,False,https://www.olemisssports.com,olemisssports.com,True,verified_alias,145.0,Ole Miss,Southeastern Conference,2006.0,HIGH
+430,T0158,Mississippi State University,I,2027,Southeastern Conference,MS,,,False,https://www.hailstate.com,hailstate.com,True,exact_name,344.0,Mississippi State,Southeastern Conference,2006.0,HIGH
+432,T0240,Mississippi Valley State University,I,2027,Southwestern Athletic Conf.,MS,,,False,https://www.mvsusports.com,mvsusports.com,True,exact_name,2400.0,Mississippi Valley State,Southwestern Athletic Conference,2006.0,HIGH
+669,T0300,Missouri State University,I,2027,Conference USA,MO,,,False,https://www.missouristatebears.com,missouristatebears.com,True,exact_name,2623.0,Missouri State,Conference USA,2006.0,HIGH
+434,T0065,"University of Missouri, Columbia",I,2027,Southeastern Conference,MO,,,False,https://www.mutigers.com,mutigers.com,True,verified_alias,142.0,Missouri,Southeastern Conference,2006.0,HIGH
+2707,T0064,University of Missouri-Kansas City,I,2027,The Summit League,MO,,,False,https://www.kcroos.com,kcroos.com,True,verified_alias,140.0,Kansas City,The Summit League,2006.0,HIGH
+439,T0241,Monmouth University,I,2027,Coastal Athletic Association,NJ,,,False,https://www.monmouthhawks.com,monmouthhawks.com,True,exact_name,2405.0,Monmouth,Coastal Athletic Association,2006.0,HIGH
+441,T0068,University of Montana,I,2027,Big Sky Conference,MT,,,False,https://www.gogriz.com,gogriz.com,True,exact_name,149.0,Montana,Big Sky Conference,2006.0,HIGH
+440,T0067,Montana State University-Bozeman,I,2027,Big Sky Conference,MT,,,False,https://www.msubobcats.com,msubobcats.com,True,verified_alias,147.0,Montana State,Big Sky Conference,2006.0,HIGH
+444,T0242,Morehead State University,I,2027,Ohio Valley Conference,KY,,,False,https://www.msueagles.com,msueagles.com,True,exact_name,2413.0,Morehead State,Ohio Valley Conference,2006.0,HIGH
+446,T0243,Morgan State University,I,2027,Mid-Eastern Athletic Conf.,MD,,,False,https://www.morganstatebears.com,morganstatebears.com,True,exact_name,2415.0,Morgan State,Mid-Eastern Athletic Conference,2006.0,HIGH
+450,T0057,Mount St. Mary's University,I,2027,Metro Conference,MD,,,False,https://www.mountathletics.com,mountathletics.com,True,exact_name,116.0,Mount St. Mary's,Metro Atlantic Athletic Conference,2006.0,HIGH
+454,T0046,Murray State University,I,2027,Missouri Valley Conference,KY,,,False,https://www.goracers.com,goracers.com,True,exact_name,93.0,Murray State,Missouri Valley Conference,2006.0,HIGH
+464,T0349,University of Nebraska at Omaha,I,2027,The Summit League,NE,,,False,https://www.omavs.com,omavs.com,True,verified_alias,2437.0,Omaha,The Summit League,2012.0,HIGH
+463,T0075,University of Nebraska-Lincoln,I,2027,Big Ten Conference,NE,,,False,https://www.huskers.com,huskers.com,True,verified_alias,158.0,Nebraska,Big Ten Conference,2006.0,HIGH
+465,T0249,"University of Nevada, Las Vegas",I,2027,Mountain West Conference,NV,,,False,https://unlvrebels.com,unlvrebels.com,True,verified_alias,2439.0,UNLV,Mountain West Conference,2006.0,HIGH
+466,T0250,"University of Nevada, Reno",I,2027,Mountain West Conference,NV,,,False,https://nevadawolfpack.com,nevadawolfpack.com,True,verified_alias,2440.0,Nevada,Mountain West Conference,2006.0,HIGH
+469,T0077,University of New Hampshire,I,2027,America East Conference,NH,,,False,https://www.unhwildcats.com,unhwildcats.com,True,exact_name,160.0,New Hampshire,America East Conference,2006.0,HIGH
+470,T0373,University of New Haven,I,2027,Northeast Conference,CT,,,False,https://www.newhavenchargers.com,newhavenchargers.com,True,exact_name,2441.0,New Haven,Northeast Conference,2026.0,HIGH
+471,T0337,New Jersey Institute of Technology,I,2027,America East Conference,NJ,,,False,https://www.njithighlanders.com,njithighlanders.com,True,verified_alias,2885.0,NJIT,America East Conference,2007.0,HIGH
+473,T0082,University of New Mexico,I,2027,Mountain West Conference,NM,,,False,https://www.golobos.com,golobos.com,True,exact_name,167.0,New Mexico,Mountain West Conference,2006.0,HIGH
+472,T0081,New Mexico State University,I,2027,Conference USA,NM,,,False,https://www.nmstatesports.com,nmstatesports.com,True,exact_name,166.0,New Mexico State,Conference USA,2006.0,HIGH
+474,T0251,LSU New Orleans,I,2027,Southland Conference,LA,,,False,https://www.unoprivateers.com,unoprivateers.com,True,exact_name,2443.0,LSU New Orleans,Southland Conference,2006.0,HIGH
+482,T0148,Niagara University,I,2027,Metro Conference,NY,,,False,https://www.purpleeagles.com,purpleeagles.com,True,exact_name,315.0,Niagara,Metro Atlantic Athletic Conference,2006.0,HIGH
+483,T0252,Nicholls State University,I,2027,Southland Conference,LA,,,False,https://www.geauxcolonels.com,geauxcolonels.com,True,verified_alias,2447.0,Nicholls,Southland Conference,2006.0,HIGH
+485,T0255,Norfolk State University,I,2027,Mid-Eastern Athletic Conf.,VA,,,False,https://www.nsuspartans.com,nsuspartans.com,True,exact_name,2450.0,Norfolk State,Mid-Eastern Athletic Conference,2006.0,HIGH
+487,T0355,University of North Alabama,I,2027,United Athletic Conference,AL,3.0,1.0,False,https://www.roarlions.com,roarlions.com,True,exact_name,2453.0,North Alabama,ASUN Conference,2019.0,HIGH
+456,T0245,University of North Carolina Asheville,I,2027,Big South Conference,NC,,,False,https://www.uncabulldogs.com,uncabulldogs.com,True,verified_alias,2427.0,UNC Asheville,Big South Conference,2006.0,HIGH
+488,T0253,North Carolina A&T State University,I,2027,Coastal Athletic Association,NC,,,False,https://www.ncataggies.com,ncataggies.com,True,verified_alias,2448.0,North Carolina A&T,Coastal Athletic Association,2006.0,HIGH
+489,T0339,North Carolina Central University,I,2027,Mid-Eastern Athletic Conf.,NC,,,False,https://www.nccueaglepride.com,nccueaglepride.com,True,exact_name,2428.0,North Carolina Central,Mid-Eastern Athletic Conference,2008.0,HIGH
+490,T0071,North Carolina State University,I,2027,Atlantic Coast Conference,NC,,,False,https://www.gopack.com,gopack.com,True,verified_alias,152.0,NC State,Atlantic Coast Conference,2006.0,HIGH
+460,T0160,University of North Carolina Wilmington,I,2027,Coastal Athletic Association,NC,,,False,https://www.uncwsports.com,uncwsports.com,True,verified_alias,350.0,UNC Wilmington,Coastal Athletic Association,2006.0,HIGH
+457,T0072,"University of North Carolina, Chapel Hill",I,2027,Atlantic Coast Conference,NC,,,False,https://www.goheels.com,goheels.com,True,verified_alias,153.0,North Carolina,Atlantic Coast Conference,2006.0,HIGH
+458,T0246,The University of North Carolina at Charlotte,I,2027,American Conference,NC,,,False,https://www.charlotte49ers.com,charlotte49ers.com,True,verified_alias,2429.0,Charlotte,American Conference,2006.0,HIGH
+459,T0247,The University of North Carolina at Greensboro,I,2027,Southern Conference,NC,,,False,https://www.uncgspartans.com,uncgspartans.com,True,verified_alias,2430.0,UNC Greensboro,Southern Conference,2006.0,HIGH
+494,T0343,University of North Dakota,I,2027,The Summit League,ND,,,False,https://www.fightinghawks.com,fightinghawks.com,True,exact_name,155.0,North Dakota,The Summit League,2009.0,HIGH
+493,T0254,North Dakota State University,I,2027,The Summit League,ND,,,False,https://www.GoBison.com,gobison.com,True,exact_name,2449.0,North Dakota State,The Summit League,2006.0,HIGH
+2711,T0256,University of North Florida,I,2027,Atlantic Sun Conference,FL,,,False,https://www.unfospreys.com,unfospreys.com,True,exact_name,2454.0,North Florida,ASUN Conference,2006.0,HIGH
+497,T0113,University of North Texas,I,2027,American Conference,TX,,,False,https://www.meangreensports.com,meangreensports.com,True,exact_name,249.0,North Texas,American Conference,2006.0,HIGH
+500,T0055,Northeastern University,I,2027,Coastal Athletic Association,MA,,,False,https://www.nuhuskies.com,nuhuskies.com,True,exact_name,111.0,Northeastern,Coastal Athletic Association,2006.0,HIGH
+501,T0261,Northern Arizona University,I,2027,Big Sky Conference,AZ,,,False,https://www.nauathletics.com,nauathletics.com,True,exact_name,2464.0,Northern Arizona,Big Sky Conference,2006.0,HIGH
+502,T0257,University of Northern Colorado,I,2027,Big Sky Conference,CO,,,False,https://uncbears.com,uncbears.com,True,exact_name,2458.0,Northern Colorado,Big Sky Conference,2006.0,HIGH
+503,T0258,Northern Illinois University,I,2027,Horizon League,IL,,,False,https://www.niuhuskies.com,niuhuskies.com,True,exact_name,2459.0,Northern Illinois,Mid-American Conference,2006.0,HIGH
+504,T0259,University of Northern Iowa,I,2027,Missouri Valley Conference,IA,,,False,https://unipanthers.com,unipanthers.com,True,exact_name,2460.0,Northern Iowa,Missouri Valley Conference,2006.0,HIGH
+505,T0350,Northern Kentucky University,I,2027,Horizon League,KY,,,False,https://www.nkunorse.com,nkunorse.com,True,exact_name,94.0,Northern Kentucky,Horizon League,2013.0,HIGH
+508,T0262,Northwestern State University,I,2027,Southland Conference,LA,,,False,https://www.nsudemons.com,nsudemons.com,True,exact_name,2466.0,Northwestern State,Southland Conference,2006.0,HIGH
+509,T0040,Northwestern University,I,2027,Big Ten Conference,IL,,,False,https://www.nusports.com,nusports.com,True,exact_name,77.0,Northwestern,Big Ten Conference,2006.0,HIGH
+513,T0045,University of Notre Dame,I,2027,Atlantic Coast Conference,IN,,,False,https://www.fightingirish.com/,fightingirish.com,True,exact_name,87.0,Notre Dame,Atlantic Coast Conference,2006.0,HIGH
+514,T0263,Oakland University,I,2027,Horizon League,MI,,,False,https://goldengrizzlies.com,goldengrizzlies.com,True,exact_name,2473.0,Oakland,Horizon League,2006.0,HIGH
+518,T0089,The Ohio State University,I,2027,Big Ten Conference,OH,,,False,https://ohiostatebuckeyes.com/,ohiostatebuckeyes.com,True,exact_name,194.0,Ohio State,Big Ten Conference,2006.0,HIGH
+519,T0090,Ohio University,I,2027,Mid-American Conference,OH,,,False,https://www.ohiobobcats.com,ohiobobcats.com,True,exact_name,195.0,Ohio,Mid-American Conference,2006.0,HIGH
+522,T0093,University of Oklahoma,I,2027,Southeastern Conference,OK,,,False,https://soonersports.com,soonersports.com,True,exact_name,201.0,Oklahoma,Southeastern Conference,2006.0,HIGH
+521,T0091,Oklahoma State University,I,2027,Big 12 Conference,OK,,,False,https://www.okstate.com,okstate.com,True,exact_name,197.0,Oklahoma State,Big 12 Conference,2006.0,HIGH
+523,T0138,Old Dominion University,I,2027,Sun Belt Conference,VA,,,False,https://www.odusports.com,odusports.com,True,exact_name,295.0,Old Dominion,Sun Belt Conference,2006.0,HIGH
+527,T0092,Oral Roberts University,I,2027,The Summit League,OK,,,False,https://www.oruathletics.com,oruathletics.com,True,exact_name,198.0,Oral Roberts,The Summit League,2006.0,HIGH
+529,T0264,University of Oregon,I,2027,Big Ten Conference,OR,,,False,https://www.goducks.com,goducks.com,True,exact_name,2483.0,Oregon,Big Ten Conference,2006.0,HIGH
+528,T0095,Oregon State University,I,2027,Pac-12 Conference,OR,,,False,https://osubeavers.com/,osubeavers.com,True,exact_name,204.0,Oregon State,West Coast Conference,2006.0,HIGH
+534,T0132,University of the Pacific,I,2027,West Coast Conference,CA,,,False,https://www.pacifictigers.com,pacifictigers.com,True,exact_name,279.0,Pacific,West Coast Conference,2006.0,HIGH
+540,T0098,University of Pennsylvania,I,2027,The Ivy League,PA,,,False,https://www.pennathletics.com,pennathletics.com,True,exact_name,219.0,Pennsylvania,Ivy League,2006.0,HIGH
+539,T0096,Pennsylvania State University,I,2027,Big Ten Conference,PA,,,False,https://goPSUsports.com,gopsusports.com,True,verified_alias,213.0,Penn State,Big Ten Conference,2006.0,HIGH
+541,T0265,Pepperdine University,I,2027,West Coast Conference,CA,,,False,https://www.pepperdinewaves.com,pepperdinewaves.com,True,exact_name,2492.0,Pepperdine,West Coast Conference,2006.0,HIGH
+545,T0099,University of Pittsburgh,I,2027,Atlantic Coast Conference,PA,,,False,https://www.pittsburghpanthers.com,pittsburghpanthers.com,True,exact_name,221.0,Pittsburgh,Atlantic Coast Conference,2006.0,HIGH
+551,T0266,University of Portland,I,2027,West Coast Conference,OR,,,False,https://www.portlandpilots.com,portlandpilots.com,True,exact_name,2501.0,Portland,West Coast Conference,2006.0,HIGH
+550,T0267,Portland State University,I,2027,Big Sky Conference,OR,,,False,https://goviks.com,goviks.com,True,exact_name,2502.0,Portland State,Big Sky Conference,2006.0,HIGH
+553,T0268,Prairie View A&M University,I,2027,Southwestern Athletic Conf.,TX,,,False,https://www.pvpanthers.com,pvpanthers.com,True,exact_name,2504.0,Prairie View A&M,Southwestern Athletic Conference,2006.0,HIGH
+1320,T0340,Presbyterian College,I,2027,Big South Conference,SC,,,False,https://gobluehose.com,gobluehose.com,True,exact_name,2506.0,Presbyterian,Big South Conference,2008.0,HIGH
+554,T0079,Princeton University,I,2027,The Ivy League,NJ,,,False,https://www.goprincetontigers.com,goprincetontigers.com,True,exact_name,163.0,Princeton,Ivy League,2006.0,HIGH
+556,T0269,Providence College,I,2027,BIG EAST Conference,RI,,,False,https://www.friars.com,friars.com,True,exact_name,2507.0,Providence,Big East Conference,2006.0,HIGH
+308,T0332,Purdue University Fort Wayne,I,2027,Horizon League,IN,,,False,https://www.gomastodons.com/,gomastodons.com,True,verified_alias,2870.0,Purdue Fort Wayne,Horizon League,2006.0,HIGH
+559,T0270,Purdue University,I,2027,Big Ten Conference,IN,,,False,https://purduesports.com,purduesports.com,True,exact_name,2509.0,Purdue,Big Ten Conference,2006.0,HIGH
+11504,T0367,Queens University of Charlotte,I,2027,Atlantic Sun Conference,NC,,,False,https://www.queensathletics.com,queensathletics.com,True,verified_alias,2511.0,Queens University,,2023.0,HIGH
+562,T0271,Quinnipiac University,I,2027,Metro Conference,CT,,,False,https://www.gobobcats.com,gobobcats.com,True,exact_name,2514.0,Quinnipiac,Metro Atlantic Athletic Conference,2006.0,HIGH
+563,T0272,Radford University,I,2027,Big South Conference,VA,,,False,https://www.radfordathletics.com,radfordathletics.com,True,exact_name,2515.0,Radford,Big South Conference,2006.0,HIGH
+572,T0102,University of Rhode Island,I,2027,Atlantic 10 Conference,RI,,,False,https://www.gorhody.com,gorhody.com,True,exact_name,227.0,Rhode Island,Atlantic 10 Conference,2006.0,HIGH
+574,T0110,Rice University,I,2027,American Conference,TX,,,False,https://www.riceowls.com,riceowls.com,True,exact_name,242.0,Rice,American Conference,2006.0,HIGH
+575,T0120,University of Richmond,I,2027,Atlantic 10 Conference,VA,,,False,https://richmondspiders.com/,richmondspiders.com,True,exact_name,257.0,Richmond,Atlantic 10 Conference,2006.0,HIGH
+576,T0273,Rider University,I,2027,Metro Conference,NJ,,,False,https://www.gobroncs.com,gobroncs.com,True,exact_name,2520.0,Rider,Metro Atlantic Athletic Conference,2006.0,HIGH
+579,T0274,Robert Morris University,I,2027,Horizon League,PA,,,False,https://www.rmucolonials.com,rmucolonials.com,True,exact_name,2523.0,Robert Morris,Horizon League,2006.0,HIGH
+587,T0080,"Rutgers, The State University of New Jersey, New Brunswick",I,2027,Big Ten Conference,NJ,,,False,https://www.scarletknights.com,scarletknights.com,True,verified_alias,164.0,Rutgers,Big Ten Conference,2006.0,HIGH
+590,T0275,Sacred Heart University,I,2027,Metro Conference,CT,,,False,https://sacredheartpioneers.com,sacredheartpioneers.com,True,exact_name,2529.0,Sacred Heart,Metro Atlantic Athletic Conference,2006.0,HIGH
+624,T0276,Sam Houston State University,I,2027,Conference USA,TX,,,False,https://www.gobearkats.com,gobearkats.com,True,verified_alias,2534.0,Sam Houston,Conference USA,2006.0,HIGH
+625,T0277,Samford University,I,2027,Southern Conference,AL,,,False,https://samfordsports.com,samfordsports.com,True,exact_name,2535.0,Samford,Southern Conference,2006.0,HIGH
+627,T0141,University of San Diego,I,2027,West Coast Conference,CA,,,False,https://www.usdtoreros.com,usdtoreros.com,True,exact_name,301.0,San Diego,West Coast Conference,2006.0,HIGH
+626,T0010,San Diego State University,I,2027,Pac-12 Conference,CA,,,False,https://goaztecs.com,goaztecs.com,True,exact_name,21.0,San Diego State,Mountain West Conference,2006.0,HIGH
+629,T0278,University of San Francisco,I,2027,West Coast Conference,CA,,,False,https://usfdons.com/index.aspx,usfdons.com,True,exact_name,2539.0,San Francisco,West Coast Conference,2006.0,HIGH
+630,T0011,San Jose State University,I,2027,Mountain West Conference,CA,,,False,https://www.sjsuspartans.com,sjsuspartans.com,True,exact_name,23.0,San José State,Mountain West Conference,2006.0,HIGH
+631,T0280,Santa Clara University,I,2027,West Coast Conference,CA,,,False,https://santaclarabroncos.com,santaclarabroncos.com,True,exact_name,2541.0,Santa Clara,West Coast Conference,2006.0,HIGH
+1356,T0346,Seattle University,I,2027,West Coast Conference,WA,,,False,https://goseattleu.com,goseattleu.com,True,verified_alias,2547.0,Seattle U,West Coast Conference,2009.0,HIGH
+635,T0284,Seton Hall University,I,2027,BIG EAST Conference,NJ,,,False,https://www.shupirates.com,shupirates.com,True,exact_name,2550.0,Seton Hall,Big East Conference,2006.0,HIGH
+639,T0285,Siena University,I,2027,Metro Conference,NY,,,False,https://www.sienasaints.com,sienasaints.com,True,exact_name,2561.0,Siena,Metro Atlantic Athletic Conference,2006.0,HIGH
+646,T0004,University of South Alabama,I,2027,Sun Belt Conference,AL,,,False,https://www.usajaguars.com,usajaguars.com,True,exact_name,6.0,South Alabama,Sun Belt Conference,2006.0,HIGH
+648,T0290,"University of South Carolina, Columbia",I,2027,Southeastern Conference,SC,,,False,https://gamecocksonline.com,gamecocksonline.com,True,verified_alias,2579.0,South Carolina,Southeastern Conference,2006.0,HIGH
+647,T0287,South Carolina State University,I,2027,Mid-Eastern Athletic Conf.,SC,,,False,https://www.scsuathletics.com/index.aspx,scsuathletics.com,True,exact_name,2569.0,South Carolina State,Mid-Eastern Athletic Conference,2006.0,HIGH
+10411,T0341,University of South Carolina Upstate,I,2027,Big South Conference,SC,,,False,https://www.upstatespartans.com,upstatespartans.com,True,exact_name,2908.0,South Carolina Upstate,Big South Conference,2008.0,HIGH
+650,T0344,University of South Dakota,I,2027,The Summit League,SD,,,False,https://www.goyotes.com,goyotes.com,True,exact_name,233.0,South Dakota,The Summit League,2009.0,HIGH
+649,T0288,South Dakota State University,I,2027,The Summit League,SD,,,False,https://www.gojacks.com,gojacks.com,True,exact_name,2571.0,South Dakota State,The Summit League,2006.0,HIGH
+651,T0032,University of South Florida,I,2027,American Conference,FL,,,False,https://www.gousfbulls.com/,gousfbulls.com,True,exact_name,58.0,South Florida,American Conference,2006.0,HIGH
+654,T0283,Southeast Missouri State University,I,2027,Ohio Valley Conference,MO,,,False,https://www.semoredhawks.com,semoredhawks.com,True,exact_name,2546.0,Southeast Missouri State,Ohio Valley Conference,2006.0,HIGH
+655,T0282,Southeastern Louisiana University,I,2027,Southland Conference,LA,,,False,https://www.lionsports.net,lionsports.net,True,verified_alias,2545.0,SE Louisiana,Southland Conference,2006.0,HIGH
+657,T0016,University of Southern California,I,2027,Big Ten Conference,CA,,,False,https://usctrojans.com,usctrojans.com,True,verified_alias,30.0,USC,Big Ten Conference,2006.0,HIGH
+659,T0041,Southern Illinois University at Carbondale,I,2027,Missouri Valley Conference,IL,,,False,https://www.siusalukis.com/,siusalukis.com,True,verified_alias,79.0,Southern Illinois,Missouri Valley Conference,2006.0,HIGH
+660,T0347,Southern Illinois University Edwardsville,I,2027,Ohio Valley Conference,IL,,,False,https://www.siuecougars.com,siuecougars.com,True,verified_alias,2565.0,SIU Edwardsville,Ohio Valley Conference,2009.0,HIGH
+661,T0365,University of Southern Indiana,I,2027,Ohio Valley Conference,IN,,,False,https://www.usiscreamingeagles.com/,usiscreamingeagles.com,True,exact_name,88.0,Southern Indiana,,2023.0,HIGH
+663,T0286,Southern Methodist University,I,2027,Atlantic Coast Conference,TX,,,False,https://www.smumustangs.com,smumustangs.com,True,verified_alias,2567.0,SMU,Atlantic Coast Conference,2006.0,HIGH
+664,T0289,The University of Southern Mississippi,I,2027,Sun Belt Conference,MS,,,False,https://www.southernmiss.com,southernmiss.com,True,verified_alias,2572.0,Southern Miss,Sun Belt Conference,2006.0,HIGH
+665,T0291,"Southern University, Baton Rouge",I,2027,Southwestern Athletic Conf.,LA,,,False,https://www.gojagsports.com,gojagsports.com,True,verified_alias,2582.0,Southern,Southwestern Athletic Conference,2006.0,HIGH
+667,T0117,Southern Utah University,I,2027,Big Sky Conference,UT,,,False,https://www.suutbirds.com,suutbirds.com,True,exact_name,253.0,Southern Utah,Western Athletic Conference,2006.0,HIGH
+596,T0085,St. Bonaventure University,I,2027,Atlantic 10 Conference,NY,,,False,https://www.gobonnies.com,gobonnies.com,True,exact_name,179.0,St. Bonaventure,Atlantic 10 Conference,2006.0,HIGH
+603,T0294,St. John's University (New York),I,2027,BIG EAST Conference,NY,,,False,https://www.redstormsports.com,redstormsports.com,True,verified_alias,2599.0,St. John's,Big East Conference,2006.0,HIGH
+606,T0295,Saint Joseph's University,I,2027,Atlantic 10 Conference,PA,,,False,https://sjuhawks.com,sjuhawks.com,True,exact_name,2603.0,Saint Joseph's,Atlantic 10 Conference,2006.0,HIGH
+609,T0063,Saint Louis University,I,2027,Atlantic 10 Conference,MO,,,False,https://www.slubillikens.com,slubillikens.com,True,exact_name,139.0,Saint Louis,Atlantic 10 Conference,2006.0,HIGH
+610,T0296,Saint Mary's College of California,I,2027,West Coast Conference,CA,,,False,https://www.SMCGaels.com,smcgaels.com,True,verified_alias,2608.0,Saint Mary's,West Coast Conference,2006.0,HIGH
+617,T0297,Saint Peter's University,I,2027,Metro Conference,NJ,,,False,https://www.saintpeterspeacocks.com,saintpeterspeacocks.com,True,exact_name,2612.0,Saint Peter's,Metro Atlantic Athletic Conference,2006.0,HIGH
+620,T0363,University of St. Thomas (Minnesota),I,2027,The Summit League,MN,,,False,https://www.Tommiesports.com,tommiesports.com,True,verified_alias,2900.0,St. Thomas,The Summit League,2022.0,HIGH
+674,T0012,Stanford University,I,2027,Atlantic Coast Conference,CA,,,False,https://gostanford.com/,gostanford.com,True,exact_name,24.0,Stanford,Atlantic Coast Conference,2006.0,HIGH
+676,T0298,Stephen F. Austin State University,I,2027,Southland Conference,TX,,,False,https://SFAjacks.com,sfajacks.com,True,verified_alias,2617.0,Stephen F. Austin,Southland Conference,2006.0,HIGH
+678,T0030,Stetson University,I,2027,Atlantic Sun Conference,FL,,,False,https://www.gohatters.com,gohatters.com,True,exact_name,56.0,Stetson,ASUN Conference,2006.0,HIGH
+682,T0366,Stonehill College,I,2027,Northeast Conference,MA,,,False,https://www.stonehillskyhawks.com,stonehillskyhawks.com,True,exact_name,284.0,Stonehill,Northeast Conference,2023.0,HIGH
+683,T0299,Stony Brook University,I,2027,Coastal Athletic Association,NY,,,False,https://stonybrookathletics.com,stonybrookathletics.com,True,exact_name,2619.0,Stony Brook,Coastal Athletic Association,2006.0,HIGH
+688,T0086,Syracuse University,I,2027,Atlantic Coast Conference,NY,,,False,https://cuse.com,cuse.com,True,exact_name,183.0,Syracuse,Atlantic Coast Conference,2006.0,HIGH
+1395,T0360,Tarleton State University,I,2027,United Athletic Conference,TX,,,False,https://tarletonsports.com,tarletonsports.com,True,exact_name,2627.0,Tarleton State,Western Athletic Conference,2021.0,HIGH
+690,T0097,Temple University,I,2027,American Conference,PA,,,False,https://www.owlsports.com,owlsports.com,True,exact_name,218.0,Temple,American Conference,2006.0,HIGH
+691,T0304,Tennessee State University,I,2027,Ohio Valley Conference,TN,,,False,https://www.tsutigers.com,tsutigers.com,True,exact_name,2634.0,Tennessee State,Ohio Valley Conference,2006.0,HIGH
+692,T0305,Tennessee Technological University,I,2027,Southern Conference,TN,,,False,https://www.TTUsports.com/,ttusports.com,True,verified_alias,2635.0,Tennessee Tech,Ohio Valley Conference,2006.0,HIGH
+693,T0107,University of Tennessee at Chattanooga,I,2027,Southern Conference,TN,,,False,https://www.gomocs.com,gomocs.com,True,verified_alias,236.0,Chattanooga,Southern Conference,2006.0,HIGH
+694,T0303,"University of Tennessee, Knoxville",I,2027,Southeastern Conference,TN,,,False,https://www.utsports.com,utsports.com,True,verified_alias,2633.0,Tennessee,Southeastern Conference,2006.0,HIGH
+695,T0302,University of Tennessee at Martin,I,2027,Ohio Valley Conference,TN,,,False,https://www.utmsports.com,utmsports.com,True,verified_alias,2630.0,UT Martin,Ohio Valley Conference,2006.0,HIGH
+697,T0111,"Texas A&M University, College Station",I,2027,Southeastern Conference,TX,,,False,https://www.12thman.com,12thman.com,True,verified_alias,245.0,Texas A&M,Southeastern Conference,2006.0,HIGH
+26172,T0162,Texas A&M University-Corpus Christi,I,2027,Southland Conference,TX,,,False,https://www.goislanders.com,goislanders.com,True,verified_alias,357.0,Texas A&M-Corpus Christi,Southland Conference,2006.0,HIGH
+702,T0114,University of Texas at Arlington,I,2027,United Athletic Conference,TX,,,False,https://www.utamavs.com,utamavs.com,True,verified_alias,250.0,UT Arlington,Western Athletic Conference,2006.0,HIGH
+698,T0301,Texas Christian University,I,2027,Big 12 Conference,TX,,,False,https://www.gofrogs.com,gofrogs.com,True,verified_alias,2628.0,TCU,Big 12 Conference,2006.0,HIGH
+536,T0136,The University of Texas Rio Grande Valley,I,2027,Southland Conference,TX,,,False,https://goutrgv.com,goutrgv.com,True,verified_alias,292.0,UT Rio Grande Valley,Southland Conference,2006.0,HIGH
+699,T0308,Texas Southern University,I,2027,Southwestern Athletic Conf.,TX,,,False,https://www.tsusports.com,tsusports.com,True,exact_name,2640.0,Texas Southern,Southwestern Athletic Conference,2006.0,HIGH
+670,T0152,Texas State University,I,2027,Pac-12 Conference,TX,,,False,https://txstatebobcats.com,txstatebobcats.com,True,exact_name,326.0,Texas State,Sun Belt Conference,2006.0,HIGH
+700,T0309,Texas Tech University,I,2027,Big 12 Conference,TX,,,False,https://www.texastech.com,texastech.com,True,exact_name,2641.0,Texas Tech,Big 12 Conference,2006.0,HIGH
+703,T0115,University of Texas at Austin,I,2027,Southeastern Conference,TX,,,False,https://www.TexasLonghorns.com,texaslonghorns.com,True,verified_alias,251.0,Texas,Southeastern Conference,2006.0,HIGH
+704,T0307,University of Texas at El Paso,I,2027,Mountain West Conference,TX,,,False,https://www.utepminers.com,utepminers.com,True,verified_alias,2638.0,UTEP,Conference USA,2006.0,HIGH
+706,T0306,University of Texas at San Antonio,I,2027,American Conference,TX,,,False,https://www.goutsa.com,goutsa.com,True,verified_alias,2636.0,UTSA,American Conference,2006.0,HIGH
+709,T0311,University of Toledo,I,2027,Mid-American Conference,OH,,,False,https://www.utrockets.com,utrockets.com,True,exact_name,2649.0,Toledo,Mid-American Conference,2006.0,HIGH
+711,T0058,Towson University,I,2027,Coastal Athletic Association,MD,,,False,https://www.towsontigers.com,towsontigers.com,True,exact_name,119.0,Towson,Coastal Athletic Association,2006.0,HIGH
+716,T0312,Troy University,I,2027,Sun Belt Conference,AL,,,False,https://troytrojans.com,troytrojans.com,True,exact_name,2653.0,Troy,Sun Belt Conference,2006.0,HIGH
+718,T0313,Tulane University,I,2027,American Conference,LA,,,False,https://www.tulanegreenwave.com,tulanegreenwave.com,True,exact_name,2655.0,Tulane,American Conference,2006.0,HIGH
+719,T0094,The University of Tulsa,I,2027,American Conference,OK,,,False,https://www.tulsahurricane.com,tulsahurricane.com,True,exact_name,202.0,Tulsa,American Conference,2006.0,HIGH
+721,T0164,U.S. Air Force Academy,I,2027,Mountain West Conference,CO,,,False,https://www.goairforcefalcons.com/,goairforcefalcons.com,True,verified_alias,2005.0,Air Force,Mountain West Conference,2006.0,HIGH
+725,T0159,U.S. Military Academy,I,2027,Patriot League,NY,,,False,https://goarmywestpoint.com/index.aspx,goarmywestpoint.com,True,verified_alias,349.0,Army,Patriot League,2006.0,HIGH
+726,T0244,U.S. Naval Academy,I,2027,Patriot League,MD,,,False,https://www.navysports.com,navysports.com,True,verified_alias,2426.0,Navy,Patriot League,2006.0,HIGH
+732,T0118,University of Utah,I,2027,Big 12 Conference,UT,,,False,https://utahutes.com/,utahutes.com,True,exact_name,254.0,Utah,Big 12 Conference,2006.0,HIGH
+731,T0153,Utah State University,I,2027,Pac-12 Conference,UT,,,False,https://www.utahstateaggies.com,utahstateaggies.com,True,exact_name,328.0,Utah State,Mountain West Conference,2006.0,HIGH
+30095,T0361,Utah Tech University,I,2027,Big Sky Conference,UT,,,False,https://utahtechtrailblazers.com/,utahtechtrailblazers.com,True,exact_name,3101.0,Utah Tech,Western Athletic Conference,2021.0,HIGH
+30024,T0333,Utah Valley University,I,2027,Big West Conference,UT,,,False,https://www.gouvu.com,gouvu.com,True,exact_name,3084.0,Utah Valley,Western Athletic Conference,2006.0,HIGH
+735,T0315,Valparaiso University,I,2027,Missouri Valley Conference,IN,,,False,https://www.valpoathletics.com,valpoathletics.com,True,exact_name,2674.0,Valparaiso,Missouri Valley Conference,2006.0,HIGH
+736,T0108,Vanderbilt University,I,2027,Southeastern Conference,TN,,,False,https://vucommodores.com,vucommodores.com,True,exact_name,238.0,Vanderbilt,Southeastern Conference,2006.0,HIGH
+738,T0123,University of Vermont,I,2027,America East Conference,VT,,,False,https://www.uvmathletics.com,uvmathletics.com,True,exact_name,261.0,Vermont,America East Conference,2006.0,HIGH
+739,T0100,Villanova University,I,2027,BIG EAST Conference,PA,,,False,https://www.villanova.com,villanova.com,True,exact_name,222.0,Villanova,Big East Conference,2006.0,HIGH
+746,T0121,University of Virginia,I,2027,Atlantic Coast Conference,VA,,,False,https://www.virginiasports.com,virginiasports.com,True,exact_name,258.0,Virginia,Atlantic Coast Conference,2006.0,HIGH
+740,T0314,Virginia Commonwealth University,I,2027,Atlantic 10 Conference,VA,,,False,https://www.vcuathletics.com,vcuathletics.com,True,verified_alias,2670.0,VCU,Atlantic 10 Conference,2006.0,HIGH
+741,T0316,Virginia Military Institute,I,2027,Southern Conference,VA,,,False,https://www.vmikeydets.com,vmikeydets.com,True,verified_alias,2678.0,VMI,Southern Conference,2006.0,HIGH
+742,T0122,Virginia Polytechnic Institute and State University,I,2027,Atlantic Coast Conference,VA,,,False,https://www.hokiesports.com,hokiesports.com,True,verified_alias,259.0,Virginia Tech,Atlantic Coast Conference,2006.0,HIGH
+748,T0317,Wagner College,I,2027,Northeast Conference,NY,,,False,https://www.wagnerathletics.com,wagnerathletics.com,True,exact_name,2681.0,Wagner,Northeast Conference,2006.0,HIGH
+749,T0073,Wake Forest University,I,2027,Atlantic Coast Conference,NC,,,False,https://www.godeacs.com,godeacs.com,True,exact_name,154.0,Wake Forest,Atlantic Coast Conference,2006.0,HIGH
+756,T0124,University of Washington,I,2027,Big Ten Conference,WA,,,False,https://www.gohuskies.com,gohuskies.com,True,exact_name,264.0,Washington,Big Ten Conference,2006.0,HIGH
+754,T0125,Washington State University,I,2027,Pac-12 Conference,WA,,,False,https://www.wsucougars.com,wsucougars.com,True,exact_name,265.0,Washington State,West Coast Conference,2006.0,HIGH
+758,T0318,Weber State University,I,2027,Big Sky Conference,UT,,,False,https://www.weberstatesports.com/,weberstatesports.com,True,exact_name,2692.0,Weber State,Big Sky Conference,2006.0,HIGH
+11740,,University of West Florida,I,2027,Atlantic Sun Conference,FL,,,False,https://www.goargos.com,goargos.com,True,unresolved,,,,,UNRESOLVED
+766,T0372,University of West Georgia,I,2027,United Athletic Conference,GA,,,False,https://www.uwgathletics.com,uwgathletics.com,True,exact_name,2698.0,West Georgia,ASUN Conference,2025.0,HIGH
+768,T0130,West Virginia University,I,2027,Big 12 Conference,WV,,,False,https://www.wvusports.com,wvusports.com,True,exact_name,277.0,West Virginia,Big 12 Conference,2006.0,HIGH
+769,T0321,Western Carolina University,I,2027,Southern Conference,NC,,,False,https://www.catamountsports.com,catamountsports.com,True,exact_name,2717.0,Western Carolina,Southern Conference,2006.0,HIGH
+771,T0319,Western Illinois University,I,2027,Ohio Valley Conference,IL,,,False,https://www.goleathernecks.com,goleathernecks.com,True,exact_name,2710.0,Western Illinois,Ohio Valley Conference,2006.0,HIGH
+772,T0049,Western Kentucky University,I,2027,Conference USA,KY,,,False,https://www.wkusports.com,wkusports.com,True,exact_name,98.0,Western Kentucky,Conference USA,2006.0,HIGH
+774,T0320,Western Michigan University,I,2027,Mid-American Conference,MI,,,False,https://www.wmubroncos.com,wmubroncos.com,True,exact_name,2711.0,Western Michigan,Mid-American Conference,2006.0,HIGH
+782,T0322,Wichita State University,I,2027,American Conference,KS,,,False,https://www.goshockers.com,goshockers.com,True,exact_name,2724.0,Wichita State,American Conference,2006.0,HIGH
+786,T0323,William & Mary,I,2027,Coastal Athletic Association,VA,,,False,https://www.tribeathletics.com,tribeathletics.com,True,exact_name,2729.0,William & Mary,Coastal Athletic Association,2006.0,HIGH
+792,T0324,Winthrop University,I,2027,Big South Conference,SC,,,False,https://www.winthropeagles.com,winthropeagles.com,True,exact_name,2737.0,Winthrop,Big South Conference,2006.0,HIGH
+794,T0325,University of Wisconsin-Green Bay,I,2027,Horizon League,WI,,,False,https://greenbayphoenix.com,greenbayphoenix.com,True,verified_alias,2739.0,Green Bay,Horizon League,2006.0,HIGH
+796,T0128,University of Wisconsin-Madison,I,2027,Big Ten Conference,WI,,,False,https://www.uwbadgers.com,uwbadgers.com,True,verified_alias,275.0,Wisconsin,Big Ten Conference,2006.0,HIGH
+797,T0127,University of Wisconsin-Milwaukee,I,2027,Horizon League,WI,,,False,https://www.mkepanthers.com,mkepanthers.com,True,verified_alias,270.0,Milwaukee,Horizon League,2006.0,HIGH
+2915,T0326,Wofford College,I,2027,Southern Conference,SC,,,False,https://www.wofford.edu/athletics,wofford.edu,True,exact_name,2747.0,Wofford,Southern Conference,2006.0,HIGH
+810,T0327,Wright State University,I,2027,Horizon League,OH,,,False,https://www.wsuraiders.com,wsuraiders.com,True,exact_name,2750.0,Wright State,Horizon League,2006.0,HIGH
+811,T0328,University of Wyoming,I,2027,Mountain West Conference,WY,,,False,https://www.gowyo.com,gowyo.com,True,exact_name,2751.0,Wyoming,Mountain West Conference,2006.0,HIGH
+812,T0329,Xavier University,I,2027,BIG EAST Conference,OH,,,False,https://www.goxavier.com,goxavier.com,True,exact_name,2752.0,Xavier,Big East Conference,2006.0,HIGH
+813,T0021,Yale University,I,2027,The Ivy League,CT,,,False,https://www.yalebulldogs.com,yalebulldogs.com,True,exact_name,43.0,Yale,Ivy League,2006.0,HIGH
+817,T0330,Youngstown State University,I,2027,Horizon League,OH,,,False,https://www.ysusports.com,ysusports.com,True,exact_name,2754.0,Youngstown State,Horizon League,2006.0,HIGH
