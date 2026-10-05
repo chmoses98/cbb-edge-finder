@@ -51,3 +51,20 @@ def test_disagreement_does_not_touch_projection():
     d = disagreement(r, "GAME_WINNER", {"ticker": "X", "yes_bid": 40, "yes_ask": 44}, True)
     assert d is not None and d["market_prob"] == pytest.approx(0.42)
     assert r == before
+
+
+def test_challenger_records_are_archived_separately(tmp_path):
+    inc = _rec()
+    ch = copy.deepcopy(inc)
+    ch["model"]["version"] = "pure-0.3.0"
+    ch["projection"]["margin"] = 5.0
+    assert write_archive([inc], tmp_path)["written"] == 1
+    assert write_archive([ch], tmp_path)["written"] == 1  # same game/time, no collision
+    files = sorted(p.relative_to(tmp_path).parts[0] for p in tmp_path.rglob("*.json"))
+    assert files == ["2027", "pure-0.3.0"]  # incumbent keeps the legacy layout
+
+
+def test_default_model_is_incumbent_not_latest_file():
+    from cbb_edge.app.prospective import active_models, load_model
+
+    assert load_model()["version"] == active_models()["incumbent"]

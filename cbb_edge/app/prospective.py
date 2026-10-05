@@ -37,6 +37,7 @@ from cbb_edge.app.sift import (
     TeamRef,
     validate,
 )
+from cbb_edge.app.wave3_live import wave3_inputs
 from cbb_edge.backtest.walkforward import EngineConfig, run
 from cbb_edge.data.http import data_dir
 from cbb_edge.data.ids.teams import _registry
@@ -56,13 +57,25 @@ class ArchiveOverwriteError(FileExistsError):
     """An archive record for this (game, run) already exists — archives are append-only."""
 
 
+LEGACY_LAYOUT_VERSION = "pure-0.2.0"  # archived at <root>/<season>/... (no version dir)
+
+
+def active_models() -> dict[str, Any]:
+    """``models/pure/active.json``: the incumbent and any shadow challengers. Every
+    active model is projected and archived on every run (challengers in shadow)."""
+    p = MODEL_DIR / "active.json"
+    if not p.exists():
+        return {"incumbent": LEGACY_LAYOUT_VERSION, "challengers": []}
+    return json.loads(p.read_text())
+
+
 def load_model(version: str | None = None) -> dict[str, Any]:
-    paths = sorted(MODEL_DIR.glob("*.json"))
-    if version:
-        paths = [p for p in paths if p.stem == version]
-    if not paths:
-        raise FileNotFoundError(f"no frozen PURE model in {MODEL_DIR}")
-    return json.loads(paths[-1].read_text())
+    """Frozen artifact by version; default = the active INCUMBENT (never 'latest file')."""
+    version = version or active_models()["incumbent"]
+    path = MODEL_DIR / f"{version}.json"
+    if not path.exists():
+        raise FileNotFoundError(f"no frozen PURE model {version} in {MODEL_DIR}")
+    return json.loads(path.read_text())
 
 
 def apply_linear(X: pd.DataFrame, spec: dict[str, Any]) -> np.ndarray:
@@ -92,11 +105,18 @@ def feature_frame(
         stats=tuple(ec["stats"]),
     )
     seasons = list(range(season - warmup, season + 1))
-    st = run(games_info, tg_e, seasons, cfg, verbose=False)
+    wave3 = "team_prior_hook" in model
+    if wave3:  # pure-0.3.0+: roster/conference-anchored engine + provider player features
+        st, pf3 = wave3_inputs(model, season, games_info, tg_e, as_of, cfg, warmup)
+    else:
+        st = run(games_info, tg_e, seasons, cfg, verbose=False)
     df = attach_games(st[st["season"] == season], games_info)
     parts = [blocks.base_block(df)]
     feats = set(model["margin"]["features"]) | set(model["total"]["features"])
-    if any(f.startswith(("p_", "depth_", "roster_known")) for f in feats):
+    if wave3:
+        df = df.merge(pf3.drop(columns=["season"]), on="game_id", how="left")
+        parts = [blocks.base_block(df), blocks.player_block(df)]
+    elif any(f.startswith(("p_", "depth_", "roster_known")) for f in feats):
         pg = pd.read_parquet(
             data_dir() / "silver" / "player_games.parquet",
             columns=["season", "game_id", "team_id", "player_id", "min", "available_at"],
@@ -122,6 +142,8 @@ def feature_frame(
         hca = model.get("team_hca", {})
         ctx["team_hca"] = np.where(df["L"] == 1, df["home_team_id"].map(hca).fillna(0.0), 0.0)
         parts.append(blocks.context_block(df, ctx))
+    if "mismatch" in model.get("extra_blocks", []):
+        parts.append(blocks.mismatch_block(df))
     X = blocks.combine(*parts)
     assert_pure_frame(X, "prospective features")
     return pd.concat(
@@ -239,7 +261,9 @@ def write_archive(records: list[dict[str, Any]], root: Path) -> dict[str, int]:
         gid = rec["game"]["game_id"]
         date = rec["game"]["start_time_utc"][:10]
         stamp = rec["prospective"]["as_of"].replace(":", "").replace("+0000", "Z")
-        path = root / str(rec["game"]["season"]) / date / gid / f"{stamp}.json"
+        version = rec.get("model", {}).get("version", LEGACY_LAYOUT_VERSION)
+        base = root if version in (LEGACY_LAYOUT_VERSION, "0.2.0") else root / version
+        path = base / str(rec["game"]["season"]) / date / gid / f"{stamp}.json"
         blob = json.dumps(rec, sort_keys=True, allow_nan=False)
         if path.exists():
             if (

@@ -45,9 +45,14 @@ BOX = [
 ]
 
 
-def build(seasons: list[int] | None = None) -> pd.DataFrame:
-    pg = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
-    pg = pg[pg["team_id"].notna() & pg["min"].fillna(0).gt(0)]
+def build(
+    seasons: list[int] | None = None, pg: pd.DataFrame | None = None, save: bool = True
+) -> pd.DataFrame:
+    """``pg`` (optional) = player-game rows to use, e.g. restricted to games available
+    before a prospective run's ``as_of``; default = the whole silver table."""
+    if pg is None:
+        pg = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
+    pg = pg[pg["team_id"].notna() & pg["min"].fillna(0).gt(0)].copy()
     if seasons:
         pg = pg[pg["season"].isin(seasons)]
     for c in BOX + ["min"]:
@@ -117,9 +122,10 @@ def build(seasons: list[int] | None = None) -> pd.DataFrame:
         main = main.merge(r, on=["player_id", "season"], how="left")
         main["rapm_matched"] = main["rapm_poss"].fillna(0) > 0
         main["rapm_net"] = main["rapm_o"] - main["rapm_d"]
-    out = data_dir() / "silver" / "players" / "player_seasons.parquet"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    main.to_parquet(out, index=False)
+    if save:
+        out = data_dir() / "silver" / "players" / "player_seasons.parquet"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        main.to_parquet(out, index=False)
     return main
 
 

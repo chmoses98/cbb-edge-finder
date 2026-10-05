@@ -47,6 +47,7 @@ PURE_PACKAGES = (
     "cbb_edge/research/blocks.py",
     "cbb_edge/backtest/residuals.py",
     "cbb_edge/app/prospective.py",
+    "cbb_edge/app/wave3_live.py",
 )
 FORBIDDEN_IMPORTS = ("cbb_edge.market", "cbb_edge.kalshi")
 
@@ -75,6 +76,8 @@ ARM_FAMILY: dict[str, ModelFamily] = {
             "B10",
             "B10_engine_only",
             "B10d",
+            "B10r",
+            "B10r_engine_only",
             "B11",
             "B12",
             "B13",
@@ -83,6 +86,7 @@ ARM_FAMILY: dict[str, ModelFamily] = {
             "B14",
             "B14v",
             "B15",
+            "B15_with_preseason",
             "ELO",
             "PURE",
         )

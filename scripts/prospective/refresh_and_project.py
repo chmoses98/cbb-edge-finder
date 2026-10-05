@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from cbb_edge.app.prospective import project_window, write_archive
+from cbb_edge.app.prospective import active_models, load_model, project_window, write_archive
 from cbb_edge.data.bronze import sportsdataverse as sdv
 from cbb_edge.data.http import data_dir
 from cbb_edge.data.silver.build import build as build_silver
@@ -51,9 +51,18 @@ def main() -> None:
     for s in range(a.season - 5, a.season + 1):
         build_stints(s, games, pg)
     build_shot(list(range(a.season - 5, a.season + 1)))
-    recs = project_window(a.season, now, a.horizon_h)
-    res = write_archive(recs, Path(a.out))
-    print(json.dumps({"as_of": now.isoformat(), "inputs_stamp": stamp, **res}))
+    # incumbent + shadow challengers, each from its own frozen artifact; records of one
+    # version never touch another's (separate archive paths, append-only)
+    act = active_models()
+    out = {}
+    for role, version in [("incumbent", act["incumbent"])] + [
+        ("challenger", v) for v in act.get("challengers", [])
+    ]:
+        recs = project_window(a.season, now, a.horizon_h, model=load_model(version))
+        for r in recs:
+            r["prospective"]["role"] = role
+        out[version] = write_archive(recs, Path(a.out))
+    print(json.dumps({"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out}))
 
 
 if __name__ == "__main__":

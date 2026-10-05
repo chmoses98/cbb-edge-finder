@@ -257,12 +257,18 @@ def player_team_features(
     verbose: bool = True,
     save: bool = False,
     prior_provider: PriorProvider | None = None,
+    update_ratings: bool = True,
+    end_ratings: dict[int, SeasonRapm] | None = None,
 ) -> pd.DataFrame:
     """Walk-forward player-based team ratings for every D-I game in ``seasons``.
 
     ``prior_provider`` (optional, e.g. ``box_prior.PlayerPriorProvider``) replaces the
     season-start carry priors and may update player priors day by day from information
     available before each day's first tip. ``None`` = the pure-0.2.0 behaviour.
+    ``update_ratings=False`` keeps every player at his season-start prior (no in-season
+    RAPM updates; minutes shares still follow the observed rotation): roster
+    composition without in-season performance, for the B10r team prior.
+    ``end_ratings`` (optional dict) collects each season's end-of-season ratings.
 
     The first season seeds player priors and is still emitted (with weak priors).
     Returns one row per game: h/a player offense, defense, roster_known flags, n players.
@@ -325,7 +331,7 @@ def player_team_features(
             cutoff = gd["start_time_utc"].min()
             new_end = int(np.searchsorted(st_avail, _ns_scalar(cutoff), side="left"))
             changed = False
-            if new_end > added:
+            if new_end > added and update_ratings:
                 inc.add(st.iloc[added:new_end])
                 added = new_end
                 changed = True
@@ -384,6 +390,8 @@ def player_team_features(
             inc.add(st.iloc[added:])
             inc.solve()
         prev = inc.ratings()
+        if end_ratings is not None:
+            end_ratings[season] = prev
         if save:
             save_end_of_season(prev, season)
         if verbose:

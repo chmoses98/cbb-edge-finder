@@ -32,6 +32,8 @@ VARIANTS = {
     "B12_box_only": dict(kind="box", box_update=True, translate=True),
     "B12_box_rapm": dict(kind="both", box_update=True, translate=True),
     "B12_box_rapm_noupdate": dict(kind="both", box_update=False, translate=True),
+    # post-hoc (after the four above): RAPM start prior + in-season box update
+    "B12_rapm_boxupdate": dict(kind="rapm", box_update=True, translate=True),
 }
 
 

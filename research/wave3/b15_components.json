@@ -1,0 +1,8 @@
+{
+ "roster_pf": "rot",
+ "conf": true,
+ "decay": false,
+ "garbage": false,
+ "pf": "PENDING_B12",
+ "extra": ["mismatch"]
+}
