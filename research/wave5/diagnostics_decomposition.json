@@ -1,0 +1,41 @@
+{
+ "target": "team points error, B25 OOS, validation 2015-2024, per offence side",
+ "n_side_games": 107410,
+ "points_error_sd": 10.088875768022413,
+ "r2": 0.9095589223080383,
+ "components": {
+  "pace": {
+   "coef": 0.9843595647792622,
+   "contrib_sd": 4.994748710671787,
+   "share_of_error_variance": 0.22430516126765337
+  },
+  "shot_making": {
+   "coef": 91.77891358944719,
+   "contrib_sd": 7.419332650622448,
+   "share_of_error_variance": 0.5122642578618039
+  },
+  "turnovers": {
+   "coef": -82.23962574377269,
+   "contrib_sd": 4.072502014563683,
+   "share_of_error_variance": 0.10420964661836177
+  },
+  "off_rebounds": {
+   "coef": 41.65406639157391,
+   "contrib_sd": 3.4811191152835104,
+   "share_of_error_variance": 0.04483791902902087
+  },
+  "free_throws": {
+   "coef": 8.18092349508387,
+   "contrib_sd": 1.1610705003116606,
+   "share_of_error_variance": 0.023950405712843747
+  }
+ },
+ "home_offence_points_error": {
+  "rmse": 10.185005583279494,
+  "bias_actual_minus_pred": -0.15839465089171886
+ },
+ "away_offence_points_error": {
+  "rmse": 9.994504353873511,
+  "bias_actual_minus_pred": -0.17484026538773612
+ }
+}

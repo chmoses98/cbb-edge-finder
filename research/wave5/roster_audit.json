@@ -1,0 +1,42 @@
+{
+ "snapshot": "snapshots/2026/10/05/20261005T122626Z.jsonl",
+ "captured_at": "2026-10-05 12:26:26.149344+00:00",
+ "snapshots_in_archive": 1,
+ "rows": 5341,
+ "teams": 365,
+ "teams_unmapped_espn_id": 0,
+ "teams_labelled_target_season": 296,
+ "teams_still_labelled_previous_season": 69,
+ "missing_share": {
+  "class": 0.0041190788241902265,
+  "height_in": 0.00636584909193035,
+  "position": 0.0,
+  "weight_lb": 0.05186294701366785
+ },
+ "classification_all": {
+  "returning": 4176,
+  "newcomer": 673,
+  "transfer_in": 350,
+  "returning_after_gap": 142
+ },
+ "classification_by_label_season": {
+  "2026": {
+   "newcomer": 77,
+   "returning": 965,
+   "returning_after_gap": 28,
+   "transfer_in": 10
+  },
+  "2027": {
+   "newcomer": 596,
+   "returning": 3211,
+   "returning_after_gap": 114,
+   "transfer_in": 340
+  }
+ },
+ "fr_with_prior_d1_season": 941,
+ "fr_with_prior_d1_in_stale_teams": 205,
+ "status_counts": {
+  "available": 5341
+ },
+ "note": "ESPN team rosters update over the off-season; a team still labelled with the previous season is stale, and its 'returning' players are over-counted. Snapshots are append-only; no later knowledge is ever written into them."
+}

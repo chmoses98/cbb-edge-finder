@@ -104,3 +104,19 @@ from that state with the same code. Each record carries
   research replays and refuses to write unless they reproduce the cached research
   outputs.
 * `reconstruction="warmup"` keeps the old path for diagnostics only.
+
+## pure-0.5.0 (Wave 5 shadow challenger)
+
+* B25 = pure-0.4.0 + B23 (absence-driven player signal) + B24 (player-level possession
+  model: PBP shot zones, shrunk finishing / selection / possession-component priors,
+  EWMA expected team profiles, opponent-adjusted defensive allowed excess, five
+  interactions). See `research/reports/WAVE5.md`.
+* `requires_checkpoint`: it runs only from its season-boundary checkpoint, which also
+  stores the possession-model state (career counts, end-of-season posteriors, final
+  EWMA weights, P(return), league zone means).
+* The daily runner downloads the current season's free ESPN play-by-play release asset
+  (`sdv.download_live("pbp", ...)`) and builds `silver/pbp_player_shots.parquet` for
+  that season only. Without it the shot-zone histories of the current season are
+  missing, so the record would still be produced but less informed.
+* It is a SHADOW challenger. `pure-0.2.0` stays incumbent until the Wave 4 prospective
+  promotion rule is evaluated after the 2026–27 season.
