@@ -9,7 +9,22 @@ dated, made before any 2026–27 game, and made before any P-ROSTER-1 outcome ex
 **Reference snapshot.** `roster-archive`, truth snapshot **`20261005T215634Z`**:
 roster-capture run 37378501591 at 977ed5d, a full live run that was green end to end.
 
-**Latest verification snapshot: `20261005T221704Z`.** Roster-capture run 37380677974
+**Final snapshot: `20261005T223610Z`.** Roster-capture run 37382759839 at 7a9828c,
+green, after the Wofford redirect-host fix.
+
+| measure | value |
+|---|---|
+| roster pages | **353 (96.7%)** |
+| pages CURRENT / PROBABLY_CURRENT | 338 / 8 |
+| teams CONFIRMED | **327 (89.6%)** |
+| teams LIKELY | 2 |
+| CONFIRMED + LIKELY | **329 (90.1%)**: the ≥ 90% target is met |
+| teams CONFLICTED | 17 |
+| teams STALE | 15 |
+| teams UNKNOWN | 4 |
+| identity match | 97.3% |
+
+**Earlier verification snapshot: `20261005T221704Z`.** Roster-capture run 37380677974
 at 8988f01, green, run after the redirect-registry fix. Compared with the reference
 snapshot:
 
@@ -56,11 +71,9 @@ in 10, yes.** Unresolved teams are listed in section T.
   team who are no longer on the roster**. The P-ROSTER-1 rotation gives them **0**.
   The definitive version of this metric is scored against box scores after each
   team's first game (section L).
-* **CONFIRMED + LIKELY = 88.5%, against a 90% target.**
-  * The gap is 20 CONFLICTED teams, 18 STALE and 4 UNKNOWN; section T lists each one
-    with its reason.
-  * Four of them are redirect domains, fixed in this PR and confirmed by the next
-    capture (section D).
+* **CONFIRMED + LIKELY: 88.5% in the reference snapshot, 90.1% in the final one.**
+  * The redirect and redirected-host fixes moved it.
+  * The rest are listed in section T with reasons.
 * **No historical freeze and no new version.** The P-ROSTER-1 spec and the authority
   of (b) are unchanged.
 
