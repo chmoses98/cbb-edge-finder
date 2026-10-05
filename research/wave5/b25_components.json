@@ -1,0 +1,13 @@
+{
+ "components": [
+  "B23",
+  "B24"
+ ],
+ "useful": [
+  "B21",
+  "B22",
+  "B23",
+  "B24"
+ ],
+ "rule": "B20 + union of useful components among B21-B24; B24 supersedes B21 and B22 when useful (WAVE5.md); recorded before B25 was run"
+}
