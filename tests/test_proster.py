@@ -77,3 +77,24 @@ def test_model_monitor_latest_pregame_record():
     assert m["pure-0.5.0"]["all"]["n"] == 1
     assert np.isclose(m["pure-0.5.0"]["all"]["margin_rmse"], 2.0)
     assert np.isclose(m["pure-0.5.0"]["game_1"]["total_rmse"], 10.0)
+
+
+def test_false_inclusion_counts_departed_players_in_base_and_roster(tmp_path):
+    d = tmp_path / "truth" / "2026" / "10" / "25"
+    d.mkdir(parents=True)
+    st = [{"team_id": "T1", "roster_confidence": "CONFIRMED",
+           "expected_rotation": [{"player_id": p, "share": 1.0} for p in ("A", "B", "C", "D", "N")]}]  # fmt: skip
+    (d / "20261025T120000Z_proster_state.json").write_text(json.dumps(st))
+    hist = pd.DataFrame({"player_id": ["A", "B", "C", "D", "X"], "role_season": [2026] * 5,
+                         "role_team": ["T1"] * 5, "min_share": [1.0, 1.0, 1.0, 1.0, 1.0],
+                         "usage_share": [0.05] * 5, "rapm_net": [2.0] * 5})  # fmt: skip
+    box5 = pd.DataFrame({"espn_game_id": 1, "team_id": "T1",
+                         "player_id": ["A", "B", "C", "D", "N"], "minutes": [40.0] * 5})  # fmt: skip
+    first = pd.DataFrame({"team_id": ["T1"], "espn_game_id": [1],
+                          "tip": [pd.Timestamp("2026-11-03T00:00:00Z")]})  # fmt: skip
+    fi = scorecard.false_inclusion(tmp_path, first, box5, hist, 2027)
+    base = fi[fi["rotation"] == "BASE"].iloc[0]
+    assert base["false_players"] == 1 and base["false_minutes"] == 40.0  # X left the team
+    assert np.isclose(base["false_value"], 2.0) and np.isclose(base["omitted_minutes_share"], 0.2)
+    ro = fi[fi["rotation"] == "ROSTER"]
+    assert set(ro["snapshot"]) == set(scorecard.OFFSETS) and (ro["false_players"] == 0).all()
