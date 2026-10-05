@@ -120,3 +120,22 @@ from that state with the same code. Each record carries
   missing, so the record would still be produced but less informed.
 * It is a SHADOW challenger. `pure-0.2.0` stays incumbent until the Wave 4 prospective
   promotion rule is evaluated after the 2026–27 season.
+
+## P-ROSTER-1: roster-truth overlay (Wave 6, PROSPECTIVE_ONLY)
+
+* `roster-capture` (daily Sep–Nov) builds the multi-source roster truth
+  (`cbb_edge/rosters/truth.py`, rules in `docs/ROSTER_SOURCE_AUDIT.md`) and archives it
+  in `roster-archive`, together with each team's P-ROSTER state (expected rotation,
+  continuity inputs). These are the archived T−7d / T−72h / T−24h / T−6h game-1 states.
+* `prospective-projections` writes `pure-0.5.0+roster` records next to the untouched
+  `pure-0.5.0` records (`cbb_edge/rosters/overlay.py`, spec
+  `models/overlays/p-roster-1.json`, hash-pinned):
+  * (a) the game-1 player block from the expected rotation over roster-truth players;
+  * (b) a continuity correction, applied only to CONFIRMED rosters.
+* `prospective-benchmark` (weekly) adds:
+  * `model_monitor.json`: every version and overlay, by games-seen slice, with market
+    gap as a benchmark only;
+  * `proster_metrics.json`: the preregistered P-ROSTER-1 questions;
+  * `rotation_scorecard.csv`: game-1 rotation accuracy per snapshot.
+* Not a frozen version and never the incumbent. Game-1 results never alter archived
+  game-1 records.
