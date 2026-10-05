@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 from urllib.parse import urljoin
 
@@ -13,7 +14,8 @@ _SPLIT = 'class="s-person-card s-person-card--'
 def _field(card: str, label: str) -> str | None:
     m = re.search(r'<span[^>]*class="sr-only"[^>]*>\s*' + re.escape(label)
                   + r"\s*</span>(.*?)</span>", card, flags=re.S)  # fmt: skip
-    return (txt(m.group(1)) or None) if m else None
+    v = (txt(m.group(1)) or None) if m else None
+    return re.sub(r"^" + re.escape(label) + r"\s*:\s*", "", v, flags=re.I) or None if v else None
 
 
 def _nextgen(page: str, url: str) -> list[dict]:
@@ -66,6 +68,46 @@ def _classic(page: str, url: str) -> list[dict]:
     return out
 
 
+def _embedded(page: str, url: str) -> list[dict]:
+    """Client-rendered SIDEARM pages embed the roster as JSON (``"players":[{...}]``,
+    fields first_name / last_name / jersey_number / position_short / height_feet /
+    height_inches / academic_year_short / hometown / previous_school). The largest such
+    array with person names wins."""
+    best: list[dict] = []
+    dec = json.JSONDecoder()
+    for m in re.finditer(r'"players"\s*:\s*\[', page):
+        try:
+            arr, _ = dec.raw_decode(page, m.end() - 1)
+        except ValueError:
+            continue
+        if (
+            isinstance(arr, list)
+            and len(arr) > len(best)
+            and all(isinstance(x, dict) and "last_name" in x for x in arr)
+        ):
+            best = arr
+    out = []
+    slug = re.search(r"/sports/([^/]+)/", url)
+    for x in best:
+        ft, inch = x.get("height_feet"), x.get("height_inches")
+        prof = None
+        if x.get("rp_id") and slug:
+            nm = re.sub(r"[^a-z0-9]+", "-", f"{x.get('first_name', '')} {x.get('last_name', '')}"
+                        .lower()).strip("-")  # fmt: skip
+            prof = urljoin(url, f"/sports/{slug.group(1)}/roster/{nm}/{x['rp_id']}")
+        out.append({
+            "name": f"{x.get('first_name') or ''} {x.get('last_name') or ''}".strip(),
+            "jersey": str(x.get("jersey_number")) if x.get("jersey_number") not in (None, "")
+            else None,
+            "position": x.get("position_short") or x.get("position_long"),
+            "height_in": float(int(ft) * 12 + int(inch or 0)) if ft else None,
+            "class_label": x.get("academic_year_short") or x.get("academic_year_long"),
+            "hometown": x.get("hometown"), "previous_school": x.get("previous_school"),
+            "profile_url": prof,
+        })  # fmt: skip
+    return out
+
+
 def parse(page: str, url: str) -> ParsedRoster:
-    players = _nextgen(page, url) or _classic(page, url)
-    return ParsedRoster("sidearm", clean(players), season_label(page))
+    players = _nextgen(page, url) or _classic(page, url) or _embedded(page, url)
+    return ParsedRoster("sidearm", clean(players), season_label(page, url))

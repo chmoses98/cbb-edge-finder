@@ -65,4 +65,4 @@ def parse(page: str, url: str, platform: str = "table") -> ParsedRoster:
             })  # fmt: skip
         if len(out) > len(best):
             best = out
-    return ParsedRoster(platform, clean(best), season_label(page))
+    return ParsedRoster(platform, clean(best), season_label(page, url))

@@ -241,3 +241,61 @@ def test_per_host_spacing_is_independent_across_hosts(monkeypatch):
     assert slept == []
     http._space(spec, f"https://{h1}/b")  # same host: waits ~5 s
     assert len(slept) == 1 and slept[0] > 4.5
+
+
+def test_season_label_only_from_title_headings_selector_or_url():
+    from cbb_edge.rosters.parsers.base import season_label
+
+    noise = '<a href="/news/2025/10/8/2025-26-mens-basketball-notes">2025-26 Men\'s Basketball notes</a>'
+    assert season_label("<title>Roster</title>" + noise) is None
+    assert season_label("<h1>2026-27 Men's Basketball Roster</h1>" + noise) == 2027
+    assert (
+        season_label("<select><option>2014-15</option><option selected>2026-27</option></select>")
+        == 2027
+    )
+    assert season_label('<body class="roster-sport-mb roster-season-2026-27">') == 2027
+    assert (
+        season_label("<h1>2026 Summer Roster</h1>", "https://x.edu/sports/mbkb/2026-27/roster")
+        == 2027
+    )
+    assert season_label("<h1>2026 Summer Roster</h1>") is None
+
+
+def _wmt_card(slug, name, num, pos, cls):
+    return (f'<div class="roster-card-item"><strong class="roster-card-item__jersey-number">#{num}</strong>'
+            f'<h3 class="roster-card-item__title"><a href="/sports/mens-basketball/roster/player/{slug}" '
+            f'class="roster-card-item__title-link">{name}</a></h3><div class="roster-card-item__position">{pos}</div>'
+            f'<span class="roster-player-card-profile-field__value roster-player-card-profile-field__value--basic">6&prime;4&Prime;</span>'
+            f'<span class="roster-player-card-profile-field__value roster-player-card-profile-field__value--basic">{cls}</span></div>')  # fmt: skip
+
+
+def test_wmt_cards_skip_staff_and_read_fields():
+    from cbb_edge.rosters.parsers import wmt
+
+    page = "<body>" + "".join(_wmt_card(f"p-{i}", f"Player Number{i} Jones", i, "Guard", "Junior")
+                              for i in range(9)) + (
+        '<div class="roster-card-item roster-staff-members-card-item"><a href="/sports/mens-basketball/'
+        'roster/staff/coach-x">Coach X</a></div>')  # fmt: skip
+    r = wmt.parse(page, "https://x.com/sports/mens-basketball/roster")
+    assert len(r.players) == 9 and r.players[3]["jersey"] == "3"
+    assert r.players[0]["height_in"] == 76.0 and r.players[0]["class_label"] == "Junior"
+
+
+def test_wmt_nuxt_payload_and_sidearm_embedded_json():
+    from cbb_edge.rosters.parsers import sidearm, wmt
+
+    arr = [{"r": 1}, [2, 3], {"roster_id": 4, "player": 5, "jersey_number": 6, "height_feet": 7,
+                              "height_inches": 8, "class_level": 9},
+           {"roster_id": 4, "player": 10, "jersey_number": 6, "height_feet": 7, "height_inches": 8,
+            "class_level": 9}, 77, {"first_name": 11, "last_name": 12, "full_name": 13, "slug": 14},
+           "5", 6, 3, {"abbreviation": 15}, {"first_name": 16, "last_name": 12, "full_name": 17},
+           "Ann", "Bee", "Ann Bee", "ann-bee", "Fr.", "Cal", "Cal Bee"]  # fmt: skip
+    ps = wmt.payload_players(json.dumps(arr), "https://x.com/sports/mens-basketball/roster/")
+    assert [p["name"] for p in ps] == ["Ann Bee", "Cal Bee"]
+    assert ps[0]["height_in"] == 75.0 and ps[0]["class_label"] == "Fr." and ps[0]["jersey"] == "5"
+    emb = {"players": [{"first_name": f"A{i}", "last_name": "Zed", "jersey_number": i,
+                        "position_short": "G", "height_feet": 6, "height_inches": 1,
+                        "academic_year_short": "So.", "rp_id": 100 + i} for i in range(9)]}  # fmt: skip
+    page = f"<h1>2026-27 Men's Basketball Roster</h1><script>var x = {json.dumps(emb)};</script>"
+    r = sidearm.parse(page, "https://y.edu/sports/mens-basketball/roster")
+    assert len(r.players) == 9 and r.season_label == 2027 and r.players[0]["height_in"] == 73.0

@@ -120,6 +120,7 @@ class Discovery:
     season_label: int | None = None
     error: str | None = None
     redirect_to: str | None = None  # an unregistered host the official link redirects to
+    stamp: str | None = None
 
 
 def _get(d: Discovery, url: str, stamp: str) -> str | None:
@@ -132,7 +133,9 @@ def _get(d: Discovery, url: str, stamp: str) -> str | None:
             d.attempts.append({"url": url, "result": "redirect_unregistered",
                                "to": robots.redirects[host]})  # fmt: skip
         else:
-            d.attempts.append({"url": url, "result": "robots_disallowed"})
+            why = robots.status.get(host, "")
+            res = "robots_disallowed" if why in ("ok", "") else f"robots_unavailable:{why}"
+            d.attempts.append({"url": url, "result": res})
         return None
     d.requests += 1
     key = re.sub(r"[^A-Za-z0-9]+", "_", url.split("://", 1)[-1])[:150]
@@ -154,10 +157,24 @@ def _get(d: Discovery, url: str, stamp: str) -> str | None:
     return r.path.read_text(errors="replace")
 
 
-def _try_roster(d: Discovery, url: str, html: str | None, method: str, season: int) -> bool:
+def _try_roster(d: Discovery, url: str, html: str | None, method: str, season: int,
+                stamp: str = "") -> bool:  # fmt: skip
     if html is None:
         return False
     parsed = parse_roster(html, d.platform, url, season)
+    pay = re.search(r'href="([^"]*/roster/_payload\.json[^"]*)"', html)
+    if len(parsed.players) < MIN_PLAYERS and pay and stamp:
+        # Nuxt sites that ship the page data as a separate _payload.json (same host,
+        # same data the page renders): one extra request
+        from cbb_edge.rosters.parsers import wmt
+
+        r_page = d._last  # type: ignore[attr-defined]
+        js = _get(d, urljoin(url, unescape(pay.group(1))), stamp)
+        if js is not None:
+            emb = wmt.payload_players(js, url)
+            if len(emb) >= MIN_PLAYERS:
+                parsed.players, parsed.platform = emb, "wmt"
+        d._last = r_page  # type: ignore[attr-defined]
     if len(parsed.players) < MIN_PLAYERS:
         d.attempts[-1]["players"] = len(parsed.players)
         return False
@@ -175,12 +192,12 @@ def discover(
     """``known_url``: the roster URL found by an earlier run (tried first: a normal daily
     run costs one page request per site, plus robots.txt)."""
     host = (urlsplit(base_url).hostname or "").lower().removeprefix("www.")
-    d = Discovery(team_id, base_url, host)
+    d = Discovery(team_id, base_url, host, stamp=stamp)
     if known_url:
         page = _get(d, known_url, stamp)
         if page is not None:
             d.platform = detect_platform(page)
-            if _try_roster(d, known_url, page, "known_url", season):
+            if _try_roster(d, known_url, page, "known_url", season, stamp):
                 return d
     home = _get(d, base_url, stamp)
     if home is None:
@@ -195,14 +212,16 @@ def discover(
         if u in tried:
             continue
         tried.add(u)
-        if _try_roster(d, u, _get(d, u, stamp), how, season):
+        if _try_roster(d, u, _get(d, u, stamp), how, season, stamp):
             return d
     for sp in sport_links(home, base_url, host):
         page = _get(d, sp, stamp)
         if page is None:
             continue
         for u in roster_links(page, sp, host)[:1]:
-            if u not in tried and _try_roster(d, u, _get(d, u, stamp), "sport_page_link", season):
+            if u not in tried and _try_roster(
+                d, u, _get(d, u, stamp), "sport_page_link", season, stamp
+            ):
                 return d
     d.error = d.error or "roster_not_found"
     return d

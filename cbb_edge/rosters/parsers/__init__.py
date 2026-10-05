@@ -6,11 +6,12 @@ which parser read the page."""
 
 from __future__ import annotations
 
-from cbb_edge.rosters.parsers import sidearm, table
+from cbb_edge.rosters.parsers import sidearm, table, wmt
 from cbb_edge.rosters.parsers.base import ParsedRoster
 
 PARSERS = {
     "sidearm": sidearm.parse,
+    "wmt": wmt.parse,
     "presto": lambda p, u: table.parse(p, u, "presto"),
     "table": table.parse,
 }

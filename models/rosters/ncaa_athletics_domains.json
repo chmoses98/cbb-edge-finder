@@ -320,8 +320,16 @@
    "espn_team_id": 2066,
    "athletics_url": "https://www.bubearcats.com",
    "host": "bubearcats.com",
-   "redirect_hosts": [],
-   "redirect_evidence": [],
+   "redirect_hosts": [
+    "binghamtonbearcats.com"
+   ],
+   "redirect_evidence": [
+    {
+     "from": "https://www.bubearcats.com",
+     "to": "https://binghamtonbearcats.com/",
+     "observed_at": "20261005T210648Z"
+    }
+   ],
    "status": "VERIFIED",
    "exception": null,
    "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
@@ -2700,8 +2708,16 @@
    "espn_team_id": 2443,
    "athletics_url": "https://www.unoprivateers.com",
    "host": "unoprivateers.com",
-   "redirect_hosts": [],
-   "redirect_evidence": [],
+   "redirect_hosts": [
+    "privateersports.com"
+   ],
+   "redirect_evidence": [
+    {
+     "from": "https://www.unoprivateers.com",
+     "to": "https://privateersports.com/",
+     "observed_at": "20261005T210648Z"
+    }
+   ],
    "status": "VERIFIED",
    "exception": null,
    "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
@@ -3876,8 +3892,16 @@
    "espn_team_id": 326,
    "athletics_url": "https://txstatebobcats.com",
    "host": "txstatebobcats.com",
-   "redirect_hosts": [],
-   "redirect_evidence": [],
+   "redirect_hosts": [
+    "txst.com"
+   ],
+   "redirect_evidence": [
+    {
+     "from": "https://txstatebobcats.com",
+     "to": "https://txst.com/",
+     "observed_at": "20261005T210648Z"
+    }
+   ],
    "status": "VERIFIED",
    "exception": null,
    "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
@@ -4940,8 +4964,16 @@
    "espn_team_id": 2747,
    "athletics_url": "https://www.wofford.edu/athletics",
    "host": "wofford.edu",
-   "redirect_hosts": [],
-   "redirect_evidence": [],
+   "redirect_hosts": [
+    "woffordterriers.com"
+   ],
+   "redirect_evidence": [
+    {
+     "from": "https://www.wofford.edu/athletics",
+     "to": "http://www.woffordterriers.com/",
+     "observed_at": "20261005T210648Z"
+    }
+   ],
    "status": "VERIFIED",
    "exception": null,
    "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
@@ -5116,5 +5148,5 @@
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   }
  ],
- "sha256": "e6677f26072a0e92a375ffa29431216f0a277ea6c96d0f2502596c76addd9aff"
+ "sha256": "bc918385d259c10cc215b2047067a815efd9c0157255fe698b96d7738f5678a8"
 }

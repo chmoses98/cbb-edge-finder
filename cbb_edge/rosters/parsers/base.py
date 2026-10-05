@@ -43,16 +43,34 @@ def height_in(h: str | None) -> float | None:
     return float(ft * 12 + inch) if 5 <= ft <= 7 and inch < 12 else None
 
 
-def season_label(page: str) -> int | None:
-    """Target season from a visible heading/title such as "2026-27 Men's Basketball
-    Roster" (returns 2027). ``None`` when the page shows no season."""
-    t = _html.unescape(page)
-    for pat in (r"(20\d\d)\s*[-–/]\s*(\d\d)\b[^<]{0,60}(?:roster|men'?s basketball)",
-                r"(?:roster|men'?s basketball)[^<]{0,60}(20\d\d)\s*[-–/]\s*(\d\d)\b",
-                r"/(20\d\d)-(\d\d)/roster"):  # fmt: skip
-        m = re.search(pat, t, flags=re.I)
-        if m and (int(m.group(1)) + 1) % 100 == int(m.group(2)):
+def _season(text: str) -> int | None:
+    for m in re.finditer(r"(20\d\d)\s*[-–/]\s*(\d\d)\b", text):
+        if (int(m.group(1)) + 1) % 100 == int(m.group(2)):
             return int(m.group(1)) + 1
+    return None
+
+
+def season_label(page: str, url: str | None = None) -> int | None:
+    """Target season the page itself states (2026-27 -> 2027), read ONLY from the
+    <title>, the h1 / h2 headings, the selected option of a season selector, or a
+    season in the URL path. Body text is never used: news links, archive menus and
+    image paths carry other seasons. ``None`` when none of these shows a season."""
+    for tag in ("title", "h1", "h2"):
+        for m in re.findall(rf"<{tag}\b[^>]*>(.*?)</{tag}>", page, flags=re.S | re.I):
+            s = _season(txt(m))
+            if s:
+                return s
+    m = re.search(r'<body\b[^>]*class="[^"]*\broster-season-(20\d\d-\d\d)\b', page)
+    if m:  # WMT page metadata
+        return _season(m.group(1))
+    for m in re.findall(r"<option\b[^>]*\bselected\b[^>]*>(.*?)</option>", page, flags=re.S | re.I):
+        s = _season(txt(m))
+        if s:
+            return s
+    if url:
+        m = re.search(r"/(20\d\d)-(\d\d)(?:/|$)", url)
+        if m:
+            return _season(m.group(0))
     return None
 
 

@@ -171,8 +171,14 @@ def discovery_report(found: list[discovery.Discovery]) -> dict[str, Any]:
             ~ok, ["team_id", "base_url", "platform", "error", "redirect_to"]
         ].to_dict(orient="records"),
         "redirects": {
-            r.team_id: [{"from": r.base_url, "to": r.redirect_to, "observed_at": None}]
-            for r in df.itertuples()
-            if r.redirect_to
+            d.team_id: [
+                {
+                    "from": d.base_url,
+                    "to": d.redirect_to,
+                    "observed_at": (d.attempts[0].get("observed_at") if d.attempts else None),
+                }
+            ]
+            for d in found
+            if isinstance(d.redirect_to, str) and d.redirect_to
         },
     }
