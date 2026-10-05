@@ -3,6 +3,7 @@
 *.parquet
 !tests/fixtures/**/*.parquet
 !models/pure/checkpoints/**/*.parquet
+!models/rosters/*.parquet
 # Python
 __pycache__/
 *.py[cod]

@@ -1,0 +1,23 @@
+{
+ "files": {
+  "history_2026.parquet": "2d652c5b6f7020d08984207d1b070296391db1c9673942298ca37bd5d9d69682",
+  "rotation_train.parquet": "5a4a39796bacbdc4454c48ea079c574b3d139108d46d7b6f757fd5b8b6343fae",
+  "team_net_2026.parquet": "8eb650fdbb95618c90ce0832135162df3f5b1b01646388ca54cddd2630f604b5"
+ },
+ "rotation_features": [
+  "prev_min_share",
+  "prev_start_rate",
+  "prev_usage",
+  "prev_net",
+  "d1_seasons",
+  "pos_g",
+  "pos_c",
+  "transfer",
+  "origin_net",
+  "first_d1",
+  "depth_same_pos",
+  "team_prev_net"
+ ],
+ "rotation_model": "HistGradientBoostingRegressor(max_depth=3, max_iter=200, learning_rate=0.05, random_state=0), retrained at run time from rotation_train",
+ "target_season": 2027
+}

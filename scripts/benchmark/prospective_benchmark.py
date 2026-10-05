@@ -37,6 +37,7 @@ def results(season: int) -> tuple[pd.DataFrame, pd.DataFrame]:
         {
             "game_id": s["game_id"].astype(int),
             "margin": (s["home_score"].astype(float) - s["away_score"].astype(float)),
+            "total": (s["home_score"].astype(float) + s["away_score"].astype(float)),
         }
     )
     g = pd.DataFrame(
@@ -47,6 +48,7 @@ def results(season: int) -> tuple[pd.DataFrame, pd.DataFrame]:
             .dt.date,
             "home_team_id": s["home_id"].map(canonical_from_espn),
             "away_team_id": s["away_id"].map(canonical_from_espn),
+            "start_time_utc": pd.to_datetime(s["start_date"], utc=True),
         }
     )
     return r, g
@@ -70,6 +72,40 @@ def kalshi_map(kalshi: pd.DataFrame, games: pd.DataFrame) -> dict[str, tuple[int
     return out
 
 
+def rotation_card(rosters: Path, games: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Each team's first game vs the archived P-ROSTER states (actual minutes from the
+    free SportsDataverse player box release asset)."""
+    from cbb_edge.rosters import scorecard
+
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    p = sdv.download_live("player_box", season, stamp)
+    if p is None:
+        return pd.DataFrame()
+    b = pd.read_parquet(p)
+    box = pd.DataFrame(
+        {
+            "espn_game_id": b["game_id"].astype(int),
+            "team_id": b["team_id"].map(canonical_from_espn),
+            "player_id": "P" + b["athlete_id"].astype("Int64").astype(str),
+            "minutes": pd.to_numeric(b["minutes"], errors="coerce").fillna(0.0),
+            "starter": b["starter"].fillna(False).astype(bool),
+        }
+    )
+    g = pd.concat(
+        [
+            games[["game_id", "home_team_id", "start_time_utc"]].rename(
+                columns={"home_team_id": "team_id"}
+            ),
+            games[["game_id", "away_team_id", "start_time_utc"]].rename(
+                columns={"away_team_id": "team_id"}
+            ),
+        ]
+    ).dropna()
+    first = g.sort_values("start_time_utc").groupby("team_id").head(1)
+    first = first.rename(columns={"game_id": "espn_game_id", "start_time_utc": "tip"})
+    return scorecard.rotation_scorecard(rosters, first, box)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--season", type=int, required=True)
@@ -77,6 +113,7 @@ def main() -> None:
     ap.add_argument("--espn", type=Path, required=True)
     ap.add_argument("--kalshi", type=Path, default=None)
     ap.add_argument("--out", type=Path, default=Path("benchmark_out"))
+    ap.add_argument("--rosters", type=Path, default=None, help="roster-archive checkout")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     recs = [json.loads(f.read_text()) for f in sorted(a.projections.rglob("*.json"))]
@@ -98,6 +135,24 @@ def main() -> None:
         ("availability_impact", ai),
     ):
         df.to_csv(a.out / f"{name}.csv", index=False)
+    # Wave 6: weekly model monitor (every version incl. overlays), P-ROSTER-1 metrics,
+    # game-1 rotation scorecard. Market is a downstream benchmark only.
+    from cbb_edge.rosters import scorecard
+
+    res2 = res.rename(columns={"game_id": "espn_game_id", "margin": "result_margin",
+                               "total": "result_total"})  # fmt: skip
+    mkt = pd.DataFrame(columns=["espn_game_id", "mkt_margin"])
+    if len(lines):
+        last = lines.sort_values("captured_at").groupby("game_id").tail(1)
+        mkt = last.rename(columns={"game_id": "espn_game_id"})[["espn_game_id", "mkt_margin"]]
+    monitor = scorecard.model_monitor(recs, res2, mkt)
+    proster = scorecard.proster_metrics(recs, res2, mkt)
+    (a.out / "model_monitor.json").write_text(json.dumps(monitor, indent=1, default=float))
+    (a.out / "proster_metrics.json").write_text(json.dumps(proster, indent=1, default=float))
+    rot = pd.DataFrame()
+    if a.rosters is not None and a.rosters.exists() and len(games):
+        rot = rotation_card(a.rosters, games, a.season)
+        rot.to_csv(a.out / "rotation_scorecard.csv", index=False)
     summary = {
         "season": a.season,
         "projection_records": len(recs),
@@ -105,6 +160,8 @@ def main() -> None:
         "completed_games": len(res),
         "kalshi_rows": len(kal),
         "availability_rows": len(ai),
+        "monitor_versions": sorted(monitor),
+        "rotation_scorecard_rows": len(rot),
         "note": "MARKET_BENCHMARK only; PURE projections are read from the archive",
     }
     (a.out / "summary.json").write_text(json.dumps(summary, indent=1))

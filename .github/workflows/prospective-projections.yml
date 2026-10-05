@@ -52,6 +52,13 @@ jobs:
           mkdir -p avail && cd avail && git init -q
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch -q --depth=1 origin availability-archive && git checkout -q FETCH_HEAD || echo "no availability-archive yet"
+      - name: Fetch roster truth (read-only, P-ROSTER-1 overlay)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p rosters && cd rosters && git init -q
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth=1 origin roster-archive && git checkout -q FETCH_HEAD || echo "no roster-archive yet"
       - name: Refresh free inputs and project
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
@@ -59,7 +66,7 @@ jobs:
           set -o pipefail
           python scripts/prospective/refresh_and_project.py \
             --season "${{ github.event.inputs.season || '2027' }}" --out projections_out \
-            --availability-dir avail | tee run_summary.json
+            --availability-dir avail --roster-dir rosters | tee run_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

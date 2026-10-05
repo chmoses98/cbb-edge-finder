@@ -120,3 +120,17 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Preseason uncertainty index | Spearman 0.003 with \|error\| games 1–5 | rejected |
 | Regulation × OT totals mixture | CRPS 9.374 vs 9.382; P(OT) 2.7% predicted vs 6.0% actual | not adopted |
 | B25 combined (B20 + B23 + B24) | −0.0158, 5/5, 10/10, P 1.00, Nov–Dec −0.021, first game −0.046; 2024–26 −0.0055 | **frozen → `pure-0.5.0` (shadow)** |
+
+## Wave 6 outcomes (see research/reports/WAVE6.md; preregistration research/hypotheses/WAVE6.md)
+
+| Hypothesis | Result (validation, blocked CV, Δ vs B25) | Status |
+|---|---|---|
+| First-game bias origin | realized departed share corr −0.10 (+2.0 → −1.8 pts); P(return) expectation corr 0.001; departed value corr −0.03 | missing roster truth |
+| H-W6-DEV (B26) development priors | −0.0007, P 0.83 | rejected |
+| H-W6-CARRY (B27) continuity from P(return) | −0.0016, F4/F5 worse | rejected |
+| H-W6-REVEAL (B28) revealed continuity | −0.0257, 5/5, games 2–5 −0.089; reverses in 2024–26 (g2–5 +0.014 / +0.044) | useful (not frozen) |
+| B29 = B25 + B28 | first game −0.010 vs gate −0.03 | **rejected (no freeze)** |
+| ORACLE roster truth (not eligible) | first game −0.19 for (a) substitution and (b) continuity each | upper bound only |
+| Expected rotation model | top-5 82%, starters 78%, minutes MAE 7.4 (naive 10.6) | adopted for P-ROSTER-1 |
+| ESPN preseason rosters | 82% continuity listed vs 42% actual; 183/296 list ≥ 2 exhausted players | stale; CONFIRMED rule |
+| P-ROSTER-1 overlay | deployed PROSPECTIVE_ONLY on pure-0.5.0 | evaluated on 2026–27 |

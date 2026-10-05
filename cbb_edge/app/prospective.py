@@ -93,6 +93,7 @@ def feature_frame(
     warmup: int = 8,
     share_adjust: Any = None,
     reconstruction: str = "auto",
+    preseason_shares: dict | None = None,
 ) -> pd.DataFrame:
     """Pregame states + PURE feature blocks for every game of ``season`` (info < as_of).
 
@@ -130,6 +131,7 @@ def feature_frame(
             cfg,
             share_adjust=share_adjust,
             unadjusted="avail_delta" in model.get("extra_blocks", []),
+            preseason_shares=preseason_shares,
         )
         pf12 = checkpoint_inputs.unadjusted  # type: ignore[attr-defined]
     elif wave3:  # pure-0.3.0+: roster/conference-anchored engine + provider player features
@@ -285,9 +287,12 @@ def project_window(
     horizon_h: float = 30.0,
     model: dict[str, Any] | None = None,
     share_adjust: Any = None,
+    preseason_shares: dict | None = None,
 ) -> list[dict[str, Any]]:
     model = model or load_model()
-    df = feature_frame(model, season, as_of, share_adjust=share_adjust)
+    df = feature_frame(
+        model, season, as_of, share_adjust=share_adjust, preseason_shares=preseason_shares
+    )
     recon = df.attrs.get("reconstruction")
     end = as_of + pd.Timedelta(hours=horizon_h)
     win = df[(df["start_time_utc"] > as_of) & (df["start_time_utc"] <= end)]

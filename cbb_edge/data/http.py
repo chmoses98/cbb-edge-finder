@@ -161,6 +161,9 @@ def fetch(
         "bytes": path.stat().st_size,
         "schema_version": schema_version,
         "content_type": resp.headers.get("Content-Type"),
+        # source-side freshness (roster truth: is the source overwritten in place?)
+        "last_modified": resp.headers.get("Last-Modified"),
+        "etag": resp.headers.get("ETag"),
         "local_path": str(path.relative_to(data_dir())),
     }
     meta_path.write_text(json.dumps(meta, indent=1, sort_keys=True))

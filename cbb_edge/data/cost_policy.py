@@ -64,6 +64,10 @@ class SourceSpec:
     notes: str = ""
 
 
+# official athletics domains allowed for the roster-truth fallback (explicit allowlist;
+# a school is added only when its structured sources are stale or in conflict)
+SCHOOL_HOSTS: tuple[str, ...] = ("goduke.com", "bceagles.com", "umterps.com")
+
 SOURCES: dict[str, SourceSpec] = {
     s.key: s
     for s in (
@@ -94,6 +98,23 @@ SOURCES: dict[str, SourceSpec] = {
             ("site.api.espn.com", "sports.core.api.espn.com", "site.web.api.espn.com"),
             min_interval_s=1.0,
             notes="Unofficial, free. Prefer SportsDataverse bulk copies of the same data.",
+        ),
+        SourceSpec(
+            "ncaa_stats",
+            "stats.ncaa.org (official NCAA statistics / rosters)",
+            CostClass.FREE_RATE_LIMITED,
+            ("stats.ncaa.org",),
+            min_interval_s=5.0,
+            notes="Official NCAA. Roster-truth fallback only; cached; >= 5 s between requests.",
+        ),
+        SourceSpec(
+            "school_athletics",
+            "Official school athletics sites (roster pages, fallback only)",
+            CostClass.FREE_RATE_LIMITED,
+            SCHOOL_HOSTS,
+            min_interval_s=5.0,
+            notes="Only for teams whose structured sources are stale or conflict; explicit "
+            "host allowlist (cbb_edge/rosters/school_sites.py); cached; >= 5 s spacing.",
         ),
         SourceSpec(
             "kalshi_public",
