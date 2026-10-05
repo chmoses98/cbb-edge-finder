@@ -37,7 +37,7 @@ from cbb_edge.app.sift import (
     TeamRef,
     validate,
 )
-from cbb_edge.app.wave3_live import wave3_inputs
+from cbb_edge.app.wave3_live import checkpoint_inputs, wave3_inputs
 from cbb_edge.backtest.walkforward import EngineConfig, run
 from cbb_edge.data.http import data_dir
 from cbb_edge.data.ids.teams import _registry
@@ -92,8 +92,14 @@ def feature_frame(
     as_of: pd.Timestamp,
     warmup: int = 8,
     share_adjust: Any = None,
+    reconstruction: str = "auto",
 ) -> pd.DataFrame:
-    """Pregame states + PURE feature blocks for every game of ``season`` (info < as_of)."""
+    """Pregame states + PURE feature blocks for every game of ``season`` (info < as_of).
+
+    ``reconstruction``: ``auto`` replays only ``season`` from the research
+    season-boundary checkpoint when one exists (canonical, exact), else rebuilds from a
+    ``warmup``-season replay; ``checkpoint`` requires a checkpoint; ``warmup`` forces
+    the old path (diagnostics)."""
     games, tg = load_pure_silver()
     tg = tg[tg["available_at"] < as_of]
     games_info = games.copy()
@@ -110,9 +116,36 @@ def feature_frame(
     )
     seasons = list(range(season - warmup, season + 1))
     wave3 = "team_prior_hook" in model
-    if wave3:  # pure-0.3.0+: roster/conference-anchored engine + provider player features
+    ck = _checkpoint(model, season) if reconstruction != "warmup" else None
+    if (reconstruction == "checkpoint" or model.get("requires_checkpoint")) and ck is None:
+        raise FileNotFoundError(f"no checkpoint for {model['version']} boundary {season - 1}")
+    if wave3 and ck is not None:  # canonical: replay season from the research boundary
+        st, pf3 = checkpoint_inputs(
+            model,
+            ck,
+            season,
+            games_info,
+            tg_e,
+            as_of,
+            cfg,
+            share_adjust=share_adjust,
+            unadjusted="avail_delta" in model.get("extra_blocks", []),
+        )
+        pf12 = checkpoint_inputs.unadjusted  # type: ignore[attr-defined]
+    elif wave3:  # pure-0.3.0+: roster/conference-anchored engine + provider player features
         st, pf3 = wave3_inputs(
             model, season, games_info, tg_e, as_of, cfg, warmup, share_adjust=share_adjust
+        )
+    elif ck is not None:
+        from cbb_edge.data.ids.teams import _registry
+
+        st = run(
+            games_info,
+            tg_e,
+            [season],
+            cfg,
+            verbose=False,
+            initial_end=ck.engine(sorted(_registry()["team_id"].tolist())),
         )
     else:
         st = run(games_info, tg_e, seasons, cfg, verbose=False)
@@ -129,9 +162,19 @@ def feature_frame(
         )
         pg = pg[pg["available_at"] < as_of].drop(columns=["available_at"])
         rc = RapmConfig(**model["rapm_config"])
-        pf = player_team_features(
-            list(range(season - 4, season + 1)), games_info, pg, rc, verbose=False
-        )
+        if ck is not None:
+            pf = player_team_features(
+                [season],
+                games_info,
+                pg,
+                rc,
+                verbose=False,
+                initial_prev=ck.rapm("base", season - 1),
+            )
+        else:
+            pf = player_team_features(
+                list(range(season - 4, season + 1)), games_info, pg, rc, verbose=False
+            )
         df = df.merge(pf.drop(columns=["season"]), on="game_id", how="left")
         parts = [blocks.base_block(df), blocks.player_block(df)]
     if any(f.startswith(("rim_", "mid_", "ast_share")) for f in feats):
@@ -156,14 +199,45 @@ def feature_frame(
         pgs = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
         pgs = pgs[pgs["team_id"].notna() & (pgs["available_at"] < as_of)]
         sp = shooting.ShootingPrior(**model["shooting_prior"])
-        sf = shooting.live_features(shooting.player_games(pgs), games_info, sp, season)
-        parts.append(blocks.shooting_block(df, sf))
+        if ck is not None:
+            xs = shooting.player_games(pgs[pgs["season"] == season])
+            sf = shooting.live_features(
+                xs, games_info, sp, season, ck.shooting_careers(), ck.shooting_prev_team()
+            )
+        else:
+            sf = shooting.live_features(shooting.player_games(pgs), games_info, sp, season)
+        parts.append(blocks.shooting_block(df, sf, model.get("shooting_fill")))
+    if "avail_delta" in model.get("extra_blocks", []):  # pure-0.5.0+: B23
+        df12 = attach_games(st[st["season"] == season], games_info)
+        df12 = df12.merge(pf12.drop(columns=["season"]), on="game_id", how="left")
+        parts.append(blocks.b23_block(df, df12))
+    if "possession" in model.get("extra_blocks", []):  # pure-0.5.0+: B24
+        from cbb_edge.app.possession_live import possession_frame
+
+        if "game_date_et" not in df:
+            df["game_date_et"] = df["game_id"].map(games.set_index("game_id")["game_date_et"])
+        pfr = possession_frame(model, ck, season, as_of, games_info, df)
+        parts.append(blocks.b24_block(df, pfr))
     X = blocks.combine(*parts)
     assert_pure_frame(X, "prospective features")
-    return pd.concat(
+    out = pd.concat(
         [df.reset_index(drop=True), X.reset_index(drop=True).loc[:, ~X.columns.isin(df.columns)]],
         axis=1,
     )
+    out.attrs["reconstruction"] = (
+        {"mode": "checkpoint", "boundary": season - 1, "sha256": ck.manifest["sha256"]}
+        if ck is not None
+        else {"mode": "warmup", "warmup_seasons": warmup}
+    )
+    return out
+
+
+def _checkpoint(model: dict[str, Any], season: int) -> Any:
+    from cbb_edge.app import checkpoints
+
+    if checkpoints.Checkpoint.exists(model["version"], season - 1):
+        return checkpoints.Checkpoint(model["version"], season - 1)
+    return None
 
 
 def availability_overlay(
@@ -214,6 +288,7 @@ def project_window(
 ) -> list[dict[str, Any]]:
     model = model or load_model()
     df = feature_frame(model, season, as_of, share_adjust=share_adjust)
+    recon = df.attrs.get("reconstruction")
     end = as_of + pd.Timedelta(hours=horizon_h)
     win = df[(df["start_time_utc"] > as_of) & (df["start_time_utc"] <= end)]
     if win.empty:
@@ -303,6 +378,7 @@ def project_window(
             "as_of": as_of.isoformat(),
             "code_version": __version__,
             "model_sha256": model.get("sha256"),
+            "reconstruction": recon,
             "spread_cover_prob_fn": "Phi((margin - line) / margin_sd)",
             "home_win_prob_normal": float(norm.cdf(margin[i] / sig_m[i])),
         }

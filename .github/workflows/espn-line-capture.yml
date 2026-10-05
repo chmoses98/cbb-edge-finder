@@ -45,6 +45,7 @@ jobs:
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
+          set -o pipefail
           python -m cbb_edge.market.espn_capture --out espn_lines_out | tee capture_summary.json
       - uses: actions/upload-artifact@v4
         if: always()

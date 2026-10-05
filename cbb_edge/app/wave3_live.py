@@ -192,3 +192,98 @@ def wave3_inputs(
         share_adjust=share_adjust,
     )
     return states, pf
+
+
+def checkpoint_inputs(
+    model: dict[str, Any],
+    ck: Any,
+    season: int,
+    games_info: pd.DataFrame,
+    tg_e: pd.DataFrame,
+    as_of: pd.Timestamp,
+    cfg: EngineConfig,
+    share_adjust: Any = None,
+    unadjusted: bool = False,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Canonical reconstruction (Wave 5): replay ONLY ``season`` from the research
+    season-boundary checkpoint ``ck`` (``cbb_edge.app.checkpoints``) with the same code
+    the research replay used. Same outputs as ``wave3_inputs`` but exact.
+
+    ``unadjusted`` (pure-0.5.0+, B23): also compute the player features WITHOUT any
+    share adjustment (the B12 features), stored as ``checkpoint_inputs.unadjusted``."""
+    from cbb_edge.data.ids.teams import _registry
+
+    if share_adjust is None and "availability_model" in model:
+        share_adjust = availability_adjuster(model, {})
+    b = season - 1
+    team_ids = sorted(_registry()["team_id"].tolist())
+    finals = ck.finals()
+    team_net = finals.assign(net=finals["o"] - finals["d"])
+    pg = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
+    pg = pg[(pg["available_at"] < as_of) & pg["team_id"].notna() & (pg["min"].fillna(0) > 0)]
+    pg_min = pg[["season", "game_id", "team_id", "player_id", "min"]]
+    rc = RapmConfig(**model["rapm_config"])
+    ps = roster_graph.build(pg=pg, save=False, attach_rapm=False)
+    hk = model["team_prior_hook"]
+    comps = tuple(hk["components"])
+    strength = pre = None
+    if "S" in comps:
+        pf_rot = player_team_features(
+            [season],
+            games_info,
+            pg_min,
+            rc,
+            verbose=False,
+            update_ratings=False,
+            initial_prev=ck.rapm("rot", b),
+        )
+        strength = team_prior.team_day_strength(pf_rot, games_info)
+        pre = ck.preseason()
+    ca = team_prior.conference_anchor(finals, games_info) if "conf" in comps else None
+    coefs = team_prior.PriorCoefficients(
+        components=comps, pre=hk["pre"], obs=hk["obs"], n=hk.get("n", {})
+    )
+    stats = tuple(hk.get("stats", ["eff"]))
+    if hk.get("dynamic_k") is not None:
+        hook: Any = team_prior.DynamicConferenceHook(
+            coefs, games_info, float(hk["dynamic_k"]), strength, pre, ca, stats=stats
+        )
+    else:
+        hook = team_prior.TeamPriorHook(coefs, strength, pre, ca, stats=stats)
+    states = run(
+        games_info,
+        tg_e,
+        [season],
+        cfg,
+        verbose=False,
+        prior_hook=hook,
+        initial_end=ck.engine(team_ids),
+    )
+    prov = _provider(model, "player_features", ps, pg, team_net)
+    if prov is not None:
+        prov.ends[b - 1] = ck.rapm("b12", b - 1)
+    pf = player_team_features(
+        [season],
+        games_info,
+        pg_min,
+        rc,
+        verbose=False,
+        prior_provider=prov,
+        share_adjust=share_adjust,
+        initial_prev=ck.rapm("b12", b),
+    )
+    checkpoint_inputs.unadjusted = None  # type: ignore[attr-defined]
+    if unadjusted:
+        prov12 = _provider(model, "player_features", ps, pg, team_net)
+        if prov12 is not None:
+            prov12.ends[b - 1] = ck.rapm("b12", b - 1)
+        checkpoint_inputs.unadjusted = player_team_features(  # type: ignore[attr-defined]
+            [season],
+            games_info,
+            pg_min,
+            rc,
+            verbose=False,
+            prior_provider=prov12,
+            initial_prev=ck.rapm("b12", b),
+        )
+    return states, pf

@@ -62,6 +62,7 @@ jobs:
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
+          set -o pipefail
           if [ -d archive ]; then OUT=archive; else OUT=capture_out; fi
           python -m cbb_edge.availability.capture games --out "$OUT" --state "$OUT/state/availability_state.json"  | tee capture_summary.json
       - uses: actions/upload-artifact@v4

@@ -1,0 +1,192 @@
+{
+ "version": "pure-0.5.0",
+ "day": "2026-02-14",
+ "as_of": "2026-02-14 16:59:59+00:00",
+ "n_games": 131,
+ "margin_live_vs_research_features": {
+  "mean_abs": 1.1932778768490232e-15,
+  "max_abs": 7.105427357601002e-15,
+  "corr": 1.0
+ },
+ "total_live_vs_research_features": {
+  "mean_abs": 3.688313437533344e-15,
+  "max_abs": 2.842170943040401e-14
+ },
+ "worst_features": [
+  {
+   "feature": "foul_edge",
+   "max_abs": 3.552713678800501e-15,
+   "mean_abs": 1.0847980698627483e-16,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "d_xpps_poss",
+   "max_abs": 3.712308238590367e-16,
+   "mean_abs": 6.038033629330008e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xpps_a",
+   "max_abs": 5.551115123125783e-16,
+   "mean_abs": 5.339240500105715e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "s_xpps_poss",
+   "max_abs": 4.440892098500626e-16,
+   "mean_abs": 4.406992158817415e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xpps_h",
+   "max_abs": 4.440892098500626e-16,
+   "mean_abs": 3.8984930635692517e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_edge_h",
+   "max_abs": 2.220446049250313e-16,
+   "mean_abs": 2.6696202500528575e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_edge_a",
+   "max_abs": 2.220446049250313e-16,
+   "mean_abs": 2.5424954762408164e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xdrb_a",
+   "max_abs": 2.220446049250313e-16,
+   "mean_abs": 1.9492465317846258e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xdrb_h",
+   "max_abs": 2.220446049250313e-16,
+   "mean_abs": 1.9492465317846258e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xrim_a",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.843309220274592e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xftr_a",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.7585593710665646e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xftr_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.610247134952517e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "x3r_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.5678722103485037e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "c_t3",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.4407474365364626e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xrim_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.4407474365364626e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "c_rim",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.398372511932449e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "x3r_a",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.0169981904963266e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "i_hhi_a",
+   "max_abs": 8.326672684688674e-17,
+   "mean_abs": 9.21654610137296e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "i_hhi_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 9.004671478352891e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "def_rimpct_ex_a",
+   "max_abs": 2.7755575615628914e-17,
+   "mean_abs": 7.89067443700519e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "to_edge_a",
+   "max_abs": 5.551115123125783e-17,
+   "mean_abs": 7.839361051742518e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xorb_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 7.62748642872245e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "def_rimpct_ex_h",
+   "max_abs": 3.122502256758253e-17,
+   "mean_abs": 7.17621831074709e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xorb_a",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 5.7206148215418374e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "to_edge_h",
+   "max_abs": 5.551115123125783e-17,
+   "mean_abs": 5.7206148215418374e-18,
+   "nan_live": 0,
+   "nan_research": 0
+  }
+ ]
+}

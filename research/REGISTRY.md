@@ -107,3 +107,16 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | H-W4-AVAIL (B19h) | −0.0013 (P 0.99); oracle bound −0.0039 | accepted (small) |
 | Game-20 bump | excess gap +0.010, 90% CI [−0.043, +0.067] | not a structural effect |
 | B20 combined | −0.0156, 5/5 blocks, 10/10 seasons, P 1.00; 2025–26 −0.018 | **frozen → `pure-0.4.0` (shadow)** |
+
+## Wave 5 outcomes (see research/reports/WAVE5.md; preregistration research/hypotheses/WAVE5.md)
+
+| Hypothesis | Result (validation, blocked CV, Δ vs B20) | Status |
+|---|---|---|
+| Priority 0 live/research parity | warm-up rebuild 0.005–0.011 mean \|Δ\| → checkpoint replay ≤ 1e-8 (0.2.0), ≤ 3e-14 (0.3.0–0.5.0); old 0.26 = coefficients + as-of | **fixed** |
+| H-W5-SHOT (B21) player shot zones × finishing × defence | −0.0030, 5/5 blocks, P 0.99; player mix beats team-level for rim / 3PA share | accepted (inside B24) |
+| H-W5-POSS (B22) player possession components | −0.0056, 5/5, P 0.998, Nov–Dec −0.007 | accepted (inside B24) |
+| H-W5-SCALE (B23) absence-driven player signal | −0.0029, 5/5, P 0.98; absence-stretch slope 0.65 [0.27, 1.03], no compression | accepted (arm); no rescaling |
+| H-W5-PROFILE (B24) combined profile + 5 interactions | −0.0125, 5/5, 10/10, P 1.00; shuffled control +0.0075 | accepted |
+| Preseason uncertainty index | Spearman 0.003 with \|error\| games 1–5 | rejected |
+| Regulation × OT totals mixture | CRPS 9.374 vs 9.382; P(OT) 2.7% predicted vs 6.0% actual | not adopted |
+| B25 combined (B20 + B23 + B24) | −0.0158, 5/5, 10/10, P 1.00, Nov–Dec −0.021, first game −0.046; 2024–26 −0.0055 | **frozen → `pure-0.5.0` (shadow)** |

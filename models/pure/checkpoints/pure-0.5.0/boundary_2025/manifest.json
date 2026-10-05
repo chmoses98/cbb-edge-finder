@@ -1,0 +1,39 @@
+{
+ "boundary_season": 2025,
+ "files": {
+  "engine_end.npz": "24562f8c06c53d91f92ebc324a5cacc39cf22dbd25948e53597026fdffcda389",
+  "finals.parquet": "ff5414d04cd01dbc7333f753b474eb5cea565c659880b463177052d3180e9374",
+  "poss_careers.parquet": "7ca7e21fae0ae010030cecec75d84ef0cd74654595d5ff2f6916a13bccdff489",
+  "poss_end_values.parquet": "ca98ecd6be6b6751eaf37895fb9bddf282257b44ce2f4d9afae8f5afb120b0b6",
+  "poss_end_weights.parquet": "a72f6e9b419724a51a399dd8e6f4cbdf8fbf40f984bf47b6dbd6c10c430c5889",
+  "poss_league.json": "af32ca7849eafa1ad45778609a32aa18d1a78e17577f0a6850df3f99fa72e147",
+  "poss_p_ret.parquet": "61d67dc60e19274a5eceb19961763e1a36c49d32052f4f0364a1d5e052861bf6",
+  "preseason.parquet": "1cd786ca61679e36acd3ab5dac3ac73e5e80de78939937923ec05a32715a74ed",
+  "rapm_b12_2024.json": "b4698d38e89c0e0ae47390fcab4674c6a3e7515b7aa2e05043f5bc300058f40f",
+  "rapm_b12_2024.parquet": "3340938ae2f6edf742d42ef8c55eb768b1da2ad2964133cd100340f8d7f43dec",
+  "rapm_b12_2025.json": "d5f1ea5c294793c35718cfeac5ed0b2d5056b9dc940ee01ce1864f58d46c5d8c",
+  "rapm_b12_2025.parquet": "d0cdfb26f23b24a811e25ce0fabe01e1977660c43bfd2c02f7b0e2580ea2319b",
+  "rapm_rot_2025.json": "388b9b3f2cc098daa72154c4221c62452739f6a0f36fa389ec38cd8a4f881488",
+  "rapm_rot_2025.parquet": "513739635755b6d56352d4c1a96df597182463875b251254994805457581240d",
+  "shooting_careers.parquet": "b097819950c9b7344a9aeb307b28009da4efde651d69b6793fb1ba1c601cc80b",
+  "shooting_prev_team.parquet": "97b14f674895bf6ab2642d54f0fbd8b241bd244b7d405de82ef22025c129345e"
+ },
+ "sha256": "62a3b75e8a8dc7d0da724e6037f7fa7857a1b7f4936532f085ca4de229c37759",
+ "source": "research replays (build_checkpoints.py)",
+ "target_season": 2026,
+ "verification": {
+  "chain_b12": {
+   "chain": "b12",
+   "max_abs_diff_vs_cached_research_pf": 0.0
+  },
+  "chain_rot": {
+   "chain": "rot",
+   "max_abs_diff_vs_cached_research_pf": 0.0
+  },
+  "engine_b16b": {
+   "engine": "b16b",
+   "max_abs_diff_vs_cached_research_states": 0.0
+  }
+ },
+ "version": "pure-0.5.0"
+}

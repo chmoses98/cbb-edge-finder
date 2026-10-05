@@ -1,0 +1,192 @@
+{
+ "version": "pure-0.4.0",
+ "day": "2025-11-03",
+ "as_of": "2025-11-03 12:59:59+00:00",
+ "n_games": 108,
+ "margin_live_vs_research_features": {
+  "mean_abs": 0.001100428001628544,
+  "max_abs": 0.11884622417588275,
+  "corr": 0.9999993964003476
+ },
+ "total_live_vs_research_features": {
+  "mean_abs": 0.00022370953543289547,
+  "max_abs": 0.02416062982675271
+ },
+ "worst_features": [
+  {
+   "feature": "skft_a",
+   "max_abs": 1.5726741934268063,
+   "mean_abs": 0.014561798087285242,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "sk2_a",
+   "max_abs": 1.3156546248854468,
+   "mean_abs": 0.01218198726745784,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "sk3_a",
+   "max_abs": 0.03779023540902671,
+   "mean_abs": 0.00034990958712061767,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "luck3_a",
+   "max_abs": 0.03779023540902671,
+   "mean_abs": 0.00034990958712061767,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "sk3_diff",
+   "max_abs": 0.03779023540902671,
+   "mean_abs": 0.00034990958712061767,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "exp3pts_a",
+   "max_abs": 0.03680941635982293,
+   "mean_abs": 0.00034082792925761973,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "exp3pts_diff",
+   "max_abs": 0.03680941635982293,
+   "mean_abs": 0.00034082792925761973,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "poss",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "to_h",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "to_a",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "to_diff_poss",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "L",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "efg_h",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "efg_a",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "efg_diff_poss",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "efg_sum_poss",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "margin_an",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "total_an",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "ftr_a",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "ftr_h",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_sum_poss",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_diff_poss",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_a",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_h",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "to_sum_poss",
+   "max_abs": 0.0,
+   "mean_abs": 0.0,
+   "nan_live": 0,
+   "nan_research": 0
+  }
+ ]
+}

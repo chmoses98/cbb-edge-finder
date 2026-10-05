@@ -245,7 +245,20 @@ def test_pure_040_artifact_unchanged():
     assert spec["version"] == "pure-0.4.0" and spec["market_inputs"] == "NONE"
 
 
+PURE_050_SHA = "c4600f62351b26c159f1eaf9153d5a78a0c07e0c77fe20ed8bbc47e8e9ac0a19"
+
+
+def test_pure_050_artifact_unchanged():
+    """pure-0.5.0 is frozen (Wave 5 SHADOW challenger): content hash pinned forever."""
+    spec = json.loads((REPO / "models" / "pure" / "pure-0.5.0.json").read_text())
+    sha = spec.pop("sha256")
+    assert sha == hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
+    assert sha == PURE_050_SHA
+    assert spec["version"] == "pure-0.5.0" and spec["market_inputs"] == "NONE"
+    assert spec["requires_checkpoint"] is True
+
+
 def test_active_models_list():
     a = json.loads((REPO / "models" / "pure" / "active.json").read_text())
     assert a["incumbent"] == "pure-0.2.0"
-    assert a["challengers"] == ["pure-0.3.0", "pure-0.4.0"]
+    assert a["challengers"] == ["pure-0.3.0", "pure-0.4.0", "pure-0.5.0"]

@@ -266,6 +266,7 @@ def player_team_features(
     update_ratings: bool = True,
     end_ratings: dict[int, SeasonRapm] | None = None,
     share_adjust: ShareAdjust | None = None,
+    initial_prev: SeasonRapm | None = None,
 ) -> pd.DataFrame:
     """Walk-forward player-based team ratings for every D-I game in ``seasons``.
 
@@ -276,6 +277,8 @@ def player_team_features(
     RAPM updates; minutes shares still follow the observed rotation): roster
     composition without in-season performance, for the B10r team prior.
     ``end_ratings`` (optional dict) collects each season's end-of-season ratings.
+    ``initial_prev`` (optional) = the previous season's end ratings (checkpoint), so a
+    one-season replay reproduces the long chain exactly.
     ``share_adjust(team, season, team_shares, m, pids, shares, game_id)`` (optional)
     replaces the expected rotation for a game, e.g. availability-aware shares
     (``availability_model.AvailabilityAdjuster``); it may only use rows < m.
@@ -284,7 +287,8 @@ def player_team_features(
     Returns one row per game: h/a player offense, defense, roster_known flags, n players.
     """
     cfg = cfg or RapmConfig()
-    prev: SeasonRapm | None = None
+    # season-boundary checkpoint: end-of-season ratings of the season before seasons[0]
+    prev: SeasonRapm | None = initial_prev
     out = []
     pg = pg[pg["min"].fillna(0) > 0]
     gmeta = games[["game_id", "start_time_utc", "available_at"]]

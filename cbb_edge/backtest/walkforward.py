@@ -303,12 +303,20 @@ def run(
     pg: pd.DataFrame | None = None,
     verbose: bool = True,
     prior_hook: Callable[[int, pd.Timestamp, SeasonPriors], SeasonPriors] | None = None,
+    initial_end: dict[str, Fit] | None = None,
+    end_fits_out: dict[int, dict[str, Fit]] | None = None,
 ) -> pd.DataFrame:
-    """Replay consecutive seasons; the first season only seeds priors for the next."""
+    """Replay consecutive seasons; the first season only seeds priors for the next.
+
+    ``initial_end`` = end-of-season fits of the season before ``seasons[0]`` (a
+    season-boundary checkpoint): the first season then starts exactly where the full
+    replay would have, so a one-season replay reproduces the long replay.
+    ``end_fits_out`` collects each season's end-of-season fits (to write checkpoints).
+    """
     from cbb_edge.data.ids.teams import _registry
 
     team_ids = sorted(_registry()["team_id"].tolist())
-    prev_end: dict[str, Fit] | None = None
+    prev_end: dict[str, Fit] | None = initial_end
     all_states = []
     for season in seasons:
         tgs = d1_rows(tg[tg["season"] == season])
@@ -324,6 +332,8 @@ def run(
             all_states.append(states)
         if end:
             prev_end = end
+            if end_fits_out is not None:
+                end_fits_out[season] = end
         if verbose:
             print(f"  replay {season}: {len(states)} pregame states", flush=True)
     return pd.concat(all_states, ignore_index=True)

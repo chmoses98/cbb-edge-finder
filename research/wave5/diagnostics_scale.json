@@ -1,0 +1,23 @@
+{
+ "absence_stretches": 148,
+ "stretch_games": 535,
+ "slope_actual_on_predicted": 0.6534115540833695,
+ "slope_ci90": [
+  0.26748095904557845,
+  1.0264391416386138
+ ],
+ "intercept": -1.4718861287564031,
+ "interpretation": "slope ~ 1: ratings correctly scaled; > 1: compressed; < 1: inflated",
+ "persistence_same_team": {
+  "n": 7100,
+  "corr": 0.7662753928128423,
+  "slope": 0.9006026666312068
+ },
+ "transfers": {
+  "n": 1317,
+  "corr": 0.7093256750286306,
+  "slope": 0.8182619776528568
+ },
+ "lineup_rapm": "ratings ARE lineup (stint) RAPM; split-sample check not run (report)",
+ "no_market": "no sportsbook move is used anywhere in this calibration"
+}

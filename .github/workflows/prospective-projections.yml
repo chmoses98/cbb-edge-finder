@@ -56,6 +56,7 @@ jobs:
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
+          set -o pipefail
           python scripts/prospective/refresh_and_project.py \
             --season "${{ github.event.inputs.season || '2027' }}" --out projections_out \
             --availability-dir avail | tee run_summary.json
@@ -99,3 +100,12 @@ jobs:
             git fetch -q --depth=1 origin projections-archive && git rebase -q FETCH_HEAD || true
           done
           exit 1
+      - name: Fail if any model failed to project
+        run: |
+          python - <<'PY'
+          import json, sys
+          last = [x for x in open("run_summary.json").read().splitlines() if x.startswith("{")][-1]
+          failed = json.loads(last).get("failed") or {}
+          print(failed)
+          sys.exit(1 if failed else 0)
+          PY

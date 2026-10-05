@@ -167,3 +167,14 @@ def test_sift_projection_unchanged_by_market_block():
     b = rec({"kalshi": {"yes_mid": 55.0}, "spread": -4.5, "total": 153.5})
     assert a["projection"] == b["projection"]
     assert a["model"] == b["model"]
+
+
+@pytest.mark.parametrize("version", ["pure-0.2.0", "pure-0.3.0", "pure-0.4.0", "pure-0.5.0"])
+def test_frozen_artifact_features_are_pure(version):
+    """Every input of every frozen PURE artifact passes the market-column guard."""
+    spec = json.loads(
+        (Path(__file__).resolve().parents[1] / "models" / "pure" / f"{version}.json").read_text()
+    )
+    assert spec["market_inputs"] == "NONE"
+    feats = set(spec["margin"]["features"]) | set(spec["total"]["features"])
+    assert_pure_frame(pd.DataFrame(columns=sorted(feats)), version)
