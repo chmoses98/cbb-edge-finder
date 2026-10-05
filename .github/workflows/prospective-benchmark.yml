@@ -45,7 +45,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
-          for b in projections-archive espn-lines-archive kalshi-archive availability-archive; do
+          for b in projections-archive espn-lines-archive kalshi-archive availability-archive roster-archive; do
             mkdir -p "arch/$b"
             git -C "arch/$b" init -q
             git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
@@ -57,7 +57,7 @@ jobs:
         run: |
           python scripts/benchmark/prospective_benchmark.py --season "${{ github.event.inputs.season || '2027' }}" \
             --projections arch/projections-archive --espn arch/espn-lines-archive \
-            --kalshi arch/kalshi-archive --out benchmark_out | tee summary.json
+            --kalshi arch/kalshi-archive --rosters arch/roster-archive --out benchmark_out | tee summary.json
       - uses: actions/upload-artifact@v4
         with:
           name: prospective-benchmark-${{ github.run_id }}

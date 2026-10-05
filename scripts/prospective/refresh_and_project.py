@@ -46,6 +46,11 @@ def main() -> None:
         default=None,
         help="checked-out availability-archive (P-AVAIL overlay, challengers)",
     )
+    ap.add_argument(
+        "--roster-dir",
+        default=None,
+        help="checked-out roster-archive (P-ROSTER-1 overlay on pure-0.5.0)",
+    )
     a = ap.parse_args()
     now = pd.Timestamp(datetime.now(UTC))
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
@@ -90,6 +95,16 @@ def main() -> None:
         for r in recs:
             r["prospective"]["role"] = role
         out[version] = write_archive(recs, Path(a.out))
+        if role == "challenger" and a.roster_dir and "possession" in model.get("extra_blocks", []):
+            from cbb_edge.rosters.overlay import roster_overlay
+
+            try:  # P-ROSTER-1 (PROSPECTIVE_ONLY): base records are never touched
+                ro = roster_overlay(a.season, now, model, recs, Path(a.roster_dir), a.horizon_h)
+                for r in ro:
+                    r["prospective"]["role"] = "challenger_roster_overlay"
+                out[f"{version}+roster"] = write_archive(ro, Path(a.out))
+            except Exception as e:  # noqa: BLE001
+                failed[f"{version}+roster"] = f"{type(e).__name__}: {e}"
         if role == "challenger" and a.availability_dir:
             over, when = load_overrides(Path(a.availability_dir), now)
             av = availability_overlay(a.season, now, model, recs, over, when, a.horizon_h)

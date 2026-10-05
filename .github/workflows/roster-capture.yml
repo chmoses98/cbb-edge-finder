@@ -32,7 +32,7 @@ permissions:
 jobs:
   capture:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -65,6 +65,13 @@ jobs:
         run: |
           if [ -d archive ]; then OUT=archive; LIMIT=""; else OUT=capture_out; LIMIT="--teams-limit 8"; fi
           python -m cbb_edge.availability.capture rosters --out "$OUT" --state "$OUT/state/roster_state.json" $( [ "$(date -u +%u)" = "1" ] && echo --full ) $LIMIT | tee capture_summary.json
+      - name: Roster truth (multi-source resolution, Wave 6)
+        if: github.event_name != 'pull_request'
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set -o pipefail
+          python -m cbb_edge.rosters.capture --archive archive | tee truth_summary.json
       - uses: actions/upload-artifact@v4
         if: github.event_name == 'pull_request'
         with:
@@ -80,7 +87,7 @@ jobs:
           cd archive
           git add -A
           git diff --cached --quiet && { echo "nothing new"; exit 0; }
-          git commit -q -m "rosters capture $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git commit -q -m "rosters capture + truth $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           for i in 1 2 3 4; do
             git push -q origin roster-archive && exit 0
             sleep $((2 ** i))

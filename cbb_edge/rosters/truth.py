@@ -61,6 +61,16 @@ ROW_COLS = [
 ]  # fmt: skip
 
 
+EXP_COLS = (
+    "d1_seasons",
+    "d1_games",
+    "d1_minutes",
+    "last_team",
+    "last_season",
+    "last_season_minutes",
+)
+
+
 @dataclass(frozen=True)
 class TruthConfig:
     target_season: int
@@ -87,12 +97,23 @@ def rows_frame(rows: list[dict] | pd.DataFrame) -> pd.DataFrame:
 
 
 # ------------------------------------------------------------------ freshness --------
+EXHAUSTED_SEASONS = 4  # observed D-I seasons after which eligibility is used up
+EXHAUSTED_LISTED_MAX = 2  # real 2025-26 rosters: >= 3 such players on 1.1% of teams
+
+
 def team_freshness(
-    rows: pd.DataFrame, target_season: int, prev_core: dict[str, set[str]] | None = None
+    rows: pd.DataFrame,
+    target_season: int,
+    prev_core: dict[str, set[str]] | None = None,
+    d1_seasons: dict[str, float] | None = None,
 ) -> pd.DataFrame:
     """One row per (source, team): fresh?, reason, n_players.
 
-    ``prev_core[team_id]`` = the team's previous-season ESPN core athlete set."""
+    ``prev_core[team_id]`` = the team's previous-season ESPN core athlete set.
+    ``d1_seasons[player_id]`` = observed D-I seasons before the target season: an
+    ESPN-family listing with more than ``EXHAUSTED_LISTED_MAX`` players who already
+    played ``EXHAUSTED_SEASONS`` seasons is last season's roster in content even when
+    labelled current (2026-10-05 audit: 183 of 296 "2026-27" ESPN rosters had >= 2)."""
     out = []
     for (src, team), x in rows.groupby(["source", "team_id"]):
         g = GROUP[src]
@@ -108,6 +129,13 @@ def team_freshness(
             and (players == prev_core[team])
         ):
             fresh, reason = False, "copy_of_previous_season"
+        elif (
+            g == "espn"
+            and d1_seasons is not None
+            and sum(1 for q in players if d1_seasons.get(q, 0) >= EXHAUSTED_SEASONS)
+            > EXHAUSTED_LISTED_MAX
+        ):
+            fresh, reason = False, "lists_eligibility_exhausted_players"
         elif seasons.notna().any():
             fresh, reason = True, "season_label_current"
         else:
@@ -181,7 +209,8 @@ def experience(pg: pd.DataFrame, target_season: int) -> pd.DataFrame:
 def classify(team: pd.Series, exp: pd.DataFrame, cfg: TruthConfig) -> pd.DataFrame:
     """returning / returning_after_gap / transfer / first_d1 from observed history."""
     x = pd.DataFrame({"player_id": team.index, "team_id": team.to_numpy()})
-    x = x.merge(exp, on="player_id", how="left")
+    keep = ["player_id", *[c for c in EXP_COLS if c in exp.columns]]
+    x = x.merge(exp[keep], on="player_id", how="left")
     has = x["d1_seasons"].fillna(0) > 0
     same = x["last_team"] == x["team_id"]
     recent = x["last_season"] >= cfg.target_season - cfg.returner_gap

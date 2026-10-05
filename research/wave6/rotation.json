@@ -1,0 +1,43 @@
+{
+ "note": "conditional on roster membership (players in the first five games); PROSPECTIVE input = roster truth",
+ "validation": {
+  "pred": {
+   "minutes_mae": 7.4212408204400395,
+   "top5_identification": 0.8220459053556248,
+   "top8_identification": 0.8803839614621706,
+   "starter_accuracy_game1": 0.7831480397893505,
+   "rotation_precision": 0.8270064834884898,
+   "rotation_recall": 0.9825613909584999,
+   "n_team_seasons": 3529
+  },
+  "naive": {
+   "minutes_mae": 10.583181653918023,
+   "top5_identification": 0.8057240011334657,
+   "top8_identification": 0.877798243128365,
+   "starter_accuracy_game1": 0.7661790520772382,
+   "rotation_precision": 0.8802111917867089,
+   "rotation_recall": 0.880582305072101,
+   "n_team_seasons": 3529
+  }
+ },
+ "2025_26": {
+  "pred": {
+   "minutes_mae": 8.017271538407652,
+   "top5_identification": 0.7917808219178082,
+   "top8_identification": 0.8746575342465753,
+   "starter_accuracy_game1": 0.7430379746835442,
+   "rotation_precision": 0.8064573326217161,
+   "rotation_recall": 0.9864894542291803,
+   "n_team_seasons": 365
+  },
+  "naive": {
+   "minutes_mae": 12.330342317035717,
+   "top5_identification": 0.7572602739726026,
+   "top8_identification": 0.8726027397260274,
+   "starter_accuracy_game1": 0.7177215189873417,
+   "rotation_precision": 0.8552826701456839,
+   "rotation_recall": 0.8354185692541856,
+   "n_team_seasons": 365
+  }
+ }
+}

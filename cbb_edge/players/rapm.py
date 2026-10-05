@@ -267,6 +267,7 @@ def player_team_features(
     end_ratings: dict[int, SeasonRapm] | None = None,
     share_adjust: ShareAdjust | None = None,
     initial_prev: SeasonRapm | None = None,
+    preseason_shares: dict[tuple[str, int], tuple[np.ndarray, np.ndarray]] | None = None,
 ) -> pd.DataFrame:
     """Walk-forward player-based team ratings for every D-I game in ``seasons``.
 
@@ -282,6 +283,10 @@ def player_team_features(
     ``share_adjust(team, season, team_shares, m, pids, shares, game_id)`` (optional)
     replaces the expected rotation for a game, e.g. availability-aware shares
     (``availability_model.AvailabilityAdjuster``); it may only use rows < m.
+    ``preseason_shares[(team, season)] = (player_ids, shares summing to 5)`` (optional)
+    replaces, BEFORE a team's first game only, the default "last season's full minute
+    shares" with an expected rotation over a known roster (P-ROSTER-1, prospective
+    roster truth; ORACLE diagnostics). Default None: unchanged behaviour.
 
     The first season seeds player priors and is still emitted (with weak priors).
     Returns one row per game: h/a player offense, defense, roster_known flags, n players.
@@ -375,6 +380,9 @@ def player_team_features(
                         pids, s = ts.shares(m)
                         if share_adjust is not None:
                             s = share_adjust(team, season, ts, m, pids, s, g.game_id)
+                    elif preseason_shares is not None and (team, season) in preseason_shares:
+                        # P-ROSTER-1 / ORACLE: expected rotation over the known roster
+                        pids, s = preseason_shares[(team, season)]
                     else:
                         pids, s = prev_sh.get(team, (np.array([]), np.array([])))
                     idx = np.array([inc.index.get(x, -1) for x in pids], dtype=int)
