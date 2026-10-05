@@ -114,6 +114,34 @@ def school(url: str) -> dict:
     }
 
 
+def _strip(h: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h)).strip()
+
+
+def ncaa_team_list() -> dict:
+    url = "https://stats.ncaa.org/team/inst_team_list"
+    txt, m = _get("ncaa_stats", url, {"academic_year": "2027", "conf_id": "-1",
+                                     "division": "1", "sport_code": "MBB"})  # fmt: skip
+    if not isinstance(txt, str):
+        return m
+    teams = re.findall(r'href="/teams/(\d+)"[^>]*>([^<]+)<', txt)
+    rep = {**m, "n_team_links": len(teams), "sample": teams[:5]}
+    rosters = {}
+    for tid, name in teams[:2]:
+        r, mm = _get("ncaa_stats", f"https://stats.ncaa.org/teams/{tid}/roster")
+        if not isinstance(r, str):
+            rosters[name] = mm
+            continue
+        rows = re.findall(r"<tr[^>]*>(.*?)</tr>", r, flags=re.S)
+        cells = [[_strip(c) for c in re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", x, flags=re.S)]
+                 for x in rows]  # fmt: skip
+        rosters[name] = {**mm, "n_rows": len(rows), "header": cells[0] if cells else None,
+                         "rows": cells[1:4], "player_links": len(re.findall(
+                             r"/players/\d+", r))}  # fmt: skip
+    rep["rosters"] = rosters
+    return rep
+
+
 def main() -> None:
     out: dict[str, Any] = {"site_roster": {}, "core_2027": {}, "core_2026": {}, "site_team": {}}
     for t in STALE + FRESH:
@@ -126,6 +154,7 @@ def main() -> None:
     out["school_sites"] = {t: school(u) for t, u in SCHOOLS.items()}
     js, m = _get("ncaa_stats", "https://stats.ncaa.org/")
     out["ncaa_stats_root"] = {**m, "reachable": js is not None}
+    out["ncaa_team_list"] = ncaa_team_list()
     js, m = _get(
         "sportsdataverse_releases",
         "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/"
@@ -148,6 +177,14 @@ def main() -> None:
         for t in STALE + FRESH
     }
     print("SUMMARY " + json.dumps(summary, default=str))
+    print("NCAA " + json.dumps(out.get("ncaa_team_list"), default=str)[:6000])
+    sch = {}
+    for t, u in SCHOOLS.items():
+        txt, _ = _get("school_athletics", u)
+        if isinstance(txt, str):
+            cls = sorted(set(re.findall(r'class="([^"]*(?:roster|person|player)[^"]*)"', txt)))
+            sch[t] = cls[:40]
+    print("SCHOOL_CLASSES " + json.dumps(sch)[:6000])
 
 
 if __name__ == "__main__":
