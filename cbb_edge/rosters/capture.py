@@ -259,6 +259,15 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     )
     rep["official"]["identity"] = orows["identity"].value_counts().to_dict() if len(orows) else {}
     rep["events"] = pd.Series([e["event"] for e in ev]).value_counts().to_dict() if ev else {}
+    from cbb_edge.rosters import dashboard, ncaa_directory
+
+    sc = dashboard.scorecard(official.load_registry(), found, pages, orows, fresh, teams_s,
+                             len(ncaa_directory.current_teams()))  # fmt: skip
+    rep["scorecard"] = sc
+    (archive / "reports").mkdir(parents=True, exist_ok=True)
+    md = dashboard.markdown(sc, stamp)
+    (archive / "reports" / f"roster_dashboard_{stamp}.md").write_text(md)
+    (archive / "reports" / "latest_dashboard.md").write_text(md)
     rp = archive / "reports" / f"roster_quality_{stamp}.json"
     rp.parent.mkdir(parents=True, exist_ok=True)
     rp.write_text(json.dumps(rep, indent=1, default=str))
