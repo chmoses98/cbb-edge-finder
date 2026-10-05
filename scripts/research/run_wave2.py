@@ -92,11 +92,17 @@ def stack(df: pd.DataFrame, X: pd.DataFrame, y: pd.Series, alpha: float = 10.0) 
 
 
 def logistic_wp(df: pd.DataFrame, margin: pd.Series) -> pd.Series:
+    """P(home win) = logistic(a + b * margin), fit on earlier seasons that have
+    walk-forward predictions. The first predicted season has none, so it uses a fixed
+    Normal(margin, 11) link (documented fallback, no fitting on its own outcomes)."""
     p = pd.Series(np.nan, index=df.index)
     for s in sorted(df["season"].unique()):
         tr = df["season"].between(FIRST_TRAIN, s - 1) & df["home_win"].notna() & margin.notna()
         cur = (df["season"] == s) & margin.notna()
-        if tr.sum() < 500 or not cur.any():
+        if not cur.any():
+            continue
+        if tr.sum() < 500:
+            p[cur] = norm.cdf(margin[cur] / 11.0)
             continue
         lr = LogisticRegression(C=1e6).fit(margin[tr].to_frame(), df.loc[tr, "home_win"])
         p[cur] = lr.predict_proba(margin[cur].to_frame())[:, 1]
