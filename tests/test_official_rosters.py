@@ -328,3 +328,16 @@ def test_directory_refresh_cadence():
     jan = datetime(2027, 1, 20, tzinfo=UTC)
     assert not ncaa_directory.is_due("20270101T000000Z", jan)  # monthly otherwise
     assert ncaa_directory.is_due("20261215T000000Z", jan)
+
+
+def test_roster_layer_never_imports_market_code():
+    import ast
+
+    for p in (REPO / "cbb_edge" / "rosters").rglob("*.py"):
+        for node in ast.walk(ast.parse(p.read_text())):
+            mods = []
+            if isinstance(node, ast.Import):
+                mods = [a.name for a in node.names]
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                mods = [node.module]
+            assert not any(m.startswith("cbb_edge.market") for m in mods), p
