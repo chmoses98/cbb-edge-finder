@@ -1,0 +1,152 @@
+{
+ "teams": 364,
+ "roster_pages_found": 349,
+ "by_platform": {
+  "sidearm": 320,
+  "wmt": 26,
+  "presto": 3
+ },
+ "by_method": {
+  "home_link": 211,
+  "platform_route": 136,
+  "sport_page_link": 2
+ },
+ "requests": 744,
+ "not_found": [
+  {
+   "team_id": "T0155",
+   "base_url": "https://www.rolltide.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0006",
+   "base_url": "https://sundevils.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0171",
+   "base_url": "https://lrtrojans.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0177",
+   "base_url": "https://www.bubearcats.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": "https://binghamtonbearcats.com/"
+  },
+  {
+   "team_id": "T0184",
+   "base_url": "https://www.ccsubluedevils.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0190",
+   "base_url": "https://gocolgateraiders.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0137",
+   "base_url": "https://www.judolphins.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0334",
+   "base_url": "https://www.liuathletics.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0050",
+   "base_url": "https://www.lsusports.net",
+   "platform": "wmt",
+   "error": "roster_not_found",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0065",
+   "base_url": "https://www.mutigers.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0349",
+   "base_url": "https://www.omavs.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0251",
+   "base_url": "https://www.unoprivateers.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": "https://privateersports.com/"
+  },
+  {
+   "team_id": "T0152",
+   "base_url": "https://txstatebobcats.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": "https://txst.com/"
+  },
+  {
+   "team_id": "T0305",
+   "base_url": "https://www.TTUsports.com/",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": NaN
+  },
+  {
+   "team_id": "T0326",
+   "base_url": "https://www.wofford.edu/athletics",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": "http://www.woffordterriers.com/"
+  }
+ ],
+ "redirects": {
+  "T0177": [
+   {
+    "from": "https://www.bubearcats.com",
+    "to": "https://binghamtonbearcats.com/",
+    "observed_at": null
+   }
+  ],
+  "T0251": [
+   {
+    "from": "https://www.unoprivateers.com",
+    "to": "https://privateersports.com/",
+    "observed_at": null
+   }
+  ],
+  "T0152": [
+   {
+    "from": "https://txstatebobcats.com",
+    "to": "https://txst.com/",
+    "observed_at": null
+   }
+  ],
+  "T0326": [
+   {
+    "from": "https://www.wofford.edu/athletics",
+    "to": "http://www.woffordterriers.com/",
+    "observed_at": null
+   }
+  ]
+ }
+}

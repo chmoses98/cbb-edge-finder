@@ -1,0 +1,2854 @@
+{
+ "T0351": {
+  "roster_url": "https://acusports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "bc4d69940a3e8da6efa7e595165a03844590cbcfc1ffe068756f2be9d9135c2a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0165": {
+  "roster_url": "https://gozips.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "83a47df0dcf2db539b590dac9b3f50973d5ea41df3079167d50994bc080c350a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0166": {
+  "roster_url": "https://aamusports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "247328d8a53712db21fc83d6424cce2afcbcb73478826f4b7ed64dce14d54e52",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0167": {
+  "roster_url": "https://bamastatesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "dbf9f44e9e8ab5a674b686ee356fa00fabd0ec35cebec06ce7d5729d5ddc1941",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0155": {
+  "last_attempt": "20261005T212117Z",
+  "error": "roster_not_found"
+ },
+ "T0003": {
+  "roster_url": "https://uabsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5bb28109f3d4545da9abd256a6538a73171ad4210cd735686937227e13bccb69",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0163": {
+  "roster_url": "https://ualbanysports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "31856bb0bb0e917d73b0fac02f13c1f5badcc6946e080bda6054f9ee82cada4f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0168": {
+  "roster_url": "https://alcornsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2754b73954c8d2055c00605bb20c70da9bfd28ad16f94137ab3fa7854b096788",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0022": {
+  "roster_url": "https://aueagles.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5a7382169955d971af963439260784e4d72b84d6917e5780a5e1d651eebc451f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0169": {
+  "roster_url": "https://appstatesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0a959877ea27d7bf2e60109fa207105ecdb131fa7cbc2bd0ba77881eb30b0833",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0006": {
+  "last_attempt": "20261005T212117Z",
+  "error": "roster_not_found"
+ },
+ "T0007": {
+  "roster_url": "https://arizonawildcats.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6c10abb418b2e0eb010240c6a23b081269831a8ba06bdf0a85d35521287de4fa",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0172": {
+  "roster_url": "https://astateredwolves.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a8f0a6a4374f1f7a2d141704c31a607d9496ca23e46274fa104e4d775c636b43",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0005": {
+  "roster_url": "https://arkansasrazorbacks.com/sport/m-baskbl/roster/",
+  "platform": "presto",
+  "content_hash": "78f1607369fdd8553aaa1751dfaeb7d032bb9cac13fb86ac51704b15b85f6014",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0171": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0001": {
+  "roster_url": "https://auburntigers.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "51d47e9742f7bb6f0bc7856c17003b23c5fd33eba5c73d0326d7eeb70915bc54",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0173": {
+  "roster_url": "https://letsgopeay.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b8ab2e738e829913db85af743c3c4ab873cd6f0e685d619dc43e5199622f651a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0174": {
+  "roster_url": "https://ballstatesports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "69e97b07da9077f9ea2bdaadf758eb0801aaee93a223d98014125544eee75298",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0187": {
+  "roster_url": "https://csusports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9b40864aede116f607ec9e072127f667b7483137c72d6a7a32283001a3272d95",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0109": {
+  "roster_url": "https://baylorbears.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d5ea4d5d6a2c34f2e0ca1dfa6f30c6629e164383485ebb0c9bed7c1a9a630d13",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0359": {
+  "roster_url": "https://athletics.bellarmine.edu/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "699798a111dd0d901c722d4d494ee4554f2d22e89b8689de7236f701712977ba",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0176": {
+  "roster_url": "https://bcuathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "ca35ef1415750c8905ffc1a56cf6eb06fabef81cef4f9dfb1b02c003dbf5ea24",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0177": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0037": {
+  "roster_url": "https://broncosports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "837c97138fd15f5e312930017c58577227a0b76fb3210557c5cee863771c6d73",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0051": {
+  "roster_url": "https://bceagles.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0b46191d013d5cee838bddcfbcad6220a49f53e1e629b951b535a310129ffc54",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0052": {
+  "roster_url": "https://goterriers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "85f3f707115a0e65c8e734303fbfdbcb7c8c37e02b81a9998ff9026aa6589b16",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0087": {
+  "roster_url": "https://bgsufalcons.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e0087ebcca6d6ac80f450de49a2521438a120096dfcd214d550c2b61a8f1ca12",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0039": {
+  "roster_url": "https://bradleybraves.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4500b93efcd345fe2bcdf8e22f2a36e15b2fa60a6388fc15a8c4637aaadfdf5c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0116": {
+  "roster_url": "https://byucougars.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "36132057cb0ad0dea69b4cad7198b6d9ae8431221b13d477d061efc441a08720",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0101": {
+  "roster_url": "https://brownbears.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a8df7c17c28d0032485a1773fdff393645863d78d1eb843f8756a3b7474de3e6",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0348": {
+  "roster_url": "https://bryantbulldogs.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "07b726b001c3806ced088badd908cb7805544d727b9babec722968b1cf91e879",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0178": {
+  "roster_url": "https://bucknellbison.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "faa93a6a0512bd1d831e1c388a6b143ae86a506cec39a8dcf0dec3923c687a5f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0179": {
+  "roster_url": "https://ubbulls.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "10fde0726baf4c2f6d4da5781493a32ebd009deaafe56b2908ab836e64633685",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0180": {
+  "roster_url": "https://butlersports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0d5e443bc90ac185a972ee764e39e046a9dcb68c3016aacf5dfdbff647ac6fd5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0008": {
+  "roster_url": "https://gopoly.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "fd158e4ae86cffd68948138963b06a4021182cc4923f0522ebf8c61873077711",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0342": {
+  "roster_url": "https://gorunners.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "ef5967d78d1199606b3ae5a069e9cee0addcdbbbd9cb4b960fdb93f912cb4e41",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0131": {
+  "roster_url": "https://gobulldogs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5202dcdac45b1d6ad70e81e885670fba658563d6b83c825226c44ac5b28d790e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0209": {
+  "roster_url": "https://fullertontitans.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "284fd260bec3b46c1bec6548ea85739f0f45981465ff4736d15a254e81be6dbf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0139": {
+  "roster_url": "https://longbeachstate.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "00eda33abfe443576ab4ad057b97dd5723bae161dfac950f345d6db264767118",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0260": {
+  "roster_url": "https://gomatadors.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8c6cfb0c53055b8e810ded8e0197fdfea839a4f5de3123c7ee8c1b97aca71d0c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0009": {
+  "roster_url": "https://hornetsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c98f74ce113a207a65c01c6060f29b27b5842fc706f1bed0b8c2b4cdf90f5b8c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0279": {
+  "roster_url": "https://ucsbgauchos.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "12085cb308e02da7cc37438366f027c2e52a6fe4dcd4a4efa57161385133fa79",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0013": {
+  "roster_url": "https://calbears.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "84e9b9f39f7411c4a72859be1be0598ed76b7874acf14f212d789f7b2c2b732a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0142": {
+  "roster_url": "https://ucdavisaggies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0783d3bfa22971b506edf9ebe40c9b5a92917ada8bef374eb09e48e2ed0dd7a7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0140": {
+  "roster_url": "https://ucirvinesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "997135b52a485d195aaccb5c04cf95cf2f9d095d53bc1e54e8f0bbeb549a3fde",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0014": {
+  "roster_url": "https://uclabruins.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "67315510e15876de7e1624cc65a540d92e9deb43d7ba538a359337e64e395628",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0015": {
+  "roster_url": "https://gohighlanders.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a1bb24c59689ef11c63f8a107a6d71a0f61d95d64d8e7e194547eab6f4d30b7a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0358": {
+  "roster_url": "https://ucsdtritons.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "242c47d4123e84c232b29c2f6d29ad913f7655f80318dc74a6fd146b21476eb3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0181": {
+  "roster_url": "https://gocamels.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "65589d0383f13a44e054eb900c23713c1e411c7d2b04f7bb981468590db652de",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0182": {
+  "roster_url": "https://gogriffs.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "70f7dd2e258cdea7bbf350152034ceb7d251c8e4bc22bd1bd8d40a9c6dbd8206",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0184": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0185": {
+  "roster_url": "https://ucfknights.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "8a37d3cd70b43e89650c8cd9d54d69ef2282fb3f312b1c93ff481c19fa686bdb",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0186": {
+  "roster_url": "https://cmuchippewas.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2c040054b5cfb071ecc2316084b373ad1dfb805bb7bd59a0bc01061d5acbf71f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0188": {
+  "roster_url": "https://www.gocsucougars.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "86c56f2413d10947b5bbdb678493dae08034d740eb3ba0b2b9458b5bb5e57ba7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0189": {
+  "roster_url": "https://gobearcats.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "0cc62f6691648277c07478ae2f57154dad24e7c443f1300828d9139a33f57caf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0310": {
+  "roster_url": "https://citadelsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9ef6cd86137ababa92f5d202087154e1d060079ec1f8f5795868160d0da89e9c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0103": {
+  "roster_url": "https://clemsontigers.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "d1634a2a9788b5e6f16a2bf6e986411fd73d47680ea41e85e33855770c35f0ce",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0151": {
+  "roster_url": "https://csuvikings.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "1b21b8000c0bba70fd33418a91de73a40035bc03b89da5f2a6874c63cced704b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0150": {
+  "roster_url": "https://goccusports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "211c80b6ac5f84901b97044358ac96746a75d47a3a85d1b5c0cd9f012f1c2021",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0190": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0017": {
+  "roster_url": "https://csurams.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d4d7929a59905b2139f6363e367f9006cefd64d49fb1066614977d6258fa878e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0018": {
+  "roster_url": "https://cubuffs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "60c85a15d8f3e2b7a5ca4e9ef57f56c91dd6bd2f9f3e8846b15208f50339eb5d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0083": {
+  "roster_url": "https://gocolumbialions.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "801bad6e57abb1a5bec5a855fc3287c6bac7e4289f849b7f7649db94c42db6cb",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0019": {
+  "roster_url": "https://uconnhuskies.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5081f1a0dde2ae90616a1f631eb7cc4f088efef39b3c362327c53ce9f2b8f8e3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0191": {
+  "roster_url": "https://coppinstatesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d47dac2cf1ec4c70abb8accac3bcf893d408bf6042fd16dc9ad90988541d30ec",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0084": {
+  "roster_url": "https://cornellbigred.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "29774cbc4d378843d418a27a8ce8dd3e7435eb26927bbff2d52480c76ee42df9",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0074": {
+  "roster_url": "https://gocreighton.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "158d4df127a1b321485b472e5e50f84c62389ff4bbf6e2252989833a028b564e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0076": {
+  "roster_url": "https://dartmouthsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9f877ed713b98e66ac0e300b4bada6fe2a4b7cc9e054cd1af52064ab90c8941a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0192": {
+  "roster_url": "https://davidsonwildcats.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0f759f1e962b219e293fa8b63d7d6d18941828c8a09bd2999872fd56d93df3ff",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0193": {
+  "roster_url": "https://daytonflyers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f75980832796bce690647b697fa1e16a70ab8a284db50daca1de4634fc80543b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0144": {
+  "roster_url": "https://depaulbluedemons.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "87b144c88dd1250c5004769508f951a8a564be28eb9264615c2ee4f24a600c89",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0194": {
+  "roster_url": "https://dsuhornets.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "87b7359bf38156867cdb568a891e714b54ecadae2543db69b53313ffa81907c8",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0026": {
+  "roster_url": "https://bluehens.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "776220411f4967e884ced71019bc6e24ea5018eb144c93742629c3dad16ffd3d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0195": {
+  "roster_url": "https://denverpioneers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f374c5dc13c5f30db67f05d0f23fecdb78e54647728fa489611d01a0e7618816",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0196": {
+  "roster_url": "https://detroittitans.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "76ee0f7cb0ace0125bf2585c430f4e93ad0609ac0774fc32437a7a0cde44a450",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0197": {
+  "roster_url": "https://godrakebulldogs.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4cbde60dbcf54b2826a8c3183f6f40094a720da609ad7212433006e4045c10a5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0198": {
+  "roster_url": "https://drexeldragons.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c7c0e6f54af5dd6a3add02331bc16ac5b4f9b203afa00f3c91a9e3af7015ca4e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0069": {
+  "roster_url": "https://goduke.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "958b50587817934e78741bba3498ec2b4587b580d9101cc82a5849dcf1cf2a9e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0199": {
+  "roster_url": "https://goduquesne.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "bf87d63f4690cbc1f59967e495a6155ec2d536f679a4a9356cf969e2578af68c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0070": {
+  "roster_url": "https://ecupirates.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "48647f7040eb447c7b7d52536581bce461cedd106e398ca96db35d318e461563",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0200": {
+  "roster_url": "https://etsubucs.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "847ca2cebe62c1df40292e540eeae1699e82e68374418c7f9b95f1d3f09061ee",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0369": {
+  "roster_url": "https://lionathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d20c23e744e1da30f9d4950c8ac0ad5d32263d5dd3fd8d6ebc15d751ea57046a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0201": {
+  "roster_url": "https://eiupanthers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8873df8ea29556c3f0ad265c2f2ef4e73e1291f81268bab70ba398475659c803",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0202": {
+  "roster_url": "https://ekusports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "af61cbbd2eba81bc31841ee342a6677748b594419c0cfae23f8eca6811e5cd76",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0203": {
+  "roster_url": "https://emueagles.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "679fec393e71a5084f71bc446ab15342c17fdcc74bfec348dc0eff8f0a6ff811",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0154": {
+  "roster_url": "https://goeags.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "11a5a18c62e58ace5ab7789848f73603854808de3c04bef2662d62c8e7fa0609",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0157": {
+  "roster_url": "https://gopurpleaces.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5c80c6c54f2c410e54cad2ed2f47deb326dc25358e164a93104ed7f775cf8f30",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0205": {
+  "roster_url": "https://fairfieldstags.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "90757e01dffe181e88182ad681465dfeb1f601e0a0020d77f0c78db21115e78c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0078": {
+  "roster_url": "https://fduknights.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "afebee75ac716579330196cfe8f18609bfaf2ec1435f59d3cff42d7d019fd459",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0027": {
+  "roster_url": "https://famuathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9b8dbde33aa35ad1f3eec074d88214fc5394956e4969c242bf3756608d084597",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0206": {
+  "roster_url": "https://fausports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d90a720fafe0823bca3af9946b9343d9746796e33c4b8cb6e76eb9c8c77cdbb3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0207": {
+  "roster_url": "https://fiusports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d131d89128c4d9f9a381b721ad34649c309172b6390d09b3fb380064e5f0766c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0028": {
+  "roster_url": "https://seminoles.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b44421b262ee149f24b565f4ee99365d22c2cf464671501ea334712a61c68572",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0031": {
+  "roster_url": "https://floridagators.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "349c8be6bc40c675fc8b849dc7d945691131fc38afa4a170d6d34639a0db573d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0208": {
+  "roster_url": "https://fordhamsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "dfec20093a703a4001964add3f92404f8b27e6416993a326aa7a05efdc5c7f54",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0104": {
+  "roster_url": "https://furmanpaladins.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "52031438e883fe97830236467319dad25de7d69fe9642996beb7146624856fdf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0211": {
+  "roster_url": "https://gomason.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "ccffb9b4694e0095e723ec40d779a8caa95ce761bd91a4c2c9fd3231fa30a51f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0023": {
+  "roster_url": "https://gwsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6da217ac0ef909ee3abc12f6a9d49704ed46c2abd99d5f31c7c4e59ec16a8d8b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0024": {
+  "roster_url": "https://guhoyas.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c2d89b22e0dbc0ffbe577496dd87be1a9af4468d88614e4b4584096f5fca4395",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0135": {
+  "roster_url": "https://gseagles.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "dc8c48197383dee2405af53d844e7210c908014971aee842586a69427cb4c595",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0212": {
+  "roster_url": "https://georgiastatesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7e0077b4fdb82354485eaa0efe9f9c1be1c8a89f78e89c3c8d0d2e5d5f1d227c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0033": {
+  "roster_url": "https://ramblinwreck.com/sports/m-baskbl/roster",
+  "platform": "wmt",
+  "content_hash": "55d5969f25e6b831b8c31b597ef30fdb490e851eea5ddfa5fb2e141d2af09f96",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0034": {
+  "roster_url": "https://georgiadogs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "57e13a3536a0eba93a6cf03a17d0e3e7018efff9b1b3970915f31e84f98e2949",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0213": {
+  "roster_url": "https://gozags.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "784fc264bcf6630d71e1eaee8f8c84a6708a4b93f43fca2205caa5d7281d1a3b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0331": {
+  "roster_url": "https://gsutigers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c792c367b5a6333a37486c1933dac1195ed5689e4a77171552c933eb7ce0c56a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0214": {
+  "roster_url": "https://hamptonpirates.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "668bef943c4eb7dd7be3be0ef1450075f706e003cec7dd0a5806e4ffe4109275",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0054": {
+  "roster_url": "https://gocrimson.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9ca3dd1f83a0691fc465d2e40f215f93164d44689d946e8e9a88c3e1d93f8181",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0035": {
+  "roster_url": "https://hawaiiathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c47c2eeaf2828c3eb6e749cb39902b9b5a41cc80f71e8772604a770662530a62",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0216": {
+  "roster_url": "https://gohofstra.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "22bb825359ddf68c67e183ffd5dde7360b362878d782feccf63b68d70edcbd83",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0053": {
+  "roster_url": "https://goholycross.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "69408d28cce0df4f0f3027c994b5a2ffcd9b9171b317b451c0ce3edabe9a1e2c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0345": {
+  "roster_url": "https://hcuhuskies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b316b9f79ea3d408095db19c148c657809f5daa373e49282203ebe9d421a7ccd",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0112": {
+  "roster_url": "https://uhcougars.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "bb23a54e7ea094eff14557c2e81a2182514f47d25715c5a99f2ac1f3b88ef539",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0025": {
+  "roster_url": "https://hubison.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f7b171e266b24e5618487ed78338243c1b38ec45d2ae44a7a093c9cb01cd957d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0143": {
+  "roster_url": "https://isubengals.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f4fdc40bf4091eb37b4bb646e734f1430746f01cde6ccc2c70064bc8e146f791",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0038": {
+  "roster_url": "https://govandals.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "50752291d105d65fdd3ff4e7e7d3e607ba50494d93a5cf293d91f2b7b2cef177",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0217": {
+  "roster_url": "https://goredbirds.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0dbe251070b759b28408969e6621db5b19a4b373c229bacf9e7076db48701748",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0161": {
+  "roster_url": "https://fightingillini.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e8265a69e7a55f85055717593626fd5db034836b91ab8fcdfd31adaadc06e17b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0042": {
+  "roster_url": "https://uicflames.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "bf00d16dc0010085580a4278ff8ddafa31d1585a08dc0810678b6eb21a4d7065",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0133": {
+  "roster_url": "https://gosycamores.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2ef00d5347cf101f79ddf0f91a4be615a0da60daec56b3c329d30362482dca3b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0043": {
+  "roster_url": "https://iuhoosiers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2b76a68b1d2a86df4a7288ff2df3d9f62b56dc339201f9d5ac3df77a01c89bb8",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0332": {
+  "roster_url": "https://gomastodons.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b94d715bae75030ca6f4c33a93f2a50bca3dd9452703450019acd2fb0ce69a75",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0147": {
+  "roster_url": "https://ionagaels.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4255ffb3e75ad324d3f38983ac6ec44391471543f2d057c7fa46d112abe9cef1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0036": {
+  "roster_url": "https://cyclones.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d0f16539301cd60a8b3e46d20c69bff7eab68b9188c10ff2dc969e797d3bf8e5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0218": {
+  "roster_url": "https://hawkeyesports.com/sports/mbball/roster",
+  "platform": "wmt",
+  "content_hash": "d961a31fc7c81f72ab9294c509291967b0dff956e47d2611afa6d83c356f7d22",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0219": {
+  "roster_url": "https://gojsutigers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9884446510f0459a29579b934cbf824eb499d52d2ea2a71e44bec18337c0cdb4",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0029": {
+  "roster_url": "https://jaxstatesports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "90ff40dbf337a2753b80ac596fa16fca6c686bec0678002b580da6c6efba7b45",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0137": {
+  "last_attempt": "20261005T212117Z",
+  "error": "roster_not_found"
+ },
+ "T0119": {
+  "roster_url": "https://jmusports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "eb00fc034959cc00415151769c83a4521f3397880fa2818dcc7d0cb287293a3c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0221": {
+  "roster_url": "https://www.kstatesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "367ff0561660209c0cd1814417186f41e1537bc3b4d11192a20c4fa9c3d90195",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0220": {
+  "roster_url": "https://kuathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3ce6bb9c5c50cea4824441836a57bafca68fc0c89dc2aadd554b43af32f29f32",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0222": {
+  "roster_url": "https://kentstatesports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "70898c46d1174a5b7718c0ccc3928a697ddf68e2f461f768f5dee0460b7a7723",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0047": {
+  "roster_url": "https://ukathletics.com/sports/mbball/roster/",
+  "platform": "presto",
+  "content_hash": "6a1243accfff68e658230904c2f214897940719fe4ea646db84116090fdf98bf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0224": {
+  "roster_url": "https://goexplorers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "dfa004a56743f1ee07cb653fc0dfb0e26315eecd2bb40ebdeadbe671569e3d00",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0149": {
+  "roster_url": "https://goleopards.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "105a41d8d6c5a1a4fc54fa2f3af9eacf25e039a4885171de0181ef9a3665f170",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0223": {
+  "roster_url": "https://lamarcardinals.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2a07826a5da7340475a09f99d4e62cf02495dd6dd7fc687a88bf00e9496ca817",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0370": {
+  "roster_url": "https://lemoynedolphins.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8e9aa20d167152d34d56214b391b913988a23b2c60fc2ab4047566db6efe9b85",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0225": {
+  "roster_url": "https://lehighsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5772094ca94ca3a5fa79d41c1dbb713280568e3544ab9a94f228d1b4fa975e7f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0226": {
+  "roster_url": "https://libertyflames.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "acc9785cf5189d04e9d7efe45075ec51d5761599a8f3065eada6a28d1239918e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0334": {
+  "last_attempt": "20261005T212117Z",
+  "error": "roster_not_found"
+ },
+ "T0227": {
+  "roster_url": "https://longwoodlancers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "28390cf6d2ea321340a08a439fb58d10dbaa2abab81b4140dfaf44e1efc0a3e2",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0050": {
+  "last_attempt": "20261005T212117Z",
+  "error": "roster_not_found"
+ },
+ "T0228": {
+  "roster_url": "https://latechsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9f150eace38859e354150dd3e7b99509022ea2103cf4712e0f952c52acbf13f7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0048": {
+  "roster_url": "https://gocards.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a38e6b83aaa5de295816e63896dbb1d86de4a7b3bb6ef2935aa5d8885ee6d8b2",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0353": {
+  "roster_url": "https://goriverhawks.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0eef4c1eb0dd8194233855551db025ae904c8461502f617f7d2dcb8851befe93",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0231": {
+  "roster_url": "https://loyolagreyhounds.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4a2fd2684ff55f1445a3ff2174a19f7d7504683b34993ba3e45cf60cc189cf91",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0230": {
+  "roster_url": "https://lmulions.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f11a72829b1e9d253a5878b4783375d5e3a3f8e35ca5658b0e37ff9433dc17e8",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0229": {
+  "roster_url": "https://loyolaramblers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c2d91fe7ab9c5fd9698569a46c3eb33b2d9e978a0434f7a10e6ff9ed8d4333f5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0146": {
+  "roster_url": "https://goblackbears.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f0dc6b8b85948d594cbf8d72c1a9335afd7c275dd02059e593ebe4195318facf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0232": {
+  "roster_url": "https://gojaspers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8a976a9314358e220577d13878c70f6f82a0e704c2443cbb9bf173852ce71bcd",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0233": {
+  "roster_url": "https://goredfoxes.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9d119e5efb4d5925742e8a75c2c35013f97b7a50f736f45dea1d5e0655f42a36",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0126": {
+  "roster_url": "https://gomarquette.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9b6abf3be59a7671f8bbcd500cdf72ce10c73465cd955dcbc8d05e59f3c27111",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0129": {
+  "roster_url": "https://herdzone.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "234a00f492b03b009cf229aa8057fb66d4f3504aa64d82c6fee3f1408c22668f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0235": {
+  "roster_url": "https://umbcretrievers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4f2ac0164dd1a310429b0520ae29c21507243ecd8cf37f6f6f5b5bd529e3e5bc",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0059": {
+  "roster_url": "https://umterps.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d815c81a5b67342f8610f8958177682599eca3cbfdec22304cebf2abea27a43b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0236": {
+  "roster_url": "https://umeshawksports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c6373a052313aa0b03108891786101c1c6d0209f65108af79bb656a589bacc0b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0056": {
+  "roster_url": "https://umassathletics.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "fd2281b650ecda75037107dc1e6cfee4d22c710a5a8f27181b0e1136083b871b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0234": {
+  "roster_url": "https://mcneesesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "efa39cedc0b8d0edc33610e05c8bd7233c6361a70d057511b37e238f02d75d20",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0106": {
+  "roster_url": "https://gotigersgo.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "aaccba820990635de2a33fdea72c262dab3c6b27488a8d46926643b93448277a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0237": {
+  "roster_url": "https://mercerbears.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "05f5faf9a9329f0d3609f3dc281af8356beb672012a0453a6e6df8786eab0e99",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0371": {
+  "roster_url": "https://hurstathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "02c762340d352d79f2533ef05f6a40ea1b74a1dedcc41f6638be5a26fbdd8f3d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0357": {
+  "roster_url": "https://merrimackathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e9fb615e7a329a702688396e152d2c16c27721ff3839e513155c642a57a28704",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0088": {
+  "roster_url": "https://miamiredhawks.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "264299decd61d40a66b405ed403ad18f1596a998dba9d429eb935d1c96413856",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0238": {
+  "roster_url": "https://miamihurricanes.com/sports/mbball/roster",
+  "platform": "wmt",
+  "content_hash": "4a8bbb71b61813f77b7e9c68d7b47a67cc5ef2b7a42dcd44764a1bfa966317d6",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0060": {
+  "roster_url": "https://msuspartans.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2ca7edf22507410b648f2305c992444e9637599635fb424145c9afb654c86dfa",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0061": {
+  "roster_url": "https://mgoblue.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a85ec6e8b9cfd99cb4760d7c1ab99f185d507eb587ebb66fa2f702199ef81d07",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0239": {
+  "roster_url": "https://goblueraiders.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "23bbbca35b0a581e9718ed605154087bb2aedcefc0202fdad9cbd4afcd2b0f23",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0062": {
+  "roster_url": "https://gophersports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b6e60ede8fe1e84c8bffde5308c3e6e10656df47b1a436d0fc2f72723c471238",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0158": {
+  "roster_url": "https://hailstate.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "da78c142549fe6a461c502cf798974baebbfb20f04ec582fa645676867b0695c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0240": {
+  "roster_url": "https://mvsusports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f18189ffe368ee40805b59b7b54f719f377d1a7f75e184c61058e90bce342dd3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0066": {
+  "roster_url": "https://olemisssports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7aa948fc4c91746261a012e4f9db4bfeaa0cbaf64c4acf337add1c81d4309dc1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0065": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0241": {
+  "roster_url": "https://monmouthhawks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "da424745752857f592dbc4d5fbe483fabd3f282776b28a4ab3f7a7dcea6a27c6",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0067": {
+  "roster_url": "https://msubobcats.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a9a3e1f8574b5f8de5ef3c0638392c493ab32ab1da25f7405ce9d1f6e8078173",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0068": {
+  "roster_url": "https://gogriz.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "1b4a0d5d4c83254683aaf27158f0c8a9598492f0c88bbb69251dc7bb0be2c7fe",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0242": {
+  "roster_url": "https://msueagles.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "718e036b075d887854eabf296fb6315ffdd8dd1679063b2dd360ddea88bb7648",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0243": {
+  "roster_url": "https://morganstatebears.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4e71f9ff83857f36dfa99c461b35e498b9aa09a93a01b57fa31b699204165aa0",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0057": {
+  "roster_url": "https://mountathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e31f6b70b7b7b1d0cbc65c0910f6905848a12c38ca1c8ae840e2465168041e6a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0046": {
+  "roster_url": "https://goracers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3eea0cc27e082e61bccb227a0f536097d209bce4388d82070053bba28361e83b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0245": {
+  "roster_url": "https://uncabulldogs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e9256f43bfa979877682bb6be037181017efd1be1340009a335e1bcae2a82887",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0072": {
+  "roster_url": "https://goheels.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "1274a5d02bfc2ec3b2ed3418cd8b779277523a70fee566fb41950e1261a6b253",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0246": {
+  "roster_url": "https://charlotte49ers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3c5b1e92dce5c4bebbcd3abc87fdf5fba425272c8a55c2e63bbd0777204fec10",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0247": {
+  "roster_url": "https://uncgspartans.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c277a74a049a0bf0794db4dba689b3501c3286db418268bf61c4ecde7590a890",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0160": {
+  "roster_url": "https://uncwsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0ba711a4319b555fca8e8f99a505c1b39a616f5fbb0dbbd07836a358acb2d644",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0075": {
+  "roster_url": "https://huskers.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "0d516464988bc2ff83ac7f459f68e26f65a95411f3674877e4b76c7fde4b6b3a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0349": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0249": {
+  "roster_url": "https://unlvrebels.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5429afa8f6716148f2e2b89cbc34f78c57ffa69334387c173f8b6fb32624c9b3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0250": {
+  "roster_url": "https://nevadawolfpack.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c36d92519b78b360f8abdc51d79dcc11c099b274180057eddcf8d7512f999300",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0077": {
+  "roster_url": "https://unhwildcats.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "cbdfee21d814f3f2d8b27344471c9301e621fdb1cea4bad304cb1636d62b4a60",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0373": {
+  "roster_url": "https://newhavenchargers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2be8043a56252a38bb1c22d207e4445afb9e62085f38c994229dfcaafc9efaaf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0337": {
+  "roster_url": "https://njithighlanders.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a9e6cc223b737280de57574d38943ee4ab866da266f5a70ea61b895e8d455979",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0081": {
+  "roster_url": "https://nmstatesports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6a01d21fc53c2db0dec829484af67139343ca2a33a04aca8307421fff9c1194c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0082": {
+  "roster_url": "https://golobos.com/sports/mbball/roster",
+  "platform": "wmt",
+  "content_hash": "1d40d14d5feb7d481f43601e86f42f6d2f489294334c166eeadab603e713fe2b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0251": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0148": {
+  "roster_url": "https://purpleeagles.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b00ad79e6ffd561b457dd961132bcf556fb6eb1241aa252e15e61a65193eb7a3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0252": {
+  "roster_url": "https://geauxcolonels.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "cdf19ee660db566fd1277c5b7e9c28ca617eadb6282f6f2e7a35618edae009dc",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0255": {
+  "roster_url": "https://nsuspartans.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7e418b195e7cf4608c9b60c5e426e3cbf976c30acf2232ab74c96732612ff2a9",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0355": {
+  "roster_url": "https://roarlions.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6ee9c4a9e76d0bc3d98133d965bd1ed12e3f2a7c3862e934ec58ac1da01581a1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0253": {
+  "roster_url": "https://ncataggies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e6b882f2982b1a491b71717182a74f6bb2173ef21fa9599c4791892ce1a79017",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0339": {
+  "roster_url": "https://nccueaglepride.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "712d4dcf0e30d9e014fa2d0c74ab675de79bff931a0ac5f2f2f2412aad90c4b3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0071": {
+  "roster_url": "https://gopack.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6e9bd299e1ec12c876f7714ba9713ceef460a08db988d5df6569b664a8fdb580",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0254": {
+  "roster_url": "https://gobison.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "47630c24504e9d020a1ce44097de2c0d3a4a714c299bfcb377e532b3189da0f7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0343": {
+  "roster_url": "https://fightinghawks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8ac2554f622d931839cf1b59a30ad454b6b9eeb18f14f414c592e818d17175be",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0113": {
+  "roster_url": "https://meangreensports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d21ad90b7aa15d3f6d5f78c5938b5f8f4250c94acdc6ae05fd3108668a130f01",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0248": {
+  "roster_url": "https://ulmwarhawks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d0f3329b2db93c9b0c963869e5433a2f7c2d0e0031f176c567f67b7a1512c2a6",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0055": {
+  "roster_url": "https://nuhuskies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "529a63af81393d076ea5952bc46897c5511194b14ef75a98026ee648831953c7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0261": {
+  "roster_url": "https://nauathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8d805ff466a8bba2425f41c296f0bad425713541e6839e1d37950345b504c008",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0257": {
+  "roster_url": "https://uncbears.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f17cfbf7569743b025a333f8575384c1cee2b80bc0b6f30a9ca20b1fc1cdf2c9",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0258": {
+  "roster_url": "https://niuhuskies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "436505e50188e272020efae4f154eb6e78f389448bddad44cfaedaa80306fb2e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0259": {
+  "roster_url": "https://unipanthers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "15e5afa8e9d480e262d7377f31c5252dc7e084af0e641c30efced60c279d0e13",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0350": {
+  "roster_url": "https://nkunorse.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3b86300121d544a6508b50ffa25dbcfabef49a59afe6270705414de3ed2f264f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0262": {
+  "roster_url": "https://nsudemons.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "1ef34ecc055a73b5e1096ea9f86a86ffb0e356d822b25f8cb2962a60c84e6ff6",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0040": {
+  "roster_url": "https://nusports.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "76f0ba202706d06e170f61a936bc451299c6b9312c0c13137529b41ce41b63b0",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0045": {
+  "roster_url": "https://fightingirish.com/sports/mbball/roster",
+  "platform": "wmt",
+  "content_hash": "ad57a4987523c5dc548fee0c47e15695e5d37c3cd07a9b7b0f184dddf45ab7bd",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0263": {
+  "roster_url": "https://goldengrizzlies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "77af830aa7aae6febe02e894d0ddc2f5891788df7306b0e41a5e3d6f48b4ae46",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0089": {
+  "roster_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "cd090bc4b9372193f944b9f81ef153c20c5cf7642eca8d6829845b68b7bdf953",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0090": {
+  "roster_url": "https://ohiobobcats.com:443/sports/mbball/roster",
+  "platform": "sidearm",
+  "content_hash": "359a3cd0f5502a38fef3f2a6dd32c0dbd7a340dee0f6e7dfef66a727eb89c942",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0091": {
+  "roster_url": "https://okstate.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4794bb3ef57d85d020b6ebe0773c9f96eca438b5f0894b969be364f79a6779ac",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0093": {
+  "roster_url": "https://soonersports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "cd535f6e9a359b6c721ac9ebe2b34585fae4ada84986ee2509a3bfba87b69839",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0138": {
+  "roster_url": "https://odusports.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "7056ebf5a8a22d857679bd25fe21ab0b740a1c7ba492ab2d1be8dc75293ae3fd",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0092": {
+  "roster_url": "https://oruathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7b76d32130b6c0594c98de6fd3372ce23adf894be7c51523388258a8698e5142",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0095": {
+  "roster_url": "https://osubeavers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e4d20cc5f84132335cdca6b0ace9c1bb80478e5fede256972387e3fa4ef1fdc7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0264": {
+  "roster_url": "https://goducks.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "07225ac8c13a5b820f34b58eb5ed0e412a59d6318226bee5a82d6450e6fe73ef",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0132": {
+  "roster_url": "https://pacifictigers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "75834d12299616b26e94090c4e1533c1d47079b562478b25d414a6a47da63433",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0136": {
+  "roster_url": "https://goutrgv.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7dcdf4680c7df231929c08778b80c499cd918d7ea5a0b7f2e01302e18042e991",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0096": {
+  "roster_url": "https://gopsusports.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "d75726c69d7f64796162aa50afd58f5af661c3e4a090ba987c3dc4755440dc18",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0098": {
+  "roster_url": "https://pennathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c9f826f01d143bb4458742d99a8d2036c8947eb59ef68b709ba5cfc293f6b2b4",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0265": {
+  "roster_url": "https://pepperdinewaves.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "1fc00299a227775d23462991b2502a01207d76e8f328c022ea4f120050105c85",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0099": {
+  "roster_url": "https://pittsburghpanthers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "49a6dd1e408aab4de0b7f6588b0c200486a5a4496e62d7e64346073f840098f1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0267": {
+  "roster_url": "https://goviks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3b469c2a9836e4e051736009b8361d59336550a92ea0189c3094f492f821bcfd",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0266": {
+  "roster_url": "https://portlandpilots.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "60b3503c6ccecd6b78c832319055779236680c79c58f08837a4ae6dc07018c76",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0268": {
+  "roster_url": "https://pvpanthers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6f41348fd4a4872bb55e610a9ca7d0bd53760a8938c3c8bf2da2f9875824599b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0079": {
+  "roster_url": "https://goprincetontigers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "fff2ebb571c241bc7e5c2255f3304d56691519aa1368a2df9569daef6748c1aa",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0269": {
+  "roster_url": "https://friars.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6daa57cdb774f8e2e59076efb65f4ce3098391e1cb5f0e412cbf31fc88ad1c94",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0270": {
+  "roster_url": "https://purduesports.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "c47690d0eebf91db68a3a3149db6deb46785a3e6285ba9d6491a5318709b003b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0271": {
+  "roster_url": "https://gobobcats.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "805eeaf3da8554b3c3acadf53383fe3e0574d37a455be3c167f22aee46199fd9",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0272": {
+  "roster_url": "https://radfordathletics.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9ac63333ff86ac1ce26363552d0846626f51c6ef501c1c39ffdbacd052fbbcf6",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0102": {
+  "roster_url": "https://gorhody.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2e3fc3e034e0dec03ff1d3134ef378271b0a92f3f1b258e218530ab3b85e00d4",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0110": {
+  "roster_url": "https://riceowls.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f21bb800e868acd78bce52408813e45743f84ff4a2b69a614ab2db169820311f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0120": {
+  "roster_url": "https://richmondspiders.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6c52257045ee61ac1bdb9d597b4d4372a9a11f5d381fc4bb8e64bef8d43a3cd9",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0273": {
+  "roster_url": "https://gobroncs.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f3ec3ce0e14f8f6253ff581f750bd8cfa68d41e6426ce0ca28b6156dad8d4a6c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0274": {
+  "roster_url": "https://rmucolonials.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e9180e4c63f74076cd3b6a84f319c10e62993dcd554a2e74adf853631916c698",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0080": {
+  "roster_url": "https://scarletknights.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "67728a25806aaca193c033d28facfab812ada1922cc2772fdb99750a75f6f424",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0275": {
+  "roster_url": "https://sacredheartpioneers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4d49a047c6db2082dccad90c0a498e81c5bc377940e4781f43eedf831bbc5882",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0085": {
+  "roster_url": "https://gobonnies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "74d9ce72103c8251e7ead88520c18fc0d066ccc62ae94cdbb7c895f276545e1c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0294": {
+  "roster_url": "https://redstormsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "ae1ba612692b27597dcb0e43974fe733b59e4eeebc726e09f15203dbddb55109",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0295": {
+  "roster_url": "https://sjuhawks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b0d13725c1de1a90c01dac74ea30d2511529354e7dc47152756b4a233f0935f0",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0063": {
+  "roster_url": "https://slubillikens.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "df6da8e2f8ffd3def96fdb502fd19156142241f6c36a1fc1efa57e83d0376001",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0296": {
+  "roster_url": "https://smcgaels.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f9058f5e73c31d186c5e6958acabf33a2edff70cb5da06001340d88bca7e714c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0297": {
+  "roster_url": "https://saintpeterspeacocks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6365338e88938921c24cefd1a7632c31f670cc09861254ac866386e5f8cef741",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0363": {
+  "roster_url": "https://tommiesports.com:443/sports/mbball/roster",
+  "platform": "sidearm",
+  "content_hash": "ed8f02241828fdbe109fcfea9b3d3f4ccf28eb940cca22b7f84e5a0a0b80c540",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0276": {
+  "roster_url": "https://gobearkats.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "498998d02b28ca933a49c447505c3a81297f2a398c1b4053ce84ba6943371762",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0277": {
+  "roster_url": "https://samfordsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b4691fd3a567fa2e813b0c238c01f725aa215b272aa0ab2739918d4a35072971",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0010": {
+  "roster_url": "https://goaztecs.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "36b661dfcc8e0d814bdf04467a029cd1fd02b718bd479720ef72fefd498db059",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0141": {
+  "roster_url": "https://usdtoreros.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3bfc35b3e308ab557a42335deaad8b01de9fa5420a98e88ead9679bd52193d8a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0278": {
+  "roster_url": "https://usfdons.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "74c5caf8f9cf85a4fde8c9b0533e2838023736789b17b15c87f08138674ee1fd",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0011": {
+  "roster_url": "https://sjsuspartans.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "fca298a1181dacec654a10010bd2e917ddd97e02e428573b47f1a7980108fd31",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0280": {
+  "roster_url": "https://santaclarabroncos.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f6209c5e3c711ed6bf3826dd7f5c9c62173e9282f66201bf6dcefd2d3c022a67",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0284": {
+  "roster_url": "https://shupirates.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "58375d002f885e2c57603ff8381eb502bb93574c8c26dc1a1c9dd06be2a3b4e1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0285": {
+  "roster_url": "https://sienasaints.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b7284c397865bb7b1c3dde5f078b0cc7041626ae3128d7a57f7d80f5c662b6ef",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0004": {
+  "roster_url": "https://usajaguars.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d4a48efc459e6fafa066a19ced3dfe020453ff6313fee2233079c2bb66400b75",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0287": {
+  "roster_url": "https://www.scsuathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "aeb1f4eab9aa0fe7a9ad00ceba9f76b929f9c39d3a6f713dc68d34ae22de92f5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0290": {
+  "roster_url": "https://gamecocksonline.com/sports/mbball/roster/",
+  "platform": "presto",
+  "content_hash": "b1e1068dec0ffdeabdf6ca29bf121de97fba0554e66ae2df018107508282b3c8",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0288": {
+  "roster_url": "https://gojacks.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "695d0b71dc4ac9d2ac1b68a3b1ab990b9130d8ebb9a8f6563582b39ab1931067",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0344": {
+  "roster_url": "https://goyotes.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c476366fafef5a8500838b23f235dc268721a3bb7190a954f2ee4be7ccb4a4b5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0032": {
+  "roster_url": "https://gousfbulls.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "abc5c6edaf0cbd8c5cf4ef740c987f427a162675ed330999c821250f9eaa0435",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0283": {
+  "roster_url": "https://semoredhawks.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6d02fa657002649ef8f34db30566b402555c0ff965b7fd1c53d090c0592a00ec",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0282": {
+  "roster_url": "https://lionsports.net/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7f32474c3006537a0f5e39ad600a2b53c0d51e74eae72026959e958c1d8eed3f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0016": {
+  "roster_url": "https://usctrojans.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "580b9d53bcbb8a23c0f43fa7b08c67e51f84aabbb9dbaa98b409fa4797f329c7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0041": {
+  "roster_url": "https://siusalukis.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d4085e464951a99fc101393c2e281ae626a78511335b924dcba088b723919971",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0347": {
+  "roster_url": "https://siuecougars.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7c5d0e726e71199fef074e1daaf1a1e0f24216e89b6e0130acc2248579d02c32",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0365": {
+  "roster_url": "https://usiscreamingeagles.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "edaa88efc28f770bdd449c019058f790c664bf2515664dc062a4d237c788ee06",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0286": {
+  "roster_url": "https://smumustangs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b42b212671a9757d8a15980bf1b6caeae315a619baf1e19d3285c514cf63cc83",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0289": {
+  "roster_url": "https://southernmiss.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "de330b62b1070d7abbccf1a656e287d0168009760d8dfcfffe42c4a5f5444dcd",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0291": {
+  "roster_url": "https://gojagsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e1df3a28c78fcc9e09cd9e5b155b3ff2d9d8a84282bab9fe913e390ab91c8e59",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0117": {
+  "roster_url": "https://suutbirds.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "45d19e6d43d6503f7364bae17af6f4d923284edb558d296babce51083bee43e1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0300": {
+  "roster_url": "https://missouristatebears.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c358464e2451f0f0f73eca093e8ca8b4fc4e83e1a56c42a70ac6fd612c180958",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0152": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0145": {
+  "roster_url": "https://ragincajuns.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3dc4a395485b4dff39478742e109f2b2bc1de380c3be9910a61007e3eccf4aa9",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0012": {
+  "roster_url": "https://gostanford.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "292225843061b5784c5d40b2b40cc178faa51063fabe4999e0a6811e89f9301b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0298": {
+  "roster_url": "https://sfajacks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "dd780170e4efc2adbba303be2623a0185f33298c04bc4c0b0a7a3b887bc632bc",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0030": {
+  "roster_url": "https://gohatters.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6b96851ba87049d45976c4c72d312b6174dd773ad64a98e6b1d6387d33d15c15",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0366": {
+  "roster_url": "https://stonehillskyhawks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f0e69ca551f6fa5a5d73b2b3427c2c5e8fabd4fe9dc8c0290798630eb58e9286",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0299": {
+  "roster_url": "https://stonybrookathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d4e749e82a2a38877abdf003483c3a7d9146021d32b646dd82d1662e5a5a9f8c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0086": {
+  "roster_url": "https://cuse.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0b85e0e535db74ca814a652bc2c59f65b1b00d24bfecde6d8ebe8d1e5c289db7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0097": {
+  "roster_url": "https://owlsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8070b365c9b5d308eac36ed8766047e55c3e64f6d6b964e605df54dfe800345b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0304": {
+  "roster_url": "https://tsutigers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c6f2bc2237bca6bbd0a35228c1b333671851c54062f4e682ecce8927d899f29e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0305": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0107": {
+  "roster_url": "https://gomocs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a99789c21a1e2e83ea86d473c240270e27fca683ed17767c67e98446ae82277b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0303": {
+  "roster_url": "https://utsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "bcf3bd88ab2d684e95ee628ab880b82dcd7ecc74ece53fd4e05d2f200b3e6ed8",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0302": {
+  "roster_url": "https://utmsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a703140b94768891ee32724136175c9aa9bc0c320dd0dc618476d9e3e56ec1a4",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0111": {
+  "roster_url": "https://12thman.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "b0ffa9fb9364f77c5bbe41515fa240c955e4f9633aefc1c21d6548957af5042f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0301": {
+  "roster_url": "https://gofrogs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "ce8ab4971b7cb56e8eaf2aec620d9c921c7f467c9c47ad4f110b78f3de8f4763",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0308": {
+  "roster_url": "https://tsusports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c82e3b6dea8af8ec529c80a6fb65edbfb8cfb9b80e6f8ed7da585fc51c9a37cf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0309": {
+  "roster_url": "https://texastech.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "5df2a65bb31bc90b211f47b353296df1480f6e4522cca52f588e54dd4bbb0a94",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0114": {
+  "roster_url": "https://utamavs.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7956214d9ceceabcfbc6bd0570b22c5e602425cf61e417cb77ac8bb8491db534",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0115": {
+  "roster_url": "https://texaslonghorns.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "24a5bcbf3dbab6e5a56e04a3ee334c7e003d2c5b88e0db9eff848a78f7005d38",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0307": {
+  "roster_url": "https://utepminers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7c4c7897323aa8f28f6acf85b294db024ec85e5a56276bf0dd8e6ac98ef5b559",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0306": {
+  "roster_url": "https://goutsa.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "8ab41abc313bca9a7771b1f5bd1d30427f01ca1c2d78aea710da2a0ba38913e9",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0311": {
+  "roster_url": "https://utrockets.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7c6daf7d601d54a948af9d105378cf55728de0270357faaeb71ddd7a79776c0a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0058": {
+  "roster_url": "https://towsontigers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4bca9e395e9d1f9069dc6284d826aaeb29d92674cdbdca4e0be9e77d28b7a523",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0312": {
+  "roster_url": "https://troytrojans.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "a9c051d6573b1889c27aa5b4747ce93c11da07f6d3d57b462d52e0303460682f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0313": {
+  "roster_url": "https://tulanegreenwave.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4a9fc73e1ce78952348b47cb689452e4cf711a8489d7c8d3c9540f9475346ca1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0094": {
+  "roster_url": "https://tulsahurricane.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e658957ba6367375f32faa918fe2f68bcf93fa0dd83d64cd621cd343bfa8bcba",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0164": {
+  "roster_url": "https://goairforcefalcons.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "78a188db0b99542caa8de62bc1a2a062bc395e11a9990a3a6ad74b0674d27a1e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0159": {
+  "roster_url": "https://goarmywestpoint.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "8aa96327f6940debfe8fdd64f950bff22922f8464069c3bf1d473f13c564ae6c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0244": {
+  "roster_url": "https://navysports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "bc859dd3200ae2130a5d933e29a4fd1d71bd71b43039c363d8d03f59463a0f28",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0153": {
+  "roster_url": "https://utahstateaggies.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "43d3bb378cf773db4991d344c071ffa98271362d49c31e61c555332406b3af4d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0118": {
+  "roster_url": "https://utahutes.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "31b61090f219ce895147a35855be261c9112b334b3a3894185b0ae710167c87b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0315": {
+  "roster_url": "https://valpoathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c93a94a93118997008791e794dde1a89d96ff786ccc066b8fc992ac1b56f2ecb",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0108": {
+  "roster_url": "https://vucommodores.com/sports/mbball/roster",
+  "platform": "wmt",
+  "content_hash": "dc7dae332b9cb845493f0ac6746da0e92423e6969c50fe81af69d6cc5c552731",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0123": {
+  "roster_url": "https://uvmathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b44f1eb6c67d8b1b8c720eeac76f73f323d98b37d8aab1cb1b3f612d6ec7d4db",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0100": {
+  "roster_url": "https://villanova.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f0fb120bd306151ad9aaba029458315a093e50bfe44f239f616701c9e1b51bb6",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0314": {
+  "roster_url": "https://vcuathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "03b541c10b2e757ceae14792a24d05549bb21900ae53b297e3e11573e52f259c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0316": {
+  "roster_url": "https://vmikeydets.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d49eb07424b865dd7d5d3384fad3bcc71f15aea60c140e4ce0ddf7721c727d95",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0122": {
+  "roster_url": "https://hokiesports.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "dc21d5b4b88fea16ec95bf679fe327268fb2a9b9d1e3cadb71ec937826033558",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0121": {
+  "roster_url": "https://virginiasports.com/sports/mbball/roster",
+  "platform": "wmt",
+  "content_hash": "6807a95524e4b5e84dfd1de411ec167da6e233bc611457fef76903ae2160ba37",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0317": {
+  "roster_url": "https://wagnerathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3c3e7d7a15e210aa822989e8802c884f46398b231f222981e7706332e38bd0a5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0073": {
+  "roster_url": "https://godeacs.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "96c650adacd61f703f94e0cfb1418504edb0970ad71dc8b933d528c3a7742dbf",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0125": {
+  "roster_url": "https://wsucougars.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "4d4aed307ce5d623c458459e24c72d92e44a0b9eef9af65f0aa37f93836d4297",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0124": {
+  "roster_url": "https://gohuskies.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "60fa76864e1e33dac2e163d8161d6f73fe2b59a42b79d9f6cca7c52e87f83c8f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0318": {
+  "roster_url": "https://weberstatesports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d2868369d6be92a75aa4737be8b34753a2df4e9a0d3606869d94215fa03e57e5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0372": {
+  "roster_url": "https://uwgathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e9e5535cdf4ae9dfebea228b3b22362e48d5a100676458e5e33026073ea72295",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0130": {
+  "roster_url": "https://wvusports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "3f9e9a5caee22e4842f9057ef198df838eae9dd5bebb7b00a424084ebb9e7a48",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0321": {
+  "roster_url": "https://catamountsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b2cb12541efe1bd5fdfc70016e8787f2dc635df20c67118a2d818e997f744981",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0319": {
+  "roster_url": "https://goleathernecks.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "31eef2c60bb3a4c393ec7c2171627d78e6217a487cdf80afd7d25277cafddf00",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0049": {
+  "roster_url": "https://wkusports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "1e25c896913752c6cca7dd6f359751b0d0175b9a2caa83f01da0b46468e29c5e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0320": {
+  "roster_url": "https://wmubroncos.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "09b0fd01fc33676445926d5da2414725ec0e0d275f993e7083520c2552cfb9f3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0322": {
+  "roster_url": "https://goshockers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "57a71f5259a7fbcac7a27802687df4768cc37e0c71131d023062b50753ddee85",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0323": {
+  "roster_url": "https://tribeathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c83c924df6cfe81057442e27824e53fd50bf051f666b0d683e9f9a46aed196d5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0324": {
+  "roster_url": "https://winthropeagles.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "35a7a4947e2e45d0189e241e9e1e3d172b485b97a53da0b44f4c597dc5fb267f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0325": {
+  "roster_url": "https://greenbayphoenix.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "b395aa93482574b4885a246707b0c8a2f0eb3fbc4c09d269ecb72026363bf868",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0128": {
+  "roster_url": "https://uwbadgers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "957aeef96e733c57fab072a5d1763d3db06f93267616b6142dea3dddf53aa73f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0127": {
+  "roster_url": "https://mkepanthers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e9da1178a0a927ecee0092fa37b49554a96101e75d815c2d224ffb03773210b3",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0327": {
+  "roster_url": "https://wsuraiders.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "08b107de8583a69fa6a8369d87f5a28e7214c88aca0087bdbc609356cca88713",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0328": {
+  "roster_url": "https://gowyo.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "327e0bf2f6d6d71fe4db396dc36b444f73197cce807f46a14701013740200e52",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0329": {
+  "roster_url": "https://goxavier.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "2e10a0cd0e47de86372a5fba18439427bcc0a94e648fda0d254a6723a631889b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0021": {
+  "roster_url": "https://yalebulldogs.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "29624ec6d81a1944ba7e968ede505a96319250928ab465ee97bc94703b90204e",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0330": {
+  "roster_url": "https://ysusports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6ad8c15f4c1a0fbd9c801165cd34f1f2271d47a3961b2ddc2a6ba74d2029f8ed",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0335": {
+  "roster_url": "https://ucasports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0b6b30a84461cce8d3b9d8c0c4dd4204668818c238d1e87b75e338aa2948748c",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0105": {
+  "roster_url": "https://cofcsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6c028c4ee7df86c8e85387ac61c737e7e21dfb2411c0649027d77e27697c97ba",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0204": {
+  "roster_url": "https://elonphoenix.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "4b2347fa5d7cb5fab67c575e9a26668ade7baa52d66792091f83fc764a686754",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0210": {
+  "roster_url": "https://gwusports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "658e7f1807ac6f5ab29656913c2a30daa23c11c46ca2b6c437a9fcf825395d92",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0352": {
+  "roster_url": "https://gculopes.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6eb63b6215ba160eab07bacf8cc1e952e86eb0d41b01951c52d624addb73dc2f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0156": {
+  "roster_url": "https://ksuowls.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "bcd5c0c8b1900abd0cdfbd9ef04cf5befe230a8351d5eb5947cf2bc16810a021",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0340": {
+  "roster_url": "https://gobluehose.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f5f3a8c92cc945e9eb68ef3ab743f956d3852141019ca18cb9f14cbe81acf0e0",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0346": {
+  "roster_url": "https://goseattleu.com/sports/mens-basketball/roster",
+  "platform": "wmt",
+  "content_hash": "9fa5e5977855ea205f59a3bb58a2c96bec877b58cef46d1c02d26d1f61114a30",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0360": {
+  "roster_url": "https://tarletonsports.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0bd70e6b096b29ea8ef79b6f5028ba1ce78babb3adfc5faebd2dedaefc6f1d93",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0170": {
+  "roster_url": "https://uapblionsroar.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "174425df41560f2c3819810b5ebdb48d9dd410e9665b665bbfa6bd1ec823fced",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0044": {
+  "roster_url": "https://iuindyjags.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "340c935cb98959d6e19ac6946b1fd81de43944385e37bc6e4ff160e64717b0ff",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0064": {
+  "roster_url": "https://kcroos.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "23cbbae4c2df49e78cb85075e182ed45c6802e18fc31216745fc3a979a9ce28a",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0256": {
+  "roster_url": "https://unfospreys.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "d54fd20b6163b17d9d172cd7bba9d2c65273ef7f379d9180949a9ed4b9e85ad5",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0354": {
+  "roster_url": "https://uiwcardinals.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "93ac29604b5f11660463a5fdb1e0007c4cd6f03aa9152beb49de1b7462353caa",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0326": {
+  "last_attempt": "20261005T212117Z",
+  "error": "home_unreachable"
+ },
+ "T0341": {
+  "roster_url": "https://upstatespartans.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "c7b52e71cbb6f0214f39e056fc0d040099c0b7d06d16ea09e97d9fdb0f30ffab",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0367": {
+  "roster_url": "https://queensathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "9e9b34b6a0c79a933d7acc095b06e7f3cb5bbfb95c08e466f1229e16f49df68d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0175": {
+  "roster_url": "https://belmontbruins.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "de485da8d4f3cec2eb2da240f8e4b0fc7bac13733f74cb370d858a28598c05bc",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0215": {
+  "roster_url": "https://highpointpanthers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "eb644b3b1b6beebd9faa4e8f561fc21a60d6b9848853e28e85ef67a3f02e7cd7",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0162": {
+  "roster_url": "https://goislanders.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "7ac5e7d4bb2c19c4c9bbb088abae89c7262b33a43537ce92bd483bc1cdd0729b",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0134": {
+  "roster_url": "https://lipscombsports.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "e0adede21b77116bfdf49f0e69e925ff1d4d44b0ffe05eeac10a4b027b1599b2",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0338": {
+  "roster_url": "https://fgcuathletics.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "0580fb5a6f3fa6626ae9df0d34dd0a3d2d2718a2b36405738e20767e89b13a7f",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0333": {
+  "roster_url": "https://gouvu.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "64f2091c76c94ed4dfab96189327210fca9fa904e37389350d200770ae1d0b19",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0361": {
+  "roster_url": "https://utahtechtrailblazers.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "407b9507a4aed1df96dfba6d361011fee6210928f881ee504d24a23e937aae4d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0356": {
+  "roster_url": "https://cbulancers.com:443/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "f4ef906df25152c53a764142ae7fcf047519b791750756673af9a4c4bc0b1fd1",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ },
+ "T0368": {
+  "roster_url": "https://lindenwoodlions.com/sports/mens-basketball/roster",
+  "platform": "sidearm",
+  "content_hash": "6b824fc87997059ef9b1fa5820f91216c3df09b007c6daf1b0ea9fdfdc4f111d",
+  "last_change": "20261005T212117Z",
+  "last_attempt": "20261005T212117Z",
+  "error": null
+ }
+}
