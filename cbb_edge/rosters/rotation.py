@@ -91,9 +91,11 @@ def allocate(df: pd.DataFrame, raw_col: str = "share_raw") -> pd.DataFrame:
     return out
 
 
-def sanity(rot: pd.DataFrame, departed: set[str] | None = None,
+def sanity(rot: pd.DataFrame, departed: set[tuple[str, str]] | None = None,
            exhausted: set[str] | None = None) -> pd.DataFrame:  # fmt: skip
-    """Per-team structural checks of an allocated rotation (before any game)."""
+    """Per-team structural checks of an allocated rotation (before any game).
+    ``departed``: (team, player) pairs the roster truth marks as no longer on the team
+    (STALE for that team: absent from the official roster or dropped by a newer pull)."""
     rows = []
     for t, x in rot.groupby("team_id"):
         rows.append({
@@ -103,7 +105,7 @@ def sanity(rot: pd.DataFrame, departed: set[str] | None = None,
             "n_players": int(len(x)),
             "n_rotation_10min": int((x["minutes"] >= 10).sum()),
             "duplicates": int(x["player_id"].duplicated().sum()),
-            "departed_listed": int(x["player_id"].isin(departed or set()).sum()),
+            "departed_listed": int(sum((t, q) in (departed or set()) for q in x["player_id"])),
             "exhausted_listed": int(x["player_id"].isin(exhausted or set()).sum()),
             "starters": int(x["expected_starter"].sum()),
         })  # fmt: skip

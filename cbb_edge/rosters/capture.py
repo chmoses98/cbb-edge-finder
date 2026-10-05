@@ -193,7 +193,7 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     (day / f"{stamp}_teams.json").write_text(teams_s.to_json(orient="records", indent=1))
     # P-ROSTER-1 team state at this snapshot (expected rotation + continuity inputs):
     # the archived T-7d / T-72h / T-24h / T-6h states for game-1 evaluation
-    from cbb_edge.rosters import overlay
+    from cbb_edge.rosters import overlay, rotation
 
     try:
         rot = overlay.expected_rotation(recs, season, teams_s)
@@ -215,6 +215,14 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
                 ],
             })  # fmt: skip
         (day / f"{stamp}_proster_state.json").write_text(json.dumps(state, default=str))
+        audit = overlay.continuity_audit(cont, dict(conf), season)
+        (day / f"{stamp}_continuity_audit.json").write_text(json.dumps(audit, indent=1))
+        gone = recs[recs["status"].eq("STALE") & recs["player_id"].notna()]
+        sanity = rotation.sanity(
+            rot, departed=set(zip(gone["team_id"], gone["player_id"], strict=True)),
+            exhausted=set(hist.loc[hist["d1_seasons"] >= 5, "player_id"]) if "d1_seasons" in hist else set(),
+        )  # fmt: skip
+        sanity.to_json(day / f"{stamp}_rotation_sanity.jsonl", orient="records", lines=True)
     except Exception as e:  # noqa: BLE001  the truth snapshot itself is already written
         (day / f"{stamp}_proster_state.error.txt").write_text(repr(e)[:2000])
     new_keys = 0

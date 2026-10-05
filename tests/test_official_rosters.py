@@ -190,7 +190,7 @@ def test_waterfill_200_minutes_cap_40_and_sanity():
     a = rotation.allocate(df)
     assert np.isclose(a["minutes"].sum(), 200.0) and a["expected_starter"].sum() == 5
     assert a.loc[7, "usage_role"] == "unknown" and a.loc[0, "usage_role"] == "primary"
-    sc = rotation.sanity(a, departed={"P7"})
+    sc = rotation.sanity(a, departed={("T1", "P7")})
     assert not bool(sc["ok"].iloc[0]) and sc["departed_listed"].iloc[0] == 1
 
 

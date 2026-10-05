@@ -284,3 +284,46 @@ def roster_overlay(
         }
         out.append(rec)
     return out
+
+
+def continuity_audit(cont: pd.DataFrame, conf: dict[str, str], season: int,
+                     version: str = "pure-0.5.0") -> dict[str, Any]:  # fmt: skip
+    """Pre-opening-day audit of component (b) (WAVE7.md 6): the per-team side term
+    coef . (dcont, tr_prev, first_d1) at games-seen 0 (decay 1) for every CONFIRMED team,
+    with the turnover that explains it. No cap, no rescaling: this only reports."""
+    from cbb_edge.app import checkpoints
+
+    spec = load_spec()
+    b = spec["component_b"]
+    coef = dict(zip(b["features"], b["coef"], strict=True))
+    pre = checkpoints.Checkpoint(version, season - 1).preseason().set_index("team_id")["ret_min"]
+    rows = []
+    for r in cont.itertuples(index=False):
+        if conf.get(r.team_id) != "CONFIRMED":
+            continue
+        exp_ret = float(pre.get(r.team_id, np.nan))
+        if not (np.isfinite(r.truth_cont) and np.isfinite(exp_ret)):
+            continue
+        f = {"dcont": r.truth_cont - exp_ret, "tr_prev": r.tr_prev, "first_d1": r.first_d1}
+        rows.append({"team_id": r.team_id, "adjustment": float(sum(coef[k] * f[k] for k in coef)),
+                     "truth_returning_share": float(r.truth_cont), "expected_returning_share": exp_ret,
+                     "incoming_transfer_prev_share": float(r.tr_prev),
+                     "first_d1_expected_to_play": float(r.first_d1),
+                     **{f"term_{k}": float(coef[k] * f[k]) for k in coef}})  # fmt: skip
+    a = pd.DataFrame(rows)
+    if a.empty:
+        return {"confirmed_teams": 0}
+    x = a["adjustment"].abs()
+    return {
+        "confirmed_teams": int(len(a)),
+        "mean": float(a["adjustment"].mean()),
+        "median": float(a["adjustment"].median()),
+        "abs_p90": float(x.quantile(0.9)),
+        "abs_p95": float(x.quantile(0.95)),
+        "abs_max": float(x.max()),
+        "n_abs_gt_2": int((x > 2).sum()),
+        "n_abs_gt_3": int((x > 3).sum()),
+        "n_abs_gt_4": int((x > 4).sum()),
+        "large": a[x > 2].sort_values("adjustment").to_dict(orient="records"),
+        "all": a.to_dict(orient="records"),
+    }
