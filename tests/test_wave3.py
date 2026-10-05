@@ -219,3 +219,15 @@ def test_espn_line_capture_parse_and_horizons():
     rows = espn_capture.parse(board, now)
     assert len(rows) == 1 and rows[0]["game_id"] == 401 and rows[0]["horizon"] == "T-90m"
     assert espn_capture.horizon(24 * 60) == "T-24h" and espn_capture.horizon(10) == "latest"
+
+
+PURE_030_SHA = "6a58fb5069df1de80fca1e944268cd2ee1301eadacf0ba7348a19212e9ce7459"
+
+
+def test_pure_030_artifact_unchanged():
+    """pure-0.3.0 is frozen (Wave 3 challenger): content hash pinned forever."""
+    spec = json.loads((REPO / "models" / "pure" / "pure-0.3.0.json").read_text())
+    sha = spec.pop("sha256")
+    assert sha == hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
+    assert sha == PURE_030_SHA
+    assert spec["version"] == "pure-0.3.0" and spec["market_inputs"] == "NONE"
