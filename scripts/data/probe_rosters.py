@@ -133,6 +133,21 @@ def main() -> None:
     )
     out["sdv_rosters_2027"] = m
     print(json.dumps(out, indent=1, default=str))
+    summary = {
+        str(t): {
+            "site_season": (out["site_roster"][t].get("season") or {}).get("year")
+            if isinstance(out["site_roster"][t].get("season"), dict)
+            else out["site_roster"][t].get("season"),
+            "site_n": out["site_roster"][t].get("n_athletes"),
+            "site_exp": out["site_roster"][t].get("experience"),
+            "site_college_hist": out["site_roster"][t].get("has_college_history"),
+            "core27_n": out["core_2027"][t].get("count"),
+            "core27_ref": str(out["core_2027"][t].get("first_ref"))[-60:],
+            "core26_n": out["core_2026"][t].get("count"),
+        }
+        for t in STALE + FRESH
+    }
+    print("SUMMARY " + json.dumps(summary, default=str))
 
 
 if __name__ == "__main__":
