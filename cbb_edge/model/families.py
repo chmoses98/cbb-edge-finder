@@ -60,7 +60,32 @@ MARKET_COLUMN = re.compile(
 ARM_FAMILY: dict[str, ModelFamily] = {
     **{
         a: ModelFamily.PURE_BASKETBALL
-        for a in ("B0", "B1", "B2", "B3", "B4", "B5", "B6", "B6R", "B7", "B8", "B9", "ELO", "PURE")
+        for a in (
+            "B0",
+            "B1",
+            "B2",
+            "B3",
+            "B4",
+            "B5",
+            "B6",
+            "B6R",
+            "B7",
+            "B8",
+            "B9",
+            "B10",
+            "B10_engine_only",
+            "B10d",
+            "B11",
+            "B12",
+            "B13",
+            "B13_garbage_only",
+            "B13_mismatch_only",
+            "B14",
+            "B14v",
+            "B15",
+            "ELO",
+            "PURE",
+        )
     },
     "MARKET": ModelFamily.MARKET_BENCHMARK,
     "ENSEMBLE": ModelFamily.MARKET_ENSEMBLE,
