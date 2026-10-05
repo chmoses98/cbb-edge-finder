@@ -27,6 +27,9 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
 HALFLIFE = 4.0
+# replacement weights chosen on DEV absences 2012-2014 (research/wave4/absence_study.json)
+REPLACEMENT_GAMMA = 0.5
+REPLACEMENT_BETA = 1.0
 POS = {
     "G": "G",
     "PG": "G",
@@ -167,8 +170,17 @@ class Persistence:
     columns: list[str] = field(default_factory=list)
 
     def p_play(self, miss_run: np.ndarray, cond: np.ndarray, last5: np.ndarray) -> np.ndarray:
-        t = pd.DataFrame({"miss_run": miss_run, "cond_share": cond, "played_last5": last5})
-        z = _px(t)[self.columns].to_numpy() @ np.asarray(self.coef) + self.intercept
+        mr = np.clip(np.asarray(miss_run), None, 3)
+        c = np.clip(np.asarray(cond, dtype=float), 0, 1)
+        f = {
+            "miss1": (mr == 1) * 1.0,
+            "miss2": (mr == 2) * 1.0,
+            "miss3": (mr == 3) * 1.0,
+            "cond": c,
+            "last5": np.asarray(last5, dtype=float) / 5.0,
+        }
+        f["miss_x_cond"] = (f["miss1"] + f["miss2"] + f["miss3"]) * c
+        z = sum(f[k] * w for k, w in zip(self.columns, self.coef, strict=True)) + self.intercept
         return 1 / (1 + np.exp(-z))
 
 
@@ -191,9 +203,28 @@ def redistribute(
         w[a] = 0.0
         if w.sum() > 0:
             out += lost[a] * w / w.sum()
-    out = np.minimum(out, 1.0)
+    return _fill_to_five(out)
+
+
+def _fill_to_five(out: np.ndarray, cap: float = 1.0) -> np.ndarray:
+    """Scale shares to sum 5 with no player above ``cap`` (40 minutes): water-filling —
+    excess above the cap is passed proportionally to players still below it."""
+    out = np.clip(out, 0.0, None)
     tot = out.sum()
-    return out * (5.0 / tot) if tot > 0 else out
+    if tot <= 0:
+        return out
+    out = out * (5.0 / tot)
+    for _ in range(50):
+        over = out > cap + 1e-12
+        if not over.any():
+            break
+        excess = float((out[over] - cap).sum())
+        out[over] = cap
+        free = (out < cap - 1e-12) & (out > 0)
+        if not free.any():
+            break
+        out[free] += excess * out[free] / out[free].sum()
+    return out
 
 
 def fit_replacement(
@@ -225,6 +256,10 @@ class AvailabilityAdjuster:
     mode ``persistence``: P(plays) from the fitted persistence model (pregame info only).
     mode ``oracle``: P = 1 if the player actually played, else 0 (DIAGNOSTIC upper bound,
     uses the game's own box score; never a model input).
+    mode ``override``: prospective status reports only (P-AVAIL): shares are unchanged
+    unless a player of the team has a reported status for this game; reported players
+    get P from ``p_override``, everyone else P = 1, removed minutes go through the
+    replacement model. ``log`` records every share change.
     ``p_override``: {(game_id, player_id): P} from prospective status reports.
     """
 
@@ -245,6 +280,7 @@ class AvailabilityAdjuster:
         self.actual = actual or {}
         self.p_override = p_override or {}
         self._cache: dict[tuple[str, int], dict[str, np.ndarray]] = {}
+        self.log: dict[tuple[object, str], list[dict[str, object]]] = {}
 
     def _panel(self, ts, team: str, season: int) -> dict[str, np.ndarray]:
         key = (team, season)
@@ -257,6 +293,10 @@ class AvailabilityAdjuster:
         return self._cache[key]
 
     def __call__(self, team, season, ts, m, pids, s, game_id) -> np.ndarray:
+        if self.mode == "override":
+            hit = [i for i, q in enumerate(pids) if (game_id, q) in self.p_override]
+            if not hit:
+                return s
         pan = self._panel(ts, team, season)
         idx = np.array([pan["idx"][p] for p in pids])
         cond = pan["cond"][m][idx]
@@ -266,6 +306,9 @@ class AvailabilityAdjuster:
             if act is None:
                 return s
             p = np.array([1.0 if q in act else 0.0 for q in pids])
+        elif self.mode == "override":
+            p = np.ones(len(pids))
+            cond = np.where(np.isin(np.arange(len(pids)), hit), cond, s)
         else:
             model = self.models.get(season)
             if model is None:
@@ -276,4 +319,17 @@ class AvailabilityAdjuster:
             if o is not None:
                 p[i] = o
         pos = np.array([self.positions.get(q, "F") for q in pids])
-        return redistribute(cond, p, pos, self.gamma, self.beta)
+        out = redistribute(cond, p, pos, self.gamma, self.beta)
+        if self.mode == "override":
+            self.log[(game_id, team)] = [
+                {
+                    "player_id": str(q),
+                    "p_play": float(p[i]),
+                    "share_before": float(s[i]),
+                    "share_after": float(out[i]),
+                    "d_share": float(out[i] - s[i]),
+                }
+                for i, q in enumerate(pids)
+                if abs(out[i] - s[i]) > 1e-6
+            ]
+        return out

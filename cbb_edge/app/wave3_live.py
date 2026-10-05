@@ -31,6 +31,8 @@ from cbb_edge.data.http import data_dir
 from cbb_edge.players import box_prior, preseason, roster_graph, team_prior
 from cbb_edge.players.rapm import RapmConfig, SeasonRapm, player_team_features
 
+_CACHE: dict[tuple, tuple] = {}
+
 
 def _provider(
     model: dict[str, Any], key: str, ps, pg, team_net
@@ -62,8 +64,27 @@ def wave3_inputs(
     cfg: EngineConfig,
     warmup: int = 8,
     pf_warmup: int = 4,
+    share_adjust: Any = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Returns (hooked engine pregame states, player features for the player block)."""
+    """Returns (hooked engine pregame states, player features for the player block).
+
+    ``share_adjust`` (e.g. the P-AVAIL overlay) changes only the player features; the
+    engine states and roster inputs are cached per (artifact, season, as_of), so an
+    overlay pass costs one extra player-feature run."""
+    key = (model.get("sha256"), season, str(as_of), warmup, pf_warmup)
+    if key in _CACHE:
+        states, ps, pg, pg_min, team_net, rc, pf_seasons = _CACHE[key]
+        prov = _provider(model, "player_features", ps, pg, team_net)
+        pf = player_team_features(
+            pf_seasons,
+            games_info,
+            pg_min,
+            rc,
+            verbose=False,
+            prior_provider=prov,
+            share_adjust=share_adjust,
+        )
+        return states, pf
     seasons = list(range(season - warmup, season + 1))
     pf_seasons = list(range(season - pf_warmup, season + 1))
     base = run(games_info, tg_e, seasons, cfg, verbose=False)
@@ -116,8 +137,16 @@ def wave3_inputs(
     )
     hook = team_prior.TeamPriorHook(coefs, strength, pre, ca, stats=tuple(hk.get("stats", ["eff"])))
     states = run(games_info, tg_e, seasons, cfg, verbose=False, prior_hook=hook)
+    _CACHE.clear()
+    _CACHE[key] = (states, ps, pg, pg_min, team_net, rc, pf_seasons)
     prov = _provider(model, "player_features", ps, pg, team_net)
     pf = player_team_features(
-        pf_seasons, games_info, pg_min, rc, verbose=False, prior_provider=prov
+        pf_seasons,
+        games_info,
+        pg_min,
+        rc,
+        verbose=False,
+        prior_provider=prov,
+        share_adjust=share_adjust,
     )
     return states, pf

@@ -204,3 +204,54 @@ def test_classify_roster_uses_only_prior_seasons():
     assert c.loc["P222", "roster_class"] == "transfer"
     assert c.loc["P333", "roster_class"] == "new"
     assert c.loc["P444", "roster_class"] == "new"  # 2027 row is not prior history
+
+
+def test_override_adjuster_and_loader(tmp_path):
+    import numpy as np
+
+    from cbb_edge.availability.overlay import load_overrides
+    from cbb_edge.players import availability_model as am
+
+    class TS:  # minimal TeamShares stand-in: 3 games, 6 players, all played
+        S = np.array([[1.0, 1.0, 1.0, 1.0, 0.5, 0.5]] * 3)
+        players = np.array(["P1", "P2", "P3", "P4", "P5", "P6"])
+
+    pids = TS.players
+    s = np.array([1.0, 1.0, 1.0, 1.0, 0.5, 0.5])
+    pos = {"P1": "G", "P2": "G", "P3": "F", "P4": "F", "P5": "G", "P6": "F"}
+    adj = am.AvailabilityAdjuster({}, pos, 0.5, 1.0, mode="override", p_override={(9, "P1"): 0.0})
+    assert np.allclose(adj("T", 2027, TS, 3, pids, s, 8), s)  # no report for game 8
+    out = adj("T", 2027, TS, 3, pids, s, 9)
+    assert abs(out.sum() - 5.0) < 1e-9 and out[0] == 0.0 and (out <= 1.0 + 1e-12).all()
+    assert out[4] - 0.5 > out[5] - 0.5  # guard P1's minutes go mostly to guard P5
+    assert {c["player_id"] for c in adj.log[(9, "T")]} >= {"P1", "P5", "P6"}
+    cap = tmp_path / "captures" / "2026" / "11" / "20"
+    cap.mkdir(parents=True)
+    rows = [
+        {
+            "game_id": 9,
+            "espn_athlete_id": "1",
+            "captured_at": "2026-11-20T10:00:00+00:00",
+            "confidence": "reported",
+            "p_play": 0.5,
+        },
+        {
+            "game_id": 9,
+            "espn_athlete_id": "1",
+            "captured_at": "2026-11-20T20:00:00+00:00",
+            "confidence": "reported",
+            "p_play": 0.0,
+        },
+        {
+            "game_id": 9,
+            "espn_athlete_id": "2",
+            "captured_at": "2026-11-20T10:00:00+00:00",
+            "confidence": "no_report",
+            "p_play": 1.0,
+        },
+    ]
+    (cap / "x.jsonl").write_text("\n".join(json.dumps(r) for r in rows))
+    over, _ = load_overrides(tmp_path, pd.Timestamp("2026-11-20T12:00:00Z"))
+    assert over == {(9, "P1"): 0.5}  # later capture not yet known; no_report ignored
+    over, _ = load_overrides(tmp_path, pd.Timestamp("2026-11-20T21:00:00Z"))
+    assert over == {(9, "P1"): 0.0}
