@@ -40,3 +40,27 @@ def test_blocks_reject_market_columns():
     df = pd.DataFrame({"h_rest": [1.0], "home_spread_close": [-3.0]})
     with pytest.raises(MarketLeakError):
         blocks.context_block(df, df)
+
+
+def test_player_block_sign_convention():
+    """Better home offense / worse away defense (def = pts ALLOWED) -> larger margin."""
+    base = {
+        "mu_tempo": [68.0],
+        "h_off_tempo": [0.0],
+        "a_off_tempo": [0.0],
+        "h_p_off": [2.0],
+        "h_p_def": [-1.0],
+        "a_p_off": [0.0],
+        "a_p_def": [1.0],
+        "h_roster_known": [1],
+        "a_roster_known": [1],
+        "h_off_eff": [0.0],
+        "h_def_eff": [0.0],
+        "a_off_eff": [0.0],
+        "a_def_eff": [0.0],
+        "h_p_top5_share": [0.7],
+        "a_p_top5_share": [0.7],
+    }
+    X = blocks.player_block(pd.DataFrame(base))
+    # home pts/100 = +2 (own offense) +1 (bad away defense); away = 0 + (-1) -> margin +4/100
+    assert np.isclose(X["p_margin"].iloc[0], 68.0 / 100 * 4.0)

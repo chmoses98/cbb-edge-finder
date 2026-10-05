@@ -30,10 +30,15 @@ def main() -> None:
     st = pd.read_parquet(data_dir() / "research" / "states_adjusted.parquet")
     base = attach_games(st[st.season.between(2012, 2014)], g)
     base["poss_hat"] = matchup_features(base)["poss"]
+    import sys
+
+    # stage 1: coarse grid; stage 2: extend toward the stage-1 edge optimum (DEV only)
+    if "--stage2" in sys.argv:
+        grid = itertools.product((200.0, 400.0, 800.0), (0.8, 0.95), ((-0.8, 0.4),))
+    else:
+        grid = itertools.product((800.0, 2000.0, 5000.0), (0.5, 0.8), ((-0.8, 0.4), (0.0, 0.0)))
     rows = []
-    for lam, carry, new in itertools.product(
-        (800.0, 2000.0, 5000.0), (0.5, 0.8), ((-0.8, 0.4), (0.0, 0.0))
-    ):
+    for lam, carry, new in grid:
         cfg = RapmConfig(lam_o=lam, lam_d=lam, carry=carry, new_o=new[0], new_d=new[1])
         f = player_team_features([2011, 2012, 2013, 2014], g, pg, cfg, verbose=False)
         d = base.merge(f, on=["game_id", "season"], how="inner")
@@ -59,7 +64,12 @@ def main() -> None:
         )
         print(rows[-1], flush=True)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(rows).sort_values("rmse").to_csv(OUT, index=False)
+    df = pd.DataFrame(rows)
+    if OUT.exists():
+        df = pd.concat([pd.read_csv(OUT), df], ignore_index=True)
+    df.drop_duplicates(["lam", "carry", "new_o", "new_d"], keep="last").sort_values("rmse").to_csv(
+        OUT, index=False
+    )
 
 
 if __name__ == "__main__":
