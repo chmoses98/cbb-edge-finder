@@ -115,7 +115,7 @@ def test_table_parser_maps_columns_by_header_and_skips_non_rosters():
 
 IDT = pd.DataFrame({
     "player_id": ["P1", "P2", "P3", "P4"],
-    "name_key": ["ann bee", "cal dee", "cal dee", "old timer"],
+    "names_seen": [["Ann Bee"], ["Cal Dee"], ["Cal Dee"], ["Old Timer"]],
     "last_team": ["T9", "T8", "T7", "T1"], "last_season": [2026, 2026, 2025, 2012],
 })  # fmt: skip
 
@@ -299,3 +299,21 @@ def test_wmt_nuxt_payload_and_sidearm_embedded_json():
     page = f"<h1>2026-27 Men's Basketball Roster</h1><script>var x = {json.dumps(emb)};</script>"
     r = sidearm.parse(page, "https://y.edu/sports/mens-basketball/roster")
     assert len(r.players) == 9 and r.season_label == 2027 and r.players[0]["height_in"] == 73.0
+
+
+def test_a4_non_d1_previous_school_and_namesakes():
+    assert identity.previous_school_is_d1("Ranger College") is False
+    assert identity.previous_school_is_d1("Previous Team: Colorado") is True
+    assert identity.previous_school_is_d1("Virginia / Xavier") is True
+    assert identity.previous_school_is_d1(None) is None
+    off = pd.DataFrame({
+        "team_id": ["T1"] * 3, "name": ["Jay Juco", "Ann Bee", "Kay Gee"],
+        "class_label": ["Jr.", "Fr.", "Jr."],
+        "previous_school": ["Ranger College", "Wylie HS", None],
+    })  # fmt: skip
+    o = identity.resolve(off, pd.DataFrame(columns=["team_id", "player_id", "name"]), 2027, IDT,
+                         pd.DataFrame(columns=["team_id", "official_name", "player_id"]))  # fmt: skip
+    got = dict(zip(o["name"], o["identity"], strict=True))
+    assert got["Jay Juco"] == "no_d1_history"  # JUCO transfer: no D-I trace, non-D-I school
+    assert got["Ann Bee"] == "no_d1_history"  # freshman namesake of a D-I player (HS listed)
+    assert got["Kay Gee"] == "unresolved"  # upperclassman, no previous school: never assumed

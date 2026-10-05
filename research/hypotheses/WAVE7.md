@@ -203,3 +203,50 @@ players absent from the rotation.
 | teams CONFIRMED or LIKELY | ≥ 90% |
 
 Unresolved teams are listed with a reason, never hidden.
+
+## Amendment A4 (2026-10-05 ~21:50Z, after the first full live capture `20261005T212117Z`; before any 2026–27 game and before any P-ROSTER-1 outcome)
+
+The first full capture found 349 official pages; 325 were fresh. Confidence stayed
+low, with 72 teams CONFIRMED, 178 CONFLICTED and 76 UNKNOWN. Two defects caused this.
+Fixing them changes no threshold: identity coverage stays at 0.80, and CONFIRMED,
+LIKELY and CONFLICTED keep their definitions.
+
+1. **Order of the membership rule.** Section 4 says a fresh official roster defines
+   membership. The code applied that rule only after it had looked for cross-team
+   conflicts.
+   * The live snapshot had 481 transfers. Each appeared on his new team's official
+     roster and on his old team's stale ESPN listing.
+   * For 430 of them, the old team's own fresh official roster omits him.
+   * Those ESPN listings are now set aside before conflicts are computed. The player
+     is STALE (`absent_from_official`) on the old team and logged.
+   * The 51 old teams with no fresh official page keep their conflicts. They stay
+     CONFLICTED, as section 4 requires.
+2. **Identity for players with no D-I history.**
+   * Most of the 636 unresolved official names were JUCO, D-II, NAIA and international
+     newcomers, or walk-ons. Examples: Ranger College, Fort Hays State, Dodge City CC,
+     Daemen.
+   * They have no D-I box-score trace by construction. Each still has to pass the same
+     exact searches.
+   * The rule changes below are tightened and documented. There is still no fuzzy
+     matching:
+     * **Name keys.** A quoted nickname or a parenthetical is dropped (`Samuel "Tobi"
+       Ariyibi`). Periods and apostrophes are removed, so "D.J." = "DJ" and "D'Arcy" =
+       "DArcy". History keys come from every name the box scores printed.
+     * **First year.** "FY", "1st" and "First Year" count as freshman labels.
+     * **No D-I history.** `no_d1_history` now also covers a player with no exact name
+       in D-I history or any ESPN listing whose page lists a previous school that is
+       not a D-I program, judged by exact normalized names of every program ever D-I
+       in the lake (`identity.previous_school_is_d1`).
+     * **Still unresolved.** An upperclassman with no previous school listed, or with
+       a D-I previous school, stays `unresolved`.
+     * **Namesakes.** A true freshman whose name matches a D-I player with minutes is a
+       namesake (`no_d1_history`) when his previous school is not a D-I program.
+       Otherwise he stays `conflicting_identity`.
+
+**Effect, re-resolving the live official rows offline:**
+
+| measure | before | after |
+|---|---|---|
+| unresolved names | 636 | 146 |
+| conflicting identities | 45 | 9 |
+| teams at ≥ 0.80 identity coverage | 270 of 349 | 344 of 349 |

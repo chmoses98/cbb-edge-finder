@@ -90,8 +90,12 @@ class TruthConfig:
 
 def norm_name(s: object) -> str:
     """Exact-match key: accents stripped, lower case, punctuation and suffixes removed."""
-    t = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode()
-    t = re.sub(r"[^a-z ]", " ", t.lower())
+    t = str(s or "")
+    # a quoted nickname or a parenthetical is not part of the name ("Samuel "Tobi" X")
+    t = re.sub(r'["“”][^"“”]*["“”]|\([^)]*\)', " ", t)
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode()
+    t = re.sub(r"[.'’`]", "", t.lower())  # "D.J." == "DJ", "D'Arcy" == "DArcy"
+    t = re.sub(r"[^a-z ]", " ", t)
     t = re.sub(r"\b(jr|sr|ii|iii|iv|v)\b", " ", t)
     return re.sub(r"\s+", " ", t).strip()
 
@@ -285,13 +289,24 @@ def resolve(
     off_fr = fr[fr["group"].isin(OFFICIAL)]
     official_teams = set(off_fr["team_id"])
     official_keys = set(zip(off_fr["key"], off_fr["team_id"], strict=True))
+    # ... and that is applied BEFORE cross-team conflicts are looked for: a transfer on
+    # his new team's official roster whom his old team's fresh official roster omits is
+    # a departure from the old team, not a conflict (only the old team's ESPN listing
+    # still names him there)
+    omitted = np.array([
+        t in official_teams and (k, t) not in official_keys and g not in OFFICIAL
+        for k, t, g in zip(r["key"], r["team_id"], r["group"], strict=True)
+    ], dtype=bool)  # fmt: skip
+    r["official_omits"] = omitted & r["fresh"].to_numpy()
+    r.loc[r["official_omits"], "fresh"] = False
+    fr = r[r["fresh"]]
     fresh_teams = fr.groupby("key")["team_id"].agg(lambda v: sorted(set(v)))
     recs = []
     for (key, team), x in r.groupby(["key", "team_id"]):
         fx = x[x["fresh"]]
         groups = sorted(set(fx["group"]))
         other = [t for t in fresh_teams.get(key, []) if t != team]
-        absent = False
+        absent = bool(x["official_omits"].any())
         if str(key).startswith("U:"):
             status = "UNKNOWN"
         elif fx.empty:
@@ -300,8 +315,6 @@ def resolve(
             status = "CONFLICTED"
         elif len(groups) >= 2 or (set(groups) & OFFICIAL):
             status = "CONFIRMED"
-        elif team in official_teams and (key, team) not in official_keys:
-            status, absent = "STALE", True
         else:
             status = "LIKELY"
         first = x.iloc[0]
