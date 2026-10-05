@@ -248,6 +248,20 @@ def is_due(latest_stamp: str, now: datetime) -> bool:
     return age.days >= (7 if now.month in (9, 10, 11) else 28)
 
 
+def _redirect_hosts(path: Path) -> set[tuple[str, str]]:
+    if not path.exists():
+        return set()
+    return {(str(r.get("team_id")), h) for r in json.loads(path.read_text()).get("teams", [])
+            for h in r.get("redirect_hosts", [])}  # fmt: skip
+
+
+def missing_evidence(out: Path) -> bool:
+    """The committed registry carries redirect evidence the archived registry lacks:
+    regenerate now (otherwise the archived registry would override it)."""
+    return bool(_redirect_hosts(REGISTRY) - _redirect_hosts(out / "ncaa_directory" /
+                                                             "latest_registry.json"))  # fmt: skip
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, help="archive directory (append-only)")
@@ -261,7 +275,7 @@ def main() -> None:
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     snaps = sorted((Path(a.out) / "ncaa_directory").glob("2*"))
     if a.if_due and snaps:
-        if not is_due(snaps[-1].name, now):
+        if not is_due(snaps[-1].name, now) and not missing_evidence(Path(a.out)):
             print(json.dumps({"skipped": True, "latest": snaps[-1].name}))
             return
     members, meta = fetch_members(stamp)
