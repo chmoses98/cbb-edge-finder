@@ -231,3 +231,21 @@ def test_pure_030_artifact_unchanged():
     assert sha == hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
     assert sha == PURE_030_SHA
     assert spec["version"] == "pure-0.3.0" and spec["market_inputs"] == "NONE"
+
+
+PURE_040_SHA = "4a807ed55f1cbb921b85a1c98e2d1eeb95a043cf00e905ddda9a746a76fa95db"
+
+
+def test_pure_040_artifact_unchanged():
+    """pure-0.4.0 is frozen (Wave 4 challenger): content hash pinned forever."""
+    spec = json.loads((REPO / "models" / "pure" / "pure-0.4.0.json").read_text())
+    sha = spec.pop("sha256")
+    assert sha == hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
+    assert sha == PURE_040_SHA
+    assert spec["version"] == "pure-0.4.0" and spec["market_inputs"] == "NONE"
+
+
+def test_active_models_list():
+    a = json.loads((REPO / "models" / "pure" / "active.json").read_text())
+    assert a["incumbent"] == "pure-0.2.0"
+    assert a["challengers"] == ["pure-0.3.0", "pure-0.4.0"]
