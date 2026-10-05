@@ -11,6 +11,7 @@ on:
       - "scripts/data/probe_sources.py"
       - "scripts/data/probe_availability.py"
       - "scripts/data/probe_rosters.py"
+      - "scripts/data/probe_ncaa_directory.py"
       - ".github/workflows/source-probe.yml"
 
 env:
@@ -41,6 +42,7 @@ jobs:
           python scripts/data/probe_sources.py | tee probe.json
           python scripts/data/probe_availability.py | tee probe_availability.json
           python scripts/data/probe_rosters.py | tee probe_rosters.json
+          python scripts/data/probe_ncaa_directory.py | tee probe_ncaa_directory.json
       - uses: actions/upload-artifact@v4
         with:
           name: source-probe-${{ github.run_id }}
@@ -48,6 +50,7 @@ jobs:
             probe.json
             probe_availability.json
             probe_rosters.json
+            probe_ncaa_directory.json
       - name: Commit raw roster-source samples (append-only branch)
         if: github.event_name == 'workflow_dispatch'
         env:

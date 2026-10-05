@@ -108,6 +108,15 @@ SOURCES: dict[str, SourceSpec] = {
             notes="Official NCAA. Roster-truth fallback only; cached; >= 5 s between requests.",
         ),
         SourceSpec(
+            "ncaa_directory",
+            "NCAA Membership Directory (web3.ncaa.org/directory, public)",
+            CostClass.FREE_RATE_LIMITED,
+            ("web3.ncaa.org",),
+            min_interval_s=2.0,
+            notes="Official NCAA member directory: institution, division, conference, "
+            "athletics link, sponsored sports. Public; cached; refreshed weekly at most.",
+        ),
+        SourceSpec(
             "school_athletics",
             "Official school athletics sites (roster pages, fallback only)",
             CostClass.FREE_RATE_LIMITED,
