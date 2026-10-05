@@ -1,0 +1,2564 @@
+{
+ "teams": 364,
+ "roster_pages_found": 326,
+ "by_platform": {
+  "sidearm": 316,
+  "presto": 10
+ },
+ "by_method": {
+  "home_link": 188,
+  "platform_route": 136,
+  "sport_page_link": 2
+ },
+ "requests": 812,
+ "redirects": {
+  "T0351": [
+   {
+    "from": "https://www.acusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0165": [
+   {
+    "from": "https://gozips.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0166": [
+   {
+    "from": "https://www.aamusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0167": [
+   {
+    "from": "https://www.bamastatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0155": [
+   {
+    "from": "https://www.rolltide.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0003": [
+   {
+    "from": "https://www.uabsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0163": [
+   {
+    "from": "https://www.ualbanysports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0168": [
+   {
+    "from": "https://www.alcornsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0022": [
+   {
+    "from": "https://www.aueagles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0169": [
+   {
+    "from": "https://appstatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0006": [
+   {
+    "from": "https://sundevils.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0007": [
+   {
+    "from": "https://www.arizonawildcats.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0172": [
+   {
+    "from": "https://www.astateredwolves.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0005": [
+   {
+    "from": "https://arkansasrazorbacks.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0171": [
+   {
+    "from": "https://lrtrojans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0001": [
+   {
+    "from": "https://www.auburntigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0173": [
+   {
+    "from": "https://www.letsgopeay.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0174": [
+   {
+    "from": "https://www.ballstatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0187": [
+   {
+    "from": "https://csusports.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0109": [
+   {
+    "from": "https://www.baylorbears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0359": [
+   {
+    "from": "https://athletics.bellarmine.edu",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0176": [
+   {
+    "from": "https://www.bcuathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0177": [
+   {
+    "from": "https://www.bubearcats.com",
+    "to": "https://binghamtonbearcats.com/",
+    "observed_at": null
+   }
+  ],
+  "T0037": [
+   {
+    "from": "https://www.broncosports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0051": [
+   {
+    "from": "https://www.bceagles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0052": [
+   {
+    "from": "https://www.goterriers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0087": [
+   {
+    "from": "https://www.bgsufalcons.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0039": [
+   {
+    "from": "https://www.bradleybraves.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0116": [
+   {
+    "from": "https://byucougars.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0101": [
+   {
+    "from": "https://www.brownbears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0348": [
+   {
+    "from": "https://www.bryantbulldogs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0178": [
+   {
+    "from": "https://bucknellbison.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0179": [
+   {
+    "from": "https://www.ubbulls.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0180": [
+   {
+    "from": "https://www.butlersports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0008": [
+   {
+    "from": "https://gopoly.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0342": [
+   {
+    "from": "https://www.gorunners.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0131": [
+   {
+    "from": "https://www.gobulldogs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0209": [
+   {
+    "from": "https://www.fullertontitans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0139": [
+   {
+    "from": "https://longbeachstate.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0260": [
+   {
+    "from": "https://www.GoMatadors.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0009": [
+   {
+    "from": "https://www.hornetsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0279": [
+   {
+    "from": "https://ucsbgauchos.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0013": [
+   {
+    "from": "https://www.calbears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0142": [
+   {
+    "from": "https://www.ucdavisaggies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0140": [
+   {
+    "from": "https://ucirvinesports.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0014": [
+   {
+    "from": "https://www.uclabruins.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0015": [
+   {
+    "from": "https://www.gohighlanders.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0358": [
+   {
+    "from": "https://www.ucsdtritons.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0181": [
+   {
+    "from": "https://www.gocamels.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0182": [
+   {
+    "from": "https://www.gogriffs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0184": [
+   {
+    "from": "https://www.ccsubluedevils.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0185": [
+   {
+    "from": "https://www.ucfknights.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0186": [
+   {
+    "from": "https://www.cmuchippewas.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0188": [
+   {
+    "from": "https://www.gocsucougars.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0189": [
+   {
+    "from": "https://gobearcats.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0310": [
+   {
+    "from": "https://www.citadelsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0103": [
+   {
+    "from": "https://clemsontigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0151": [
+   {
+    "from": "https://www.csuvikings.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0150": [
+   {
+    "from": "https://www.goccusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0190": [
+   {
+    "from": "https://gocolgateraiders.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0017": [
+   {
+    "from": "https://www.csurams.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0018": [
+   {
+    "from": "https://www.cubuffs.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0083": [
+   {
+    "from": "https://www.gocolumbialions.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0019": [
+   {
+    "from": "https://www.uconnhuskies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0191": [
+   {
+    "from": "https://www.coppinstatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0084": [
+   {
+    "from": "https://www.cornellbigred.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0074": [
+   {
+    "from": "https://gocreighton.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0076": [
+   {
+    "from": "https://www.dartmouthsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0192": [
+   {
+    "from": "https://www.davidsonwildcats.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0193": [
+   {
+    "from": "https://www.daytonflyers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0144": [
+   {
+    "from": "https://www.depaulbluedemons.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0194": [
+   {
+    "from": "https://www.dsuhornets.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0026": [
+   {
+    "from": "https://www.bluehens.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0195": [
+   {
+    "from": "https://denverpioneers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0196": [
+   {
+    "from": "https://www.detroittitans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0197": [
+   {
+    "from": "https://godrakebulldogs.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0198": [
+   {
+    "from": "https://www.drexeldragons.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0069": [
+   {
+    "from": "https://www.goduke.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0199": [
+   {
+    "from": "https://www.GoDuquesne.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0070": [
+   {
+    "from": "https://www.ecupirates.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0200": [
+   {
+    "from": "https://www.etsubucs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0369": [
+   {
+    "from": "https://www.lionathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0201": [
+   {
+    "from": "https://www.eiupanthers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0202": [
+   {
+    "from": "https://www.ekusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0203": [
+   {
+    "from": "https://www.emueagles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0154": [
+   {
+    "from": "https://goeags.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0157": [
+   {
+    "from": "https://www.gopurpleaces.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0205": [
+   {
+    "from": "https://fairfieldstags.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0078": [
+   {
+    "from": "https://www.fduknights.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0027": [
+   {
+    "from": "https://www.famuathletics.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0206": [
+   {
+    "from": "https://www.fausports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0207": [
+   {
+    "from": "https://www.fiusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0028": [
+   {
+    "from": "https://www.seminoles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0031": [
+   {
+    "from": "https://www.floridagators.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0208": [
+   {
+    "from": "https://www.fordhamsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0104": [
+   {
+    "from": "https://www.furmanpaladins.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0211": [
+   {
+    "from": "https://www.gomason.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0023": [
+   {
+    "from": "https://www.gwsports.com/index.html",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0024": [
+   {
+    "from": "https://guhoyas.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0135": [
+   {
+    "from": "https://gseagles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0212": [
+   {
+    "from": "https://georgiastatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0033": [
+   {
+    "from": "https://www.ramblinwreck.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0034": [
+   {
+    "from": "https://www.georgiadogs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0213": [
+   {
+    "from": "https://www.gozags.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0331": [
+   {
+    "from": "https://www.gsutigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0214": [
+   {
+    "from": "https://hamptonpirates.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0054": [
+   {
+    "from": "https://gocrimson.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0035": [
+   {
+    "from": "https://hawaiiathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0216": [
+   {
+    "from": "https://www.gohofstra.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0053": [
+   {
+    "from": "https://goholycross.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0345": [
+   {
+    "from": "https://www.hcuhuskies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0112": [
+   {
+    "from": "https://www.uhcougars.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0025": [
+   {
+    "from": "https://www.hubison.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0143": [
+   {
+    "from": "https://www.isubengals.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0038": [
+   {
+    "from": "https://www.govandals.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0217": [
+   {
+    "from": "https://GoRedbirds.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0161": [
+   {
+    "from": "https://www.fightingillini.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0042": [
+   {
+    "from": "https://www.uicflames.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0133": [
+   {
+    "from": "https://www.gosycamores.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0043": [
+   {
+    "from": "https://www.iuhoosiers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0332": [
+   {
+    "from": "https://www.gomastodons.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0147": [
+   {
+    "from": "https://www.ionagaels.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0036": [
+   {
+    "from": "https://www.cyclones.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0218": [
+   {
+    "from": "https://www.hawkeyesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0219": [
+   {
+    "from": "https://www.gojsutigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0029": [
+   {
+    "from": "https://www.jaxstatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0137": [
+   {
+    "from": "https://www.judolphins.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0119": [
+   {
+    "from": "https://www.jmusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0221": [
+   {
+    "from": "https://www.kstatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0220": [
+   {
+    "from": "https://kuathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0222": [
+   {
+    "from": "https://www.kentstatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0047": [
+   {
+    "from": "https://www.ukathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0224": [
+   {
+    "from": "https://www.goexplorers.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0149": [
+   {
+    "from": "https://www.goleopards.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0223": [
+   {
+    "from": "https://www.lamarcardinals.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0370": [
+   {
+    "from": "https://www.lemoynedolphins.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0225": [
+   {
+    "from": "https://www.lehighsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0226": [
+   {
+    "from": "https://www.LibertyFlames.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0334": [
+   {
+    "from": "https://www.liuathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0227": [
+   {
+    "from": "https://longwoodlancers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0050": [
+   {
+    "from": "https://www.lsusports.net",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0228": [
+   {
+    "from": "https://www.latechsports.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0048": [
+   {
+    "from": "https://www.gocards.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0353": [
+   {
+    "from": "https://www.goriverhawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0231": [
+   {
+    "from": "https://www.loyolagreyhounds.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0230": [
+   {
+    "from": "https://www.LMULions.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0229": [
+   {
+    "from": "https://www.loyolaramblers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0146": [
+   {
+    "from": "https://goblackbears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0232": [
+   {
+    "from": "https://www.gojaspers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0233": [
+   {
+    "from": "https://goredfoxes.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0126": [
+   {
+    "from": "https://www.gomarquette.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0129": [
+   {
+    "from": "https://www.herdzone.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0235": [
+   {
+    "from": "https://UMBCRetrievers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0059": [
+   {
+    "from": "https://www.umterps.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0236": [
+   {
+    "from": "https://umeshawksports.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0056": [
+   {
+    "from": "https://www.umassathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0234": [
+   {
+    "from": "https://www.mcneesesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0106": [
+   {
+    "from": "https://www.gotigersgo.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0237": [
+   {
+    "from": "https://www.mercerbears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0371": [
+   {
+    "from": "https://www.hurstathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0357": [
+   {
+    "from": "https://www.merrimackathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0088": [
+   {
+    "from": "https://www.miamiredhawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0238": [
+   {
+    "from": "https://miamihurricanes.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0060": [
+   {
+    "from": "https://msuspartans.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0061": [
+   {
+    "from": "https://www.mgoblue.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0239": [
+   {
+    "from": "https://www.goblueraiders.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0062": [
+   {
+    "from": "https://www.gophersports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0158": [
+   {
+    "from": "https://www.hailstate.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0240": [
+   {
+    "from": "https://www.mvsusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0066": [
+   {
+    "from": "https://www.olemisssports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0065": [
+   {
+    "from": "https://www.mutigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0241": [
+   {
+    "from": "https://www.monmouthhawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0067": [
+   {
+    "from": "https://www.msubobcats.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0068": [
+   {
+    "from": "https://www.gogriz.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0242": [
+   {
+    "from": "https://www.msueagles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0243": [
+   {
+    "from": "https://www.morganstatebears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0057": [
+   {
+    "from": "https://www.mountathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0046": [
+   {
+    "from": "https://www.goracers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0245": [
+   {
+    "from": "https://www.uncabulldogs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0072": [
+   {
+    "from": "https://www.goheels.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0246": [
+   {
+    "from": "https://www.charlotte49ers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0247": [
+   {
+    "from": "https://www.uncgspartans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0160": [
+   {
+    "from": "https://www.uncwsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0075": [
+   {
+    "from": "https://www.huskers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0349": [
+   {
+    "from": "https://www.omavs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0249": [
+   {
+    "from": "https://unlvrebels.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0250": [
+   {
+    "from": "https://nevadawolfpack.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0077": [
+   {
+    "from": "https://www.unhwildcats.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0373": [
+   {
+    "from": "https://www.newhavenchargers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0337": [
+   {
+    "from": "https://www.njithighlanders.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0081": [
+   {
+    "from": "https://www.nmstatesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0082": [
+   {
+    "from": "https://www.golobos.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0251": [
+   {
+    "from": "https://www.unoprivateers.com",
+    "to": "https://privateersports.com/",
+    "observed_at": null
+   }
+  ],
+  "T0148": [
+   {
+    "from": "https://www.purpleeagles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0252": [
+   {
+    "from": "https://www.geauxcolonels.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0255": [
+   {
+    "from": "https://www.nsuspartans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0355": [
+   {
+    "from": "https://www.roarlions.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0253": [
+   {
+    "from": "https://www.ncataggies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0339": [
+   {
+    "from": "https://www.nccueaglepride.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0071": [
+   {
+    "from": "https://www.gopack.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0254": [
+   {
+    "from": "https://www.GoBison.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0343": [
+   {
+    "from": "https://www.fightinghawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0113": [
+   {
+    "from": "https://www.meangreensports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0248": [
+   {
+    "from": "https://www.ulmwarhawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0055": [
+   {
+    "from": "https://www.nuhuskies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0261": [
+   {
+    "from": "https://www.nauathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0257": [
+   {
+    "from": "https://uncbears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0258": [
+   {
+    "from": "https://www.niuhuskies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0259": [
+   {
+    "from": "https://unipanthers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0350": [
+   {
+    "from": "https://www.nkunorse.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0262": [
+   {
+    "from": "https://www.nsudemons.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0040": [
+   {
+    "from": "https://www.nusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0045": [
+   {
+    "from": "https://www.fightingirish.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0263": [
+   {
+    "from": "https://goldengrizzlies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0089": [
+   {
+    "from": "https://ohiostatebuckeyes.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0090": [
+   {
+    "from": "https://www.ohiobobcats.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0091": [
+   {
+    "from": "https://www.okstate.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0093": [
+   {
+    "from": "https://soonersports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0138": [
+   {
+    "from": "https://www.odusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0092": [
+   {
+    "from": "https://www.oruathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0095": [
+   {
+    "from": "https://osubeavers.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0264": [
+   {
+    "from": "https://www.goducks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0132": [
+   {
+    "from": "https://www.pacifictigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0136": [
+   {
+    "from": "https://goutrgv.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0096": [
+   {
+    "from": "https://goPSUsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0098": [
+   {
+    "from": "https://www.pennathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0265": [
+   {
+    "from": "https://www.pepperdinewaves.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0099": [
+   {
+    "from": "https://www.pittsburghpanthers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0267": [
+   {
+    "from": "https://goviks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0266": [
+   {
+    "from": "https://www.portlandpilots.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0268": [
+   {
+    "from": "https://www.pvpanthers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0079": [
+   {
+    "from": "https://www.goprincetontigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0269": [
+   {
+    "from": "https://www.friars.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0270": [
+   {
+    "from": "https://purduesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0271": [
+   {
+    "from": "https://www.gobobcats.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0272": [
+   {
+    "from": "https://www.radfordathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0102": [
+   {
+    "from": "https://www.gorhody.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0110": [
+   {
+    "from": "https://www.riceowls.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0120": [
+   {
+    "from": "https://richmondspiders.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0273": [
+   {
+    "from": "https://www.gobroncs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0274": [
+   {
+    "from": "https://www.rmucolonials.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0080": [
+   {
+    "from": "https://www.scarletknights.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0275": [
+   {
+    "from": "https://sacredheartpioneers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0085": [
+   {
+    "from": "https://www.gobonnies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0294": [
+   {
+    "from": "https://www.redstormsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0295": [
+   {
+    "from": "https://sjuhawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0063": [
+   {
+    "from": "https://www.slubillikens.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0296": [
+   {
+    "from": "https://www.SMCGaels.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0297": [
+   {
+    "from": "https://www.saintpeterspeacocks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0363": [
+   {
+    "from": "https://www.Tommiesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0276": [
+   {
+    "from": "https://www.gobearkats.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0277": [
+   {
+    "from": "https://samfordsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0010": [
+   {
+    "from": "https://goaztecs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0141": [
+   {
+    "from": "https://www.usdtoreros.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0278": [
+   {
+    "from": "https://usfdons.com/index.aspx",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0011": [
+   {
+    "from": "https://www.sjsuspartans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0280": [
+   {
+    "from": "https://santaclarabroncos.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0284": [
+   {
+    "from": "https://www.shupirates.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0285": [
+   {
+    "from": "https://www.sienasaints.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0004": [
+   {
+    "from": "https://www.usajaguars.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0287": [
+   {
+    "from": "https://www.scsuathletics.com/index.aspx",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0290": [
+   {
+    "from": "https://gamecocksonline.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0288": [
+   {
+    "from": "https://www.gojacks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0344": [
+   {
+    "from": "https://www.goyotes.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0032": [
+   {
+    "from": "https://www.gousfbulls.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0283": [
+   {
+    "from": "https://www.semoredhawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0282": [
+   {
+    "from": "https://www.lionsports.net",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0016": [
+   {
+    "from": "https://usctrojans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0041": [
+   {
+    "from": "https://www.siusalukis.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0347": [
+   {
+    "from": "https://www.siuecougars.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0365": [
+   {
+    "from": "https://www.usiscreamingeagles.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0286": [
+   {
+    "from": "https://www.smumustangs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0289": [
+   {
+    "from": "https://www.southernmiss.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0291": [
+   {
+    "from": "https://www.gojagsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0117": [
+   {
+    "from": "https://www.suutbirds.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0300": [
+   {
+    "from": "https://www.missouristatebears.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0152": [
+   {
+    "from": "https://txstatebobcats.com",
+    "to": "https://txst.com/",
+    "observed_at": null
+   }
+  ],
+  "T0145": [
+   {
+    "from": "https://www.ragincajuns.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0012": [
+   {
+    "from": "https://gostanford.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0298": [
+   {
+    "from": "https://SFAjacks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0030": [
+   {
+    "from": "https://www.gohatters.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0366": [
+   {
+    "from": "https://www.stonehillskyhawks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0299": [
+   {
+    "from": "https://stonybrookathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0086": [
+   {
+    "from": "https://cuse.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0097": [
+   {
+    "from": "https://www.owlsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0304": [
+   {
+    "from": "https://www.tsutigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0305": [
+   {
+    "from": "https://www.TTUsports.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0107": [
+   {
+    "from": "https://www.gomocs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0303": [
+   {
+    "from": "https://www.utsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0302": [
+   {
+    "from": "https://www.utmsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0111": [
+   {
+    "from": "https://www.12thman.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0301": [
+   {
+    "from": "https://www.gofrogs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0308": [
+   {
+    "from": "https://www.tsusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0309": [
+   {
+    "from": "https://www.texastech.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0114": [
+   {
+    "from": "https://www.utamavs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0115": [
+   {
+    "from": "https://www.TexasLonghorns.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0307": [
+   {
+    "from": "https://www.utepminers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0306": [
+   {
+    "from": "https://www.goutsa.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0311": [
+   {
+    "from": "https://www.utrockets.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0058": [
+   {
+    "from": "https://www.towsontigers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0312": [
+   {
+    "from": "https://troytrojans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0313": [
+   {
+    "from": "https://www.tulanegreenwave.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0094": [
+   {
+    "from": "https://www.tulsahurricane.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0164": [
+   {
+    "from": "https://www.goairforcefalcons.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0159": [
+   {
+    "from": "https://goarmywestpoint.com/index.aspx",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0244": [
+   {
+    "from": "https://www.navysports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0153": [
+   {
+    "from": "https://www.utahstateaggies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0118": [
+   {
+    "from": "https://utahutes.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0315": [
+   {
+    "from": "https://www.valpoathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0108": [
+   {
+    "from": "https://vucommodores.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0123": [
+   {
+    "from": "https://www.uvmathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0100": [
+   {
+    "from": "https://www.villanova.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0314": [
+   {
+    "from": "https://www.vcuathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0316": [
+   {
+    "from": "https://www.vmikeydets.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0122": [
+   {
+    "from": "https://www.hokiesports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0121": [
+   {
+    "from": "https://www.virginiasports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0317": [
+   {
+    "from": "https://www.wagnerathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0073": [
+   {
+    "from": "https://www.godeacs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0125": [
+   {
+    "from": "https://www.wsucougars.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0124": [
+   {
+    "from": "https://www.gohuskies.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0318": [
+   {
+    "from": "https://www.weberstatesports.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0372": [
+   {
+    "from": "https://www.uwgathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0130": [
+   {
+    "from": "https://www.wvusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0321": [
+   {
+    "from": "https://www.catamountsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0319": [
+   {
+    "from": "https://www.goleathernecks.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0049": [
+   {
+    "from": "https://www.wkusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0320": [
+   {
+    "from": "https://www.wmubroncos.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0322": [
+   {
+    "from": "https://www.goshockers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0323": [
+   {
+    "from": "https://www.tribeathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0324": [
+   {
+    "from": "https://www.winthropeagles.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0325": [
+   {
+    "from": "https://greenbayphoenix.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0128": [
+   {
+    "from": "https://www.uwbadgers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0127": [
+   {
+    "from": "https://www.mkepanthers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0327": [
+   {
+    "from": "https://www.wsuraiders.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0328": [
+   {
+    "from": "https://www.gowyo.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0329": [
+   {
+    "from": "https://www.goxavier.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0021": [
+   {
+    "from": "https://www.yalebulldogs.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0330": [
+   {
+    "from": "https://www.ysusports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0335": [
+   {
+    "from": "https://www.ucasports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0105": [
+   {
+    "from": "https://www.cofcsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0204": [
+   {
+    "from": "https://www.elonphoenix.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0210": [
+   {
+    "from": "https://gwusports.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0352": [
+   {
+    "from": "https://www.gculopes.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0156": [
+   {
+    "from": "https://www.ksuowls.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0340": [
+   {
+    "from": "https://gobluehose.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0346": [
+   {
+    "from": "https://goseattleu.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0360": [
+   {
+    "from": "https://tarletonsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0170": [
+   {
+    "from": "https://uapblionsroar.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0044": [
+   {
+    "from": "https://iuindyjags.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0064": [
+   {
+    "from": "https://www.kcroos.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0256": [
+   {
+    "from": "https://www.unfospreys.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0354": [
+   {
+    "from": "https://uiwcardinals.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0326": [
+   {
+    "from": "https://www.wofford.edu/athletics",
+    "to": "http://www.woffordterriers.com/",
+    "observed_at": null
+   }
+  ],
+  "T0341": [
+   {
+    "from": "https://www.upstatespartans.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0367": [
+   {
+    "from": "https://www.queensathletics.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0175": [
+   {
+    "from": "https://www.belmontbruins.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0215": [
+   {
+    "from": "https://www.highpointpanthers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0162": [
+   {
+    "from": "https://www.goislanders.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0134": [
+   {
+    "from": "https://www.lipscombsports.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0338": [
+   {
+    "from": "https://fgcuathletics.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0333": [
+   {
+    "from": "https://www.gouvu.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0361": [
+   {
+    "from": "https://utahtechtrailblazers.com/",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0356": [
+   {
+    "from": "https://www.cbulancers.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ],
+  "T0368": [
+   {
+    "from": "https://lindenwoodlions.com",
+    "to": NaN,
+    "observed_at": null
+   }
+  ]
+ }
+}
