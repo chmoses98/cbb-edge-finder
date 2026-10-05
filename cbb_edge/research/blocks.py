@@ -83,6 +83,67 @@ def context_block(df: pd.DataFrame, ctx: pd.DataFrame) -> pd.DataFrame:
     return assert_pure_frame(X, "context_block")
 
 
+# ---- wave 3 ---------------------------------------------------------------------
+def preseason_block(df: pd.DataFrame, pre: pd.DataFrame) -> pd.DataFrame:
+    """Roster-transformation features, faded out as each team's games accumulate."""
+    cols = ["ret_min", "ret_impact", "lost_impact", "ret_top3", "pre_net"]
+    p = pre[["team_id", "season", *cols]]
+    h = df[["home_team_id", "season"]].merge(
+        p, left_on=["home_team_id", "season"], right_on=["team_id", "season"], how="left"
+    )
+    a = df[["away_team_id", "season"]].merge(
+        p, left_on=["away_team_id", "season"], right_on=["team_id", "season"], how="left"
+    )
+    wh = np.exp(-df["h_games_seen"].to_numpy() / 6.0)
+    wa = np.exp(-df["a_games_seen"].to_numpy() / 6.0)
+    X = pd.DataFrame(index=df.index)
+    for c in cols:
+        hv = h[c].fillna(h[c].mean()).to_numpy()
+        av = a[c].fillna(a[c].mean()).to_numpy()
+        X[f"pre_{c}_diff_w"] = hv * wh - av * wa
+    X["pre_ret_min_h_w"] = h["ret_min"].fillna(0.5).to_numpy() * wh
+    X["pre_ret_min_a_w"] = a["ret_min"].fillna(0.5).to_numpy() * wa
+    return assert_pure_frame(X, "preseason_block")
+
+
+def venue_block(df: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
+    """B14v: measurable venue context. Each team's home city/state = modal venue of its
+    true home games in the previous three seasons (prior seasons only). A neutral-site
+    game in the designated home (away) team's home state is +1 (-1); same for city.
+    Plus a home-court x strength-gap interaction (strong-team x venue)."""
+    home = games[~games["neutral_site"].astype(bool)].dropna(subset=["venue_state"])
+    X = pd.DataFrame(0.0, index=df.index, columns=["semi_state", "semi_city"])
+    for s in sorted(df["season"].unique()):
+        past = home[home["season"].between(s - 3, s - 1)]
+        if past.empty:
+            continue
+        loc = past.groupby("home_team_id").agg(
+            st=("venue_state", lambda v: v.value_counts().index[0]),
+            ct=("venue_city", lambda v: v.value_counts().index[0]),
+        )
+        cur = (df["season"] == s) & (df["L"] == 0)
+        x = df.loc[cur]
+        hs = x["home_team_id"].map(loc["st"])
+        as_ = x["away_team_id"].map(loc["st"])
+        hc = x["home_team_id"].map(loc["ct"])
+        ac = x["away_team_id"].map(loc["ct"])
+        vs, vc = x["venue_state"], x["venue_city"]
+        X.loc[cur, "semi_state"] = (vs == hs).astype(float) - (vs == as_).astype(float)
+        X.loc[cur, "semi_city"] = (vc == hc).astype(float) - (vc == ac).astype(float)
+    m = matchup_features(df)["margin_an"]
+    X["L_x_margin_an"] = df["L"] * m
+    return assert_pure_frame(X, "venue_block")
+
+
+def mismatch_block(df: pd.DataFrame) -> pd.DataFrame:
+    """B13: piecewise-linear extension of the analytic margin beyond +-15 points."""
+    m = matchup_features(df)["margin_an"]
+    X = pd.DataFrame(index=df.index)
+    X["margin_ext_pos"] = np.maximum(m - 15.0, 0.0)
+    X["margin_ext_neg"] = np.minimum(m + 15.0, 0.0)
+    return assert_pure_frame(X, "mismatch_block")
+
+
 def combine(*blocks: pd.DataFrame) -> pd.DataFrame:
     X = pd.concat(blocks, axis=1)
     X = X.loc[:, ~X.columns.duplicated()]

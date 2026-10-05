@@ -37,6 +37,15 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | B7 | B3 + opponent-adjusted shot profile (rim/mid/assisted) + rim matchup | **accepted** (wave 2) |
 | B8 | B3 + rest, season phase, shrunk team-specific home court | **accepted** (wave 2) |
 | B9 | B3 + B6 + B7 + B8 — **PURE production arm `pure-0.2.0`** | **accepted** (wave 2) |
+| B10 | B9 + roster hook (in-season player strength) + preseason roster block | passed (fragile; worse 2025–26) |
+| B10r | B9 + roster hook (observed rotation × season-start ratings) [+ preseason block] | passed (post-hoc variant) |
+| B10d | B9 with per-stat prior strengths from DEV one-step error | rejected |
+| B11 | B9 player features with transfer translation priors | rejected |
+| B12 | B9 player features with transfer translation + in-season box-score (SPM) prior | passed |
+| B13 | B9 + garbage-time weighted efficiency + mismatch block | rejected (mismatch sub-arm passed) |
+| B14 | B9 + conference anchor in the opponent network prior | passed |
+| B14v | B9 + neutral-site / semi-home venue block | rejected |
+| B15 | B10r hook + B14 anchor (joint) + B12 player features + mismatch block — **`pure-0.3.0`** | **promoted** (shadow challenger) |
 | ELO | points-based Elo dynamic benchmark | run |
 | MARKET | free historical closing line (ESPN pickcenter) | run |
 | ENSEMBLE | B3 + market prior, expanding-window ridge | run |
@@ -64,3 +73,18 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | H-UNC-1 heteroscedastic σ | log loss 0.5303 vs 0.5303 (bucket SD); PIT deviation slightly worse | rejected (no gain) |
 | H-B4 roster continuity (PR #1) | superseded by B6 (player identity carries over) | rejected |
 | H-B5 matchup interactions (PR #1) | no gain | rejected |
+
+## Wave 3 outcomes (see research/reports/WAVE3.md; preregistration research/hypotheses/WAVE3.md)
+
+| Hypothesis | Result | Status |
+|---|---|---|
+| H-W3-DECAY per-stat prior decay | DEV one-step optimum is stronger priors (×2–×8); as an arm (B10d) val RMSE +0.044, 0/10 | rejected |
+| H-W3-ROSTER player-built preseason prior | in-season version (B10 engine) +0.002; rotation × season-start ratings (B10r engine) −0.010 (10/10) | accepted (B10r form) |
+| H-W3-RET returning production predictive | corr with Δ team net 0.22–0.24; B9 Nov–Dec residual monotone in returning-minutes gap (−0.8 → +1.1 pts); preseason block helps 2015–20, hurts 2021–24 | accepted pre-portal; not used in B15 |
+| H-W3-TRANSFER translation | transfers persist at k≈0.66–0.70 of returners, +0.07 off / −0.08 def per point of team-strength change; arm B11 +0.0007 (4/10) | rejected alone (kept inside B12) |
+| H-W3-BOX box-score prior | box SPM at season start hurts early games on DEV; in-season box update + RAPM carry (B12) −0.008 (9/10), Nov–Dec −0.018 | accepted |
+| H-W3-GARBAGE competitiveness weighting | +0.009 (1/10) | rejected |
+| H-W3-NEUTRAL semi-home | B9 residual +0.86 (home-state "neutral", n=643), but block adds nothing (+0.0005) | rejected |
+| H-W3-NET network sparsity | Nov–Dec cross-conference RMSE 12.13 with 0 prior bridge games vs 11.39 with >10; conference anchor (B14) −0.0185 (10/10), Nov–Dec −0.044 | accepted |
+| Extreme mismatches | favourites projected ≥25 beat projection by +1.13 (Nov–Dec +1.35); piecewise block −0.003 (7/10) | accepted (in B15) |
+| B15 combined | val −0.0389 (10/10), Nov–Dec −0.083, Jan–Mar −0.011, log loss −0.0018; 2025–26 −0.066 | **promoted → `pure-0.3.0` (shadow)** |

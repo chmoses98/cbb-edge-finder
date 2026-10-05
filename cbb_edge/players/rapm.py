@@ -27,6 +27,7 @@ are used and the row is flagged ``roster_known = 0``.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Protocol
 
 import numpy as np
 import pandas as pd
@@ -51,6 +52,14 @@ class RapmConfig:
     lam_mu: float = 1e4
     lam_eta: float = 1e4
     minutes_halflife_games: float = 4.0
+
+
+class PriorProvider(Protocol):
+    def start(
+        self, season: int, players: list[str], prev: SeasonRapm | None, cfg: RapmConfig
+    ) -> tuple[np.ndarray, np.ndarray]: ...
+
+    def day(self, cutoff_ns: int) -> tuple[np.ndarray, np.ndarray] | None: ...
 
 
 @dataclass
@@ -247,8 +256,19 @@ def player_team_features(
     cfg: RapmConfig | None = None,
     verbose: bool = True,
     save: bool = False,
+    prior_provider: PriorProvider | None = None,
+    update_ratings: bool = True,
+    end_ratings: dict[int, SeasonRapm] | None = None,
 ) -> pd.DataFrame:
     """Walk-forward player-based team ratings for every D-I game in ``seasons``.
+
+    ``prior_provider`` (optional, e.g. ``box_prior.PlayerPriorProvider``) replaces the
+    season-start carry priors and may update player priors day by day from information
+    available before each day's first tip. ``None`` = the pure-0.2.0 behaviour.
+    ``update_ratings=False`` keeps every player at his season-start prior (no in-season
+    RAPM updates; minutes shares still follow the observed rotation): roster
+    composition without in-season performance, for the B10r team prior.
+    ``end_ratings`` (optional dict) collects each season's end-of-season ratings.
 
     The first season seeds player priors and is still emitted (with weak priors).
     Returns one row per game: h/a player offense, defense, roster_known flags, n players.
@@ -297,7 +317,10 @@ def player_team_features(
             # without possession data yet) still map to their priors
             players |= set(prev.players)
         players = sorted(players)
-        po, pd_ = season_priors(players, prev, cfg)
+        if prior_provider is not None:
+            po, pd_ = prior_provider.start(season, players, prev, cfg)
+        else:
+            po, pd_ = season_priors(players, prev, cfg)
         inc = IncrementalRapm(
             players, po, pd_, cfg, prev.mu if prev else 104.0, prev.eta if prev else 1.5
         )
@@ -307,9 +330,18 @@ def player_team_features(
         for _day, gd in gs.sort_values("start_time_utc").groupby("game_date_et", sort=True):
             cutoff = gd["start_time_utc"].min()
             new_end = int(np.searchsorted(st_avail, _ns_scalar(cutoff), side="left"))
-            if new_end > added:
+            changed = False
+            if new_end > added and update_ratings:
                 inc.add(st.iloc[added:new_end])
                 added = new_end
+                changed = True
+            if prior_provider is not None:
+                upd = prior_provider.day(_ns_scalar(cutoff))
+                if upd is not None:
+                    inc.prior[2 : 2 + inc.n] = upd[0]
+                    inc.prior[2 + inc.n :] = upd[1]
+                    changed = True
+            if changed:
                 inc.solve()
             n = inc.n
             o_all, d_all = inc.x[2 : 2 + n], inc.x[2 + n :]
@@ -358,6 +390,8 @@ def player_team_features(
             inc.add(st.iloc[added:])
             inc.solve()
         prev = inc.ratings()
+        if end_ratings is not None:
+            end_ratings[season] = prev
         if save:
             save_end_of_season(prev, season)
         if verbose:

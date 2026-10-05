@@ -21,6 +21,7 @@ team in season ``s`` *before* ``D`` count as returning.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -240,8 +241,13 @@ def replay_season(
     cfg: EngineConfig,
     pg_prev: pd.DataFrame | None = None,
     pg_cur: pd.DataFrame | None = None,
+    prior_hook: Callable[[int, pd.Timestamp, SeasonPriors], SeasonPriors] | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Fit]]:
-    """Replay one season day by day. Returns (pregame state rows, end-of-season fits)."""
+    """Replay one season day by day. Returns (pregame state rows, end-of-season fits).
+
+    ``prior_hook(season, cutoff, priors)`` may return day-specific priors built from
+    information available before ``cutoff`` (e.g. the observed rotation's player
+    impact); ``None`` keeps the fixed season priors (pure-0.2.0 behaviour)."""
     index = {t: i for i, t in enumerate(pri.team_ids)}
     n = len(index)
     g = games[
@@ -269,6 +275,8 @@ def replay_season(
         if cfg.roster_prior and pg_prev is not None and pg_cur is not None:
             share = returning_share(pg_prev, pg_cur[pg_cur["available_at"] < cutoff], pri.team_ids)
             p = _apply_roster_prior(pri, share, cfg, league_share)
+        if prior_hook is not None:
+            p = prior_hook(season, cutoff, p)
         fits = fit_all(info, p, cfg, cutoff, warm=fits)
         t_idx = info["t_idx"].to_numpy()
         poss_seen = np.bincount(t_idx, weights=info["poss"].to_numpy(), minlength=n)
@@ -290,6 +298,7 @@ def run(
     cfg: EngineConfig,
     pg: pd.DataFrame | None = None,
     verbose: bool = True,
+    prior_hook: Callable[[int, pd.Timestamp, SeasonPriors], SeasonPriors] | None = None,
 ) -> pd.DataFrame:
     """Replay consecutive seasons; the first season only seeds priors for the next."""
     from cbb_edge.data.ids.teams import _registry
@@ -305,7 +314,7 @@ def run(
             pri = priors_from_previous(team_ids, team_ids, prev_end, cfg)
         pg_prev = pg[pg["season"] == season - 1] if pg is not None else None
         pg_cur = pg[pg["season"] == season] if pg is not None else None
-        states, end = replay_season(season, games, tg, pri, cfg, pg_prev, pg_cur)
+        states, end = replay_season(season, games, tg, pri, cfg, pg_prev, pg_cur, prior_hook)
         if len(states):
             states["season"] = season
             all_states.append(states)

@@ -1,0 +1,83 @@
+name: espn-line-capture
+
+# Prospective capture of ESPN pre-tip lines (T-24h, T-6h, T-90m, T-30m, latest) for the
+# MARKET_BENCHMARK convergence study only — never a PURE input. ESPN's public
+# scoreboard is free; GitHub Actions minutes are free for public repos. Scheduled /
+# dispatched runs append snapshots to the `espn-lines-archive` branch; pull-request
+# runs only validate the capture and upload an artifact (no branch writes).
+
+on:
+  schedule:
+    - cron: "7,37 * * 1-4,11,12 *"   # season (Nov-Apr): every 30 minutes
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "cbb_edge/market/espn_capture.py"
+      - ".github/workflows/espn-line-capture.yml"
+
+concurrency:
+  group: espn-line-capture
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Capture ESPN pre-tip lines
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          python -m cbb_edge.market.espn_capture --out espn_lines_out | tee capture_summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: espn-lines-${{ github.run_id }}
+          path: |
+            espn_lines_out
+            capture_summary.json
+          retention-days: 30
+      - name: Append snapshot to espn-lines-archive branch
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir archive && cd archive
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin espn-lines-archive; then
+            git checkout -q -b espn-lines-archive FETCH_HEAD
+          else
+            git checkout -q --orphan espn-lines-archive
+            printf '# ESPN pre-tip line snapshots (benchmark only)\n\nAppend-only snapshots written by .github/workflows/espn-line-capture.yml.\nSchema: cbb_edge/market/espn_capture.py (espn-line-snapshot-v1).\n' > README.md
+          fi
+          mkdir -p snapshots
+          cp -r ../espn_lines_out/* snapshots/
+          git add -A
+          git commit -q -m "espn line snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q origin espn-lines-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin espn-lines-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1
