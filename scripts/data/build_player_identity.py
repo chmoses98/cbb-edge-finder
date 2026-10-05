@@ -28,9 +28,19 @@ OUT = Path("models/rosters/player_identity_2026.parquet")
 def main() -> None:
     pg = pd.read_parquet(
         data_dir() / "silver" / "player_games.parquet",
-        columns=["season", "player_id", "player_name", "team_id", "min", "position", "available_at"],
+        columns=[
+            "season",
+            "player_id",
+            "player_name",
+            "team_id",
+            "min",
+            "position",
+            "available_at",
+        ],
     )
-    pg = pg[(pg["season"].between(2010, 2026)) & pg["player_id"].notna() & (pg["min"].fillna(0) > 0)]
+    pg = pg[
+        (pg["season"].between(2010, 2026)) & pg["player_id"].notna() & (pg["min"].fillna(0) > 0)
+    ]
     pg = pg.sort_values(["season", "available_at"])
     last = pg.groupby("player_id").tail(1)
     name = pg.groupby("player_id")["player_name"].agg(lambda v: v.mode().iloc[0])
