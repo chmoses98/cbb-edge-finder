@@ -204,6 +204,13 @@ def discover(
         d.error = "home_unreachable"
         # the conventional routes may still work when only the home page is blocked
         home = ""
+    else:
+        # an official link that redirected (e.g. wofford.edu/athletics ->
+        # woffordterriers.com): the site's own routes live on the final host
+        final = (d._last.meta.get("final_url") if hasattr(d, "_last") else None) or base_url  # type: ignore[attr-defined]
+        fh = (urlsplit(final).hostname or "").lower().removeprefix("www.")
+        if fh and fh != host:
+            base_url, host = final, fh
     d.platform = detect_platform(home) if home else "unknown"
     tried: set[str] = set()
     cands = [(u, "home_link") for u in roster_links(home, base_url, host)[:2]]

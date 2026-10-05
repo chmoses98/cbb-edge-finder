@@ -9,6 +9,28 @@ dated, made before any 2026–27 game, and made before any P-ROSTER-1 outcome ex
 **Reference snapshot.** `roster-archive`, truth snapshot **`20261005T215634Z`**:
 roster-capture run 37378501591 at 977ed5d, a full live run that was green end to end.
 
+**Latest verification snapshot: `20261005T221704Z`.** Roster-capture run 37380677974
+at 8988f01, green, run after the redirect-registry fix. Compared with the reference
+snapshot:
+
+| measure | reference 215634Z | verification 221704Z |
+|---|---|---|
+| roster pages found | 349 | **352 (96.4%)** — Binghamton, New Orleans and Texas State now resolve |
+| pages CURRENT / PROBABLY_CURRENT | 342 | 345 (337 / 8) |
+| teams CONFIRMED | 320 | **323 (88.5%)** |
+| teams LIKELY | 3 | 2 |
+| teams CONFLICTED | 20 | 20 |
+| teams STALE | 18 | 16 |
+| teams UNKNOWN | 4 | 4 |
+| CONFIRMED + LIKELY | | **325 (89.0%)** |
+| continuity audit, mean | −0.67 | −0.65 |
+| continuity audit, \|adj\| p95 | 5.30 | 5.27 |
+| continuity audit, \|adj\| > 3 / > 4 | 80 / 44 | 81 / 44 |
+| rotations passing sanity | 352 | 354 of 355 |
+
+The detailed tables below use the reference snapshot. They differ from the
+verification snapshot only by these few teams.
+
 ## A. Verdict
 
 **Did we remove roster truth as the operational game-1 bottleneck? For about 9 teams
@@ -390,17 +412,26 @@ ESPN is updating slowly.
 
 ## T. Unresolved teams (reference snapshot)
 
-**Roster page not found or unreachable (15):**
+**Roster page not found or unreachable (15 in the reference; 12 in the verification
+snapshot):**
 
 * **Redirects, fixed by this PR.** Binghamton, New Orleans, Texas State, Wofford.
-  The NCAA link redirects to a newer host; that host is now registered with evidence.
-* **robots.txt unavailable or disallowing.** Little Rock, Central Connecticut,
-  Colgate, Omaha, Tennessee Tech. They are respected and never bypassed.
+  * The NCAA link redirects to a newer host. That host is now registered with
+    evidence.
+  * The first three resolve in the verification snapshot.
+  * Wofford's redirect is followed, but discovery still built its routes on the old
+    host. Fixed in the last commit: routes now use the redirected host.
+* **robots.txt unavailable or disallowing.** They are respected and never bypassed:
+  * Little Rock: robots.txt disallows us.
+  * Central Connecticut and Tennessee Tech: robots.txt returns HTTP 405, a
+    bot-protection response.
+  * Colgate and Omaha: the connection is reset on robots.txt.
 * **Missouri.** `mutigers.com` returns 404 to every request.
 * **Roster not published yet.** These pages list staff only, or fewer than 8 players:
   Jacksonville, Long Island University, LSU (4 players listed).
-* **Alabama.** Nuxt data comes from an external `_payload.json`. The discovery report
-  now records attempts, so the next capture shows whether robots allows the payload.
+* **Alabama.** Nuxt data comes from an external `_payload.json`. It was fetched (robots
+  allows it), but its structure yields 0 roster entries for the current WMT payload
+  reader. Next step: a parser for that layout, from a saved sample.
 * **Arizona State.** No men's basketball roster at the platform routes.
 
 **Official page STALE (6):** Arkansas-Pine Bluff, Chicago State, Cal State Fullerton,
