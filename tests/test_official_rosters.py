@@ -317,3 +317,14 @@ def test_a4_non_d1_previous_school_and_namesakes():
     assert got["Jay Juco"] == "no_d1_history"  # JUCO transfer: no D-I trace, non-D-I school
     assert got["Ann Bee"] == "no_d1_history"  # freshman namesake of a D-I player (HS listed)
     assert got["Kay Gee"] == "unresolved"  # upperclassman, no previous school: never assumed
+
+
+def test_directory_refresh_cadence():
+    from datetime import UTC, datetime
+
+    oct10 = datetime(2026, 10, 10, tzinfo=UTC)
+    assert not ncaa_directory.is_due("20261005T212117Z", oct10)  # 5 days, Sep-Nov weekly
+    assert ncaa_directory.is_due("20261001T000000Z", oct10)
+    jan = datetime(2027, 1, 20, tzinfo=UTC)
+    assert not ncaa_directory.is_due("20270101T000000Z", jan)  # monthly otherwise
+    assert ncaa_directory.is_due("20261215T000000Z", jan)

@@ -239,6 +239,15 @@ def registry_problems(reg: dict[str, Any]) -> list[str]:
     return out
 
 
+def is_due(latest_stamp: str, now: datetime) -> bool:
+    """Weekly September-November, monthly otherwise. Stamps look like 20261005T212117Z
+    (pandas reads the Z as UTC, so the parsed stamp is already tz-aware)."""
+    ts = pd.Timestamp(latest_stamp)
+    ts = ts.tz_localize("UTC") if ts.tz is None else ts.tz_convert("UTC")
+    age = pd.Timestamp(now).tz_convert("UTC") - ts
+    return age.days >= (7 if now.month in (9, 10, 11) else 28)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, help="archive directory (append-only)")
@@ -252,8 +261,7 @@ def main() -> None:
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     snaps = sorted((Path(a.out) / "ncaa_directory").glob("2*"))
     if a.if_due and snaps:
-        age = now - pd.Timestamp(snaps[-1].name).tz_localize("UTC").to_pydatetime()
-        if age.days < (7 if now.month in (9, 10, 11) else 28):
+        if not is_due(snaps[-1].name, now):
             print(json.dumps({"skipped": True, "latest": snaps[-1].name}))
             return
     members, meta = fetch_members(stamp)
