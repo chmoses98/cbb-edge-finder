@@ -145,7 +145,56 @@ NEEDS = {
         "preseason": True,
         "shooting": True,
     },
+    "pure-0.5.0": {
+        "engine": "b16b",
+        "chains": {"rot": [0], "b12": [-1, 0]},
+        "finals": True,
+        "preseason": True,
+        "shooting": True,
+        "possession": True,
+    },
 }
+
+
+def possession_state(boundaries: list[int]) -> dict:
+    """Research player possession-model state at each boundary (run_wave5 inputs)."""
+    import run_wave5 as w5
+
+    from cbb_edge.players import possession as pos
+
+    pr = w5.load_prior()
+    x, tg, shots = w5.load_rows()
+    ctx = w3.Ctx()
+    x = x[x["season"] <= max(boundaries)]
+    pret = w5.p_return(ctx.ps, list(range(w5.FIRST, max(boundaries) + 2)))
+    pos.team_profiles(x, pr, ctx.games, pret)
+    ev = pos.team_profiles.end_values  # type: ignore[attr-defined]
+    ew = pos.team_profiles.end_weights  # type: ignore[attr-defined]
+    act = pd.read_parquet(w5.WORK / "team_actuals.parquet")
+    lg = act[act["pbp_fga"].fillna(0) > 0].groupby("season")[["rim_a", "t3_a", "pbp_fga"]].sum()
+    out = {}
+    for b in boundaries:
+        vals = [(p_, s_, v_) for (p_, s_), v_ in ev.items() if b - 2 <= s_ <= b]
+        evt = pd.DataFrame([v_ for *_, v_ in vals], columns=list(pos.RATES))
+        evt.insert(0, "season", [s_ for _, s_, _ in vals])
+        evt.insert(0, "player_id", [p_ for p_, *_ in vals])
+        ewt = pd.DataFrame(
+            [(t_, s_, q, w) for (t_, s_), d in ew.items() if s_ == b for q, w in d.items()],
+            columns=["team_id", "season", "player_id", "w"],
+        )
+        prt = pd.DataFrame(
+            [(q, t_, s_, v_) for (q, t_, s_), v_ in pret.items() if s_ == b + 1],
+            columns=["player_id", "team_id", "season", "p"],
+        )
+        r = lg.loc[b]
+        out[b] = {
+            "careers": pos.career_totals(x, b),
+            "end_values": evt,
+            "end_weights": ewt,
+            "p_ret": prt,
+            "league": {str(b): [float(r.rim_a / r.pbp_fga), float(r.t3_a / r.pbp_fga)]},
+        }
+    return out
 
 
 def write_stage(boundaries: list[int]) -> None:
@@ -154,6 +203,7 @@ def write_stage(boundaries: list[int]) -> None:
     ctx = w3.Ctx()
     team_ids = sorted(_registry()["team_id"].tolist())
     sx = None
+    poss = None
     for v, need in NEEDS.items():
         for b in boundaries:
             d = ck.path_for(v, b)
@@ -200,6 +250,15 @@ def write_stage(boundaries: list[int]) -> None:
                     for k, val in dd.items()
                 ]
                 pd.DataFrame(rows).to_parquet(d / "shooting_prev_team.parquet", index=False)
+            if need.get("possession"):
+                if poss is None:
+                    poss = possession_state(boundaries)
+                st = poss[b]
+                st["careers"].to_parquet(d / "poss_careers.parquet", index=False)
+                st["end_values"].to_parquet(d / "poss_end_values.parquet", index=False)
+                st["end_weights"].to_parquet(d / "poss_end_weights.parquet", index=False)
+                st["p_ret"].to_parquet(d / "poss_p_ret.parquet", index=False)
+                (d / "poss_league.json").write_text(json.dumps(st["league"]))
             verif = {
                 k: json.loads((RAW / f"{k}.json").read_text())
                 for k in [f"engine_{need['engine']}", *[f"chain_{c}" for c in need["chains"]]]

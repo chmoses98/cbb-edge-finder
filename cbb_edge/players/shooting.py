@@ -230,7 +230,11 @@ def team_features(
                 {"game_id": gids, "team_id": team, **{f"sk{t}": v for t, v in feats.items()}}
             )
         )
-    tf = pd.concat(recs, ignore_index=True)
+    tf = (
+        pd.concat(recs, ignore_index=True)
+        if recs
+        else pd.DataFrame(columns=["game_id", "team_id", *[f"sk{t}" for t in TYPES]])
+    )
     team_features.next_values = nxt  # type: ignore[attr-defined]
     team_features.prev_team = prev_team  # type: ignore[attr-defined]
     g = games[["game_id", "home_team_id", "away_team_id"]]
@@ -258,10 +262,15 @@ def live_features(
     nxt = team_features.next_values  # type: ignore[attr-defined]
     g = games[games["season"] == season][["game_id", "home_team_id", "away_team_id"]]
     out = g.merge(tf, on="game_id", how="left")
+    prev = team_features.prev_team  # type: ignore[attr-defined]
     for side, col in (("h", "home_team_id"), ("a", "away_team_id")):
         for t in TYPES:
+            out[f"{side}_sk{t}"] = out[f"{side}_sk{t}"].astype(float)
             miss = out[f"{side}_sk{t}"].isna()
+            # a team without a completed game this season: its game-1 value, i.e. last
+            # season's last-five expectation (exactly what team_features uses for game 1)
             out.loc[miss, f"{side}_sk{t}"] = [
-                nxt.get((season, team, t), np.nan) for team in out.loc[miss, col]
+                nxt.get((season, team, t), prev.get((team, season - 1), {}).get(t, np.nan))
+                for team in out.loc[miss, col]
             ]
     return out.drop(columns=["home_team_id", "away_team_id"])

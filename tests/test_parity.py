@@ -36,6 +36,8 @@ CHECKPOINT_SHA = {
     ("pure-0.3.0", 2026): "05a6387a0933101b6f21276b627bcdb5f28a71092e5180c61048c367c0246128",
     ("pure-0.4.0", 2025): "0dda4f83775187177bea2a5d73b60baa3f3d7fb1f2b7c5a4b90d8aaf10fa225a",
     ("pure-0.4.0", 2026): "eef201a0861b47236552132f682bdf3900a1e48f33f3149147ac20a8fb7a634d",
+    ("pure-0.5.0", 2025): "62a3b75e8a8dc7d0da724e6037f7fa7857a1b7f4936532f085ca4de229c37759",
+    ("pure-0.5.0", 2026): "f949fceaf474491b093903b6fb667a8b564474a9a449543769552f9c0f1e034c",
 }
 
 
@@ -194,12 +196,39 @@ def test_checkpoint_tampering_is_detected(monkeypatch, tmp_path):
         checkpoints.Checkpoint("pure-0.2.0", 2026)
 
 
-@pytest.mark.parametrize("version", ["pure-0.2.0", "pure-0.3.0", "pure-0.4.0"])
-@pytest.mark.parametrize("day", ["2025-12-06", "2026-02-14"])
+VERSIONS = ["pure-0.2.0", "pure-0.3.0", "pure-0.4.0", "pure-0.5.0"]
+DAYS = ["2025-11-03", "2025-12-06", "2026-02-14"]  # opening day, December, February
+# documented exception: pure-0.4.0's frozen B17 fill for a team with NO earlier D-I history
+# (opening game of a new D-I program) is the mean of the research frame, which a live run
+# cannot reproduce; pure-0.5.0 fixed it with DEV constants (research/reports/WAVE5.md)
+KNOWN = {("pure-0.4.0", "2025-11-03")}
+
+
+@pytest.mark.parametrize("version", VERSIONS)
+@pytest.mark.parametrize("day", DAYS)
 def test_recorded_parity_meets_frozen_target(version, day):
     rep = json.loads((REPO / "research" / "wave5" / f"parity_{version}_{day}.json").read_text())
     m = rep["margin_live_vs_research_features"]
+    t = rep["total_live_vs_research_features"]
     assert rep["n_games"] >= 100
+    if (version, day) in KNOWN:
+        assert m["mean_abs"] <= 0.02 and m["corr"] >= 0.99999
+        bad = {f["feature"] for f in rep["worst_features"] if f["max_abs"] > 1e-6}
+        assert bad <= {
+            "sk3_a",
+            "skft_a",
+            "sk2_a",
+            "luck3_a",
+            "sk3_diff",
+            "exp3pts_a",
+            "exp3pts_diff",
+            "sk3_h",
+            "skft_h",
+            "sk2_h",
+            "luck3_h",
+            "exp3pts_h",
+        }
+        return
     assert m["mean_abs"] <= 1e-6 and m["max_abs"] <= 1e-6
-    assert rep["total_live_vs_research_features"]["max_abs"] <= 1e-6
+    assert t["max_abs"] <= 1e-6
     assert all(f["max_abs"] <= 1e-6 for f in rep["worst_features"])

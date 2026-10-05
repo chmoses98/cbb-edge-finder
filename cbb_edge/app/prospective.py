@@ -117,12 +117,21 @@ def feature_frame(
     seasons = list(range(season - warmup, season + 1))
     wave3 = "team_prior_hook" in model
     ck = _checkpoint(model, season) if reconstruction != "warmup" else None
-    if reconstruction == "checkpoint" and ck is None:
+    if (reconstruction == "checkpoint" or model.get("requires_checkpoint")) and ck is None:
         raise FileNotFoundError(f"no checkpoint for {model['version']} boundary {season - 1}")
     if wave3 and ck is not None:  # canonical: replay season from the research boundary
         st, pf3 = checkpoint_inputs(
-            model, ck, season, games_info, tg_e, as_of, cfg, share_adjust=share_adjust
+            model,
+            ck,
+            season,
+            games_info,
+            tg_e,
+            as_of,
+            cfg,
+            share_adjust=share_adjust,
+            unadjusted="avail_delta" in model.get("extra_blocks", []),
         )
+        pf12 = checkpoint_inputs.unadjusted  # type: ignore[attr-defined]
     elif wave3:  # pure-0.3.0+: roster/conference-anchored engine + provider player features
         st, pf3 = wave3_inputs(
             model, season, games_info, tg_e, as_of, cfg, warmup, share_adjust=share_adjust
@@ -197,7 +206,18 @@ def feature_frame(
             )
         else:
             sf = shooting.live_features(shooting.player_games(pgs), games_info, sp, season)
-        parts.append(blocks.shooting_block(df, sf))
+        parts.append(blocks.shooting_block(df, sf, model.get("shooting_fill")))
+    if "avail_delta" in model.get("extra_blocks", []):  # pure-0.5.0+: B23
+        df12 = attach_games(st[st["season"] == season], games_info)
+        df12 = df12.merge(pf12.drop(columns=["season"]), on="game_id", how="left")
+        parts.append(blocks.b23_block(df, df12))
+    if "possession" in model.get("extra_blocks", []):  # pure-0.5.0+: B24
+        from cbb_edge.app.possession_live import possession_frame
+
+        if "game_date_et" not in df:
+            df["game_date_et"] = df["game_id"].map(games.set_index("game_id")["game_date_et"])
+        pfr = possession_frame(model, ck, season, as_of, games_info, df)
+        parts.append(blocks.b24_block(df, pfr))
     X = blocks.combine(*parts)
     assert_pure_frame(X, "prospective features")
     out = pd.concat(

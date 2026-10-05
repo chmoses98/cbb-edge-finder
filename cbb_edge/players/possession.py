@@ -263,11 +263,15 @@ def _aggregate(W: np.ndarray, V: dict[str, np.ndarray]) -> dict[str, np.ndarray]
     shooter = (V["k_t3"] >= 0.35) & (V["s_t3"] >= 0.30)
     out["i_spacing"] = (w * shooter).sum(1)
     out["i_handler"] = np.maximum(0.0, 1.0 - 5.0 * (w * (V["astr"] >= 0.20)).sum(1))
-    order = np.argsort(-w, axis=1)[:, :5]
+    # top-5 by expected minutes among players WITH weight only (a zero-weight column is
+    # a player not yet seen with the team; he must never enter these features)
+    order = np.argsort(-w, axis=1, kind="stable")[:, :5]
     rows = np.arange(w.shape[0])[:, None]
-    out["i_rimprot"] = V["blk"][rows, order].max(1)
-    orb5 = np.sort(V["orb"][rows, order], axis=1)
-    out["i_orbsize"] = orb5[:, -2:].sum(1)
+    pos_w = w[rows, order] > 0
+    blk5 = np.where(pos_w, V["blk"][rows, order], -np.inf)
+    out["i_rimprot"] = np.where(pos_w.any(1), blk5.max(1) if blk5.size else 0.0, 0.0)
+    orb5 = np.sort(np.where(pos_w, V["orb"][rows, order], -np.inf), axis=1)
+    out["i_orbsize"] = np.where(np.isfinite(orb5[:, -2:]), orb5[:, -2:], 0.0).sum(1)
     sh = wu / su[:, None]
     out["i_hhi"] = np.nansum(sh**2, axis=1)
     return out
@@ -282,6 +286,7 @@ def team_profiles(
     end_val_init: dict[tuple[str, int], np.ndarray] | None = None,
     end_w_init: dict[tuple[str, int], dict[str, float]] | None = None,
     pos_mix: dict[str, float] | None = None,
+    extra_teams: list[tuple[int, str]] | None = None,
 ) -> pd.DataFrame:
     """Pregame expected team profile per (game, team) from player histories (< tip).
 
@@ -292,7 +297,9 @@ def team_profiles(
     Checkpoint (live replays only the current season): ``offset`` = career counts before
     ``x``, ``end_val_init`` = end-of-season posteriors of earlier seasons,
     ``end_w_init`` = final EWMA weights of earlier seasons, ``pos_mix`` = the unseen-
-    player position mix (default: the first five seasons of ``x``)."""
+    player position mix (default: the first five seasons of ``x``). ``extra_teams``
+    (season, team) without completed games get their preseason (game-1) state in
+    ``next_state``."""
     cb = career(x, offset)
     after = posteriors(cb, pr, through=True)
     rates = list(RATES)
@@ -323,7 +330,10 @@ def team_profiles(
     recs, nxt = [], {}
     end_w: dict[tuple[str, int], dict[str, float]] = dict(end_w_init or {})
     cbr = pd.concat([cb, after.add_prefix("A_")], axis=1)
-    for (s, team), y in cbr.groupby(["season", "team_id"], sort=True):
+    groups = list(cbr.groupby(["season", "team_id"], sort=True))
+    seen = {k for k, _ in groups}
+    groups += [((s_, t_), cbr.iloc[0:0]) for s_, t_ in extra_teams or [] if (s_, t_) not in seen]
+    for (s, team), y in groups:
         gids = meta.reindex(y["game_id"].unique()).sort_values().index.to_numpy()
         cur = sorted(y["player_id"].unique())
         prevw = end_w.get((team, s - 1), {})
@@ -332,8 +342,8 @@ def team_profiles(
         n, k = len(pl), len(gids)
         pidx = {q: i for i, q in enumerate(pl)}
         gidx = {g: i for i, g in enumerate(gids)}
-        r_ = y["game_id"].map(gidx).to_numpy()
-        c_ = y["player_id"].map(pidx).to_numpy()
+        r_ = y["game_id"].map(gidx).to_numpy(dtype=int)
+        c_ = y["player_id"].map(pidx).to_numpy(dtype=int)
         S = np.zeros((k, n))
         mins = y["min"].to_numpy()
         S[r_, c_] = mins

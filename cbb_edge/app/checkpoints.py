@@ -16,7 +16,10 @@ end-of-season state that the RESEARCH replay reached at the end of B:
                     for B (and B − 1 where the player-prior provider needs history);
 * ``preseason``     the research preseason roster table for season s;
 * ``shooting``      career makes / attempts per player through B, and each team's
-                    last-five-game shooting expectation in B (first-game fallback).
+                    last-five-game shooting expectation in B (first-game fallback);
+* ``poss_*``        (pure-0.5.0+) player possession-model state: career counts through
+                    B, end-of-season posteriors of B-2..B, each team's final EWMA
+                    minute weights in B, P(return) for B+1, league zone means of B.
 
 The live run then replays ONLY season ``s`` from that state with the same code, so
 live and research are the same computation (parity test:
@@ -149,3 +152,35 @@ class Checkpoint:
         for r in t.itertuples(index=False):
             out.setdefault((r.team_id, int(r.season)), {})[r.typ] = float(r.value)
         return out
+
+    # ---- pure-0.5.0+: player possession model (cbb_edge.players.possession) ----------
+    def poss_careers(self) -> pd.DataFrame:
+        return pd.read_parquet(self.dir / "poss_careers.parquet")
+
+    def poss_end_values(self) -> dict[tuple[str, int], np.ndarray]:
+        from cbb_edge.players.possession import RATES
+
+        t = pd.read_parquet(self.dir / "poss_end_values.parquet")
+        v = t[list(RATES)].to_numpy()
+        return {
+            (p, int(s)): v[i]
+            for i, (p, s) in enumerate(zip(t["player_id"], t["season"], strict=True))
+        }
+
+    def poss_end_weights(self) -> dict[tuple[str, int], dict[str, float]]:
+        t = pd.read_parquet(self.dir / "poss_end_weights.parquet")
+        out: dict[tuple[str, int], dict[str, float]] = {}
+        for r in t.itertuples(index=False):
+            out.setdefault((r.team_id, int(r.season)), {})[r.player_id] = float(r.w)
+        return out
+
+    def poss_p_ret(self) -> dict[tuple[str, str, int], float]:
+        t = pd.read_parquet(self.dir / "poss_p_ret.parquet")
+        return {
+            (p, tm, int(s)): float(v)
+            for p, tm, s, v in zip(t["player_id"], t["team_id"], t["season"], t["p"], strict=True)
+        }
+
+    def poss_league(self) -> dict[int, tuple[float, float]]:
+        d = json.loads((self.dir / "poss_league.json").read_text())
+        return {int(k): (float(v[0]), float(v[1])) for k, v in d.items()}

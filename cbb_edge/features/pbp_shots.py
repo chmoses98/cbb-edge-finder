@@ -162,7 +162,11 @@ def build(seasons: list[int]) -> pd.DataFrame:
         reps.append(rep)
         if len(x):
             parts.append(x)
-    out = pd.concat(parts, ignore_index=True)
+    out = (
+        pd.concat(parts, ignore_index=True)
+        if parts
+        else pd.DataFrame(columns=["season", "game_id", "team_id", "player_id", *OUT_COLS])
+    )
     out.to_parquet(data_dir() / "silver" / "pbp_player_shots.parquet", index=False)
     (data_dir() / "silver" / "pbp_player_shots.coverage.json").write_text(
         json.dumps(reps, indent=1)

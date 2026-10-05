@@ -64,6 +64,12 @@ def research_frame(version: str, ctx: w3.Ctx) -> tuple[pd.DataFrame, pd.DataFram
         )
         sf = pd.read_parquet(w4.WORK / "shooting_features.parquet")
         return df, w4.base_X(df, [blocks.shooting_block(df, sf)])
+    if version == "pure-0.5.0":
+        import run_wave5 as w5
+
+        df = w5.b20_frame(ctx)
+        comp = json.loads((w5.OUT / "b25_components.json").read_text())["components"]
+        return df, w5.b25_X(ctx, df, comp)
     raise SystemExit(version)
 
 

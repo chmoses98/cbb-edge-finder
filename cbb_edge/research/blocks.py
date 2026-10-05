@@ -144,15 +144,22 @@ def mismatch_block(df: pd.DataFrame) -> pd.DataFrame:
     return assert_pure_frame(X, "mismatch_block")
 
 
-def shooting_block(df: pd.DataFrame, sf: pd.DataFrame) -> pd.DataFrame:
-    """B17: player-skill expected shooting (heavily shrunk) + realized-minus-skill gap."""
+def shooting_block(
+    df: pd.DataFrame, sf: pd.DataFrame, fill: dict[str, float] | None = None
+) -> pd.DataFrame:
+    """B17: player-skill expected shooting (heavily shrunk) + realized-minus-skill gap.
+
+    Missing skills (a team with no earlier D-I history) get ``fill[<side>_sk<t>]``
+    (pure-0.5.0+: fixed DEV means, reproducible live) or, by default (pure-0.4.0), the
+    mean of the frame."""
     x = df[["game_id"]].merge(sf, on="game_id", how="left")
     X = pd.DataFrame(index=df.index)
     L = df["L"]
     for side, o, dd, sgn in (("h", "h", "a", 1.0), ("a", "a", "h", -1.0)):
         for t in ("3", "ft", "2"):
-            v = x[f"{side}_sk{t}"].to_numpy()
-            X[f"sk{t}_{side}"] = np.where(np.isfinite(v), v, np.nanmean(v)) * 100
+            v = x[f"{side}_sk{t}"].to_numpy(dtype=float)
+            fv = np.nanmean(v) if fill is None else fill[f"{side}_sk{t}"]
+            X[f"sk{t}_{side}"] = np.where(np.isfinite(v), v, fv) * 100
         rate = df["mu_fg3a_rate"] + df[f"{o}_off_fg3a_rate"] + df[f"{dd}_def_fg3a_rate"]
         X[f"exp3pts_{side}"] = 3 * rate / 100 * X[f"sk3_{side}"]
         eng3 = df["mu_fg3"] + df[f"{o}_off_fg3"] + df[f"{dd}_def_fg3"] + sgn * df["eta_fg3"] * L

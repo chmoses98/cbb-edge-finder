@@ -1,0 +1,192 @@
+{
+ "version": "pure-0.5.0",
+ "day": "2025-12-06",
+ "as_of": "2025-12-06 16:59:59+00:00",
+ "n_games": 105,
+ "margin_live_vs_research_features": {
+  "mean_abs": 5.637818254572699e-15,
+  "max_abs": 2.6645352591003757e-14,
+  "corr": 0.9999999999999998
+ },
+ "total_live_vs_research_features": {
+  "mean_abs": 9.44683484877238e-14,
+  "max_abs": 1.4210854715202004e-13
+ },
+ "worst_features": [
+  {
+   "feature": "p_total",
+   "max_abs": 1.694644424787839e-12,
+   "mean_abs": 1.3579536965801524e-12,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "p_minus_team",
+   "max_abs": 2.3234747459355276e-12,
+   "mean_abs": 4.451698269273644e-13,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "p_net_gap",
+   "max_abs": 2.3234747459355276e-12,
+   "mean_abs": 4.4516771221684135e-13,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "p_margin",
+   "max_abs": 1.7337242752546445e-12,
+   "mean_abs": 3.1291459172477247e-13,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "p_margin_known",
+   "max_abs": 1.7337242752546445e-12,
+   "mean_abs": 3.1291459172477247e-13,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "avail_delta_total",
+   "max_abs": 8.260059303211165e-14,
+   "mean_abs": 1.626080222852774e-14,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "avail_delta",
+   "max_abs": 4.973799150320701e-14,
+   "mean_abs": 8.856407670724106e-15,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "foul_edge",
+   "max_abs": 1.0658141036401503e-14,
+   "mean_abs": 1.7086861026611933e-15,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "s_xpps_poss",
+   "max_abs": 6.661338147750939e-16,
+   "mean_abs": 1.2476792086263664e-16,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "d_xpps_poss",
+   "max_abs": 4.497270611469872e-16,
+   "mean_abs": 1.0997991951668316e-16,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xpps_h",
+   "max_abs": 4.440892098500626e-16,
+   "mean_abs": 1.0362081563168128e-16,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xpps_a",
+   "max_abs": 4.440892098500626e-16,
+   "mean_abs": 8.458842092382145e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_edge_a",
+   "max_abs": 3.3306690738754696e-16,
+   "mean_abs": 5.709718412357947e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xdrb_h",
+   "max_abs": 3.3306690738754696e-16,
+   "mean_abs": 4.9695697292745104e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "orb_edge_h",
+   "max_abs": 3.885780586188048e-16,
+   "mean_abs": 4.176553283113684e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xdrb_a",
+   "max_abs": 3.3306690738754696e-16,
+   "mean_abs": 3.489272363107635e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xrim_a",
+   "max_abs": 1.6653345369377348e-16,
+   "mean_abs": 3.224933547720693e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xrim_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 2.8548592061789737e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "x3r_h",
+   "max_abs": 1.6653345369377348e-16,
+   "mean_abs": 2.6962559169468087e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xftr_a",
+   "max_abs": 1.6653345369377348e-16,
+   "mean_abs": 2.564086509253338e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "x3r_a",
+   "max_abs": 1.6653345369377348e-16,
+   "mean_abs": 2.564086509253338e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "c_rim",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 2.3790493384824782e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "c_t3",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 2.061842760018148e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "xftr_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.9825411154020653e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  },
+  {
+   "feature": "to_edge_h",
+   "max_abs": 1.1102230246251565e-16,
+   "mean_abs": 1.3745618400120986e-17,
+   "nan_live": 0,
+   "nan_research": 0
+  }
+ ]
+}

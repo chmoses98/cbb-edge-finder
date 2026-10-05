@@ -203,10 +203,14 @@ def checkpoint_inputs(
     as_of: pd.Timestamp,
     cfg: EngineConfig,
     share_adjust: Any = None,
+    unadjusted: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Canonical reconstruction (Wave 5): replay ONLY ``season`` from the research
     season-boundary checkpoint ``ck`` (``cbb_edge.app.checkpoints``) with the same code
-    the research replay used. Same outputs as ``wave3_inputs`` but exact."""
+    the research replay used. Same outputs as ``wave3_inputs`` but exact.
+
+    ``unadjusted`` (pure-0.5.0+, B23): also compute the player features WITHOUT any
+    share adjustment (the B12 features), stored as ``checkpoint_inputs.unadjusted``."""
     from cbb_edge.data.ids.teams import _registry
 
     if share_adjust is None and "availability_model" in model:
@@ -268,4 +272,18 @@ def checkpoint_inputs(
         share_adjust=share_adjust,
         initial_prev=ck.rapm("b12", b),
     )
+    checkpoint_inputs.unadjusted = None  # type: ignore[attr-defined]
+    if unadjusted:
+        prov12 = _provider(model, "player_features", ps, pg, team_net)
+        if prov12 is not None:
+            prov12.ends[b - 1] = ck.rapm("b12", b - 1)
+        checkpoint_inputs.unadjusted = player_team_features(  # type: ignore[attr-defined]
+            [season],
+            games_info,
+            pg_min,
+            rc,
+            verbose=False,
+            prior_provider=prov12,
+            initial_prev=ck.rapm("b12", b),
+        )
     return states, pf

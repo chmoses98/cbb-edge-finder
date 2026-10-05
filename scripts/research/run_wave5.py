@@ -219,6 +219,27 @@ def load_possession(df: pd.DataFrame) -> pd.DataFrame:
     return blocks.possession_frame(df, prof, de, lg, fill)
 
 
+def shooting_fill(df: pd.DataFrame, sf: pd.DataFrame) -> dict[str, float]:
+    """B25 / pure-0.5.0: fixed DEV (<= 2014) means for missing B17 skills."""
+    x = df[["game_id", "season"]].merge(sf, on="game_id", how="left")
+    x = x[x["season"] <= 2014]
+    return {
+        f"{s}_sk{t}": float(x[f"{s}_sk{t}"].mean()) for s in ("h", "a") for t in ("3", "ft", "2")
+    }
+
+
+def b25_X(ctx: w3.Ctx, df: pd.DataFrame, comp: list[str]) -> pd.DataFrame:
+    sf = pd.read_parquet(w4.WORK / "shooting_features.parquet")
+    ex = {
+        "B23": lambda: blocks.b23_block(df, b20_frame(ctx, "pf_b12")),
+        "B24": lambda: blocks.b24_block(df, load_possession(df)),
+        "B21": lambda: blocks.b21_block(df, load_possession(df)),
+        "B22": lambda: blocks.b22_block(df, load_possession(df)),
+    }
+    base = w4.base_X(df, [blocks.shooting_block(df, sf, shooting_fill(df, sf))])
+    return blocks.combine(base, *[ex[a]() for a in comp])
+
+
 def arms_stage(only: list[str] | None = None) -> None:
     ctx = w3.Ctx()
     df = b20_frame(ctx)
@@ -244,8 +265,7 @@ def arms_stage(only: list[str] | None = None) -> None:
     if want("B25") and comp_file.exists():
         comp = json.loads(comp_file.read_text())["components"]
         if comp:
-            parts = [extra[a]() for a in comp]
-            preds["B25"] = w4.make_pred(df, blocks.combine(X20, *parts))
+            preds["B25"] = w4.make_pred(df, b25_X(ctx, df, comp))
     report: dict[str, object] = {"reference": "B20 (pure-0.4.0)", "arms": {}}
     for name, p in preds.items():
         if name == "B20":
@@ -266,12 +286,113 @@ def arms_stage(only: list[str] | None = None) -> None:
     (OUT / f"metrics{tag}.json").write_text(json.dumps(report, indent=1, default=float))
 
 
+# ------------------------------------------------------------------ freeze -----------
+NEW_VERSION = "pure-0.5.0"
+STATIC = (
+    "availability_model", "engine_config", "family", "market_inputs", "name",
+    "player_prior", "rapm_config", "shooting_prior", "sources", "team_prior_hook",
+)  # fmt: skip
+
+
+def possession_spec(df: pd.DataFrame | None = None) -> dict[str, object]:
+    """Everything the live B23 / B24 blocks need, fixed at freeze time."""
+    x, _, _ = load_rows()
+    mx = x[x["season"] < x["season"].min() + 5]["pos"].value_counts(normalize=True)
+    prof = pd.read_parquet(WORK / "team_profiles.parquet")
+    de = pd.read_parquet(WORK / "defense_excess.parquet")
+    lg = pd.read_parquet(WORK / "league_running.parquet")
+    dev = prof[prof["season"].between(2010, 2014)]
+    fill = {
+        c: float(dev[c].mean()) for c in prof.columns if c not in ("game_id", "team_id", "season")
+    }
+    fill.update({c: 0.0 for c in de.columns if c.startswith("def_") and c != "def_id"})
+    lgd = lg[lg["season"].between(2010, 2014)]
+    fill.update({"rim": float(lgd["lg_rim"].mean()), "t3": float(lgd["lg_t3"].mean())})
+    return {
+        "prior": asdict(load_prior()),
+        "k_def": json.loads((OUT / "k_def.json").read_text())["k_def"],
+        "pos_mix": {p: float(mx.get(p, 0.0)) for p in pos.POSITIONS},
+        "fill": fill,
+        "halflife_games": pos.HALFLIFE,
+        "sources": ["sportsdataverse_releases ESPN play-by-play (basketball columns only)"],
+    }
+
+
+def freeze_stage() -> None:
+    """Freeze B25 as pure-0.5.0 (SHADOW challenger only) — only if its preregistered gate
+    says FREEZE. Writes a NEW artifact and refuses to overwrite any existing one."""
+    import hashlib
+
+    from sklearn.linear_model import LogisticRegression, Ridge
+
+    rep = json.loads((OUT / "metrics.json").read_text())
+    if rep["arms"].get("B25", {}).get("verdict") != "FREEZE":
+        raise SystemExit("B25 not frozen by the gate: nothing written")
+    path = Path("models/pure") / f"{NEW_VERSION}.json"
+    if path.exists():
+        raise SystemExit(f"{path} exists: frozen artifacts are immutable")
+    base = json.loads((Path("models/pure") / "pure-0.4.0.json").read_text())
+    comp = json.loads((OUT / "b25_components.json").read_text())["components"]
+    ctx = w3.Ctx()
+    df = b20_frame(ctx)
+    sf = pd.read_parquet(w4.WORK / "shooting_features.parquet")
+    X = b25_X(ctx, df, comp)
+    p3 = w2.make_pred(df, blocks.base_block(df))
+    hca_resid = df["margin"] - p3["margin"]
+    ok = X.notna().all(axis=1) & df["margin"].notna() & (df["season"] >= w2.FIRST_TRAIN)
+    spec: dict[str, object] = {k: base[k] for k in STATIC}
+    spec.update(
+        {
+            "version": NEW_VERSION,
+            "arm": "B25",
+            "role_at_freeze": "shadow challenger (never incumbent by this freeze)",
+            "components": ["B20 (pure-0.4.0)", *comp],
+            "trained_seasons": [w2.FIRST_TRAIN, int(df["season"].max())],
+            "extra_blocks": ["mismatch", "shooting", "possession", "avail_delta"],
+            "possession": possession_spec(),
+            "shooting_fill": shooting_fill(df, sf),
+            "requires_checkpoint": True,
+        }
+    )
+    mu, sd = X[ok].mean(), X[ok].std().replace(0, 1.0)
+    Z = (X[ok] - mu) / sd
+    for target in ("margin", "total"):
+        m = Ridge(alpha=10.0).fit(Z, df.loc[ok, target])
+        spec[target] = {
+            "features": list(X.columns),
+            "mean": mu.tolist(),
+            "sd": sd.tolist(),
+            "coef": m.coef_.tolist(),
+            "intercept": float(m.intercept_),
+        }
+    fitted = Ridge(alpha=10.0).fit(Z, df.loc[ok, "margin"]).predict(Z)
+    lr = LogisticRegression(C=1e6).fit(fitted.reshape(-1, 1), df.loc[ok, "home_win"])
+    spec["wp_logit"] = [float(lr.intercept_[0]), float(lr.coef_[0][0])]
+    res = df.loc[ok, "margin"] - fitted
+    mg = np.minimum(df.loc[ok, "h_games_seen"], df.loc[ok, "a_games_seen"]).clip(upper=11)
+    spec["sigma_margin"] = float(res.std())
+    spec["sigma_margin_by_games"] = {
+        str(int(a)): float(b) for a, b in res.groupby(mg.astype(int)).std().items()
+    }
+    tf = Ridge(alpha=10.0).fit(Z, df.loc[ok, "total"]).predict(Z)
+    spec["sigma_total"] = float((df.loc[ok, "total"] - tf).std())
+    last3 = (df["season"] > df["season"].max() - 3) & (df["L"] == 1) & hca_resid.notna()
+    agg = hca_resid[last3].groupby(df.loc[last3, "home_team_id"]).agg(["sum", "count"])
+    spec["team_hca"] = {a: float(b) for a, b in (agg["sum"] / (agg["count"] + 40.0)).items()}
+    spec = json.loads(json.dumps(spec, sort_keys=True, default=float))
+    spec["sha256"] = hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
+    path.write_text(json.dumps(spec, indent=1, sort_keys=True))
+    print(f"frozen {path} sha256={spec['sha256']}")
+
+
 if __name__ == "__main__":
     stage = sys.argv[1]
     if stage == "prior":
         prior_stage()
     elif stage == "features":
         features_stage()
+    elif stage == "freeze":
+        freeze_stage()
     elif stage == "arms":
         arms_stage(sys.argv[2:] or None)
     else:
