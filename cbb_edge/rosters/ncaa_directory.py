@@ -258,9 +258,20 @@ def main() -> None:
             return
     members, meta = fetch_members(stamp)
     u, rep = reconcile(members)
-    redirects = None
+    # redirect evidence carries forward: the committed registry, the newest archived
+    # registry, then the newest discovery report (latest observation last)
+    redirects: dict[str, list[dict[str, str]]] = {}
+    prev_regs = [REGISTRY, Path(a.out) / "ncaa_directory" / "latest_registry.json"]
+    for pr in prev_regs:
+        if pr.exists():
+            for r in json.loads(pr.read_text()).get("teams", []):
+                if r.get("team_id") and r.get("redirect_evidence"):
+                    redirects[r["team_id"]] = r["redirect_evidence"]
     if a.redirects and Path(a.redirects).exists():
-        redirects = json.loads(Path(a.redirects).read_text()).get("redirects")
+        for t, ev in (json.loads(Path(a.redirects).read_text()).get("redirects") or {}).items():
+            ok = [e for e in ev if isinstance(e.get("to"), str)]
+            if ok:
+                redirects[t] = ok
     src = MEMBER_LIST + "?" + "&".join(f"{k}={v}" for k, v in PARAMS.items())
     reg = build_registry(u, meta["retrieved_at"], src, redirects)
     rep["registry_problems"] = registry_problems(reg)
