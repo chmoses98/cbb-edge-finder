@@ -1,0 +1,18 @@
+{
+ "pure-0.3.0": {
+  "n_games": 5752,
+  "artifact_minus_oos_mean_abs": 0.12109269326141923,
+  "artifact_minus_oos_max_abs": 0.5486027165898371,
+  "artifact_minus_oos_mean": -0.10494175385073636,
+  "corr": 0.9999486765875714,
+  "note": "coefficients only: artifact trained 2012-2026, OOS stack 2012-2025"
+ },
+ "pure-0.4.0": {
+  "n_games": 5752,
+  "artifact_minus_oos_mean_abs": 0.1642465987838183,
+  "artifact_minus_oos_max_abs": 0.6695517818108634,
+  "artifact_minus_oos_mean": -0.15441692350195932,
+  "corr": 0.9999324138355763,
+  "note": "coefficients only: artifact trained 2012-2026, OOS stack 2012-2025"
+ }
+}

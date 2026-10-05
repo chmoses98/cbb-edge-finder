@@ -59,16 +59,32 @@ def player_games(pg: pd.DataFrame) -> pd.DataFrame:
     return x.sort_values(["player_id", "t"]).reset_index(drop=True)
 
 
-def career_before(x: pd.DataFrame) -> pd.DataFrame:
-    """Per player-game: career makes / attempts strictly before this game."""
+def career_before(x: pd.DataFrame, offset: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Per player-game: career makes / attempts strictly before this game.
+
+    ``offset`` (checkpoint): per player_id career totals from seasons before ``x``
+    (columns ``cm_<makes>`` / ``ca_<attempts>``), added to every row."""
     g = x.groupby("player_id")
     out = x[["player_id", "game_id", "season", "team_id", "pos", "t"]].copy()
+    off = offset.set_index("player_id") if offset is not None else None
     for _, (mk, at) in TYPES.items():
         out[f"cm_{mk}"] = g[mk].cumsum() - x[mk]
         out[f"ca_{at}"] = g[at].cumsum() - x[at]
+        if off is not None:
+            out[f"cm_{mk}"] += x["player_id"].map(off[f"cm_{mk}"]).fillna(0.0).to_numpy()
+            out[f"ca_{at}"] += x["player_id"].map(off[f"ca_{at}"]).fillna(0.0).to_numpy()
         out[mk] = x[mk]
         out[at] = x[at]
     return out
+
+
+def career_totals(x: pd.DataFrame, through_season: int) -> pd.DataFrame:
+    """Career makes / attempts per player through ``through_season`` (checkpoint)."""
+    y = x[x["season"] <= through_season]
+    agg = y.groupby("player_id")[[c for _, pair in TYPES.items() for c in pair]].sum()
+    return agg.rename(
+        columns={c: (f"cm_{c}" if c.endswith("m") else f"ca_{c}") for c in agg.columns}
+    ).reset_index()
 
 
 @dataclass
@@ -134,13 +150,19 @@ def fit_prior(cb: pd.DataFrame, fit_seasons: list[int]) -> ShootingPrior:
     return sp
 
 
-def team_features(x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior) -> pd.DataFrame:
+def team_features(
+    x: pd.DataFrame,
+    games: pd.DataFrame,
+    sp: ShootingPrior,
+    offset: pd.DataFrame | None = None,
+    prev_team_init: dict[tuple[str, int], dict[str, float]] | None = None,
+) -> pd.DataFrame:
     """Per game: h/a expected 3P%, FT%, 2P% from player skills (info before tip).
 
     A player's skill before game i = his posterior AFTER his most recent earlier game
     (any team, any season), i.e. only completed games enter.
     """
-    cb = career_before(x)
+    cb = career_before(x, offset)
     pos = cb["pos"].to_numpy()
     post: dict[str, np.ndarray] = {}
     ft_post = sp.skill(
@@ -163,7 +185,7 @@ def team_features(x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior) -> pd
     decay = 0.5 ** (1.0 / HALFLIFE)
     recs = []
     nxt: dict[tuple[int, str, str], float] = {}
-    prev_team: dict[tuple[str, int], dict[str, float]] = {}
+    prev_team: dict[tuple[str, int], dict[str, float]] = dict(prev_team_init or {})
     for (s, team), y in cb.groupby(["season", "team_id"], sort=True):
         gids = meta.reindex(y["game_id"].unique()).sort_values().index.to_numpy()
         pl = np.array(sorted(y["player_id"].unique()))
@@ -210,6 +232,7 @@ def team_features(x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior) -> pd
         )
     tf = pd.concat(recs, ignore_index=True)
     team_features.next_values = nxt  # type: ignore[attr-defined]
+    team_features.prev_team = prev_team  # type: ignore[attr-defined]
     g = games[["game_id", "home_team_id", "away_team_id"]]
     h = tf.rename(columns={"team_id": "home_team_id", **{f"sk{t}": f"h_sk{t}" for t in TYPES}})
     a = tf.rename(columns={"team_id": "away_team_id", **{f"sk{t}": f"a_sk{t}" for t in TYPES}})
@@ -220,12 +243,18 @@ def team_features(x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior) -> pd
 
 
 def live_features(
-    x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior, season: int
+    x: pd.DataFrame,
+    games: pd.DataFrame,
+    sp: ShootingPrior,
+    season: int,
+    offset: pd.DataFrame | None = None,
+    prev_team_init: dict[tuple[str, int], dict[str, float]] | None = None,
 ) -> pd.DataFrame:
     """Prospective: completed games as in ``team_features``; games without player rows
     yet (upcoming) get each team's state after all its completed games (information
-    before tip only)."""
-    tf = team_features(x, games, sp)
+    before tip only). With a checkpoint, ``x`` holds only season ``season`` and
+    ``offset`` / ``prev_team_init`` carry the earlier history exactly."""
+    tf = team_features(x, games, sp, offset, prev_team_init)
     nxt = team_features.next_values  # type: ignore[attr-defined]
     g = games[games["season"] == season][["game_id", "home_team_id", "away_team_id"]]
     out = g.merge(tf, on="game_id", how="left")

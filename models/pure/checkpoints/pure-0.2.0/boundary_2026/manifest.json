@@ -1,0 +1,22 @@
+{
+ "boundary_season": 2026,
+ "files": {
+  "engine_end.npz": "9cc8168854aef03df575109738752052a492a2581ac124483d9ee77c74dc0dbd",
+  "rapm_base_2026.json": "03c87398cf63c0c20f46f672cc660a0464a43054c40e9716cd9d943f70849bbc",
+  "rapm_base_2026.parquet": "47d50075679447fbb13520ee14e0bafe6a59bfb54a5c73a7cef71afa3993ed39"
+ },
+ "sha256": "7bae1c5cdf63d333fe374c66ebc266e9a516cff5b20a613e03d9040baeb564b6",
+ "source": "research replays (build_checkpoints.py)",
+ "target_season": 2027,
+ "verification": {
+  "chain_base": {
+   "chain": "base",
+   "max_abs_diff_vs_cached_research_pf": 4.8883924781861765e-05
+  },
+  "engine_base": {
+   "engine": "base",
+   "max_abs_diff_vs_cached_research_states": 0.0
+  }
+ },
+ "version": "pure-0.2.0"
+}

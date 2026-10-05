@@ -72,3 +72,35 @@ input (CI-enforced import ban + column guard).
   MARKET_BENCHMARK only.
 * Promotion: `cbb_edge/research/promotion.py` implements the rule fixed in
   `research/hypotheses/WAVE4.md`; evaluated once after the 2027 national championship.
+
+## Live / research parity: season-boundary checkpoints (Wave 5)
+
+Live projections used to rebuild every long history (team engine from 2006, RAPM chains
+from 2011, career shooting) from a shorter warm-up on the runner. That rebuild was only
+approximately equal to the research replay (mean |Δ margin| 0.005–0.011 on the same
+games and the same as-of, worst features `p_*` from the RAPM chain warm-up and
+`margin_an`/`total_an` from the hooked engine).
+
+Now `models/pure/checkpoints/<version>/boundary_<B>/` stores the exact end-of-season state
+of the RESEARCH replay at the end of season B (engine fits, RAPM chain ratings, base-engine
+finals, the preseason roster table for B+1, career shooting totals and last-five shooting
+state). `prospective.feature_frame(..., reconstruction="auto")` replays ONLY season B+1
+from that state with the same code. Each record carries
+`prospective.reconstruction = {mode, boundary, sha256}`.
+
+* Parity (`scripts/research/parity_diagnostics.py`, same games, same as-of = the day's
+  first tip − 1 s, same artifact): 2025-12-06 and 2026-02-14, every model input and the
+  projected margin/total agree to ≤ 4e-9 (pure-0.2.0) and ≤ 1e-13 (pure-0.3.0 /
+  pure-0.4.0; bit-identical on 2026-02-14). Reports: `research/wave5/parity_*.json`.
+* What remains between a live projection of a PAST game and the research OOS prediction
+  is coefficients only: the frozen artifact was fitted on 2012–2026, the OOS stack for
+  season s on 2012..s−1 (`research/wave5/parity_coefficients.json`: 0.12 / 0.16 mean
+  |Δ| for 0.3.0 / 0.4.0 on 2025–26, mostly a −0.10 / −0.15 intercept shift). For the
+  2026–27 target season the artifact IS the research expanding-window fit for s = 2027,
+  so prospective projections and the research protocol are the same model.
+* Checkpoints are immutable and hash-pinned (`tests/test_parity.py`); the boundary-2026
+  checkpoints serve 2026–27. Boundary 2027 (for 2027–28) is written after the season
+  with `scripts/research/build_checkpoints.py engine|chain|write 2027`, which re-runs the
+  research replays and refuses to write unless they reproduce the cached research
+  outputs.
+* `reconstruction="warmup"` keeps the old path for diagnostics only.

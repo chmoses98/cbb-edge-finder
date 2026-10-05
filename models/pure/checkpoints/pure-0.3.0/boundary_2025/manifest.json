@@ -1,0 +1,32 @@
+{
+ "boundary_season": 2025,
+ "files": {
+  "engine_end.npz": "24562f8c06c53d91f92ebc324a5cacc39cf22dbd25948e53597026fdffcda389",
+  "finals.parquet": "ff5414d04cd01dbc7333f753b474eb5cea565c659880b463177052d3180e9374",
+  "preseason.parquet": "1cd786ca61679e36acd3ab5dac3ac73e5e80de78939937923ec05a32715a74ed",
+  "rapm_b12_2024.json": "b4698d38e89c0e0ae47390fcab4674c6a3e7515b7aa2e05043f5bc300058f40f",
+  "rapm_b12_2024.parquet": "3340938ae2f6edf742d42ef8c55eb768b1da2ad2964133cd100340f8d7f43dec",
+  "rapm_b12_2025.json": "d5f1ea5c294793c35718cfeac5ed0b2d5056b9dc940ee01ce1864f58d46c5d8c",
+  "rapm_b12_2025.parquet": "d0cdfb26f23b24a811e25ce0fabe01e1977660c43bfd2c02f7b0e2580ea2319b",
+  "rapm_rot_2025.json": "388b9b3f2cc098daa72154c4221c62452739f6a0f36fa389ec38cd8a4f881488",
+  "rapm_rot_2025.parquet": "513739635755b6d56352d4c1a96df597182463875b251254994805457581240d"
+ },
+ "sha256": "704880738bc0ed124f3228eb9ea701655dcc88ebf06199ad8a15585bc9015029",
+ "source": "research replays (build_checkpoints.py)",
+ "target_season": 2026,
+ "verification": {
+  "chain_b12": {
+   "chain": "b12",
+   "max_abs_diff_vs_cached_research_pf": 0.0
+  },
+  "chain_rot": {
+   "chain": "rot",
+   "max_abs_diff_vs_cached_research_pf": 0.0
+  },
+  "engine_b15": {
+   "engine": "b15",
+   "max_abs_diff_vs_cached_research_states": 0.0
+  }
+ },
+ "version": "pure-0.3.0"
+}
