@@ -265,3 +265,83 @@ class TeamPriorHook:
                 new = np.where(known > 0, vals[1], vals[0])
                 store[stat] = np.where(np.isfinite(new), new, base)
         return SeasonPriors(pri.team_ids, off, deff, pri.mu, pri.eta, pri.last_off, pri.last_def)
+
+
+class DynamicConferenceHook(TeamPriorHook):
+    """B16b: conference anchor that moves from last season's conference strength to
+    the conference's CURRENT strength as cross-conference evidence accumulates:
+
+        C_t(D) = (1 - w_c) * C_last + w_c * C_cur(D),   w_c = n_c / (n_c + k)
+
+    C_cur(D) = leave-one-out mean of conference-mates' current eff ratings from the
+    previous day's fits (information < D); n_c = cross-conference D-I games the
+    conference's members completed before D. Coefficients are B15's (DEV-fitted).
+    """
+
+    wants_fits = True
+
+    def __init__(
+        self,
+        coefs: PriorCoefficients,
+        games: pd.DataFrame,
+        k: float,
+        strength: pd.DataFrame | None = None,
+        preseason: pd.DataFrame | None = None,
+        conf: pd.DataFrame | None = None,
+        stats: tuple[str, ...] = ("eff",),
+    ):
+        super().__init__(coefs, strength, preseason, conf, stats)
+        self.k = float(k)
+        g = games[
+            games["home_is_d1"]
+            & games["away_is_d1"]
+            & games["home_conference_id"].notna()
+            & games["away_conference_id"].notna()
+            & (games["home_conference_id"] != games["away_conference_id"])
+        ]
+        g = g.assign(t=pd.to_datetime(g["available_at"], utc=True).astype("int64"))
+        self.cross: dict[tuple[int, object], np.ndarray] = {}
+        for (s, c), x in pd.concat(
+            [
+                g[["season", "home_conference_id", "t"]].set_axis(["season", "c", "t"], axis=1),
+                g[["season", "away_conference_id", "t"]].set_axis(["season", "c", "t"], axis=1),
+            ]
+        ).groupby(["season", "c"]):
+            self.cross[(int(s), c)] = np.sort(x["t"].to_numpy())
+        self.member = conference_of(games).set_index(["season", "team_id"])["conf"]
+
+    def __call__(self, season, cutoff, pri, fits=None):  # type: ignore[override]
+        if fits is None or "eff" not in fits or self.conf is None:
+            return super().__call__(season, cutoff, pri)
+        po, pd_, co, cd = self._season_arrays(season, pri.team_ids)
+        mem = self.member.reindex(pd.MultiIndex.from_product([[season], pri.team_ids]))
+        conf_ids = mem.to_numpy()
+        f = fits["eff"]
+        seen = f.n_obs > 0
+        cut = int(pd.Timestamp(cutoff).tz_convert("UTC").value)
+        cur_o, cur_d, w = np.full(len(co), np.nan), np.full(len(co), np.nan), np.zeros(len(co))
+        df = pd.DataFrame(
+            {"c": conf_ids, "o": np.where(seen, f.off, np.nan), "d": np.where(seen, f.deff, np.nan)}
+        )
+        grp = df.groupby("c")
+        so, sd_, n = (
+            grp["o"].transform("sum"),
+            grp["d"].transform("sum"),
+            grp["o"].transform("count"),
+        )
+        has = df["o"].notna()
+        k_ = n - has.astype(int)
+        cur_o = ((so - df["o"].fillna(0)) / k_.where(k_ > 0)).to_numpy()
+        cur_d = ((sd_ - df["d"].fillna(0)) / k_.where(k_ > 0)).to_numpy()
+        for i, c in enumerate(conf_ids):
+            arr = self.cross.get((season, c))
+            nc = int(np.searchsorted(arr, cut, side="left")) if arr is not None else 0
+            w[i] = nc / (nc + self.k)
+        dyn_o = np.where(np.isfinite(cur_o) & np.isfinite(co), (1 - w) * co + w * cur_o, co)
+        dyn_d = np.where(np.isfinite(cur_d) & np.isfinite(cd), (1 - w) * cd + w * cur_d, cd)
+        saved = self._season_cache[season]
+        self._season_cache[season] = (po, pd_, dyn_o, dyn_d)
+        try:
+            return super().__call__(season, cutoff, pri)
+        finally:
+            self._season_cache[season] = saved

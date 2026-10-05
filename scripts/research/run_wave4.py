@@ -181,9 +181,300 @@ def gate(name: str, v: dict[str, object]) -> str:
     return "USEFUL" if ok else "NOT USEFUL"
 
 
+# ---------------------------------------------------------------- B16b engine --------
+def b16b_hook(ctx, k: float):
+    from cbb_edge.players import team_prior
+
+    eng = json.loads((w3.OUT / "engine_b15.json").read_text())["coefs"]
+    coefs = team_prior.PriorCoefficients(
+        components=tuple(eng["components"]), pre=eng["pre"], obs=eng["obs"], n=eng["n"]
+    )
+    pf_rot = w3.pf_variant(ctx, "rot")
+    strength = team_prior.team_day_strength(pf_rot, ctx.games)
+    ca = team_prior.conference_anchor(ctx.finals9, ctx.games)
+    return team_prior.DynamicConferenceHook(coefs, ctx.games, k, strength, ctx.pre(), ca)
+
+
+def _margin_an_rmse(st: pd.DataFrame, games: pd.DataFrame, seasons: list[int]) -> float:
+    from cbb_edge.model import arms
+
+    df = arms.attach_games(st[st["season"].isin(seasons)], games)
+    m = arms.matchup_features(df)["margin_an"]
+    ok = m.notna() & df["margin"].notna()
+    return _rmse((m - df["margin"])[ok].to_numpy())
+
+
+def engine_stage(name: str) -> None:
+    from cbb_edge.backtest.walkforward import run
+
+    ctx = w3.Ctx()
+    WORK.mkdir(parents=True, exist_ok=True)
+    OUT.mkdir(parents=True, exist_ok=True)
+    if name == "b16b_dev":
+        dev = [2012, 2013, 2014]
+        base = pd.read_parquet(W3 / "states_b15.parquet")
+        rows = [{"k": "static (B15)", "dev_margin_an_rmse": _margin_an_rmse(base, ctx.games, dev)}]
+        for k in (25.0, 100.0, 400.0):
+            st = run(
+                ctx.games,
+                ctx.tg_e,
+                list(range(2006, 2015)),
+                ctx.cfg,
+                verbose=False,
+                prior_hook=b16b_hook(ctx, k),
+            )
+            rows.append({"k": k, "dev_margin_an_rmse": _margin_an_rmse(st, ctx.games, dev)})
+            print(rows[-1], flush=True)
+        pd.DataFrame(rows).to_csv(OUT / "b16b_k_dev.csv", index=False)
+        return
+    if name == "b16b":
+        t = pd.read_csv(OUT / "b16b_k_dev.csv")
+        t = t[t["k"] != "static (B15)"].sort_values("dev_margin_an_rmse")
+        k = float(t.iloc[0]["k"])
+        st = run(ctx.games, ctx.tg_e, w2.SEASONS, ctx.cfg, prior_hook=b16b_hook(ctx, k))
+        st.to_parquet(WORK / "states_b16b.parquet", index=False)
+        (OUT / "engine_b16b.json").write_text(json.dumps({"k": k}))
+        return
+    raise SystemExit(f"unknown engine {name}")
+
+
+# ---------------------------------------------------------------- B17 shooting -------
+def shoot_stage() -> None:
+    from dataclasses import asdict
+
+    from cbb_edge.model.pure import load_pure_silver
+    from cbb_edge.players import shooting
+
+    games, _ = load_pure_silver()
+    pg = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
+    pg = pg[pg["team_id"].notna()]
+    x = shooting.player_games(pg)
+    cb = shooting.career_before(x)
+    sp = shooting.fit_prior(cb, list(range(2008, 2015)))
+    print("kappa", sp.kappa, "b3", sp.b3, flush=True)
+    tf = shooting.team_features(x, games, sp)
+    WORK.mkdir(parents=True, exist_ok=True)
+    tf.to_parquet(WORK / "shooting_features.parquet", index=False)
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "shooting_prior.json").write_text(json.dumps(asdict(sp), indent=1, default=float))
+
+
+# ---------------------------------------------------------------- arms ---------------
+def make_pred(
+    df: pd.DataFrame,
+    X: pd.DataFrame,
+    margin_target: pd.Series | None = None,
+    X_total: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Wave-2/3 stacking (expanding window, logistic WP) with optional separate margin
+    target (B18r) and extra total-only features (B18t)."""
+    from cbb_edge.model.families import assert_pure_frame
+
+    assert_pure_frame(X, "wave4 features")
+    margin = w2.stack(df, X, df["margin"] if margin_target is None else margin_target)
+    Xt = X if X_total is None else pd.concat([X, X_total], axis=1)
+    total = w2.stack(df, Xt, df["total"])
+    out = pd.DataFrame({"margin": margin, "total": total}, index=df.index)
+    out["home_pts"] = (total + margin) / 2
+    out["away_pts"] = (total - margin) / 2
+    out["home_wp"] = w2.logistic_wp(df, margin)
+    return out
+
+
+def base_X(df: pd.DataFrame, extra: list[pd.DataFrame]) -> pd.DataFrame:
+    from cbb_edge.features.context import season_phase, team_home_effect
+    from cbb_edge.research import blocks
+
+    Xb = blocks.base_block(df)
+    p3 = w2.make_pred(df, Xb)
+    hca = team_home_effect(df, df["margin"] - p3["margin"])
+    c = pd.concat(
+        [
+            df[["h_rest", "a_rest", "rest_diff", "h_b2b", "a_b2b"]].fillna(7.0),
+            season_phase(df),
+            hca.rename("team_hca"),
+        ],
+        axis=1,
+    )
+    return blocks.combine(
+        Xb,
+        blocks.player_block(df),
+        blocks.shot_block(df),
+        blocks.context_block(df, c),
+        blocks.mismatch_block(df),
+        *extra,
+    )
+
+
+def rematch_block(df: pd.DataFrame, p15: pd.DataFrame) -> pd.DataFrame:
+    """B16a: earlier meetings this season (tip < current tip only), B15 OOS residuals."""
+    from cbb_edge.model.families import assert_pure_frame
+
+    d = df[
+        [
+            "game_id",
+            "season",
+            "start_time_utc",
+            "home_team_id",
+            "away_team_id",
+            "margin",
+            "total",
+            "act_poss",
+            "mu_tempo",
+            "h_off_tempo",
+            "a_off_tempo",
+        ]
+    ].copy()
+    d["r_m"] = d["margin"] - p15["margin"]
+    d["r_t"] = d["total"] - p15["total"]
+    d["r_p"] = d["act_poss"] - (d["mu_tempo"] + d["h_off_tempo"] + d["a_off_tempo"])
+    d["pair"] = [tuple(sorted(x)) for x in zip(d["home_team_id"], d["away_team_id"], strict=True)]
+    d = d.sort_values("start_time_utc")
+    g = d.groupby(["season", "pair"])
+    prev_home = g["home_team_id"].shift(1)
+    same = (prev_home == d["home_team_id"]).astype(float)
+    sign = np.where(prev_home.isna(), 0.0, np.where(same == 1, 1.0, -1.0))
+    X = pd.DataFrame(index=d.index)
+    X["rm_n"] = g.cumcount().clip(upper=2).astype(float)
+    X["rm_flag"] = (X["rm_n"] > 0).astype(float)
+    X["rm_margin_resid"] = (g["r_m"].shift(1) * sign).fillna(0.0)
+    X["rm_total_resid"] = g["r_t"].shift(1).fillna(0.0)
+    X["rm_poss_resid"] = g["r_p"].shift(1).fillna(0.0)
+    X["rm_venue_swap"] = (prev_home.notna() & (prev_home != d["home_team_id"])).astype(float)
+    return assert_pure_frame(X.reindex(df.index), "rematch_block")
+
+
+def shooting_block(df: pd.DataFrame, sf: pd.DataFrame) -> pd.DataFrame:
+    """B17: player-skill expected shooting (heavily shrunk) + realized-minus-skill gap."""
+    from cbb_edge.model.families import assert_pure_frame
+
+    x = df[["game_id"]].merge(sf, on="game_id", how="left")
+    X = pd.DataFrame(index=df.index)
+    L = df["L"]
+    for side, o, dd, sgn in (("h", "h", "a", 1.0), ("a", "a", "h", -1.0)):
+        for t in ("3", "ft", "2"):
+            v = x[f"{side}_sk{t}"].to_numpy()
+            X[f"sk{t}_{side}"] = np.where(np.isfinite(v), v, np.nanmean(v)) * 100
+        rate = df["mu_fg3a_rate"] + df[f"{o}_off_fg3a_rate"] + df[f"{dd}_def_fg3a_rate"]
+        X[f"exp3pts_{side}"] = 3 * rate / 100 * X[f"sk3_{side}"]
+        eng3 = df["mu_fg3"] + df[f"{o}_off_fg3"] + df[f"{dd}_def_fg3"] + sgn * df["eta_fg3"] * L
+        X[f"luck3_{side}"] = eng3 - X[f"sk3_{side}"]
+    X["sk3_diff"] = X["sk3_h"] - X["sk3_a"]
+    X["exp3pts_diff"] = X["exp3pts_h"] - X["exp3pts_a"]
+    return assert_pure_frame(X, "shooting_block")
+
+
+def calibrate(df: pd.DataFrame, pm: pd.Series) -> pd.Series:
+    """B18: spline-ridge calibration of OOS margin, fitted on earlier predicted seasons."""
+    from sklearn.linear_model import Ridge
+
+    knots = (-25, -20, -15, -10, -5, 5, 10, 15, 20, 25)
+
+    def basis(v: pd.Series) -> np.ndarray:
+        return np.column_stack([v] + [np.maximum(v - k, 0) for k in knots])
+
+    out = pm.copy()
+    for s in sorted(df["season"].unique()):
+        tr = (df["season"] < s) & (df["season"] >= 2015) & pm.notna() & df["margin"].notna()
+        cur = (df["season"] == s) & pm.notna()
+        if df.loc[tr, "season"].nunique() < 1 or not cur.any():
+            continue
+        m = Ridge(alpha=10.0).fit(basis(pm[tr]), df.loc[tr, "margin"])
+        out[cur] = m.predict(basis(pm[cur]))
+    return out
+
+
+def arms_stage(only: list[str] | None = None) -> None:
+    ctx = w3.Ctx()
+    pf12 = pd.read_parquet(W3 / "pf_b12.parquet")
+    st15 = pd.read_parquet(W3 / "states_b15.parquet")
+    df = w3.frame(ctx, st15, pf12)
+    df["game_date_et"] = df["game_id"].map(ctx.games.set_index("game_id")["game_date_et"])
+    X15 = base_X(df, [])
+    preds: dict[str, pd.DataFrame] = {"B15": make_pred(df, X15)}
+    keyed = df.set_index("game_id")
+
+    def realign(other: pd.DataFrame, p: pd.DataFrame) -> pd.DataFrame:
+        return p.set_index(other["game_id"].to_numpy()).reindex(keyed.index).reset_index(drop=True)
+
+    def want(a: str) -> bool:
+        return only is None or a in only
+
+    if want("B16a") or want("B20"):
+        preds["B16a"] = make_pred(df, pd.concat([X15, rematch_block(df, preds["B15"])], axis=1))
+    if (want("B16b") or want("B20")) and (WORK / "states_b16b.parquet").exists():
+        d2 = w3.frame(ctx, pd.read_parquet(WORK / "states_b16b.parquet"), pf12)
+        preds["B16b"] = realign(d2, make_pred(d2, base_X(d2, [])))
+    if want("B17") or want("B20"):
+        sf = pd.read_parquet(WORK / "shooting_features.parquet")
+        preds["B17"] = make_pred(df, pd.concat([X15, shooting_block(df, sf)], axis=1))
+    if want("B18") or want("B20"):
+        b18 = preds["B15"].copy()
+        b18["margin"] = calibrate(df, preds["B15"]["margin"])
+        b18["home_wp"] = w2.logistic_wp(df, b18["margin"])
+        preds["B18"] = b18
+        reg = df["margin"].where(df["n_ot"].fillna(0) == 0, 0.0) if "n_ot" in df else None
+        if reg is None:
+            nt = df["game_id"].map(ctx.games.set_index("game_id")["n_ot"]).fillna(0)
+            reg = df["margin"].where(nt == 0, 0.0)
+        preds["B18r"] = make_pred(df, X15, margin_target=reg)
+        from cbb_edge.model import arms as _arms
+
+        ma = _arms.matchup_features(df)["margin_an"].abs()
+        preds["B18t"] = make_pred(
+            df,
+            X15,
+            X_total=pd.DataFrame(
+                {"abs_margin_an": ma, "close_sq": np.minimum(ma, 10.0) ** 2}, index=df.index
+            ),
+        )
+    for nm in ("b19h", "b19oracle"):
+        arm = "B19h" if nm == "b19h" else "B19oracle"
+        if (want(arm) or (arm == "B19h" and want("B20"))) and (WORK / f"pf_{nm}.parquet").exists():
+            d2 = w3.frame(ctx, st15, pd.read_parquet(WORK / f"pf_{nm}.parquet"))
+            preds[arm] = realign(d2, make_pred(d2, base_X(d2, [])))
+    report: dict[str, object] = {"reference": "B15 (pure-0.3.0)", "arms": {}}
+    eligible = {"B16a", "B16b", "B17", "B18", "B18r", "B19h"}
+    for name, p in preds.items():
+        if name == "B15":
+            continue
+        v = blocked_compare(df, p, preds["B15"])
+        v["verdict"] = gate(name, v) if name in eligible else "DIAGNOSTIC / EXPLORATORY"
+        report["arms"][name] = v
+        print(
+            name,
+            {
+                k: (round(x, 4) if isinstance(x, float) else x)
+                for k, x in v.items()
+                if k not in ("seasons",)
+            },
+            flush=True,
+        )
+    useful = [a for a, v in report["arms"].items() if v["verdict"] == "USEFUL"]
+    report["useful_components"] = useful
+    OUT.mkdir(parents=True, exist_ok=True)
+    allp = pd.DataFrame({"game_id": df["game_id"], "season": df["season"]})
+    for c in ("start_time_utc", "h_games_seen", "a_games_seen", "home_team_id", "away_team_id"):
+        allp[c] = df[c]
+    for name, p in preds.items():
+        for c in ("margin", "total", "home_wp"):
+            allp[f"{name}_{c}"] = p[c].to_numpy()
+    WORK.mkdir(parents=True, exist_ok=True)
+    allp.to_parquet(
+        WORK / ("pure_predictions.parquet" if only is None else "pure_predictions_partial.parquet"),
+        index=False,
+    )
+    fn = "metrics.json" if only is None else "metrics_partial.json"
+    (OUT / fn).write_text(json.dumps(report, indent=1, default=float))
+
+
 if __name__ == "__main__":
     stage = sys.argv[1] if len(sys.argv) > 1 else "arms"
     if stage == "pf":
         pf_stage(sys.argv[2])
+    elif stage == "engine":
+        engine_stage(sys.argv[2])
+    elif stage == "shoot":
+        shoot_stage()
     else:
-        raise SystemExit("stage not implemented yet")
+        arms_stage(sys.argv[2:] or None)

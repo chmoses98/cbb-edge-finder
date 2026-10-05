@@ -17,8 +17,15 @@ import pyarrow.parquet as pq
 from cbb_edge.data.bronze.sportsdataverse import local_rel
 from cbb_edge.data.http import data_dir
 
-COLS = ["game_id", "sequence_number", "period_number", "clock_minutes", "clock_seconds",
-        "home_score", "away_score"]
+COLS = [
+    "game_id",
+    "sequence_number",
+    "period_number",
+    "clock_minutes",
+    "clock_seconds",
+    "home_score",
+    "away_score",
+]
 
 
 def season_table(season: int) -> pd.DataFrame:
@@ -29,8 +36,9 @@ def season_table(season: int) -> pd.DataFrame:
     t = t.dropna(subset=["period_number", "home_score", "away_score"])
     t["seq"] = pd.to_numeric(t["sequence_number"], errors="coerce")
     t = t.sort_values(["game_id", "seq"])
-    t["rem"] = (pd.to_numeric(t["clock_minutes"], errors="coerce").fillna(0) * 60
-                + pd.to_numeric(t["clock_seconds"], errors="coerce").fillna(0))
+    t["rem"] = pd.to_numeric(t["clock_minutes"], errors="coerce").fillna(0) * 60 + pd.to_numeric(
+        t["clock_seconds"], errors="coerce"
+    ).fillna(0)
     g = t.groupby("game_id")
     out = pd.DataFrame({"n_periods": g["period_number"].max()})
     reg = t[t["period_number"] <= 2]
