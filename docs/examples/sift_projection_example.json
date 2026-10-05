@@ -1,0 +1,116 @@
+{
+ "away": {
+  "conference": "Atlantic 10 Conference",
+  "espn_team_id": 2230,
+  "name": "Fordham Rams",
+  "team_id": "T0208"
+ },
+ "freshness": {
+  "away_games_seen": 0,
+  "home_games_seen": 0,
+  "info_cutoff_utc": "2026-11-01T00:00:00+00:00",
+  "info_games": 0,
+  "sources": [
+   "sportsdataverse_releases (ESPN-derived bulk)"
+  ]
+ },
+ "game": {
+  "espn_game_id": 401909784,
+  "game_id": "G401909784",
+  "season": 2027,
+  "site": "home",
+  "start_time_utc": "2026-11-02T05:00:00+00:00",
+  "status": "STATUS_SCHEDULED",
+  "venue_city": "Lawrence",
+  "venue_name": "Allen Fieldhouse",
+  "venue_state": "KS"
+ },
+ "generated_at": "2026-10-04T22:36:02.660227+00:00",
+ "home": {
+  "conference": "Big 12 Conference",
+  "espn_team_id": 2305,
+  "name": "Kansas Jayhawks",
+  "team_id": "T0220"
+ },
+ "market": null,
+ "matchup_factors": {
+  "efg_a": 39.78467882498143,
+  "efg_h": 54.29392278275509,
+  "fg2_a": 41.9221619221179,
+  "fg2_h": 53.95205890438067,
+  "fg3_a": 24.369277280907006,
+  "fg3_h": 36.6091703805685,
+  "fg3a_rate_a": 42.17520338688507,
+  "fg3a_rate_h": 36.55323091296425,
+  "ftr_a": 18.893563326645605,
+  "ftr_h": 32.74569570421478,
+  "orb_a": 28.766157534933956,
+  "orb_h": 29.90445094064974,
+  "to_a": 16.37699931628997,
+  "to_h": 14.058117973960139
+ },
+ "model": {
+  "arm": "B2",
+  "name": "cbb-edge-possession-baseline",
+  "research_state": "research",
+  "version": "0.1.0"
+ },
+ "player_context": null,
+ "projection": {
+  "away_ppp": 0.8751025426388942,
+  "away_score": 57.71074992396976,
+  "home_ppp": 1.1559136411628337,
+  "home_score": 76.22951577502218,
+  "home_win_prob": 0.9448052990158671,
+  "margin": 18.51876585105242,
+  "margin_sd": 11.6,
+  "possessions": 65.94741428809189,
+  "total": 133.94026569899194,
+  "total_sd": 17.5
+ },
+ "ratings": {
+  "away": {
+   "adj_def": 104.63589534981551,
+   "adj_off": 104.60671290123878,
+   "adj_tempo": 63.090958822778155,
+   "four_factors": {
+    "efg_def": 50.4777372259068,
+    "efg_off": 48.852878383021284,
+    "fg2_def": 50.35816653171279,
+    "fg2_off": 51.985500318359954,
+    "fg3_def": 33.87889660141305,
+    "fg3_off": 29.369202288152213,
+    "fg3a_rate_def": 40.38197505867758,
+    "fg3a_rate_off": 39.19466114038801,
+    "ftr_def": 31.957224295518586,
+    "ftr_off": 28.482246374421194,
+    "orb_def": 27.66550109725554,
+    "orb_off": 33.53438144641295,
+    "to_def": 16.56860286793675,
+    "to_off": 17.280718884081498
+   }
+  },
+  "home": {
+   "adj_def": 93.30680880345477,
+   "adj_off": 117.17901347035136,
+   "adj_tempo": 68.80386975340562,
+   "four_factors": {
+    "efg_def": 42.95307193202328,
+    "efg_off": 54.51002266014822,
+    "fg2_def": 42.560341710801154,
+    "fg2_off": 54.67374958346462,
+    "fg3_def": 29.142312149405505,
+    "fg3_off": 36.18931836365646,
+    "fg3a_rate_def": 42.59352315920653,
+    "fg3a_rate_off": 35.440689200371544,
+    "ftr_def": 27.220404136209265,
+    "ftr_off": 34.23677982226583,
+    "orb_def": 26.14738783183453,
+    "orb_off": 32.393361922446445,
+    "to_def": 15.374574462596543,
+    "to_off": 14.752033830882782
+   }
+  }
+ },
+ "schema_version": "sift-cbb-projection-1.0"
+}

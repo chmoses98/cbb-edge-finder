@@ -1,0 +1,84 @@
+name: kalshi-capture
+
+# Prospective, read-only capture of every Kalshi men's college basketball market.
+# Kalshi public market data is free; GitHub Actions minutes are free for public repos.
+# Scheduled/dispatched runs append immutable snapshots to the `kalshi-archive` branch.
+# Pull-request runs only validate the capture and upload an artifact (no branch writes).
+
+on:
+  schedule:
+    - cron: "*/30 * * 1-4,11,12 *"   # season (Nov-Apr): every 30 minutes
+    - cron: "23 */6 * 5-10 *"        # offseason: every 6 hours (futures markets)
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "cbb_edge/kalshi/**"
+      - ".github/workflows/kalshi-capture.yml"
+
+concurrency:
+  group: kalshi-capture
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Capture full CBB board
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          python -m cbb_edge.kalshi.capture --out kalshi_out --orderbook-within-h 6 \
+            | tee capture_summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kalshi-snapshot-${{ github.run_id }}
+          path: |
+            kalshi_out
+            capture_summary.json
+          retention-days: 30
+      - name: Append snapshot to kalshi-archive branch
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir archive && cd archive
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin kalshi-archive; then
+            git checkout -q -b kalshi-archive FETCH_HEAD
+          else
+            git checkout -q --orphan kalshi-archive
+            printf '# Kalshi CBB snapshot archive\n\nImmutable read-only snapshots written by .github/workflows/kalshi-capture.yml.\nSchema: cbb_edge/kalshi/capture.py (kalshi-snapshot-v1).\n' > README.md
+          fi
+          mkdir -p snapshots
+          cp -r ../kalshi_out/* snapshots/
+          git add -A
+          git commit -q -m "kalshi snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q origin kalshi-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin kalshi-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1
