@@ -219,3 +219,33 @@ def test_espn_line_capture_parse_and_horizons():
     rows = espn_capture.parse(board, now)
     assert len(rows) == 1 and rows[0]["game_id"] == 401 and rows[0]["horizon"] == "T-90m"
     assert espn_capture.horizon(24 * 60) == "T-24h" and espn_capture.horizon(10) == "latest"
+
+
+PURE_030_SHA = "6a58fb5069df1de80fca1e944268cd2ee1301eadacf0ba7348a19212e9ce7459"
+
+
+def test_pure_030_artifact_unchanged():
+    """pure-0.3.0 is frozen (Wave 3 challenger): content hash pinned forever."""
+    spec = json.loads((REPO / "models" / "pure" / "pure-0.3.0.json").read_text())
+    sha = spec.pop("sha256")
+    assert sha == hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
+    assert sha == PURE_030_SHA
+    assert spec["version"] == "pure-0.3.0" and spec["market_inputs"] == "NONE"
+
+
+PURE_040_SHA = "4a807ed55f1cbb921b85a1c98e2d1eeb95a043cf00e905ddda9a746a76fa95db"
+
+
+def test_pure_040_artifact_unchanged():
+    """pure-0.4.0 is frozen (Wave 4 challenger): content hash pinned forever."""
+    spec = json.loads((REPO / "models" / "pure" / "pure-0.4.0.json").read_text())
+    sha = spec.pop("sha256")
+    assert sha == hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
+    assert sha == PURE_040_SHA
+    assert spec["version"] == "pure-0.4.0" and spec["market_inputs"] == "NONE"
+
+
+def test_active_models_list():
+    a = json.loads((REPO / "models" / "pure" / "active.json").read_text())
+    assert a["incumbent"] == "pure-0.2.0"
+    assert a["challengers"] == ["pure-0.3.0", "pure-0.4.0"]

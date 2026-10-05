@@ -1,0 +1,20 @@
+{
+ "DEV_2012_2014": {
+  "n_games_with_absence_shift": 11103,
+  "k_slope": 0.012,
+  "corr": 0.001,
+  "mean_abs_dp": 0.992
+ },
+ "VALID_2015_2024": {
+  "n_games_with_absence_shift": 40113,
+  "k_slope": 0.14,
+  "corr": 0.019,
+  "mean_abs_dp": 1.157
+ },
+ "HIST_2025_2026": {
+  "n_games_with_absence_shift": 8854,
+  "k_slope": -0.049,
+  "corr": -0.007,
+  "mean_abs_dp": 1.185
+ }
+}

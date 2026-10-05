@@ -1,0 +1,91 @@
+name: prospective-benchmark
+
+# MARKET_BENCHMARK only (downstream): joins the append-only archives (PURE projections,
+# ESPN pre-tip lines, Kalshi snapshots, availability overlays) with free results and
+# writes dated reports to the `benchmark-reports` branch. Never feeds PURE_BASKETBALL.
+
+on:
+  schedule:
+    - cron: "41 13 * 1-4,11,12 1"   # in season: Mondays
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "cbb_edge/market/stages.py"
+      - "scripts/benchmark/**"
+      - ".github/workflows/prospective-benchmark.yml"
+
+concurrency:
+  group: prospective-benchmark
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Fetch archive branches (read-only)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          for b in projections-archive espn-lines-archive kalshi-archive availability-archive; do
+            mkdir -p "arch/$b"
+            git -C "arch/$b" init -q
+            git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            git -C "arch/$b" fetch -q --depth=1 origin "$b" && git -C "arch/$b" checkout -q FETCH_HEAD || echo "no $b yet"
+          done
+      - name: Benchmark
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          python scripts/benchmark/prospective_benchmark.py --season "${{ github.event.inputs.season || '2027' }}" \
+            --projections arch/projections-archive --espn arch/espn-lines-archive \
+            --kalshi arch/kalshi-archive --out benchmark_out | tee summary.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prospective-benchmark-${{ github.run_id }}
+          path: benchmark_out
+          retention-days: 90
+      - name: Append report to benchmark-reports
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir rep && cd rep
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin benchmark-reports; then
+            git checkout -q -b benchmark-reports FETCH_HEAD
+          else
+            git checkout -q --orphan benchmark-reports
+            printf '# Prospective benchmark reports (MARKET_BENCHMARK only)\n' > README.md
+          fi
+          d="reports/$(date -u +%Y-%m-%dT%H%M%SZ)"
+          mkdir -p "$d" && cp ../benchmark_out/* "$d/"
+          git add -A && git commit -q -m "benchmark report $d"
+          for i in 1 2 3 4; do
+            git push -q origin benchmark-reports && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin benchmark-reports && git rebase -q FETCH_HEAD || true
+          done
+          exit 1

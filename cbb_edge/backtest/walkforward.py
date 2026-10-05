@@ -276,7 +276,11 @@ def replay_season(
             share = returning_share(pg_prev, pg_cur[pg_cur["available_at"] < cutoff], pri.team_ids)
             p = _apply_roster_prior(pri, share, cfg, league_share)
         if prior_hook is not None:
-            p = prior_hook(season, cutoff, p)
+            if getattr(prior_hook, "wants_fits", False):
+                # previous day's fits: information strictly before this cutoff
+                p = prior_hook(season, cutoff, p, fits)  # type: ignore[call-arg]
+            else:
+                p = prior_hook(season, cutoff, p)
         fits = fit_all(info, p, cfg, cutoff, warm=fits)
         t_idx = info["t_idx"].to_numpy()
         poss_seen = np.bincount(t_idx, weights=info["poss"].to_numpy(), minlength=n)

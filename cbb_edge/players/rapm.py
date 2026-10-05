@@ -26,6 +26,7 @@ are used and the row is flagged ``roster_known = 0``.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Protocol
 
@@ -60,6 +61,9 @@ class PriorProvider(Protocol):
     ) -> tuple[np.ndarray, np.ndarray]: ...
 
     def day(self, cutoff_ns: int) -> tuple[np.ndarray, np.ndarray] | None: ...
+
+
+ShareAdjust = Callable[[str, int, "TeamShares", int, np.ndarray, np.ndarray, object], np.ndarray]
 
 
 @dataclass
@@ -216,6 +220,8 @@ class TeamShares:
         piv = piv.loc[meta.index]
         tot = piv.sum(axis=1).replace(0, np.nan)
         S = piv.div(tot / 5.0, axis=0).clip(upper=1.0).fillna(0.0).to_numpy()
+        self.S = S  # per-game on-court shares (row = team game in tip order)
+        self.game_ids = np.array(piv.index)
         self.players = np.array(piv.columns)
         self.available = _ns(meta["available_at"])
         decay = 0.5 ** (1.0 / halflife)
@@ -259,6 +265,7 @@ def player_team_features(
     prior_provider: PriorProvider | None = None,
     update_ratings: bool = True,
     end_ratings: dict[int, SeasonRapm] | None = None,
+    share_adjust: ShareAdjust | None = None,
 ) -> pd.DataFrame:
     """Walk-forward player-based team ratings for every D-I game in ``seasons``.
 
@@ -269,6 +276,9 @@ def player_team_features(
     RAPM updates; minutes shares still follow the observed rotation): roster
     composition without in-season performance, for the B10r team prior.
     ``end_ratings`` (optional dict) collects each season's end-of-season ratings.
+    ``share_adjust(team, season, team_shares, m, pids, shares, game_id)`` (optional)
+    replaces the expected rotation for a game, e.g. availability-aware shares
+    (``availability_model.AvailabilityAdjuster``); it may only use rows < m.
 
     The first season seeds player priors and is still emitted (with weak priors).
     Returns one row per game: h/a player offense, defense, roster_known flags, n players.
@@ -359,6 +369,8 @@ def player_team_features(
                     m = ts.n_available(cutoff) if ts is not None else 0
                     if m > 0:
                         pids, s = ts.shares(m)
+                        if share_adjust is not None:
+                            s = share_adjust(team, season, ts, m, pids, s, g.game_id)
                     else:
                         pids, s = prev_sh.get(team, (np.array([]), np.array([])))
                     idx = np.array([inc.index.get(x, -1) for x in pids], dtype=int)

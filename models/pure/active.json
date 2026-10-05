@@ -1,5 +1,8 @@
 {
  "incumbent": "pure-0.2.0",
- "challengers": ["pure-0.3.0"],
- "note": "pure-0.3.0 (B15) passed the preregistered Wave 3 thresholds; it runs in SHADOW beside the incumbent from the 2026-27 season. Both are archived append-only; neither record set is ever modified."
+ "challengers": [
+  "pure-0.3.0",
+  "pure-0.4.0"
+ ],
+ "note": "pure-0.2.0 stays incumbent. pure-0.3.0 (Wave 3, B15) and pure-0.4.0 (Wave 4, B20) run in SHADOW; promotion only by the prospective rule fixed in research/hypotheses/WAVE4.md, evaluated once after the 2027 national championship game. No archived record of any version is ever modified."
 }

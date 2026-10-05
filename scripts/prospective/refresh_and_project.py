@@ -15,7 +15,14 @@ from pathlib import Path
 
 import pandas as pd
 
-from cbb_edge.app.prospective import active_models, load_model, project_window, write_archive
+from cbb_edge.app.prospective import (
+    active_models,
+    availability_overlay,
+    load_model,
+    project_window,
+    write_archive,
+)
+from cbb_edge.availability.overlay import load_overrides
 from cbb_edge.data.bronze import sportsdataverse as sdv
 from cbb_edge.data.http import data_dir
 from cbb_edge.data.silver.build import build as build_silver
@@ -32,6 +39,11 @@ def main() -> None:
     ap.add_argument("--warmup", type=int, default=8)
     ap.add_argument("--horizon-h", type=float, default=30.0)
     ap.add_argument("--out", default="projections_out")
+    ap.add_argument(
+        "--availability-dir",
+        default=None,
+        help="checked-out availability-archive (P-AVAIL overlay, challengers)",
+    )
     a = ap.parse_args()
     now = pd.Timestamp(datetime.now(UTC))
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
@@ -58,10 +70,17 @@ def main() -> None:
     for role, version in [("incumbent", act["incumbent"])] + [
         ("challenger", v) for v in act.get("challengers", [])
     ]:
-        recs = project_window(a.season, now, a.horizon_h, model=load_model(version))
+        model = load_model(version)
+        recs = project_window(a.season, now, a.horizon_h, model=model)
         for r in recs:
             r["prospective"]["role"] = role
         out[version] = write_archive(recs, Path(a.out))
+        if role == "challenger" and a.availability_dir:
+            over, when = load_overrides(Path(a.availability_dir), now)
+            av = availability_overlay(a.season, now, model, recs, over, when, a.horizon_h)
+            for r in av:
+                r["prospective"]["role"] = "challenger_availability_overlay"
+            out[f"{version}+avail"] = write_archive(av, Path(a.out))
     print(json.dumps({"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out}))
 
 

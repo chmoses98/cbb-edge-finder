@@ -87,7 +87,11 @@ def apply_linear(X: pd.DataFrame, spec: dict[str, Any]) -> np.ndarray:
 
 
 def feature_frame(
-    model: dict[str, Any], season: int, as_of: pd.Timestamp, warmup: int = 8
+    model: dict[str, Any],
+    season: int,
+    as_of: pd.Timestamp,
+    warmup: int = 8,
+    share_adjust: Any = None,
 ) -> pd.DataFrame:
     """Pregame states + PURE feature blocks for every game of ``season`` (info < as_of)."""
     games, tg = load_pure_silver()
@@ -107,7 +111,9 @@ def feature_frame(
     seasons = list(range(season - warmup, season + 1))
     wave3 = "team_prior_hook" in model
     if wave3:  # pure-0.3.0+: roster/conference-anchored engine + provider player features
-        st, pf3 = wave3_inputs(model, season, games_info, tg_e, as_of, cfg, warmup)
+        st, pf3 = wave3_inputs(
+            model, season, games_info, tg_e, as_of, cfg, warmup, share_adjust=share_adjust
+        )
     else:
         st = run(games_info, tg_e, seasons, cfg, verbose=False)
     df = attach_games(st[st["season"] == season], games_info)
@@ -144,6 +150,14 @@ def feature_frame(
         parts.append(blocks.context_block(df, ctx))
     if "mismatch" in model.get("extra_blocks", []):
         parts.append(blocks.mismatch_block(df))
+    if "shooting" in model.get("extra_blocks", []):  # pure-0.4.0+: B17 shooting skill
+        from cbb_edge.players import shooting
+
+        pgs = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
+        pgs = pgs[pgs["team_id"].notna() & (pgs["available_at"] < as_of)]
+        sp = shooting.ShootingPrior(**model["shooting_prior"])
+        sf = shooting.live_features(shooting.player_games(pgs), games_info, sp, season)
+        parts.append(blocks.shooting_block(df, sf))
     X = blocks.combine(*parts)
     assert_pure_frame(X, "prospective features")
     return pd.concat(
@@ -152,11 +166,54 @@ def feature_frame(
     )
 
 
+def availability_overlay(
+    season: int,
+    as_of: pd.Timestamp,
+    model: dict[str, Any],
+    base: list[dict[str, Any]],
+    overrides: dict[tuple[int, str], float],
+    captured: dict[int, str],
+    horizon_h: float = 30.0,
+) -> list[dict[str, Any]]:
+    """P-AVAIL (PROSPECTIVE_ONLY): re-project games that have reported player statuses,
+    with the status P(plays) applied through the replacement model to the player
+    features. Written as version ``<version>+avail``; base records are untouched."""
+    from cbb_edge.app.wave3_live import availability_adjuster
+
+    if "team_prior_hook" not in model or not overrides or not base:
+        return []
+    adj = availability_adjuster(model, overrides)
+    recs = project_window(season, as_of, horizon_h, model=model, share_adjust=adj)
+    by_game = {r["game"]["espn_game_id"]: r for r in base}
+    out = []
+    for r in recs:
+        gid = r["game"]["espn_game_id"]
+        changes = [c for (g, _t), lst in adj.log.items() if g == gid for c in lst]
+        b = by_game.get(gid)
+        if not changes or b is None:
+            continue
+        r["model"]["version"] = f"{model['version']}+avail"
+        r["availability"] = {
+            "component": "P-AVAIL (PROSPECTIVE_ONLY)",
+            "status_map": "cbb_edge.availability.espn.P_PLAY (preregistered WAVE4.md)",
+            "capture_as_of": captured.get(gid),
+            "margin_base": b["projection"]["margin"],
+            "total_base": b["projection"]["total"],
+            "players": changes,
+        }
+        out.append(r)
+    return out
+
+
 def project_window(
-    season: int, as_of: pd.Timestamp, horizon_h: float = 30.0, model: dict[str, Any] | None = None
+    season: int,
+    as_of: pd.Timestamp,
+    horizon_h: float = 30.0,
+    model: dict[str, Any] | None = None,
+    share_adjust: Any = None,
 ) -> list[dict[str, Any]]:
     model = model or load_model()
-    df = feature_frame(model, season, as_of)
+    df = feature_frame(model, season, as_of, share_adjust=share_adjust)
     end = as_of + pd.Timedelta(hours=horizon_h)
     win = df[(df["start_time_utc"] > as_of) & (df["start_time_utc"] <= end)]
     if win.empty:
@@ -262,7 +319,11 @@ def write_archive(records: list[dict[str, Any]], root: Path) -> dict[str, int]:
         date = rec["game"]["start_time_utc"][:10]
         stamp = rec["prospective"]["as_of"].replace(":", "").replace("+0000", "Z")
         version = rec.get("model", {}).get("version", LEGACY_LAYOUT_VERSION)
-        base = root if version in (LEGACY_LAYOUT_VERSION, "0.2.0") else root / version
+        base = (
+            root
+            if version in (LEGACY_LAYOUT_VERSION, "0.2.0")
+            else root / version.replace("+", "_")
+        )
         path = base / str(rec["game"]["season"]) / date / gid / f"{stamp}.json"
         blob = json.dumps(rec, sort_keys=True, allow_nan=False)
         if path.exists():

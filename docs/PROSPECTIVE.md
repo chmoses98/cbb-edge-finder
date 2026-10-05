@@ -52,3 +52,23 @@ and never edited.
 (T-24h, T-6h, T-90m, T-30m, latest), appended to the `espn-lines-archive` branch. Used
 only downstream to measure convergence to the market at fixed horizons; never a PURE
 input (CI-enforced import ban + column guard).
+
+## Wave 4 additions
+
+* `active.json`: incumbent `pure-0.2.0`; challengers `pure-0.3.0`, `pure-0.4.0` (hashes
+  of all three pinned in `tests/test_wave3.py`).
+* `pure-0.4.0` live inputs (`cbb_edge/app/wave3_live.py`): dynamic conference hook
+  (k = 400), absence-persistence rotation (frozen per-season P(plays) models and
+  replacement weights in the artifact), player shooting skill
+  (`shooting.live_features`; upcoming games use each team's state after its completed
+  games). Live/research parity 2025-12-06: corr 0.9995, mean |Δ| 0.26 pts.
+* P-AVAIL overlay: challengers' games with reported player statuses are re-projected
+  and archived as `projections/<version>_avail/...` (PROSPECTIVE_ONLY; base records
+  untouched). See `docs/AVAILABILITY.md`.
+* Roster snapshots (`roster-archive`) and availability captures
+  (`availability-archive`) start running after this PR merges.
+* Benchmarks (`prospective-benchmark` workflow, Mondays in season → `benchmark-reports`):
+  stage benchmark, future_market_alignment, Kalshi table, availability impact.
+  MARKET_BENCHMARK only.
+* Promotion: `cbb_edge/research/promotion.py` implements the rule fixed in
+  `research/hypotheses/WAVE4.md`; evaluated once after the 2027 national championship.

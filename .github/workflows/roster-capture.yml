@@ -1,0 +1,89 @@
+name: roster-capture
+
+# Immutable preseason / in-season roster snapshots (written when a roster changes; full weekly).
+# Free ESPN public data only (cost-policy chokepoint, 1 req/s). Scheduled / dispatched
+# runs append immutable snapshots to the `roster-archive` branch (only `state/` is
+# rewritten: last seen status / roster hash used for change detection). Pull-request
+# runs validate the capture against a temp dir and upload an artifact (no branch writes).
+
+on:
+  schedule:
+    - cron: "17 11 * 9-11 *"          # Sep-Nov: daily change check
+    - cron: "17 12 * 12,1-4 1"        # Dec-Apr: weekly (Mondays)
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "cbb_edge/availability/**"
+      - ".github/workflows/roster-capture.yml"
+
+concurrency:
+  group: roster-capture
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Fetch archive branch (state + history)
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir archive && cd archive
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin roster-archive; then
+            git checkout -q -b roster-archive FETCH_HEAD
+          else
+            git checkout -q --orphan roster-archive
+            printf '# Roster snapshots (PURE input, PROSPECTIVE_ONLY)\n\nAppend-only; schema cbb_edge/availability/capture.py (roster-snapshot-v1).\n' > README.md
+          fi
+      - name: Capture
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          if [ -d archive ]; then OUT=archive; LIMIT=""; else OUT=capture_out; LIMIT="--teams-limit 8"; fi
+          python -m cbb_edge.availability.capture rosters --out "$OUT" --state "$OUT/state/roster_state.json" $( [ "$(date -u +%u)" = "1" ] && echo --full ) $LIMIT | tee capture_summary.json
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
+        with:
+          name: roster-capture-${{ github.run_id }}
+          path: |
+            capture_out
+            capture_summary.json
+          retention-days: 14
+      - name: Append to roster-archive (never rewrite snapshots)
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          cd archive
+          git add -A
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -q -m "rosters capture $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q origin roster-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin roster-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1

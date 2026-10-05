@@ -48,6 +48,7 @@ PURE_PACKAGES = (
     "cbb_edge/backtest/residuals.py",
     "cbb_edge/app/prospective.py",
     "cbb_edge/app/wave3_live.py",
+    "cbb_edge/availability",
 )
 FORBIDDEN_IMPORTS = ("cbb_edge.market", "cbb_edge.kalshi")
 
