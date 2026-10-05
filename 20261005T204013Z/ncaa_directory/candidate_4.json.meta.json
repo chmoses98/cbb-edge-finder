@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_directory",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:40:11.966519+00:00",
+ "sha256": "b698af6fdd4013ea0047f86edc9a10074fb1f847030cc08fbda18b6b9e6a4010",
+ "bytes": 1302530,
+ "schema_version": "raw-v1",
+ "content_type": "application/json",
+ "last_modified": null,
+ "etag": null,
+ "local_path": "bronze/ncaa_directory/_cache/ff/ff519c9ac1810bf4268c29624adf05abcfc99cfb0c7a9f147effee89f1f1755a"
+}

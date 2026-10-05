@@ -1,0 +1,16 @@
+{
+ "source": "espn_public",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2027/teams/13/athletes",
+ "params": {
+  "limit": "200"
+ },
+ "retrieved_at": "2026-10-05T20:39:51.439469+00:00",
+ "sha256": "804bff1c00100b242d9506cbd8df6db5bc0d09e62336a8261021c23dfe66303b",
+ "bytes": 2369,
+ "schema_version": "raw-v1",
+ "content_type": "application/json;charset=utf-8",
+ "last_modified": null,
+ "etag": null,
+ "local_path": "bronze/espn_public/_cache/86/8614a8ab14851b2429560c4dce25591000b2d5c82a630b9afd1ca4992768b9fc"
+}

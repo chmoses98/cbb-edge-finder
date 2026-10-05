@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_directory",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://web3.ncaa.org/directory/api/common/conferenceList",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:40:03.763434+00:00",
+ "sha256": "d87f5311dc616f0053b0a301e03c6525ea3f0a247ca1afb43d4d495a825bb6a4",
+ "bytes": 21092,
+ "schema_version": "raw-v1",
+ "content_type": "application/json",
+ "last_modified": null,
+ "etag": null,
+ "local_path": "bronze/ncaa_directory/_cache/8c/8c6b8627637ff137a78777988ab8054325e39aab039ba998733915c210533163"
+}

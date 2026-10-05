@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_directory",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://web3.ncaa.org/directory/api/common/sportList",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:40:05.729874+00:00",
+ "sha256": "ea43027a5d5df95dd5071ff7eed4afcb5a1d2b56ee3dd2a8c0ca03203955c1ed",
+ "bytes": 6129,
+ "schema_version": "raw-v1",
+ "content_type": "application/json",
+ "last_modified": null,
+ "etag": null,
+ "local_path": "bronze/ncaa_directory/_cache/2f/2f990451912110fa4682e6d07644c14e1a6f8b24c32a1b03c3639405001257e2"
+}

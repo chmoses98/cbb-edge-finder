@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_directory",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://web3.ncaa.org/directory/760703a/assets/js/manifest.js",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:39:55.700679+00:00",
+ "sha256": "2a5b87ced9fb492a88d120d760e4c52d906f1aa1cf3515ed7fefa21f6d4434c2",
+ "bytes": 853,
+ "schema_version": "raw-v1",
+ "content_type": "text/javascript",
+ "last_modified": "Mon, 05 Oct 2026 04:39:17 GMT",
+ "etag": "W/\"760703a\"",
+ "local_path": "bronze/ncaa_directory/_cache/92/92795fe8dce60bffabc4168075dfb01f6f665e0ba1f93f79552403ec47640b4a"
+}

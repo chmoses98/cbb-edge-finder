@@ -1,0 +1,19 @@
+{
+ "source": "ncaa_stats",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://stats.ncaa.org/team/inst_team_list",
+ "params": {
+  "academic_year": "2027",
+  "conf_id": "-1",
+  "division": "1",
+  "sport_code": "MBB"
+ },
+ "retrieved_at": "2026-10-05T20:39:41.986491+00:00",
+ "sha256": "3493accb31eac335cea48df5524584c01b8d31af0703fa709b2f1169fec4d461",
+ "bytes": 82227,
+ "schema_version": "raw-v1",
+ "content_type": "text/html; charset=utf-8",
+ "last_modified": null,
+ "etag": "W/\"5e6a0e127c0797f17ac7d01f0e671033\"",
+ "local_path": "bronze/ncaa_stats/_cache/74/74377279dacce8170816ac74b1abdd8c9d236db874447f0ea99c9256e422cddc"
+}

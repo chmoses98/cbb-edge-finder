@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_directory",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://web3.ncaa.org/directory/760703a/assets/js/ncaa-vendor.js",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:39:57.841681+00:00",
+ "sha256": "452692feb9619cd3755b751dd8bf640b6e0475e3b27a00eb791d7976e4ace4f1",
+ "bytes": 1092711,
+ "schema_version": "raw-v1",
+ "content_type": "text/javascript",
+ "last_modified": "Wed, 30 Sep 2026 13:25:53 GMT",
+ "etag": "W/\"760703a\"",
+ "local_path": "bronze/ncaa_directory/_cache/a3/a3715f6e7d2c99a3bd80f8298a3fa3a41e38ecc455775f186f4adee319f7dcbf"
+}

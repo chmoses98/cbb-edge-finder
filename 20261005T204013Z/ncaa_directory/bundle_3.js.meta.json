@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_directory",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://web3.ncaa.org/directory/760703a/assets/js/ncaa-all-common.js",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:39:59.847169+00:00",
+ "sha256": "12a44e8ef48edf239652417e5901765e0c7eafb647efda084031d52b3a16d74b",
+ "bytes": 100038,
+ "schema_version": "raw-v1",
+ "content_type": "text/javascript",
+ "last_modified": "Mon, 05 Oct 2026 01:58:02 GMT",
+ "etag": "W/\"760703a\"",
+ "local_path": "bronze/ncaa_directory/_cache/a3/a3836774e1643595110416629e08b4d3b51ab6c2ff3967f4b9260d84adcd8084"
+}

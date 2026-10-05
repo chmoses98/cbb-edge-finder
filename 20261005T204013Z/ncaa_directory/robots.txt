@@ -1,0 +1,16 @@
+User-agent: *
+Disallow: /d1mfb/
+Disallow: /champsel/
+Disallow: /champsel_new/
+Disallow: /mscs/
+Disallow: /travel/
+Disallow: /compliance/
+Disallow: /LSDBi/
+Disallow: /champs_bid/
+Disallow: /committees/
+Disallow: /mfb/
+Disallow: /eligibilitycenter/
+Disallow: /stats/
+Disallow: /football/
+Disallow: /onlineDir/
+

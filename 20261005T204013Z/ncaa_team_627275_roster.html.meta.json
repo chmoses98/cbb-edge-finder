@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_stats",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://stats.ncaa.org/teams/627275/roster",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:39:51.320962+00:00",
+ "sha256": "957c53f46722a3dd574064962bde26ae9b3966d657241acbc507994275f888b9",
+ "bytes": 2271,
+ "schema_version": "raw-v1",
+ "content_type": "text/html",
+ "last_modified": null,
+ "etag": null,
+ "local_path": "bronze/ncaa_stats/_cache/13/13d568c033af7a738ea99609bb15de107a26db32e5809d420cde7c3c80c7022a"
+}

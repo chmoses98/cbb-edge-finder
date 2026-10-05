@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_directory",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB",
+ "params": {},
+ "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+ "sha256": "a9b9c7af103e155da4e2190719de5fb56b460c082772d7fe0d523f7c1d2628aa",
+ "bytes": 435877,
+ "schema_version": "raw-v1",
+ "content_type": "application/json",
+ "last_modified": null,
+ "etag": null,
+ "local_path": "bronze/ncaa_directory/_cache/cc/cc80a84db1416a4b1484edc5fcfe60767fc1f752b998f8b075ac31e044ced1c6"
+}
