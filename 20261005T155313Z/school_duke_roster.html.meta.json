@@ -1,0 +1,14 @@
+{
+ "source": "school_athletics",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://goduke.com/sports/mens-basketball/roster",
+ "params": {},
+ "retrieved_at": "2026-10-05T15:53:00.942044+00:00",
+ "sha256": "30de4b926182b85c7e9557fbfbe0d19e857e68a8260360200815c4bf796fccdd",
+ "bytes": 1060652,
+ "schema_version": "raw-v1",
+ "content_type": "text/html;charset=utf-8",
+ "last_modified": "Mon, 05 Oct 2026 15:52:46 GMT",
+ "etag": "W/\"J55d8iCJ9T\"",
+ "local_path": "bronze/school_athletics/_cache/9d/9df84cfa92f2468e60de3040fd62cf7b0be40944947b9490803269304634664d"
+}

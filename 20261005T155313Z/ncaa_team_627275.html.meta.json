@@ -1,0 +1,14 @@
+{
+ "source": "ncaa_stats",
+ "cost_class": "FREE_RATE_LIMITED",
+ "url": "https://stats.ncaa.org/teams/627275",
+ "params": {},
+ "retrieved_at": "2026-10-05T15:53:06.594136+00:00",
+ "sha256": "70b01a23455a733eaef592ae5b7c43020b96d491471b086d5f73e932b25517fe",
+ "bytes": 2245,
+ "schema_version": "raw-v1",
+ "content_type": "text/html",
+ "last_modified": null,
+ "etag": null,
+ "local_path": "bronze/ncaa_stats/_cache/49/495c1cc17ed247901ba6fe99c309c608942c38b011f11f6bddbd80575ab54dc7"
+}
