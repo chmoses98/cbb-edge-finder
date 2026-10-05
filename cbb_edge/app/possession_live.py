@@ -24,7 +24,8 @@ def _shots(season: int) -> pd.DataFrame:
     if not p.exists():
         from cbb_edge.features.pbp_shots import OUT_COLS
 
-        return pd.DataFrame(columns=["season", "game_id", "team_id", "player_id", *OUT_COLS])
+        e = pd.DataFrame(columns=["season", "game_id", "team_id", "player_id", *OUT_COLS])
+        return e.astype({c: float for c in OUT_COLS} | {"season": int, "game_id": int})
     s = pd.read_parquet(p)
     return s[s["season"] == season]
 

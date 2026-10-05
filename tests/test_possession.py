@@ -166,3 +166,24 @@ def test_defense_excess_uses_only_earlier_games():
     act2.loc[2, "rim_a"] = 0.0  # changing game 3 must not move games 1-2
     de2 = pos.defense_excess(act2, prof, 100.0).set_index("game_id")
     assert de.loc[[1, 2]].equals(de2.loc[[1, 2]])
+
+
+def test_player_rows_with_no_pbp_yet():
+    """Season start on the runner: no PBP file yet -> empty object-dtype shot table."""
+    from cbb_edge.features.pbp_shots import OUT_COLS
+
+    t0 = pd.Timestamp("2026-11-03T03:00:00Z")
+    pg = pd.DataFrame(
+        {"season": 2027, "game_id": [1, 1], "team_id": ["T1", "T2"], "player_id": ["P1", "P2"],
+         "position": ["G", "C"], "available_at": t0, "min": [30.0, 25.0], "fgm": 4.0,
+         "fga": 9.0, "fg3m": 1.0, "fg3a": 3.0, "ftm": 2.0, "fta": 3.0, "orb": 1.0,
+         "drb": 3.0, "ast": 2.0, "stl": 1.0, "blk": 0.0, "tov": 2.0, "pf": 2.0}
+    )  # fmt: skip
+    tg = pd.DataFrame(
+        {"game_id": 1, "team_id": ["T1", "T2"], "minutes": 40.0, "fgm": 25.0, "fga": 60.0,
+         "opp_fgm": 24.0, "opp_fga": 58.0, "opp_fg3a": 20.0, "poss": 70.0}
+    )  # fmt: skip
+    shots = pd.DataFrame(columns=["season", "game_id", "team_id", "player_id", *OUT_COLS])
+    x = pos.player_rows(pg, tg, shots)
+    cb = pos.career(x)
+    assert (cb["ca_rim_a"] == 0).all() and cb["ca_fga"].tolist() == [9.0, 9.0]

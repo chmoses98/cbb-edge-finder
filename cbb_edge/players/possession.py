@@ -116,7 +116,7 @@ def player_rows(pg: pd.DataFrame, tg: pd.DataFrame, shots: pd.DataFrame) -> pd.D
     x["has_pbp"] = x["rim_a"].notna()
     for c in sh.columns:
         if c not in ("game_id", "player_id"):
-            x[c] = x[c].fillna(0.0)
+            x[c] = pd.to_numeric(x[c], errors="coerce").fillna(0.0).astype(float)
     x["pbp_fga"] = x["rim_a"] + x["j2_a"] + x["t3_a"]
     x["pbp_fgm"] = x["rim_m"] + x["j2_m"] + x["t3_m"]
     num = [c for c in x.columns if c.endswith("_opp")] + ["t_poss"]
@@ -406,7 +406,11 @@ def team_actuals(shots: pd.DataFrame, tg: pd.DataFrame) -> pd.DataFrame:
             "poss", "pts", "efg", "to_rate", "ftr", "orb_rate", "fg2_pct", "fg3_pct", "ppp",
         ]
     ]  # fmt: skip
-    return t.merge(s, on=["game_id", "team_id"], how="left")
+    out = t.merge(s, on=["game_id", "team_id"], how="left")
+    keep = ("game_id", "team_id", "opp_id", "start_time_utc", "season")
+    num = [c for c in out.columns if c not in keep]
+    out[num] = out[num].apply(pd.to_numeric, errors="coerce").astype(float)
+    return out
 
 
 DEF_TERMS = ("rim", "t3", "ftr", "rimpct")

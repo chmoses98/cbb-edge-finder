@@ -75,11 +75,18 @@ def main() -> None:
     # incumbent + shadow challengers, each from its own frozen artifact; records of one
     # version never touch another's (separate archive paths, append-only)
     out = {}
+    failed: dict[str, str] = {}
     for role, version in [("incumbent", act["incumbent"])] + [
         ("challenger", v) for v in act.get("challengers", [])
     ]:
         model = load_model(version)
-        recs = project_window(a.season, now, a.horizon_h, model=model)
+        try:
+            recs = project_window(a.season, now, a.horizon_h, model=model)
+        except Exception as e:  # a challenger must never block the incumbent or others
+            if role == "incumbent":
+                raise
+            failed[version] = f"{type(e).__name__}: {e}"
+            continue
         for r in recs:
             r["prospective"]["role"] = role
         out[version] = write_archive(recs, Path(a.out))
@@ -89,7 +96,13 @@ def main() -> None:
             for r in av:
                 r["prospective"]["role"] = "challenger_availability_overlay"
             out[f"{version}+avail"] = write_archive(av, Path(a.out))
-    print(json.dumps({"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out}))
+    print(
+        json.dumps(
+            {"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out, "failed": failed}
+        )
+    )
+    # a failed challenger is reported in the summary; the workflow turns the run red
+    # AFTER the healthy versions' records are appended to the archive
 
 
 if __name__ == "__main__":
