@@ -1,0 +1,159 @@
+{
+ "n_rows": 2309980,
+ "n_regular_rows": 1115144,
+ "regular_class_share_by_season": {
+  "2011": {
+   "first_surprise_absence": 0.0156,
+   "normal": 0.9685,
+   "return_from_absence": 0.0071,
+   "second_consecutive_absence": 0.0059,
+   "third_plus_absence": 0.0029
+  },
+  "2012": {
+   "first_surprise_absence": 0.0152,
+   "normal": 0.9702,
+   "return_from_absence": 0.0068,
+   "second_consecutive_absence": 0.0053,
+   "third_plus_absence": 0.0025
+  },
+  "2013": {
+   "first_surprise_absence": 0.0165,
+   "normal": 0.9666,
+   "return_from_absence": 0.0074,
+   "second_consecutive_absence": 0.0064,
+   "third_plus_absence": 0.003
+  },
+  "2014": {
+   "first_surprise_absence": 0.0153,
+   "normal": 0.9691,
+   "return_from_absence": 0.0072,
+   "second_consecutive_absence": 0.0059,
+   "third_plus_absence": 0.0025
+  },
+  "2015": {
+   "first_surprise_absence": 0.0171,
+   "normal": 0.9659,
+   "return_from_absence": 0.0076,
+   "second_consecutive_absence": 0.0062,
+   "third_plus_absence": 0.0032
+  },
+  "2016": {
+   "first_surprise_absence": 0.016,
+   "normal": 0.9674,
+   "return_from_absence": 0.0069,
+   "second_consecutive_absence": 0.0065,
+   "third_plus_absence": 0.0031
+  },
+  "2017": {
+   "first_surprise_absence": 0.0162,
+   "normal": 0.9682,
+   "return_from_absence": 0.0071,
+   "second_consecutive_absence": 0.0058,
+   "third_plus_absence": 0.0027
+  },
+  "2018": {
+   "first_surprise_absence": 0.0187,
+   "normal": 0.9625,
+   "return_from_absence": 0.0087,
+   "second_consecutive_absence": 0.0069,
+   "third_plus_absence": 0.0032
+  },
+  "2019": {
+   "first_surprise_absence": 0.0188,
+   "normal": 0.9624,
+   "return_from_absence": 0.0082,
+   "second_consecutive_absence": 0.007,
+   "third_plus_absence": 0.0035
+  },
+  "2020": {
+   "first_surprise_absence": 0.0194,
+   "normal": 0.9604,
+   "return_from_absence": 0.0087,
+   "second_consecutive_absence": 0.0079,
+   "third_plus_absence": 0.0036
+  },
+  "2021": {
+   "first_surprise_absence": 0.0276,
+   "normal": 0.9441,
+   "return_from_absence": 0.0117,
+   "second_consecutive_absence": 0.0119,
+   "third_plus_absence": 0.0047
+  },
+  "2022": {
+   "first_surprise_absence": 0.0276,
+   "normal": 0.9438,
+   "return_from_absence": 0.0141,
+   "second_consecutive_absence": 0.0105,
+   "third_plus_absence": 0.004
+  },
+  "2023": {
+   "first_surprise_absence": 0.0241,
+   "normal": 0.9512,
+   "return_from_absence": 0.0116,
+   "second_consecutive_absence": 0.0092,
+   "third_plus_absence": 0.0039
+  },
+  "2024": {
+   "first_surprise_absence": 0.0223,
+   "normal": 0.9555,
+   "return_from_absence": 0.0104,
+   "second_consecutive_absence": 0.0082,
+   "third_plus_absence": 0.0037
+  },
+  "2025": {
+   "first_surprise_absence": 0.0227,
+   "normal": 0.9544,
+   "return_from_absence": 0.0104,
+   "second_consecutive_absence": 0.0088,
+   "third_plus_absence": 0.0037
+  },
+  "2026": {
+   "first_surprise_absence": 0.0223,
+   "normal": 0.9547,
+   "return_from_absence": 0.0103,
+   "second_consecutive_absence": 0.0087,
+   "third_plus_absence": 0.0039
+  }
+ },
+ "regular_class_counts": {
+  "normal": 1071074,
+  "first_surprise_absence": 21904,
+  "return_from_absence": 10044,
+  "second_consecutive_absence": 8382,
+  "third_plus_absence": 3740
+ },
+ "p_play_by_miss_run_regulars": {
+  "0": {
+   "mean": 0.98,
+   "size": 1092978
+  },
+  "1": {
+   "mean": 0.4909,
+   "size": 16465
+  },
+  "2": {
+   "mean": 0.344,
+   "size": 5701
+  }
+ },
+ "p_play_by_miss_run_by_era": {
+  "2011-2020": {
+   "0": 0.9828,
+   "1": 0.4914,
+   "2": 0.3208
+  },
+  "2021-2026": {
+   "0": 0.9752,
+   "1": 0.4904,
+   "2": 0.3713
+  }
+ },
+ "replacement": {
+  "gamma": 0.5,
+  "beta": 1.0,
+  "fit_seasons": [
+   2012,
+   2014
+  ]
+ }
+}

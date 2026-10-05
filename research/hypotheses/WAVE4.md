@@ -244,3 +244,19 @@ Further rules:
   challenger.
 * No archived record of any version is ever modified.
 * If none pass, `pure-0.2.0` stays incumbent and every challenger stays in shadow.
+
+## Addendum (2026-10-05, after the B15 diagnostics, BEFORE any Wave 4 arm was evaluated)
+
+The diagnostics (research/wave4/diagnostics.json) were computed on B15 only. They
+motivate ONE extra arm, which is post-hoc and therefore **exploratory: it cannot enter
+B20 this wave**, whatever its result:
+
+* **B18t (exploratory)** — totals only: add |margin_an| and min(|margin_an|, 10)² to the
+  total-target ridge features (projected closeness → late-game fouling and overtime
+  probability). Margin unchanged. Reported against B15 total RMSE.
+
+Recorded from the diagnostics (not tested further as arms):
+* first-meeting residual vs second-meeting residual: corr −0.025 (margin), +0.020 (total)
+  → B16a is expected to fail; it is still run exactly as preregistered.
+* calibration slope of realized on projected margin 0.99 (top-5% tier 0.96) → little
+  compression left after the B13 mismatch block; B18 is still run as preregistered.
