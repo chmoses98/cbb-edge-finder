@@ -150,6 +150,14 @@ def feature_frame(
         parts.append(blocks.context_block(df, ctx))
     if "mismatch" in model.get("extra_blocks", []):
         parts.append(blocks.mismatch_block(df))
+    if "shooting" in model.get("extra_blocks", []):  # pure-0.4.0+: B17 shooting skill
+        from cbb_edge.players import shooting
+
+        pgs = pd.read_parquet(data_dir() / "silver" / "player_games.parquet")
+        pgs = pgs[pgs["team_id"].notna() & (pgs["available_at"] < as_of)]
+        sp = shooting.ShootingPrior(**model["shooting_prior"])
+        sf = shooting.live_features(shooting.player_games(pgs), games_info, sp, season)
+        parts.append(blocks.shooting_block(df, sf))
     X = blocks.combine(*parts)
     assert_pure_frame(X, "prospective features")
     return pd.concat(
@@ -170,23 +178,11 @@ def availability_overlay(
     """P-AVAIL (PROSPECTIVE_ONLY): re-project games that have reported player statuses,
     with the status P(plays) applied through the replacement model to the player
     features. Written as version ``<version>+avail``; base records are untouched."""
-    from cbb_edge.players import availability_model as am
+    from cbb_edge.app.wave3_live import availability_adjuster
 
     if "team_prior_hook" not in model or not overrides or not base:
         return []
-    pg = pd.read_parquet(
-        data_dir() / "silver" / "player_games.parquet", columns=["player_id", "position", "season"]
-    )
-    pos = pg.sort_values("season").drop_duplicates("player_id", keep="last")
-    positions = {p: am._pos(x) for p, x in zip(pos["player_id"], pos["position"], strict=True)}
-    adj = am.AvailabilityAdjuster(
-        {},
-        positions,
-        am.REPLACEMENT_GAMMA,
-        am.REPLACEMENT_BETA,
-        mode="override",
-        p_override=overrides,
-    )
+    adj = availability_adjuster(model, overrides)
     recs = project_window(season, as_of, horizon_h, model=model, share_adjust=adj)
     by_game = {r["game"]["espn_game_id"]: r for r in base}
     out = []

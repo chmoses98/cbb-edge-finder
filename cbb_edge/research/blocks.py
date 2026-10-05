@@ -144,6 +144,24 @@ def mismatch_block(df: pd.DataFrame) -> pd.DataFrame:
     return assert_pure_frame(X, "mismatch_block")
 
 
+def shooting_block(df: pd.DataFrame, sf: pd.DataFrame) -> pd.DataFrame:
+    """B17: player-skill expected shooting (heavily shrunk) + realized-minus-skill gap."""
+    x = df[["game_id"]].merge(sf, on="game_id", how="left")
+    X = pd.DataFrame(index=df.index)
+    L = df["L"]
+    for side, o, dd, sgn in (("h", "h", "a", 1.0), ("a", "a", "h", -1.0)):
+        for t in ("3", "ft", "2"):
+            v = x[f"{side}_sk{t}"].to_numpy()
+            X[f"sk{t}_{side}"] = np.where(np.isfinite(v), v, np.nanmean(v)) * 100
+        rate = df["mu_fg3a_rate"] + df[f"{o}_off_fg3a_rate"] + df[f"{dd}_def_fg3a_rate"]
+        X[f"exp3pts_{side}"] = 3 * rate / 100 * X[f"sk3_{side}"]
+        eng3 = df["mu_fg3"] + df[f"{o}_off_fg3"] + df[f"{dd}_def_fg3"] + sgn * df["eta_fg3"] * L
+        X[f"luck3_{side}"] = eng3 - X[f"sk3_{side}"]
+    X["sk3_diff"] = X["sk3_h"] - X["sk3_a"]
+    X["exp3pts_diff"] = X["exp3pts_h"] - X["exp3pts_a"]
+    return assert_pure_frame(X, "shooting_block")
+
+
 def combine(*blocks: pd.DataFrame) -> pd.DataFrame:
     X = pd.concat(blocks, axis=1)
     X = X.loc[:, ~X.columns.duplicated()]

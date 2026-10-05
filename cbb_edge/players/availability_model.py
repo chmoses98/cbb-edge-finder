@@ -254,8 +254,9 @@ class AvailabilityAdjuster:
     """``share_adjust`` for ``rapm.player_team_features``.
 
     mode ``persistence``: P(plays) from the fitted persistence model (pregame info only).
-    mode ``oracle``: P = 1 if the player actually played, else 0 (DIAGNOSTIC upper bound,
-    uses the game's own box score; never a model input).
+    mode ``oracle``: P = 0 for pregame regulars who did not play this game, else 1
+    (DIAGNOSTIC upper bound on perfect injury information; uses the game's own box
+    score, never a model input; non-regular participation is deliberately ignored).
     mode ``override``: prospective status reports only (P-AVAIL): shares are unchanged
     unless a player of the team has a reported status for this game; reported players
     get P from ``p_override``, everyone else P = 1, removed minutes go through the
@@ -293,10 +294,9 @@ class AvailabilityAdjuster:
         return self._cache[key]
 
     def __call__(self, team, season, ts, m, pids, s, game_id) -> np.ndarray:
-        if self.mode == "override":
-            hit = [i for i, q in enumerate(pids) if (game_id, q) in self.p_override]
-            if not hit:
-                return s
+        hit = [i for i, q in enumerate(pids) if (game_id, q) in self.p_override]
+        if self.mode == "override" and not hit:
+            return s
         pan = self._panel(ts, team, season)
         idx = np.array([pan["idx"][p] for p in pids])
         cond = pan["cond"][m][idx]
@@ -305,7 +305,13 @@ class AvailabilityAdjuster:
             act = self.actual.get(game_id)
             if act is None:
                 return s
-            p = np.array([1.0 if q in act else 0.0 for q in pids])
+            # only ABSENCES OF PREGAME REGULARS (cond share >= 0.35 and >= 3 of the last 5
+            # team games played) are revealed; who else appeared is NOT used, because
+            # deep-bench participation reveals blowouts (outcome leakage)
+            regular = (cond >= 0.35) & (pan["last5"][m][idx] >= 3)
+            p = np.array(
+                [0.0 if (regular[i] and q not in act) else 1.0 for i, q in enumerate(pids)]
+            )
         elif self.mode == "override":
             p = np.ones(len(pids))
             cond = np.where(np.isin(np.arange(len(pids)), hit), cond, s)
@@ -320,7 +326,7 @@ class AvailabilityAdjuster:
                 p[i] = o
         pos = np.array([self.positions.get(q, "F") for q in pids])
         out = redistribute(cond, p, pos, self.gamma, self.beta)
-        if self.mode == "override":
+        if hit:
             self.log[(game_id, team)] = [
                 {
                     "player_id": str(q),

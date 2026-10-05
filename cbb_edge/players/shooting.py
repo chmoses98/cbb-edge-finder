@@ -162,6 +162,7 @@ def team_features(x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior) -> pd
     meta = games.set_index("game_id")["start_time_utc"]
     decay = 0.5 ** (1.0 / HALFLIFE)
     recs = []
+    nxt: dict[tuple[int, str, str], float] = {}
     prev_team: dict[tuple[str, int], dict[str, float]] = {}
     for (s, team), y in cb.groupby(["season", "team_id"], sort=True):
         gids = meta.reindex(y["game_id"].unique()).sort_values().index.to_numpy()
@@ -188,6 +189,16 @@ def team_features(x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior) -> pd
                 ew = decay * ew + (A[i] / tot if tot > 0 else 0.0)
             if not np.isfinite(out[0]):
                 out[0] = prev_team.get((team, s - 1), {}).get(typ, np.nan)
+            # state after every completed game: value for any not-yet-played game
+            last = pd.DataFrame(P).ffill().to_numpy()[-1] if k else np.full(n, np.nan)
+            ok = (ew > 0) & np.isfinite(last)
+            nxt[(s, team, typ)] = (
+                float((ew[ok] * last[ok]).sum() / ew[ok].sum())
+                if ok.any()
+                else float(out[0])
+                if k
+                else np.nan
+            )
             feats[typ] = out
             prev_team.setdefault((team, s), {})[typ] = (
                 float(np.nanmean(out[-5:])) if np.isfinite(out).any() else np.nan
@@ -198,10 +209,30 @@ def team_features(x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior) -> pd
             )
         )
     tf = pd.concat(recs, ignore_index=True)
+    team_features.next_values = nxt  # type: ignore[attr-defined]
     g = games[["game_id", "home_team_id", "away_team_id"]]
     h = tf.rename(columns={"team_id": "home_team_id", **{f"sk{t}": f"h_sk{t}" for t in TYPES}})
     a = tf.rename(columns={"team_id": "away_team_id", **{f"sk{t}": f"a_sk{t}" for t in TYPES}})
     out = g.merge(h, on=["game_id", "home_team_id"], how="left").merge(
         a, on=["game_id", "away_team_id"], how="left"
     )
+    return out.drop(columns=["home_team_id", "away_team_id"])
+
+
+def live_features(
+    x: pd.DataFrame, games: pd.DataFrame, sp: ShootingPrior, season: int
+) -> pd.DataFrame:
+    """Prospective: completed games as in ``team_features``; games without player rows
+    yet (upcoming) get each team's state after all its completed games (information
+    before tip only)."""
+    tf = team_features(x, games, sp)
+    nxt = team_features.next_values  # type: ignore[attr-defined]
+    g = games[games["season"] == season][["game_id", "home_team_id", "away_team_id"]]
+    out = g.merge(tf, on="game_id", how="left")
+    for side, col in (("h", "home_team_id"), ("a", "away_team_id")):
+        for t in TYPES:
+            miss = out[f"{side}_sk{t}"].isna()
+            out.loc[miss, f"{side}_sk{t}"] = [
+                nxt.get((season, team, t), np.nan) for team in out.loc[miss, col]
+            ]
     return out.drop(columns=["home_team_id", "away_team_id"])

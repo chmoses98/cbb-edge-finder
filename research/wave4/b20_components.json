@@ -1,0 +1,6 @@
+{
+ "components": ["B16b", "B17", "B19h"],
+ "rule": "B15 + every component whose own arm passed the preregistered component gate (WAVE4.md); recorded before B20 was run",
+ "not_useful": ["B16a", "B18", "B18r"],
+ "exploratory_not_eligible": ["B18t", "B19oracle"]
+}
