@@ -1,0 +1,64 @@
+{
+ "stamp": "20261005T164553Z",
+ "sources": {
+  "espn_core": {
+   "teams": 365,
+   "teams_current": 201,
+   "teams_stale": 164,
+   "stale_reasons": {
+    "lists_eligibility_exhausted_players": 95,
+    "copy_of_previous_season": 69
+   },
+   "players": 5341
+  },
+  "espn_site": {
+   "teams": 365,
+   "teams_current": 201,
+   "teams_stale": 164,
+   "stale_reasons": {
+    "lists_eligibility_exhausted_players": 95,
+    "season_label_2026": 69
+   },
+   "players": 5341
+  },
+  "school_site": {
+   "teams": 3,
+   "teams_current": 3,
+   "teams_stale": 0,
+   "stale_reasons": {},
+   "players": 46
+  },
+  "sdv_rosters": {
+   "teams": 318,
+   "teams_current": 129,
+   "teams_stale": 189,
+   "stale_reasons": {
+    "copy_of_previous_season": 108,
+    "lists_eligibility_exhausted_players": 80,
+    "older_copy_of_stale_feed": 1
+   },
+   "players": 4788
+  }
+ },
+ "players_by_status": {
+  "LIKELY": 3038,
+  "STALE": 2906,
+  "CONFIRMED": 34,
+  "UNKNOWN": 12
+ },
+ "classification": {
+  "returning": 2300,
+  "first_d1": 479,
+  "transfer": 209,
+  "returning_after_gap": 84
+ },
+ "class_label_conflicts": 1139,
+ "conflicts": 0,
+ "unresolved_transfers": 0,
+ "teams_by_confidence": {
+  "STALE": 188,
+  "LIKELY": 174,
+  "CONFIRMED": 3
+ },
+ "new_player_team_keys_since_last": 0
+}
