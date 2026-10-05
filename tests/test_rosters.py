@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from cbb_edge.rosters import school_sites, truth
+from cbb_edge.rosters import truth
+from cbb_edge.rosters.parsers import sidearm
 
 CFG = truth.TruthConfig(target_season=2027)
 NOW = pd.Timestamp("2026-10-06T12:00:00Z")
@@ -161,8 +162,9 @@ Jersey Number</span> 3<!--]--></span><h3>Ann Guard</h3><span class="s-person-det
 
 
 def test_sidearm_parser_players_only_and_season():
-    rows = school_sites.parse_sidearm(SIDEARM)
-    assert school_sites.season_label(SIDEARM) == 2027
+    parsed = sidearm.parse(SIDEARM, "https://goduke.com/sports/mens-basketball/roster")
+    rows = parsed.players
+    assert parsed.season_label == 2027
     assert len(rows) == 1
     r = rows[0]
     assert (r["name"], r["jersey"], r["position"], r["class_label"]) == (

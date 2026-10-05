@@ -62,11 +62,33 @@ class SourceSpec:
     allow_env: str | None = None
     budget_env: str | None = None
     notes: str = ""
+    per_host: bool = False  # spacing per (source, host) instead of per source
 
 
-# official athletics domains allowed for the roster-truth fallback (explicit allowlist;
-# a school is added only when its structured sources are stale or in conflict)
-SCHOOL_HOSTS: tuple[str, ...] = ("goduke.com", "bceagles.com", "umterps.com")
+DOMAIN_REGISTRY = (
+    Path(__file__).resolve().parents[2] / "models" / "rosters" / "ncaa_athletics_domains.json"
+)
+
+
+def registry_hosts(path: Path = DOMAIN_REGISTRY) -> tuple[str, ...]:
+    """Official athletics hosts from the generated, checksum-pinned registry
+    (``cbb_edge.rosters.ncaa_directory``: the NCAA Membership Directory's Athletics
+    Link field). A missing or modified registry fails closed: no school host."""
+    if not path.exists():
+        return ()
+    import hashlib
+
+    body = json.loads(path.read_text())
+    sha = body.pop("sha256", None)
+    if sha != hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest():
+        return ()
+    return tuple(
+        sorted({r["host"] for r in body.get("teams", []) if r.get("status") == "VERIFIED"})
+    )
+
+
+# official athletics hosts: generated from the NCAA Membership Directory (no hand list)
+SCHOOL_HOSTS: tuple[str, ...] = registry_hosts()
 
 SOURCES: dict[str, SourceSpec] = {
     s.key: s
@@ -122,8 +144,10 @@ SOURCES: dict[str, SourceSpec] = {
             CostClass.FREE_RATE_LIMITED,
             SCHOOL_HOSTS,
             min_interval_s=5.0,
-            notes="Only for teams whose structured sources are stale or conflict; explicit "
-            "host allowlist (cbb_edge/rosters/school_sites.py); cached; >= 5 s spacing.",
+            per_host=True,
+            notes="Official athletics domains from the NCAA Membership Directory registry "
+            "(models/rosters/ncaa_athletics_domains.json); public roster pages only; "
+            "robots.txt respected; cached; >= 5 s between requests to any one host.",
         ),
         SourceSpec(
             "kalshi_public",
