@@ -135,9 +135,9 @@ def _player_entries(root: object) -> list[dict]:
             p = o.get("player")
             if isinstance(p, dict) and "first_name" in p and "roster_id" in o:
                 out.append(o)
-            stack.extend(o.values())
+            stack.extend(reversed(list(o.values())))  # document order
         elif isinstance(o, list):
-            stack.extend(o)
+            stack.extend(reversed(o))
     uniq = {}
     for e in out:
         pid = e["player"].get("id") or e["player"].get("full_name") or id(e)
