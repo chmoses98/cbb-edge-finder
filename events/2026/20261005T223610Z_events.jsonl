@@ -1,0 +1,22 @@
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "N:T0326:cam lowe", "name": "Cam Lowe"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "N:T0326:cutter sisk", "name": "Cutter Sisk"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "N:T0326:jacob daniels", "name": "Jacob Daniels"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "N:T0326:jemon price", "name": "Jemon Price"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "N:T0326:jhett carter", "name": "Jhett Carter"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "N:T0326:jyi dawkins", "name": "Jyi Dawkins"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "N:T0326:misho kalinov", "name": "Misho Kalinov"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0185", "player_key": "P5176177", "name": "Cayden Vasko"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0144", "player_key": "P5243278", "name": "Kahmare Holmes"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0326", "player_key": "P5261278", "name": "Evan Ramsey"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0330", "player_key": "P5314613", "name": "Jayden Tyler"}
+{"stamp": "20261005T223610Z", "event": "player_added", "team_id": "T0341", "player_key": "P5314614", "name": "Alessandro Perotti"}
+{"stamp": "20261005T223610Z", "event": "player_removed", "team_id": "T0326", "player_key": "P5121357", "name": "Brendan Rigsbee"}
+{"stamp": "20261005T223610Z", "event": "player_removed", "team_id": "T0326", "player_key": "P5175056", "name": "Callum Richard"}
+{"stamp": "20261005T223610Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5243204", "name": "Chris Arias"}
+{"stamp": "20261005T223610Z", "event": "player_removed", "team_id": "T0326", "player_key": "P5314615", "name": "Maximo Ortega"}
+{"stamp": "20261005T223610Z", "event": "player_removed", "team_id": "T0326", "player_key": "P5314618", "name": "Rex Stirling"}
+{"stamp": "20261005T223610Z", "event": "confidence_changed", "team_id": "T0144", "confidence": "CONFIRMED", "previous": "CONFLICTED"}
+{"stamp": "20261005T223610Z", "event": "confidence_changed", "team_id": "T0185", "confidence": "CONFIRMED", "previous": "CONFLICTED"}
+{"stamp": "20261005T223610Z", "event": "confidence_changed", "team_id": "T0326", "confidence": "CONFLICTED", "previous": "STALE"}
+{"stamp": "20261005T223610Z", "event": "confidence_changed", "team_id": "T0330", "confidence": "CONFIRMED", "previous": "CONFLICTED"}
+{"stamp": "20261005T223610Z", "event": "confidence_changed", "team_id": "T0341", "confidence": "CONFIRMED", "previous": "CONFLICTED"}
