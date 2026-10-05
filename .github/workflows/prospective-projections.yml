@@ -7,6 +7,12 @@ on:
   schedule:
     - cron: "10 14,21 * 11,12 *"   # Nov-Dec: twice daily (after SDV's 07:00 UTC refresh)
     - cron: "10 14,21 * 1-4 *"     # Jan-Apr
+  pull_request:
+    paths:
+      - "cbb_edge/app/prospective.py"
+      - "scripts/prospective/**"
+      - "models/pure/**"
+      - ".github/workflows/prospective-projections.yml"
   workflow_dispatch:
     inputs:
       season:
@@ -55,6 +61,7 @@ jobs:
             run_summary.json
           retention-days: 30
       - name: Append to projections-archive (never overwrite)
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cbb-edge-finder"
-version = "0.1.0"
+version = "0.2.0"
 description = "Free-first NCAA D-I men's basketball projection and research platform"
 readme = "README.md"
 requires-python = ">=3.11"

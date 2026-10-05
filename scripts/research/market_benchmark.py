@@ -84,6 +84,19 @@ def main() -> None:
                 **{a: point_metrics(xs[f"{a}_margin"], xs["margin"])["rmse"] for a in arm_names},
             }
         res["by_season_margin_rmse"] = by
+        mon = pd.to_datetime(x.merge(games[["game_id", "start_time_utc"]], on="game_id")
+                             ["start_time_utc"].to_numpy(), utc=True).tz_convert(
+            "America/New_York").month
+        bym = {}
+        for mo in (11, 12, 1, 2, 3, 4):
+            xm = x[mon == mo]
+            if len(xm) < 50:
+                continue
+            mk = point_metrics(xm["mkt_margin"], xm["margin"])["rmse"]
+            bym[int(mo)] = {"n": len(xm), "MARKET": mk,
+                            **{a: point_metrics(xm[f"{a}_margin"], xm["margin"])["rmse"] - mk
+                               for a in arm_names}}
+        res["market_gap_by_month"] = bym
         # MARKET_ENSEMBLE diagnostic for the best PURE arm (expanding window, lines only)
         best = min(arm_names, key=lambda a: res[a]["margin"]["rmse"])  # type: ignore[index]
         ens = pd.Series(np.nan, index=d.index)
