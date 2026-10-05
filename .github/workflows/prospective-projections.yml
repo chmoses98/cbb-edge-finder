@@ -1,0 +1,94 @@
+name: prospective-projections
+
+# Immutable 2026-27 PURE_BASKETBALL projection archive. Free inputs only (SportsDataverse
+# bulk files). No market data is read. Records are append-only on `projections-archive`.
+
+on:
+  schedule:
+    - cron: "10 14,21 * 11,12 *"   # Nov-Dec: twice daily (after SDV's 07:00 UTC refresh)
+    - cron: "10 14,21 * 1-4 *"     # Jan-Apr
+  pull_request:
+    paths:
+      - "cbb_edge/app/prospective.py"
+      - "scripts/prospective/**"
+      - "models/pure/**"
+      - ".github/workflows/prospective-projections.yml"
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "season (end year)"
+        default: "2027"
+
+concurrency:
+  group: prospective-projections
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  project:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Refresh free inputs and project
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          python scripts/prospective/refresh_and_project.py \
+            --season "${{ github.event.inputs.season || '2027' }}" --out projections_out \
+            | tee run_summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prospective-${{ github.run_id }}
+          path: |
+            projections_out
+            run_summary.json
+          retention-days: 30
+      - name: Append to projections-archive (never overwrite)
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [ -d projections_out ] && [ -n "$(ls -A projections_out 2>/dev/null)" ] || { echo "no games in window"; exit 0; }
+          mkdir archive && cd archive
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin projections-archive; then
+            git checkout -q -b projections-archive FETCH_HEAD
+          else
+            git checkout -q --orphan projections-archive
+            printf '# PURE_BASKETBALL prospective projection archive\n\nAppend-only. One file per (game, run). Written before tip-off; never edited.\n' > README.md
+          fi
+          mkdir -p projections
+          # refuse to overwrite any existing record
+          (cd ../projections_out && find . -type f) | while read -r f; do
+            if [ -e "projections/$f" ]; then echo "exists, skipping: $f"; else mkdir -p "projections/$(dirname "$f")"; cp "../projections_out/$f" "projections/$f"; fi
+          done
+          git add -A
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -q -m "prospective projections $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q origin projections-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin projections-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1

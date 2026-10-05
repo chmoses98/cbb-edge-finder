@@ -33,7 +33,10 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | B3 | B2 + opponent-adjusted Four Factors / shot profile via expanding-window ridge | run |
 | B4 | B3 with roster-continuity priors (returning-minutes share, leakage-safe) | run |
 | B5 | B4 + preregistered matchup interactions (H-B5) | run |
-| B6 | B5 + player/lineup layer (NCAA lineups/stints, 2011–2026) | registered (not built) |
+| B6 | B3 + player impact (walk-forward RAPM, NCAA stints 2011–2026) on expected rotation | **accepted** (wave 2) |
+| B7 | B3 + opponent-adjusted shot profile (rim/mid/assisted) + rim matchup | **accepted** (wave 2) |
+| B8 | B3 + rest, season phase, shrunk team-specific home court | **accepted** (wave 2) |
+| B9 | B3 + B6 + B7 + B8 — **PURE production arm `pure-0.2.0`** | **accepted** (wave 2) |
 | ELO | points-based Elo dynamic benchmark | run |
 | MARKET | free historical closing line (ESPN pickcenter) | run |
 | ENSEMBLE | B3 + market prior, expanding-window ridge | run |
@@ -47,3 +50,17 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 * H-B5-1..6 Matchup interactions. — `H-B5.md`
 * H-PRIOR-1 Prior decay rate (prior strength λ, carry-over ρ) — tuned on DEV only. — `H-PRIOR.md`
 * H-MKT-1 Model anticipates open→close movement (exploratory on 2026; prospective test registered) — `H-MKT.md`
+
+## Wave 2 outcomes (see research/reports/WAVE2.md; preregistration research/hypotheses/WAVE2.md)
+
+| Hypothesis | Result | Status |
+|---|---|---|
+| H-B6-1 player impact | val RMSE −0.006 vs B3 (7/10 seasons), larger in 2024–26 (−0.03 to −0.04) | accepted (weak) |
+| H-B6-2 RAPM tuning (DEV) | λ = 800 poss (interior optimum), carry 0.95, new-player prior (−0.8, +0.4) | done |
+| H-B7-1 shot profile | val RMSE −0.006 (9/10) | accepted (weak) |
+| H-B8-1 context | val RMSE −0.010 (9/10) | accepted |
+| H-B9-1 combined | val RMSE −0.025 (10/10); historical −0.060 | accepted → production |
+| H-PACE-1 ridge possession model | possession MAE 3.749 vs 3.752 (calibrated additive) | rejected (no meaningful gain) |
+| H-UNC-1 heteroscedastic σ | log loss 0.5303 vs 0.5303 (bucket SD); PIT deviation slightly worse | rejected (no gain) |
+| H-B4 roster continuity (PR #1) | superseded by B6 (player identity carries over) | rejected |
+| H-B5 matchup interactions (PR #1) | no gain | rejected |

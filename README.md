@@ -43,4 +43,7 @@ The full rebuild (bronze → silver → tuning → backtest → Sift outputs) is
 | `docs/KALSHI_CAPTURE.md` | Kalshi discovery, taxonomy, snapshot archive |
 | `docs/SIFT_SCHEMA.md` | stable output contract for Sift Sports Intelligence |
 | `research/REGISTRY.md` | season roles, arms, preregistered hypotheses |
-| `research/reports/BASELINE.md` | walk-forward results |
+| `research/reports/BASELINE.md` | PR #1 walk-forward results |
+| `research/reports/WAVE2.md` | wave-2 PURE_BASKETBALL results (player, shot, context, pace, uncertainty, residuals) |
+| `docs/MODEL_FAMILIES.md` | PURE_BASKETBALL vs market separation and its CI enforcement |
+| `docs/PROSPECTIVE.md` | immutable 2026–27 projection archive |

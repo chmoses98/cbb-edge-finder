@@ -90,3 +90,32 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+def download_live(dataset: str, season: int, stamp: str) -> Path | None:
+    """Re-download an in-progress season's file.
+
+    The fresh copy is stored immutably under ``<dataset>/live/<stamp>/`` (the provenance
+    record for a prospective run) and then copied over the canonical working path that
+    silver builders read. Completed seasons should use :func:`download` (cached forever).
+    """
+    import shutil
+
+    from cbb_edge.data.http import data_dir
+
+    rel = local_rel(dataset, season)
+    res = fetch(
+        SOURCE,
+        asset_url(dataset, season),
+        dest=Path(dataset) / "live" / stamp / rel.name,
+        schema_version=f"sdv-{dataset}-v1",
+        not_found_ok=True,
+        timeout=600,
+    )
+    if res is None:
+        return None
+    manifest.record(res.meta, dataset=dataset, season=season, live_stamp=stamp)
+    canonical = data_dir() / "bronze" / SOURCE / rel
+    canonical.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(res.path, canonical)
+    return canonical
