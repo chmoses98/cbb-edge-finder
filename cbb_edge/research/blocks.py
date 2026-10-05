@@ -162,6 +162,107 @@ def shooting_block(df: pd.DataFrame, sf: pd.DataFrame) -> pd.DataFrame:
     return assert_pure_frame(X, "shooting_block")
 
 
+# ------------------------------------------------------------------ Wave 5 -----------
+def possession_frame(
+    df: pd.DataFrame,
+    prof: pd.DataFrame,
+    de: pd.DataFrame,
+    lg: pd.DataFrame,
+    fill: dict[str, float],
+) -> pd.DataFrame:
+    """Join pregame player-derived team profiles (``possession.team_profiles``), each
+    side's defensive allowed excess as DEFENDER (``possession.defense_excess``) and the
+    league season-to-date zone means onto the game rows. Missing values -> ``fill``
+    (DEV league means, fixed)."""
+    pcols = [c for c in prof.columns if c not in ("game_id", "team_id", "season")]
+    dcols = [c for c in de.columns if c.startswith("def_") and c != "def_id"]
+    out = df[["game_id", "home_team_id", "away_team_id", "game_date_et", "season"]].copy()
+    for side, col in (("h", "home_team_id"), ("a", "away_team_id")):
+        pp = prof[["game_id", "team_id", *pcols]].rename(
+            columns={"team_id": col, **{c: f"{side}_{c}" for c in pcols}}
+        )
+        out = out.merge(pp, on=["game_id", col], how="left")
+        dd = de[["game_id", "def_id", *dcols]].rename(
+            columns={"def_id": col, **{c: f"{side}_{c}" for c in dcols}}
+        )
+        out = out.merge(dd, on=["game_id", col], how="left")
+    out = out.merge(lg, on=["season", "game_date_et"], how="left")
+    for c in out.columns:
+        if c[:2] in ("h_", "a_") and c not in ("home_team_id", "away_team_id"):
+            out[c] = out[c].fillna(fill.get(c[2:], 0.0))
+    for c in ("lg_rim", "lg_t3"):
+        out[c] = out[c].fillna(fill.get(c[3:], 0.0) if c[3:] in fill else out[c].mean())
+    out.index = df.index
+    return out
+
+
+def _matchup_mix(pf: pd.DataFrame, side: str, opp: str) -> dict[str, pd.Series]:
+    rim = (pf[f"{side}_x_rim"] + pf[f"{opp}_def_rim"]).clip(0.02, 0.9)
+    t3 = (pf[f"{side}_x_t3"] + pf[f"{opp}_def_t3"]).clip(0.02, 0.9)
+    j2 = pf[f"{side}_x_j2"].clip(0.02, 0.9)
+    z = rim + t3 + j2
+    return {"rim": rim / z, "t3": t3 / z, "j2": j2 / z}
+
+
+def b21_block(df: pd.DataFrame, pf: pd.DataFrame) -> pd.DataFrame:
+    """B21: player shot selection x finishing skill x opponent suppression (WAVE5.md)."""
+    X = pd.DataFrame(index=df.index)
+    poss = df["mu_tempo"] + df["h_off_tempo"] + df["a_off_tempo"]
+    mix = {}
+    for side, opp in (("h", "a"), ("a", "h")):
+        m = _matchup_mix(pf, side, opp)
+        mix[side] = m
+        k_rim = pf[f"{side}_xk_rim"] + pf[f"{opp}_def_rimpct"]
+        X[f"xpps_{side}"] = (
+            2 * m["rim"] * k_rim
+            + 2 * m["j2"] * pf[f"{side}_xk_j2"]
+            + 3 * m["t3"] * pf[f"{side}_xk_t3"]
+        )
+        X[f"xrim_{side}"] = m["rim"] - pf["lg_rim"]
+        X[f"x3r_{side}"] = m["t3"] - pf["lg_t3"]
+        X[f"xftr_{side}"] = pf[f"{side}_x_ftr"] + pf[f"{opp}_def_ftr"]
+        X[f"def_rimpct_ex_{side}"] = pf[f"{side}_def_rimpct"]
+    X["d_xpps_poss"] = poss / 100 * (X["xpps_h"] - X["xpps_a"])
+    X["s_xpps_poss"] = poss / 100 * (X["xpps_h"] + X["xpps_a"])
+    X["c_rim"] = (mix["h"]["rim"] + mix["a"]["rim"]) / 2 - pf["lg_rim"]
+    X["c_t3"] = (mix["h"]["t3"] + mix["a"]["t3"]) / 2 - pf["lg_t3"]
+    return assert_pure_frame(X, "b21_block")
+
+
+def b22_block(df: pd.DataFrame, pf: pd.DataFrame) -> pd.DataFrame:
+    """B22: player possession-component profile (WAVE5.md, the enumerated 11 features)."""
+    X = pd.DataFrame(index=df.index)
+    for side in ("h", "a"):
+        for c in ("to", "orb", "drb"):
+            X[f"x{c}_{side}"] = pf[f"{side}_x_{c}"]
+    X["orb_edge_h"] = pf["h_x_orb"] - pf["a_x_drb"]
+    X["orb_edge_a"] = pf["a_x_orb"] - pf["h_x_drb"]
+    X["to_edge_h"] = pf["h_x_to"] + pf["a_x_stl"]
+    X["to_edge_a"] = pf["a_x_to"] + pf["h_x_stl"]
+    X["foul_edge"] = pf["a_x_pf"] - pf["h_x_pf"]
+    return assert_pure_frame(X, "b22_block")
+
+
+def b24_block(df: pd.DataFrame, pf: pd.DataFrame) -> pd.DataFrame:
+    """B24: B21 + B22 + five preregistered interactions per side."""
+    X = pd.concat([b21_block(df, pf), b22_block(df, pf)], axis=1)
+    for side in ("h", "a"):
+        for c in ("spacing", "handler", "rimprot", "orbsize", "hhi"):
+            X[f"i_{c}_{side}"] = pf[f"{side}_i_{c}"]
+    return assert_pure_frame(X, "b24_block")
+
+
+def b23_block(df_b19h: pd.DataFrame, df_b12: pd.DataFrame) -> pd.DataFrame:
+    """B23: absence-driven part of the player signal (B19h minus B12 player margin)."""
+    a = player_block(df_b19h)
+    b = player_block(df_b12).set_axis(df_b12["game_id"].to_numpy())
+    b = b.reindex(df_b19h["game_id"].to_numpy()).set_axis(df_b19h.index)
+    X = pd.DataFrame(index=df_b19h.index)
+    X["avail_delta"] = (a["p_margin"] - b["p_margin"]).fillna(0.0)
+    X["avail_delta_total"] = (a["p_total"] - b["p_total"]).fillna(0.0)
+    return assert_pure_frame(X, "b23_block")
+
+
 def combine(*blocks: pd.DataFrame) -> pd.DataFrame:
     X = pd.concat(blocks, axis=1)
     X = X.loc[:, ~X.columns.duplicated()]
