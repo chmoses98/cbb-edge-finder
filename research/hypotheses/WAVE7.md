@@ -250,3 +250,13 @@ LIKELY and CONFLICTED keep their definitions.
 | unresolved names | 636 | 146 |
 | conflicting identities | 45 | 9 |
 | teams at ≥ 0.80 identity coverage | 270 of 349 | 344 of 349 |
+3. **Exhausted-players page test.**
+   * 17 official pages labelled 2026-27 were STALE under the exhausted-players test.
+     Each listed at least 3 players with 4 observed D-I seasons.
+   * Each also listed 4–9 players who played 2025-26 for another D-I team. A 2025-26
+     page cannot show those players.
+   * The test is now applied only when no incoming transfer is listed. The
+     season-label tests are unchanged.
+4. **Rotation sanity gate (tightening).** A team's rotation that fails the section 5
+   checks is not used by P-ROSTER-1 (a) or (b). Examples: fewer than 5 players, or not
+   200 minutes. The base model stays authoritative for that team.

@@ -90,7 +90,8 @@ def page_freshness(
 
     * STALE             season label older than the target season, or more than
                         ``truth.EXHAUSTED_LISTED_MAX`` listed players already played
-                        ``truth.EXHAUSTED_SEASONS`` D-I seasons;
+                        ``truth.EXHAUSTED_SEASONS`` D-I seasons and no incoming
+                        transfer is listed (A4);
     * CURRENT           season label = target season (and not STALE);
     * PROBABLY_CURRENT  no season label, but >= 1 listed player whose 2025-26 D-I team
                         was a DIFFERENT team (an incoming transfer: a 2025-26 page
@@ -110,7 +111,12 @@ def page_freshness(
         last_s = e.loc[ids, "last_season"] if ids else pd.Series(dtype=float)
         incoming = int(((last_t != d.team_id) & (last_s == target - 1)).sum())
         lbl = d.season_label
-        if (lbl is not None and lbl < target) or exhausted > truth.EXHAUSTED_LISTED_MAX:
+        # A4: the exhausted-players test marks a page STALE only when it shows no new-
+        # player evidence; a page listing a 2025-26 player of another D-I team cannot be
+        # last season's page
+        if (lbl is not None and lbl < target) or (
+            exhausted > truth.EXHAUSTED_LISTED_MAX and incoming == 0
+        ):
             st = "STALE"
             why = f"season_label_{lbl}" if lbl is not None and lbl < target else "exhausted"
         elif lbl == target:

@@ -161,7 +161,7 @@ def test_page_freshness_rules():
                         "player_id": ["A", "B", "C", "D", "E", "F"]})  # fmt: skip
     pf = official.page_freshness(off, exp, 2027, [_disc("T1", 10, 2027), _disc("T2", 10, None),
                                                    _disc("T3", 10, None)]).set_index("team_id")  # fmt: skip
-    assert pf.loc["T1", "page_status"] == "STALE"  # 3 eligibility-exhausted players listed
+    assert pf.loc["T1", "page_status"] == "STALE"  # 3 exhausted listed, no incoming transfer
     assert pf.loc["T2", "page_status"] == "PROBABLY_CURRENT"  # D played 2025-26 for T9
     assert pf.loc["T3", "page_status"] == "UNKNOWN"
 

@@ -192,7 +192,13 @@ def roster_overlay(
     cont = continuity(rot, season).set_index("team_id")
     ck = checkpoints.Checkpoint(model["version"], season - 1)
     pre = ck.preseason().set_index("team_id")["ret_min"]
-    trusted = {t for t, c in conf.items() if c in TRUSTED}
+    # a rotation that fails the structural checks (fewer than 5 players, not 200
+    # minutes, departed players) is never used: the base model stays authoritative
+    from cbb_edge.rosters import rotation as _rot
+
+    sane = _rot.sanity(rot)
+    sane_ok = set(sane.loc[sane["ok"], "team_id"]) if len(sane) else set()
+    trusted = {t for t, c in conf.items() if c in TRUSTED and t in sane_ok}
     shares = {
         (t, season): (x["player_id"].to_numpy(), x["share"].to_numpy())
         for t, x in rot.groupby("team_id")
