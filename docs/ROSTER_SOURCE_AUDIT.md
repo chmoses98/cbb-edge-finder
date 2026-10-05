@@ -66,14 +66,17 @@ The rules are fixed before any model effect was measured. They live in
      stale.
 2. **Independence groups:** ESPN (site, core, SDV), NCAA, school. Within a group, a
    player's latest capture supersedes older captures. A same-feed lag is never a
-   conflict.
+   conflict. At team level, the group's latest fresh capture for a team defines its
+   listing (amendment A1).
 3. **Player status:**
    * CONFIRMED: ≥ 2 fresh groups, or an official group;
    * LIKELY: one fresh group;
    * CONFLICTED: fresh sources disagree on the team. Every team is kept and logged;
      nothing is resolved silently;
    * STALE: stale evidence only;
-   * UNKNOWN: no usable identity.
+   * UNKNOWN: no usable identity (classification `unknown`, never `first_d1`).
+   * A fresh official roster defines membership: an ESPN-only player it omits is STALE
+     (`absent_from_official`) and is logged (amendment A1).
 4. **Identity:** ESPN athlete id is canonical. Name-only official rows match only by
    exact normalized name (accents and suffixes stripped), unique on both sides within
    the same team. Nothing is fuzzy-matched.
@@ -86,6 +89,8 @@ The rules are fixed before any model effect was measured. They live in
    * LIKELY: one fresh group covering ≥ 80% of listed players;
    * STALE: otherwise;
    * CONFLICTED: any conflicted player.
+   * UNKNOWN: < 80% of a fresh official listing matched to ESPN ids
+     (`official_roster_unidentified`, amendment A1).
 
 ## Archive (append-only, `roster-archive` branch)
 

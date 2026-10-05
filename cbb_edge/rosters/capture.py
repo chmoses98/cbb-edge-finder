@@ -261,7 +261,9 @@ def quality_report(df, fresh, recs, conflicts, teams_s, new_keys, stamp) -> dict
         else {},
         "class_label_conflicts": int(recs["class_label_conflict"].sum()) if len(recs) else 0,
         "conflicts": int(len(conflicts)),
-        "unresolved_transfers": int(len(conflicts)),
+        "conflicts_by_kind": conflicts["kind"].value_counts().to_dict() if len(conflicts) else {},
+        "unresolved_transfers": int((recs["status"] == "CONFLICTED").sum()) if len(recs) else 0,
+        "unresolved_identities": int((recs["status"] == "UNKNOWN").sum()) if len(recs) else 0,
         "teams_by_confidence": teams_s["roster_confidence"].value_counts().to_dict()
         if len(teams_s)
         else {},

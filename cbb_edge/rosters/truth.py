@@ -16,7 +16,9 @@ deterministically and with rules fixed BEFORE any model evaluation
    ``ncaa``, ``school``. Agreement only counts across groups. Within a group a
    player's listing in the group's MOST RECENT fresh capture supersedes older captures
    of the same feed (e.g. a September SportsDataverse copy vs an October ESPN pull:
-   the player moved), so same-feed lag is never reported as a conflict.
+   the player moved), so same-feed lag is never reported as a conflict. At team level
+   the group's latest fresh capture for a team defines its listing: a player missing
+   from the newer pull is not on the team per that feed (amendment A1, 2026-10-05).
 3. **Player status per (player, team)** from FRESH sources only:
    * ``CONFIRMED``  listed by >= 2 independent groups, or by an official group alone
                     when no fresh source lists him elsewhere;
@@ -24,7 +26,12 @@ deterministically and with rules fixed BEFORE any model evaluation
    * ``CONFLICTED`` fresh sources list the player on more than one team (never
                     silently resolved: every team is kept, flagged);
    * ``STALE``      listed only by stale sources;
-   * ``UNKNOWN``    no usable evidence (e.g. an unmatched official name).
+   * ``UNKNOWN``    no usable evidence (e.g. an unmatched official name; its
+                    classification is ``unknown``, never assumed ``first_d1``).
+   A fresh official listing defines membership: an ESPN-only player it omits is
+   ``STALE`` with ``absent_from_official`` and is logged (amendment A1).
+   Team: an official listing with < 80% of names matched to ESPN ids gives roster
+   confidence ``UNKNOWN`` ("official_roster_unidentified", amendment A1).
 4. **Identity.** ESPN athlete ids are the canonical key (``"P" + id`` = box-score id).
    Official rows carry names only: they are matched to an ESPN row of the SAME team by
    exact normalized name, and only when that name is unique on both sides. Anything
@@ -54,6 +61,7 @@ GROUP = {
     "school_site": "school",
 }
 OFFICIAL = {"ncaa", "school"}
+MIN_OFFICIAL_IDENTITY = 0.8  # share of a fresh official listing matched to ESPN ids
 STATUSES = ("CONFIRMED", "LIKELY", "CONFLICTED", "STALE", "UNKNOWN")
 ROW_COLS = [
     "source", "captured_at", "team_id", "player_id", "ncaa_player_id", "name", "position",
@@ -244,14 +252,31 @@ def resolve(
     latest = r[r["fresh"]].groupby(["key", "group"])["captured_ts"].transform("max")
     r.loc[latest.index, "superseded"] = r.loc[latest.index, "captured_ts"] < latest
     r["superseded"] = r["superseded"].fillna(False).astype(bool)
+    # same feed, team level: per (group, team) the source with the latest fresh capture
+    # defines the group's listing; a player missing from that newer pull has left (a
+    # September SportsDataverse copy never outvotes the October ESPN core list)
+    fx0 = r[r["fresh"]]
+    lead = (
+        fx0.groupby(["group", "team_id", "source"])["captured_ts"].max().reset_index()
+        .sort_values("captured_ts").groupby(["group", "team_id"]).tail(1)
+    )  # fmt: skip
+    lead_k = set(zip(lead["group"], lead["team_id"], lead["source"], strict=True))
+    trail = [k not in lead_k for k in zip(r["group"], r["team_id"], r["source"], strict=True)]
+    r.loc[r["fresh"] & np.array(trail, dtype=bool), "superseded"] = True
     r.loc[r["superseded"], "fresh"] = False
     fr = r[r["fresh"]]
+    # a fresh official listing defines membership: an ESPN-only player it omits is not
+    # counted as on the team (logged, never silently dropped)
+    off_fr = fr[fr["group"].isin(OFFICIAL)]
+    official_teams = set(off_fr["team_id"])
+    official_keys = set(zip(off_fr["key"], off_fr["team_id"], strict=True))
     fresh_teams = fr.groupby("key")["team_id"].agg(lambda v: sorted(set(v)))
     recs = []
     for (key, team), x in r.groupby(["key", "team_id"]):
         fx = x[x["fresh"]]
         groups = sorted(set(fx["group"]))
         other = [t for t in fresh_teams.get(key, []) if t != team]
+        absent = False
         if str(key).startswith("U:"):
             status = "UNKNOWN"
         elif fx.empty:
@@ -260,6 +285,8 @@ def resolve(
             status = "CONFLICTED"
         elif len(groups) >= 2 or (set(groups) & OFFICIAL):
             status = "CONFIRMED"
+        elif team in official_teams and (key, team) not in official_keys:
+            status, absent = "STALE", True
         else:
             status = "LIKELY"
         first = x.iloc[0]
@@ -287,6 +314,9 @@ def resolve(
                 "identity": ",".join(sorted(set(x["identity"]))),
                 "status": status,
                 "conflict_teams": other,
+                "absent_from_official": absent,
+                # listed only by captures a newer pull of the same feed dropped
+                "superseded_only": bool(fx.empty and x["superseded"].any()),
             }
         )
     t = pd.DataFrame(recs)
@@ -301,7 +331,9 @@ def resolve(
         t = t.merge(
             cls.drop(columns=["team_id"]).drop_duplicates("player_id"), on="player_id", how="left"
         )
-    t["classification"] = t.get("classification", pd.Series(index=t.index)).fillna("first_d1")
+    # no identity -> no observed history: "unknown", never assumed to be a newcomer
+    cl = t.get("classification", pd.Series(index=t.index, dtype=object))
+    t["classification"] = np.where(t["player_id"].isna(), "unknown", cl.fillna("first_d1"))
     t["prior_d1_experience"] = t.get("prior_d1_experience", False)
     t["prior_d1_experience"] = t["prior_d1_experience"].fillna(False).astype(bool)
     fr_lbl = t["class_labels"].map(lambda v: any(str(c).upper() in ("FR", "FRESHMAN") for c in v))
@@ -323,9 +355,14 @@ def resolve(
             c if c is not None else (p if isinstance(p, str) else None)
             for c, p in zip(t["last_confirmed"], lc, strict=True)
         ]
-    conflicts = t[t["status"] == "CONFLICTED"][
-        ["player_id", "name", "team_id", "conflict_teams", "fresh_sources"]
-    ]
+    kind = np.select(
+        [t["status"] == "CONFLICTED", t["absent_from_official"], t["status"] == "UNKNOWN"],
+        ["listed_on_multiple_teams", "absent_from_official_roster", "unmatched_official_name"],
+        "",
+    )
+    conflicts = t.assign(kind=kind)[kind != ""][
+        ["kind", "player_id", "name", "team_id", "conflict_teams", "sources", "fresh_sources"]
+    ].reset_index(drop=True)
     return t, conflicts
 
 
@@ -343,7 +380,7 @@ def team_summary(truth: pd.DataFrame, fresh: pd.DataFrame) -> pd.DataFrame:
             },
             **{
                 f"n_{c}": g["classification"].apply(lambda v, c=c: int((v == c).sum()))
-                for c in ("returning", "returning_after_gap", "transfer", "first_d1")
+                for c in ("returning", "returning_after_gap", "transfer", "first_d1", "unknown")
             },
             "n_class_label_conflict": g["class_label_conflict"].sum(),
         }
@@ -351,7 +388,16 @@ def team_summary(truth: pd.DataFrame, fresh: pd.DataFrame) -> pd.DataFrame:
     fg = fresh[fresh["fresh"]].groupby("team_id")["group"].agg(lambda v: sorted(set(v)))
     s["fresh_groups"] = fg.reindex(s.index)
     s["fresh_groups"] = s["fresh_groups"].map(lambda v: v if isinstance(v, list) else [])
-    ok = (s["n_confirmed"] + s["n_likely"]) / s["n_listed"].clip(lower=1)
+    # players a newer same-feed pull or the official roster dropped are departures,
+    # not unconfirmed listings
+    dropped = truth["superseded_only"] | truth["absent_from_official"]
+    s["n_dropped"] = dropped.groupby(truth["team_id"]).sum().astype(int)
+    ok = (s["n_confirmed"] + s["n_likely"]) / (s["n_listed"] - s["n_dropped"]).clip(lower=1)
+    # identity coverage of the fresh official listing: names that match no ESPN id have
+    # no observed history, so the team's rotation cannot be built from them
+    off = truth["fresh_sources"].map(lambda v: any(GROUP.get(x) in OFFICIAL for x in v))
+    cov = truth[off].groupby("team_id")["player_id"].apply(lambda v: float(v.notna().mean()))
+    s["official_identity_coverage"] = cov.reindex(s.index)
     # team-level: CONFIRMED (>= 2 independent fresh groups, or an official one), LIKELY
     # (one fresh group covering >= 80% of listed players), else STALE; any conflicted
     # player makes the team CONFLICTED; UNKNOWN = team absent from every source
@@ -364,7 +410,19 @@ def team_summary(truth: pd.DataFrame, fresh: pd.DataFrame) -> pd.DataFrame:
         ["CONFIRMED", "CONFIRMED", "LIKELY"],
         "STALE",
     )
+    s["confidence_reason"] = np.select(
+        [
+            s["fresh_groups"].map(len) >= 2,
+            s["fresh_groups"].map(lambda v: bool(set(v) & OFFICIAL)),
+            (s["fresh_groups"].map(len) == 1) & (ok >= 0.8),
+        ],
+        ["independent_fresh_groups", "official_fresh", "single_fresh_group"],
+        "no_fresh_majority",
+    )
     s.loc[(s["n_conflicted"] > 0) & (s["roster_confidence"] != "STALE"), "roster_confidence"] = (
         "CONFLICTED"
     )
+    low = s["official_identity_coverage"] < MIN_OFFICIAL_IDENTITY
+    s.loc[low, "roster_confidence"] = "UNKNOWN"
+    s.loc[low, "confidence_reason"] = "official_roster_unidentified"
     return s.reset_index()

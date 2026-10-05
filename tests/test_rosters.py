@@ -62,7 +62,31 @@ def test_same_feed_newer_capture_supersedes_and_cross_feed_conflict_flags():
     assert st[("P2", "T2")] == "LIKELY" and st[("P2", "T1")] == "STALE"
     # the official T4 row has no unique ESPN match on T4 -> never fuzzy-matched
     assert "UNKNOWN" in set(t["status"])
-    assert conf.empty
+    assert t.loc[t["status"] == "UNKNOWN", "classification"].eq("unknown").all()
+    # T4's fresh official listing omits P8 -> not counted on T4, logged
+    assert st[("P8", "T4")] == "STALE"
+    assert set(conf["kind"]) == {"unmatched_official_name", "absent_from_official_roster"}
+
+
+def test_team_level_same_feed_supersession_and_official_identity_coverage():
+    rows = truth.rows_frame(
+        [  # September copy lists P1+P2, the October pull of the same feed lists P1 only
+            _row("sdv_rosters", "T1", "P1", "A One", 2027, ts="2026-09-15T08:00:00Z"),
+            _row("sdv_rosters", "T1", "P2", "Bee Two", 2027, ts="2026-09-15T08:00:00Z"),
+            _row("espn_core", "T1", "P1", None, 2027),
+            # official T2 roster: 1 of 3 names matches an ESPN id
+            _row("espn_site", "T2", "P3", "Cee Three", 2027),
+            *[_row("school_site", "T2", None, n, 2027) for n in ("Cee Three", "X Y", "Z W")],
+        ]
+    )
+    f = truth.team_freshness(rows, 2027)
+    t, _ = truth.resolve(rows, f, _exp(), CFG, NOW)
+    st = t.dropna(subset=["player_id"]).set_index(["player_id", "team_id"])["status"]
+    assert st[("P1", "T1")] == "LIKELY" and st[("P2", "T1")] == "STALE"
+    s = truth.team_summary(t, f).set_index("team_id")
+    assert s.loc["T2", "roster_confidence"] == "UNKNOWN"
+    assert s.loc["T2", "confidence_reason"] == "official_roster_unidentified"
+    assert s.loc["T1", "roster_confidence"] == "LIKELY"
 
 
 def test_official_exact_name_match_confirms_and_conflict_across_groups():

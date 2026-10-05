@@ -242,3 +242,31 @@ so B29 is expected NOT to freeze, and that is an acceptable outcome.
   exists. If none does, it is reported as unavailable and not modelled.
 * **Rapid game-1 → game-2 update:** is B28 enough, or does a faster EWMA after game 1
   help games 2–3? Reported as exploratory unless B28 already covers it.
+
+## Amendment A1 (2026-10-05 ~17:10Z, after the first live roster-truth run; before any prospective game)
+
+The first live run (roster-capture run 37342501100, snapshot `20261005T164553Z`) showed
+three data-integrity defects in the precedence rules above. These were found by
+reading the archived records. No model outcome had been observed: no 2026-27 game has
+been played. The P-ROSTER-1 spec (`models/overlays/p-roster-1.json`, coefficients and
+hash) is unchanged. The fixes only tighten the rules.
+
+1. **Team-level same-feed supersession.** For each (independence group, team), the
+   source with the latest fresh capture defines that group's listing. A player who is
+   listed only by an older capture of the same feed is `STALE`, with
+   `superseded_only`. Example: a September SDV copy listed 5 players whom the October
+   ESPN core list for the same team no longer had; before this fix they were `LIKELY`.
+2. **An official listing defines membership.** If a team has a fresh official roster,
+   an ESPN-only player that the roster omits is `STALE`, with `absent_from_official`.
+   Such players are logged in the conflict log (kind `absent_from_official_roster`),
+   never dropped silently. Players dropped under rules 1 or 2 count as departures,
+   not as unconfirmed listings, in the team's 80% coverage test.
+3. **Identity is required for classification.** An official name that matches no ESPN
+   id is classified `unknown`. Before this fix it defaulted to `first_d1`, so an
+   unmatched graduate transfer was counted as a newcomer. Unmatched names are logged
+   (kind `unmatched_official_name`).
+   If fewer than 80% of a team's fresh official listing match an ESPN id, the team's
+   roster confidence is `UNKNOWN` (`official_roster_unidentified`), and P-ROSTER-1
+   applies neither component. In the live snapshot, one official roster matched 5 of
+   16 names but was rated `CONFIRMED`. Its expected rotation held 5 players, and its
+   transfer inputs were zero.
