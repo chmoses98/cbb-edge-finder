@@ -196,7 +196,7 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     from cbb_edge.rosters import overlay
 
     try:
-        rot = overlay.expected_rotation(recs, season)
+        rot = overlay.expected_rotation(recs, season, teams_s)
         cont = overlay.continuity(rot, season)
         conf = teams_s.set_index("team_id")["roster_confidence"] if len(teams_s) else {}
         state = []
@@ -206,8 +206,12 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
                 "team_id": t, "as_of": now.isoformat(), "roster_confidence": conf.get(t, "UNKNOWN"),
                 **{k: v for k, v in c.items() if k != "team_id"},
                 "expected_rotation": [
-                    {"player_id": q, "share": round(float(v), 4), "class": cl}
-                    for q, v, cl in zip(x["player_id"], x["share"], x["classification"], strict=True)
+                    {"player_id": q, "share": round(float(v), 4), "class": cl,
+                     "minutes": round(float(mi), 1), "p_rotation": float(pr),
+                     "expected_starter": bool(es), "usage_role": ur}
+                    for q, v, cl, mi, pr, es, ur in zip(
+                        x["player_id"], x["share"], x["classification"], x["minutes"],
+                        x["p_rotation"], x["expected_starter"], x["usage_role"], strict=True)
                 ],
             })  # fmt: skip
         (day / f"{stamp}_proster_state.json").write_text(json.dumps(state, default=str))

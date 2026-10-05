@@ -118,15 +118,24 @@ def rotation_features(recs: pd.DataFrame, season: int) -> pd.DataFrame:
     return out
 
 
-def expected_rotation(recs: pd.DataFrame, season: int) -> pd.DataFrame:
+def expected_rotation(
+    recs: pd.DataFrame, season: int, teams: pd.DataFrame | None = None
+) -> pd.DataFrame:
+    """Expected rotation over roster-truth players. For a CONFIRMED team only CONFIRMED
+    players (the current official roster) enter (Wave 7); other teams: CONFIRMED or
+    LIKELY players (the Wave 6 rule). Shares: ``rotation.allocate`` (200 minutes,
+    <= 40 per player)."""
+    from cbb_edge.rosters import rotation
+
+    if teams is not None and len(teams):
+        conf = teams.set_index("team_id")["roster_confidence"]
+        confirmed = recs["team_id"].map(conf).eq("CONFIRMED")
+        recs = recs[~confirmed | recs["status"].eq("CONFIRMED")]
     r = rotation_features(recs, season)
     if r.empty:
         return r.assign(share=[])
-    raw = np.clip(_rotation_model().predict(r[ROT_FEATURES]), 0.0, 1.0)
-    r["share_raw"] = raw
-    tot = r.groupby("team_id")["share_raw"].transform("sum")
-    r["share"] = (5 * r["share_raw"] / tot.replace(0, np.nan)).clip(upper=1.0).fillna(0.0)
-    return r
+    r["share_raw"] = np.clip(_rotation_model().predict(r[ROT_FEATURES]), 0.0, 1.0)
+    return rotation.allocate(r)
 
 
 def continuity(rot: pd.DataFrame, season: int) -> pd.DataFrame:
@@ -179,7 +188,7 @@ def roster_overlay(
     recs, teams, stamp = tr
     spec = load_spec()
     conf = teams.set_index("team_id")["roster_confidence"].to_dict()
-    rot = expected_rotation(recs, season)
+    rot = expected_rotation(recs, season, teams)
     cont = continuity(rot, season).set_index("team_id")
     ck = checkpoints.Checkpoint(model["version"], season - 1)
     pre = ck.preseason().set_index("team_id")["ret_min"]
