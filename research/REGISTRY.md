@@ -46,6 +46,13 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | B14 | B9 + conference anchor in the opponent network prior | passed |
 | B14v | B9 + neutral-site / semi-home venue block | rejected |
 | B15 | B10r hook + B14 anchor (joint) + B12 player features + mismatch block — **`pure-0.3.0`** | **promoted** (shadow challenger) |
+| B16a | B15 + earlier-meeting (rematch) residual features | rejected (wave 4) |
+| B16b | B15 with dynamic conference anchor (w = n/(n+k), k=400) | useful, tiny (wave 4) |
+| B17 | B15 + heavily shrunk player shooting skill (3P/FT/2P) | **useful** (wave 4) |
+| B18 / B18r / B18t | spline calibration / regulation-margin target / closeness for totals | rejected / rejected / exploratory no gain |
+| B19h | B15 with absence-persistence + replacement-minutes rotation | useful, small (wave 4) |
+| B19oracle | perfect regular-absence information (diagnostic upper bound) | diagnostic: −0.0039 |
+| B20 | B15 + B16b + B17 + B19h — **`pure-0.4.0`** | **frozen** (shadow challenger #2) |
 | ELO | points-based Elo dynamic benchmark | run |
 | MARKET | free historical closing line (ESPN pickcenter) | run |
 | ENSEMBLE | B3 + market prior, expanding-window ridge | run |
@@ -88,3 +95,15 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | H-W3-NET network sparsity | Nov–Dec cross-conference RMSE 12.13 with 0 prior bridge games vs 11.39 with >10; conference anchor (B14) −0.0185 (10/10), Nov–Dec −0.044 | accepted |
 | Extreme mismatches | favourites projected ≥25 beat projection by +1.13 (Nov–Dec +1.35); piecewise block −0.003 (7/10) | accepted (in B15) |
 | B15 combined | val −0.0389 (10/10), Nov–Dec −0.083, Jan–Mar −0.011, log loss −0.0018; 2025–26 −0.066 | **promoted → `pure-0.3.0` (shadow)** |
+
+## Wave 4 outcomes (see research/reports/WAVE4.md; preregistration research/hypotheses/WAVE4.md)
+
+| Hypothesis | Result (validation, blocked CV, Δ vs B15) | Status |
+|---|---|---|
+| H-W4-REMATCH (B16a) | +0.0001, P(better) 0.48; first-meeting residual corr with second −0.025 | rejected |
+| H-W4-CONFDYN (B16b) | −0.0004 (P 0.99); DEV k-search flat | accepted (negligible) |
+| H-W4-SHOOT (B17) | −0.0145, 5/5 blocks, Nov–Dec −0.020, totals −0.024; κ3P=200, κ2P=100, κFT=25 | **accepted** |
+| H-W4-NONLIN (B18, B18r) | +0.0049 / +0.0002; calibration slope already 0.99 | rejected |
+| H-W4-AVAIL (B19h) | −0.0013 (P 0.99); oracle bound −0.0039 | accepted (small) |
+| Game-20 bump | excess gap +0.010, 90% CI [−0.043, +0.067] | not a structural effect |
+| B20 combined | −0.0156, 5/5 blocks, 10/10 seasons, P 1.00; 2025–26 −0.018 | **frozen → `pure-0.4.0` (shadow)** |
