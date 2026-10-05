@@ -244,9 +244,18 @@ def main() -> None:
     ap.add_argument("--out", required=True, help="archive directory (append-only)")
     ap.add_argument("--write-models", action="store_true", help="refresh committed artifacts")
     ap.add_argument("--redirects", help="discovery report with observed redirects")
+    ap.add_argument("--if-due", action="store_true",
+                    help="skip unless the newest snapshot is older than 7 days (Sep-Nov) "
+                    "or 28 days (otherwise)")  # fmt: skip
     a = ap.parse_args()
     now = datetime.now(UTC)
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
+    snaps = sorted((Path(a.out) / "ncaa_directory").glob("2*"))
+    if a.if_due and snaps:
+        age = now - pd.Timestamp(snaps[-1].name).tz_localize("UTC").to_pydatetime()
+        if age.days < (7 if now.month in (9, 10, 11) else 28):
+            print(json.dumps({"skipped": True, "latest": snaps[-1].name}))
+            return
     members, meta = fetch_members(stamp)
     u, rep = reconcile(members)
     redirects = None
