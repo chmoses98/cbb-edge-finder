@@ -852,6 +852,8 @@ espn,Washington State Cougars,washington state cougars,T0125
 espn,Weber St,weber st,T0318
 espn,Weber State,weber state,T0318
 espn,Weber State Wildcats,weber state wildcats,T0318
+espn,West Florida,west florida,T0374
+espn,West Florida Argonauts,west florida argonauts,T0374
 espn,West Georgia,west georgia,T0372
 espn,West Georgia Wolves,west georgia wolves,T0372
 espn,West Virginia,west virginia,T0130
@@ -1252,6 +1254,7 @@ espn_abbr,WASH,wash,T0124
 espn_abbr,WCU,wcu,T0321
 espn_abbr,WEB,web,T0318
 espn_abbr,WEBB,webb,T0210
+espn_abbr,WFL,wfl,T0374
 espn_abbr,WGA,wga,T0372
 espn_abbr,WICH,wich,T0322
 espn_abbr,WIN,win,T0324

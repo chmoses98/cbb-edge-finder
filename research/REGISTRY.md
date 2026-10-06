@@ -162,3 +162,17 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Alabama / LSU / Jacksonville / LIU | official pages published without (full) player lists | not a parser gap |
 | Unresolved identity impact | ≤ 39.5 of 72,800 rotation minutes | exact-only kept |
 | P-ROSTER-1 game-1 result | — | pending games |
+
+## Wave 9 outcomes (see research/reports/WAVE9.md; rules research/hypotheses/WAVE9.md)
+
+| Item | Result (2026-10-06, no 2026–27 game played) | Status |
+|---|---|---|
+| PR #8 merge (824c9db) + freeze audit | all frozen hashes unchanged; main CI green; scores workflow ran from main | done |
+| West Florida T0374 (ESPN 2697, from 2026–27 only) | silver 2006–2026 identical old vs new; projections byte-identical for common games | adopted (infrastructure) |
+| End-to-end dry run (production code, simulated clock) | 54 / 54 opening-window games VALID; all operational scenarios pass | done |
+| Pre-tip evidence gate | VALID / INVALID / UNSCORABLE / PENDING; 10 fail-closed checks | deployed |
+| Catch-up cadence (hourly ticks) | crashed slot recovered: 54 VALID vs 12 without catch-up | deployed |
+| Readiness / observability / alerts (ops-watch) | Nov 2–9 preview: 142 teams, 0 unscorable, 0 CRITICAL | deployed |
+| Presentation amendment A1 | intervals need N >= 20 on >= 10 days | adopted (pre-results) |
+| Roster coverage after first merged capture | CONFIRMED 329 (Missouri, ASU now CONFIRMED); 355 / 364 pages | live |
+| Model / P-ROSTER-1 change | none | by design |

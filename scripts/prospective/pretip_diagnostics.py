@@ -42,6 +42,7 @@ def main() -> None:
     ap.add_argument("--stamp", default=None)
     ap.add_argument("--season", type=int, default=2027)
     ap.add_argument("--out", type=Path, default=None)
+    ap.add_argument("--baseline", default=None, help="truth stamp to measure movement from")
     a = ap.parse_args()
     stamp, d = snapshot(a.rosters, a.stamp)
     recs = pd.read_json(d / f"{stamp}_records.jsonl", lines=True, dtype={"player_id": str})
@@ -84,6 +85,9 @@ def main() -> None:
         "minutes_at_stake_upper_bound": float(ui["max_minutes_at_stake"].sum()) if len(ui) else 0.0,
         "share_of_all_rotation_minutes": float(ui["max_minutes_at_stake"].sum() / rot_total)
         if len(ui) and rot_total else 0.0,
+        "per_team": {t: round(float(v), 2) for t, v in
+                     ui.groupby("team_id")["max_minutes_at_stake"].sum().items() if v > 0}
+        if len(ui) else {},
         "teams_over_10_minutes": sorted(ui.groupby("team_id")["max_minutes_at_stake"].sum()
                                         .loc[lambda s: s > 10].index.tolist()) if len(ui) else [],
     }  # fmt: skip
@@ -129,6 +133,23 @@ def main() -> None:
         out["continuity_tail_buckets"] = {
             lab: int(((adj >= lo) & (adj < hi)).sum())
             for lo, hi, lab in [(0, 2, "<2"), (2, 4, "2-4"), (4, 6, "4-6"), (6, np.inf, ">=6")]
+        }
+    # confidence movement (Wave 9): baseline snapshot -> this snapshot, members only
+    base = a.baseline or "20261005T223610Z"
+    bf = sorted((a.rosters / "truth").rglob(f"{base}_teams.json"))
+    if bf and base != stamp:
+        b = pd.read_json(bf[0]).set_index("team_id")["roster_confidence"]
+        c = t.set_index("team_id")["roster_confidence"]
+        j = pd.DataFrame({"from": b, "to": c}).dropna(how="all").fillna("ABSENT")
+        j = j[j.index.isin(ids)]
+        out["confidence_movement"] = {
+            "baseline": base,
+            "matrix": {
+                f"{x}->{y}": int(n) for (x, y), n in j.groupby(["from", "to"]).size().items()
+            },
+            "changed": {
+                tid: f"{r['from']}->{r['to']}" for tid, r in j[j["from"] != j["to"]].iterrows()
+            },
         }
     txt = json.dumps(out, indent=1, default=str)
     if a.out:

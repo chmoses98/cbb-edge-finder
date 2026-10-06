@@ -53,6 +53,8 @@ TEAM_GAME_NUMBERS = (1, 2, 3)  # Wave 8 diagnostic, never pooled
 ADJ_BUCKETS = [(0, 2, "<2"), (2, 4, "2-4"), (4, 6, "4-6"), (6, np.inf, ">=6")]
 APPEAR_SHARE = 0.10  # P-ROSTER-1's "expected to play" threshold (overlay.APPEAR_SHARE)
 BOOT_REPS, BOOT_SEED = 2000, 20261106
+MIN_N_CI, MIN_DAYS_CI = 20, 10  # WAVE8 D2 + Wave 9 amendment (a cluster bootstrap needs clusters)
+HEADLINE_GAMES = {"game_1": (0, 0), "game_2": (1, 1), "game_3": (2, 2)}  # min games seen
 REPO = Path(__file__).resolve().parents[2]
 
 
@@ -97,15 +99,21 @@ def evidence_files(roster_archive: Path, stamp: str | None) -> dict[str, Path]:
 
 
 # --------------------------------------------------------------------------- pregame
-def pregame(recs: list[dict[str, Any]]) -> pd.DataFrame:
-    """The scored record of each (version, game): latest ``as_of`` strictly before tip."""
+def pregame(
+    recs: list[dict[str, Any]], tips: dict[int, pd.Timestamp] | None = None
+) -> pd.DataFrame:
+    """The scored record of each (version, game): latest ``as_of`` strictly before tip.
+    ``tips``: the ACTUAL tip times from the schedule (Wave 9). A rescheduled game is
+    judged against when it really started, never the tip stored in the record."""
     rows = []
     for r in recs:
         v = r.get("model", {}).get("version")
         if v not in VERSIONS.values():
             continue
         g, p, f, pr = r["game"], r["projection"], r.get("freshness", {}), r.get("prospective", {})
-        tip, asof = _ts(g["start_time_utc"]), _ts(pr.get("as_of"))
+        gid = int(g["espn_game_id"])
+        tip = _ts((tips or {}).get(gid, g["start_time_utc"]))
+        asof = _ts(pr.get("as_of"))
         if asof >= tip:
             continue
         ro = r.get("roster") or {}
@@ -116,6 +124,8 @@ def pregame(recs: list[dict[str, Any]]) -> pd.DataFrame:
             "gs_away": int(f.get("away_games_seen", 0)), "margin": float(p["margin"]),
             "total": float(p["total"]), "home_wp": float(p["home_win_prob"]),
             "margin_sd": p.get("margin_sd"), "path": r["_path"], "sha256": r["_sha256"],
+            "as_of_raw": str(pr.get("as_of")),
+            "truth_files_sha256": ro.get("truth_files_sha256"),
             "code_version": pr.get("code_version"), "code_sha": pr.get("code_sha"),
             "model_sha256": pr.get("model_sha256"),
             "home_adj_off": (r.get("ratings") or {}).get("home", {}).get("adj_off"),
@@ -210,7 +220,7 @@ def paired_games(pre: pd.DataFrame, res: pd.DataFrame, mkt: pd.DataFrame | None 
                     f"{k}_sq": e * e, f"{k}_wp": x["home_wp"], f"{k}_as_of": x["as_of"],
                     f"{k}_age_h": (b["tip"] - x["as_of"]).total_seconds() / 3600,
                     f"{k}_path": x["path"], f"{k}_sha256": x["sha256"],
-                    f"{k}_code_sha": x["code_sha"]}  # fmt: skip
+                    f"{k}_code_sha": x["code_sha"], f"{k}_as_of_raw": x["as_of_raw"]}  # fmt: skip
             if committed is not None:
                 c = committed.get(x["path"])
                 row[f"{k}_committed_at"] = c
@@ -232,11 +242,14 @@ def paired_games(pre: pd.DataFrame, res: pd.DataFrame, mkt: pd.DataFrame | None 
         row["d_sq"] = row["roster_sq"] - row["base_sq"]
         row["d_abs_from_a"] = row["a_only_abs"] - row["base_abs"]
         row["d_abs_from_b"] = row["roster_abs"] - row["a_only_abs"]  # signed effect of (b)
+        row["roster_margin_base"] = ro["margin_base_in_record"]
+        row["roster_adj_a_raw"], row["roster_adj_b_raw"] = ro["adj_a"], ro["adj_b"]
         row["margin_base_consistent"] = ro["margin_base_in_record"] is None or bool(
             np.isclose(ro["margin_base_in_record"], b["margin"])
         )
         row["same_run"] = bool(ro["as_of"] == b["as_of"])
         row["truth_snapshot"] = ro["truth_snapshot"]
+        row["truth_files_sha256"] = ro["truth_files_sha256"]
         row["truth_archive_commit"] = ro["truth_archive_commit"]
         row["spec_sha256"] = ro["spec_sha256"]
         tf = evidence_files(roster_archive, ro["truth_snapshot"]) if roster_archive else {}
@@ -284,8 +297,8 @@ def _state_index(roster_archive: Path | None) -> dict[str, dict[str, dict]]:
             for t in json.loads(tj.read_text()):
                 st.setdefault(t["team_id"], {})["_team"] = t
         fj = f.with_name(f"{stamp}_freshness.jsonl")
-        if fj.exists():
-            fr = pd.read_json(fj, lines=True)
+        fr = pd.read_json(fj, lines=True) if fj.exists() and fj.stat().st_size else pd.DataFrame()
+        if {"team_id", "source", "fresh"} <= set(fr.columns):
             for t, x in fr.groupby("team_id"):
                 st.setdefault(t, {})["_fresh"] = {
                     s: bool(v) for s, v in zip(x["source"], x["fresh"], strict=True)
@@ -352,8 +365,9 @@ def team_games(pg: pd.DataFrame, roster_archive: Path | None = None,
 
 # ------------------------------------------------------------------------- summaries
 def _boot_ci(d: np.ndarray, groups: np.ndarray) -> list[float] | None:
-    """Day-clustered bootstrap 90% interval of the mean paired difference."""
-    if len(d) < 20:
+    """Day-clustered bootstrap 90% interval of the mean paired difference: only with
+    N >= 20 games on >= 10 distinct days (fewer clusters make the interval meaningless)."""
+    if len(d) < MIN_N_CI or len(np.unique(groups)) < MIN_DAYS_CI:
         return None
     rng = np.random.default_rng(BOOT_SEED)
     u = np.unique(groups)
@@ -447,6 +461,19 @@ def summarize(pg: pd.DataFrame, tg: pd.DataFrame, fi_real: pd.DataFrame | None =
         return s
     s["primary"] = {k: table(pg[pg["min_gs"].between(lo, hi)])
                     for k, (lo, hi) in PRIMARY_SLICES.items()}  # fmt: skip
+    s["headline"] = {k: table(pg[pg["min_gs"].between(lo, hi)])
+                     for k, (lo, hi) in HEADLINE_GAMES.items()}  # fmt: skip
+    if fi_real is not None and len(fi_real):
+        g1 = set(pg.loc[pg["min_gs"] == 0, "espn_game_id"])
+        f1 = fi_real[fi_real["espn_game_id"].isin(g1)]
+        if len(f1):
+            b = f1[f1["rotation"] == "BASE"]
+            r = f1[(f1["rotation"] == "ROSTER") & (f1["snapshot"] == "latest")]
+            s["headline"]["game_1"]["false_inclusion"] = {
+                "teams": int(len(b)),
+                "base_false_minutes": float(b["false_minutes"].mean()) if len(b) else None,
+                "roster_false_minutes": float(r["false_minutes"].mean()) if len(r) else None,
+            }
     oc = overlay_confidence(pg)
     s["primary_by_overlay_confidence"] = {
         f"{k} / {c}": table(pg[pg["min_gs"].between(lo, hi) & (oc == c)])
@@ -603,15 +630,51 @@ def _fmt(v: object, nd: int = 2) -> str:
         f"{v:.{nd}f}" if isinstance(v, float) else str(v))  # fmt: skip
 
 
-def dashboard(s: dict[str, Any], stamp: str) -> str:
-    L = [f"# P-ROSTER-1 prospective scoreboard — {stamp}", "",
-         "Locked protocol: `research/hypotheses/WAVE7.md` §7. Base = `pure-0.5.0` (frozen), "
-         "P-ROSTER-1 = `pure-0.5.0+roster`, incumbent `pure-0.2.0` shown for reference. "
-         "error = actual − projected home margin; paired Δ = |e_roster| − |e_base| (negative "
-         "= P-ROSTER-1 better). **Small samples decide nothing.**", "",
-         f"**Settled paired games: {s.get('settled_paired_games', 0)}**", ""]  # fmt: skip
+def dashboard(s: dict[str, Any], stamp: str, banner: str | None = None) -> str:
+    L = [f"# P-ROSTER-1 prospective scoreboard — {stamp}", ""]
+    if banner:
+        L += [f"> **{banner}**", ""]
+    g = (s.get("gate") or {}).get("counts", {})
+    h1 = (s.get("headline") or {}).get("game_1", {})
+    n1 = h1.get("N", 0)
+    L += ["Locked protocol: `research/hypotheses/WAVE7.md` §7. Base = `pure-0.5.0` (frozen), "
+          "P-ROSTER-1 = `pure-0.5.0+roster`, incumbent `pure-0.2.0` shown for reference. "
+          "error = actual − projected home margin; paired Δ = |e_roster| − |e_base| (negative "
+          "= P-ROSTER-1 better). Only games whose whole evidence chain passed the pre-tip "
+          "gate are counted.", "",
+          f"## Sample size first: **game 1 N = {n1}**",
+          "",
+          f"Pre-tip gate: VALID {g.get('VALID', 0)} · INVALID {g.get('INVALID', 0)} · "
+          f"UNSCORABLE {g.get('UNSCORABLE', 0)} · PENDING {g.get('PENDING', 0)} "
+          "(INVALID / UNSCORABLE games are never scored and never reconstructed; see "
+          "`integrity_gate.csv`).", ""]  # fmt: skip
+    if n1 == 0:
+        L += ["**NO DATA. Nothing can be concluded.**", ""]
+    elif n1 < MIN_N_CI:
+        L += [f"**INSUFFICIENT SAMPLE (N = {n1} < {MIN_N_CI}): descriptive only, no interval, "
+              "no conclusion.**", ""]  # fmt: skip
+    else:
+        L += [f"Intervals need N ≥ {MIN_N_CI} games on ≥ {MIN_DAYS_CI} distinct days; until "
+              "then they are suppressed. **No table here decides anything during 2026–27.**", ""]  # fmt: skip
     if not s.get("primary"):
         return "\n".join(L + [s.get("note", ""), ""])
+    fi = h1.get("false_inclusion") or {}
+    L += ["## HEADLINE — Game 1 (each version's latest pre-tip record; min games seen = 0)", "",
+          "| N | Base MAE | P-ROSTER-1 MAE | Δ MAE | Base RMSE | P-ROSTER-1 RMSE | Δ RMSE | "
+          "Base bias | P-ROSTER-1 bias | % improved | paired mean \\|e\\| diff | departed-player "
+          "false minutes (Base → P-ROSTER-1) |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]  # fmt: skip
+    if n1:
+        L.append(
+            f"| **{n1}** | {_fmt(h1['base']['MAE'])} | {_fmt(h1['roster']['MAE'])} | "
+            f"{_fmt(h1['delta_MAE'])} | {_fmt(h1['base']['RMSE'])} | {_fmt(h1['roster']['RMSE'])} | "
+            f"{_fmt(h1['delta_RMSE'])} | {_fmt(h1['base']['bias'])} | {_fmt(h1['roster']['bias'])} | "
+            f"{_fmt(100 * h1['pct_games_improved'], 0)}% | {_fmt(h1['mean_paired_abs_change'])} | "
+            + (f"{_fmt(fi.get('base_false_minutes'), 1)} → {_fmt(fi.get('roster_false_minutes'), 1)}"
+               f" ({fi.get('teams')} teams)" if fi else "box scores pending") + " |"
+        )  # fmt: skip
+    else:
+        L.append("| **0** | | | | | | | | | | | |")
+    L.append("")
 
     def rows(title: str, d: dict[str, dict]) -> list[str]:
         out = [f"## {title}", "", "| slice | N | base MAE | roster MAE | Δ MAE | base RMSE | "
@@ -627,11 +690,14 @@ def dashboard(s: dict[str, Any], stamp: str) -> str:
                 f"{_fmt(t['delta_MAE'])} | {_fmt(t['base']['RMSE'])} | {_fmt(t['roster']['RMSE'])} | "
                 f"{_fmt(t['delta_RMSE'])} | {_fmt(t['base']['bias'])} | {_fmt(t['roster']['bias'])} | "
                 f"{_fmt(100 * t['pct_games_improved'], 0)}% | {_fmt(t['mean_paired_abs_change'])} | "
-                f"{'n < 20' if ci is None else f'[{ci[0]:.2f}, {ci[1]:.2f}]'} |"
+                f"{'suppressed (N<20 or <10 days)' if ci is None else f'[{ci[0]:.2f}, {ci[1]:.2f}]'} |"
             )
         return out + [""]
 
-    L += rows("PRIMARY (preregistered): game 1 = min(games seen) 0; games 2–3 = 1–2", s["primary"])
+    L += rows("Game 2 and Game 3, separately (never pooled into the game-1 headline)",
+              {k: v for k, v in s["headline"].items() if k != "game_1"})  # fmt: skip
+    L += rows("PRIMARY (preregistered WAVE7 §7 slices): game 1 = min(games seen) 0; "
+              "games 2–3 = 1–2", s["primary"])  # fmt: skip
     if s.get("primary_by_overlay_confidence"):
         L += rows("PRIMARY by confidence of the side(s) that triggered the overlay",
                   s["primary_by_overlay_confidence"])  # fmt: skip
@@ -675,7 +741,8 @@ def dashboard(s: dict[str, Any], stamp: str) -> str:
     return "\n".join(L)
 
 
-def write(out: Path, frames: dict[str, pd.DataFrame], s: dict[str, Any], stamp: str) -> None:
+def write(out: Path, frames: dict[str, pd.DataFrame], s: dict[str, Any], stamp: str,
+          banner: str | None = None) -> None:  # fmt: skip
     out.mkdir(parents=True, exist_ok=True)
     for name, f in frames.items():
         if f is None or f.empty:
@@ -683,7 +750,7 @@ def write(out: Path, frames: dict[str, pd.DataFrame], s: dict[str, Any], stamp: 
         keys = [c for c in ("espn_game_id", "side", "team_id", "rotation", "snapshot") if c in f]
         f.sort_values(keys).to_csv(out / f"{name}.csv", index=False)
     (out / "summary.json").write_text(json.dumps(s, indent=1, sort_keys=True, default=str))
-    (out / "dashboard.md").write_text(dashboard(s, stamp))
+    (out / "dashboard.md").write_text(dashboard(s, stamp, banner))
 
 
 # ------------------------------------------------------------------------------- run
@@ -692,14 +759,44 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
           games: pd.DataFrame | None = None, season: int = 2027,
           d1_teams: set[str] | None = None,
           committed: dict[str, pd.Timestamp] | None = None,
-          committed_roster: dict[str, pd.Timestamp] | None = None) -> tuple[dict, dict]:  # fmt: skip
+          committed_roster: dict[str, pd.Timestamp] | None = None,
+          projections_root: Path | None = None, expected: pd.DataFrame | None = None,
+          enforce_gate: bool = True) -> tuple[dict, dict]:  # fmt: skip
     """``games``: espn_game_id, home_team_id, away_team_id, tip (the season schedule; for
     each team's first five games). ``box``: espn_game_id, team_id, player_id, minutes,
-    starter (played and DNP rows)."""
-    pre = pregame(recs)
-    pg = paired_games(pre, res, mkt, roster_archive, committed, committed_roster)
-    tg = team_games(pg, roster_archive, d1_teams)
-    frames: dict[str, pd.DataFrame] = {"paired_games": pg, "team_games": tg}
+    starter (played and DNP rows). ``expected``: the D-I games (espn_game_id) that tipped
+    before this run; settled ones without a VALID pair are reported, never dropped.
+
+    ``enforce_gate`` (always on in production): only games that pass the pre-tip
+    evidence gate (``pretip_gate``) enter any metric; ``False`` only for unit tests of
+    the arithmetic."""
+    from cbb_edge.rosters import pretip_gate
+
+    tips = None
+    if games is not None and len(games) and "tip" in games:
+        tips = {int(k): _ts(v) for k, v in zip(games["espn_game_id"], games["tip"], strict=True)}
+    pre = pregame(recs, tips)
+    pg_all = paired_games(pre, res, mkt, roster_archive, committed, committed_roster)
+    tg_all = team_games(pg_all, roster_archive, d1_teams)
+    gate = pretip_gate.classify(
+        pre, pg_all, res, expected, tg_all, roster_archive=roster_archive,
+        manifests=pretip_gate.manifest_index(projections_root), committed=committed,
+        committed_roster=committed_roster,
+        mutated=pretip_gate.git_mutated_paths(projections_root),
+        mutated_roster=pretip_gate.git_mutated_paths(roster_archive),
+        dups=pretip_gate.duplicates(recs),
+    )  # fmt: skip
+    if len(pg_all):
+        gi = gate.set_index("espn_game_id")
+        pg_all["gate_status"] = pg_all["espn_game_id"].map(gi["status"])
+        pg_all["gate_reasons"] = pg_all["espn_game_id"].map(gi["reasons"])
+    if enforce_gate and len(pg_all):
+        pg = pg_all[pg_all["gate_status"] == pretip_gate.VALID].reset_index(drop=True)
+    else:
+        pg = pg_all
+    tg = tg_all[tg_all["espn_game_id"].isin(set(pg["espn_game_id"]))] if len(tg_all) else tg_all
+    frames: dict[str, pd.DataFrame] = {"paired_games": pg_all, "team_games": tg_all,
+                                       "integrity_gate": gate}  # fmt: skip
     fi_real = fi_est = None
     if games is not None and len(games) and roster_archive is not None:
         from cbb_edge.rosters import scorecard
@@ -731,4 +828,11 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
             "home_first_d1", "home_tr_prev", "away_truth_cont",
             "away_expected_returning_share", "away_first_d1", "away_tr_prev",
             "home_roster_confidence", "away_roster_confidence"]]  # fmt: skip
-    return frames, summarize(pg, tg, fi_real, fi_est, frames.get("rotation_scorecard"))
+    s = summarize(pg, tg, fi_real, fi_est, frames.get("rotation_scorecard"))
+    s["gate"] = {
+        "enforced": bool(enforce_gate),
+        "counts": gate["status"].value_counts().to_dict() if len(gate) else {},
+        "reasons": pd.Series([x for r in gate["reasons"] for x in r.split(";") if x])
+        .value_counts().to_dict() if len(gate) else {},
+    }  # fmt: skip
+    return frames, s

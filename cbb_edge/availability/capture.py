@@ -238,7 +238,15 @@ def _write_raw(path: Path, obj: Any) -> None:
 
 
 def current_d1_teams() -> list[int]:
+    """ESPN ids of the current D-I teams. Wave 9: the authoritative membership of the
+    newest season (NCAA directory; Saint Francis (PA) out, West Florida in) when the
+    membership table has one, else the registry's recent-season rule."""
+    from cbb_edge.data.ids.teams import authoritative_members
+
     t = pd.read_csv(Path(__file__).resolve().parents[1] / "data" / "ids" / "teams.csv")
+    m = authoritative_members(int(t["last_d1_season"].max()))
+    if m is not None:
+        return sorted(m)
     t = t[t["last_d1_season"] >= t["last_d1_season"].max() - 1]
     return sorted(int(x) for x in t["espn_team_id"].dropna())
 

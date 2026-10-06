@@ -1,11 +1,10 @@
 {
  "ncaa_members": 365,
- "model_current_teams": 365,
- "resolved": 364,
+ "model_current_teams": 366,
+ "resolved": 365,
  "by_method": {
-  "exact_name": 257,
-  "verified_alias": 107,
-  "unresolved": 1
+  "exact_name": 258,
+  "verified_alias": 107
  },
  "in_model_not_ncaa": [
   {
@@ -16,23 +15,14 @@
    "last_d1_season": 2026
   }
  ],
- "in_ncaa_not_model": [
-  {
-   "ncaa_org_id": 11740,
-   "school": "University of West Florida",
-   "conference": "Atlantic Sun Conference",
-   "state": "FL",
-   "athletics_url": "https://www.goargos.com",
-   "resolution": "unresolved"
-  }
- ],
+ "in_ncaa_not_model": [],
  "duplicate_team_mappings": [],
  "reclassifying": [
   {
    "ncaa_org_id": 349,
    "school": "Le Moyne College",
    "team_id": "T0370",
-   "first_d1_season": 2024.0,
+   "first_d1_season": 2024,
    "reclass_year": NaN,
    "reclass_division": NaN,
    "provisional_member": false
@@ -41,7 +31,7 @@
    "ncaa_org_id": 408,
    "school": "Mercyhurst University",
    "team_id": "T0371",
-   "first_d1_season": 2025.0,
+   "first_d1_season": 2025,
    "reclass_year": NaN,
    "reclass_division": NaN,
    "provisional_member": false
@@ -50,7 +40,7 @@
    "ncaa_org_id": 410,
    "school": "Merrimack College",
    "team_id": "T0357",
-   "first_d1_season": 2020.0,
+   "first_d1_season": 2020,
    "reclass_year": 2.0,
    "reclass_division": 1.0,
    "provisional_member": false
@@ -59,7 +49,7 @@
    "ncaa_org_id": 470,
    "school": "University of New Haven",
    "team_id": "T0373",
-   "first_d1_season": 2026.0,
+   "first_d1_season": 2026,
    "reclass_year": NaN,
    "reclass_division": NaN,
    "provisional_member": false
@@ -68,16 +58,25 @@
    "ncaa_org_id": 487,
    "school": "University of North Alabama",
    "team_id": "T0355",
-   "first_d1_season": 2019.0,
+   "first_d1_season": 2019,
    "reclass_year": 3.0,
    "reclass_division": 1.0,
+   "provisional_member": false
+  },
+  {
+   "ncaa_org_id": 11740,
+   "school": "University of West Florida",
+   "team_id": "T0374",
+   "first_d1_season": 2027,
+   "reclass_year": NaN,
+   "reclass_division": NaN,
    "provisional_member": false
   },
   {
    "ncaa_org_id": 766,
    "school": "University of West Georgia",
    "team_id": "T0372",
-   "first_d1_season": 2025.0,
+   "first_d1_season": 2025,
    "reclass_year": NaN,
    "reclass_division": NaN,
    "provisional_member": false
@@ -620,12 +619,6 @@
    "espn_location": "Milwaukee"
   }
  ],
- "unresolved": [
-  {
-   "ncaa_org_id": 11740,
-   "school": "University of West Florida",
-   "resolution": "unresolved"
-  }
- ],
- "conference_label_differences": 60
+ "unresolved": [],
+ "conference_label_differences": 61
 }

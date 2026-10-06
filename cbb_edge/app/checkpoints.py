@@ -66,23 +66,40 @@ def save_engine(fits: dict[str, Fit], team_ids: list[str], p: Path) -> None:
     np.savez_compressed(p, **arrays, meta=np.array(json.dumps(meta)))
 
 
-def load_engine(p: Path, team_ids: list[str]) -> dict[str, Fit]:
+class EngineEnd(dict):
+    """End-of-season fits in the CHECKPOINT's own team order (``team_ids``)."""
+
+    team_ids: list[str]
+
+
+def load_engine(p: Path, team_ids: list[str], entering: set[str] | None = None) -> EngineEnd:
+    """``team_ids``: the current registry. It must equal the checkpoint's team list, or
+    extend it ONLY by ``entering`` teams (teams that joined D-I after the checkpoint's
+    boundary, Wave 9: West Florida). Those start from the engine's own rule for teams
+    absent from the previous season (``walkforward.priors_from_previous``); every
+    checkpointed team's state is used exactly as stored."""
     z = np.load(p, allow_pickle=True)
     ids = list(z["team_ids"])
     if ids != list(team_ids):
-        raise ValueError("checkpoint team order differs from the current registry")
+        extra = set(team_ids) - set(ids)
+        if set(ids) - set(team_ids) or not extra or not extra <= (entering or set()):
+            raise ValueError("checkpoint team order differs from the current registry")
     meta = json.loads(str(z["meta"]))
-    return {
-        s: Fit(
-            m["mu"],
-            m["eta"],
-            z[f"{s}|off"],
-            z[f"{s}|deff"],
-            z[f"{s}|n_obs"],
-            z[f"{s}|raw"] if f"{s}|raw" in z.files else None,
-        )
-        for s, m in meta.items()
-    }
+    out = EngineEnd(
+        {
+            s: Fit(
+                m["mu"],
+                m["eta"],
+                z[f"{s}|off"],
+                z[f"{s}|deff"],
+                z[f"{s}|n_obs"],
+                z[f"{s}|raw"] if f"{s}|raw" in z.files else None,
+            )
+            for s, m in meta.items()
+        }
+    )
+    out.team_ids = ids
+    return out
 
 
 def save_rapm(r: SeasonRapm, p: Path) -> None:
@@ -128,8 +145,12 @@ class Checkpoint:
     def exists(version: str, boundary: int) -> bool:
         return (path_for(version, boundary) / "manifest.json").exists()
 
-    def engine(self, team_ids: list[str]) -> dict[str, Fit]:
-        return load_engine(self.dir / "engine_end.npz", team_ids)
+    def engine(self, team_ids: list[str]) -> EngineEnd:
+        from cbb_edge.data.ids.teams import _registry
+
+        reg = _registry()
+        entering = set(reg.loc[reg["first_d1_season"] > self.boundary, "team_id"])
+        return load_engine(self.dir / "engine_end.npz", team_ids, entering)
 
     def finals(self) -> pd.DataFrame:
         return pd.read_parquet(self.dir / "finals.parquet")

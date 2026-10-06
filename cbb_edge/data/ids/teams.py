@@ -16,7 +16,7 @@ import json
 import re
 import unicodedata
 from datetime import UTC, datetime
-from functools import lru_cache
+from functools import cache, lru_cache
 from pathlib import Path
 
 import pandas as pd
@@ -77,6 +77,50 @@ def canonical_from_espn(espn_id: object) -> str | None:
     return _espn_map().get(int(espn_id))  # type: ignore[call-overload]
 
 
+ENTRY_CSV = HERE / "team_entry.csv"
+MEMBERSHIP_CSV = HERE.parents[2] / "models" / "rosters" / "d1_membership.csv"
+
+
+@lru_cache(maxsize=1)
+def _entry() -> dict[int, int]:
+    """ESPN id -> first season the id maps to its canonical team (Wave 9). Only teams
+    registered AFTER the historical seasons were built are listed (West Florida,
+    D-I from 2026-27): in earlier seasons they were non-D-I opponents with no id, and
+    they stay that way, so every historical season rebuilds unchanged."""
+    if not ENTRY_CSV.exists():
+        return {}
+    e = pd.read_csv(ENTRY_CSV)
+    return {int(a): int(b) for a, b in zip(e["espn_team_id"], e["map_from_season"], strict=True)}
+
+
+def canonical_from_espn_in(espn_id: object, season: int) -> str | None:
+    """``canonical_from_espn`` for a given season (season-gated entering teams)."""
+    tid = canonical_from_espn(espn_id)
+    if tid is None:
+        return None
+    start = _entry().get(int(espn_id))  # type: ignore[call-overload]
+    return None if start is not None and season < start else tid
+
+
+def season_mapper(season: int):  # noqa: ANN201
+    return lambda e: canonical_from_espn_in(e, season)
+
+
+@cache
+def authoritative_members(season: int) -> frozenset[int] | None:
+    """ESPN ids of the season's D-I members when an AUTHORITATIVE membership list exists
+    for it (the NCAA Membership Directory rows of ``models/rosters/d1_membership.csv``;
+    2026-27 on). None for every season without one: the historical games-count rule
+    then applies unchanged."""
+    if not MEMBERSHIP_CSV.exists():
+        return None
+    m = pd.read_csv(MEMBERSHIP_CSV, usecols=["season", "espn_team_id", "evidence"])
+    m = m[(m["season"] == season) & (m["evidence"] == "ncaa_directory")]
+    if m.empty or m["espn_team_id"].isna().any():
+        return None
+    return frozenset(int(x) for x in m["espn_team_id"])
+
+
 @lru_cache(maxsize=1)
 def _aliases() -> pd.DataFrame:
     if not ALIASES_CSV.exists():
@@ -120,6 +164,8 @@ def log_unresolved(kind: str, name: str, source: str, reason: str, **extra: obje
 
 
 def clear_caches() -> None:
+    _entry.cache_clear()
+    authoritative_members.cache_clear()
     _registry.cache_clear()
     _espn_map.cache_clear()
     _aliases.cache_clear()
@@ -140,7 +186,7 @@ def build_registry(seasons: list[int]) -> pd.DataFrame:
         if not p.exists():
             continue
         sched = load_schedule(season)
-        d1 = d1_membership(sched, prev_d1)
+        d1 = d1_membership(sched, prev_d1, authoritative_members(season))
         prev_d1 = d1
         raw = pd.read_parquet(p)
         for side in ("home", "away"):

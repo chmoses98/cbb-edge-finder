@@ -176,3 +176,47 @@ from that state with the same code. Each record carries
   `models/rosters/d1_membership.csv`.
 * Pre-tip diagnostics for any truth snapshot:
   `python scripts/prospective/pretip_diagnostics.py --rosters <roster-archive>`.
+
+## Operations (Wave 9): no owner intervention needed on opening day
+
+| workflow | slots | catch-up | writes |
+|---|---|---|---|
+| prospective-projections | 14:10, 21:10 UTC (Nov–Apr) | hourly :40; runs if a slot was missed, or a D-I game in the next 30 h lacks a record (then writes only the missing records) | `projections-archive` + one run manifest per run (heartbeat) |
+| roster-capture | 11:17 UTC daily (Sep–Nov); Mondays 12:17 (Dec–Apr) | hourly :47 if the slot passed with no truth snapshot | `roster-archive` |
+| prospective-scores | 12:40 UTC (Nov–Apr) | hourly :50 if the slot passed with no scoreboard | `prospective-scores` |
+| ops-watch | hourly :25 (Oct–Apr) | — | `ops-reports`; the run turns **red** on any CRITICAL alert |
+
+Every decision is made from the append-only archive branches (`cbb_edge/ops/cadence.py`):
+- there is no runner state and no artifact dependency;
+- duplicate ticks re-decide from the same facts;
+- an existing record is never overwritten.
+
+A catch-up run never projects a game that has tipped. When a game has no pre-tip record,
+it is reported as UNSCORABLE, or as OPENING_GAME_MISSED for a team's first game. It is
+never reconstructed.
+
+The pre-tip gate (`cbb_edge/rosters/pretip_gate.py`) decides which games are credited.
+Only VALID games are scored; INVALID, UNSCORABLE and PENDING games are listed in
+`integrity_gate.csv`.
+
+Readiness for any window:
+
+```
+python -m cbb_edge.ops.readiness --rosters <roster-archive> \
+    [--projections <projections-archive>] [--scores <prospective-scores>] \
+    [--from 2026-11-02T00:00:00Z] [--days 7] --out ops_out
+```
+
+Before the opener, the readiness report previews opening week. ESPN lists a game with no
+set tip time at 00:00 ET of its date ("TBD"). The frozen projection step only projects
+games whose listed tip is in the future, so a TBD game's last projection chance is the
+evening before.
+
+To rehearse the whole production chain in a sandbox:
+
+```
+python scripts/prospective/dry_run.py --rosters <roster-archive> --sandbox DIR
+```
+
+This uses the production code, a simulated clock and synthetic settlement. It is never
+research evidence.

@@ -96,10 +96,11 @@ def test_score_summary_slices_and_dashboard_show_n(tmp_path):
         r["_path"], r["_sha256"] = f"r{i}.json", f"h{i}"
     res = pd.DataFrame({"espn_game_id": range(1, 31), "result_margin": rng.normal(1, 10, 30),
                         "result_total": 140.0})  # fmt: skip
-    frames, s = ps.score(recs, res, roster_archive=arch, d1_teams={"T1", "T2"})
+    frames, s = ps.score(recs, res, roster_archive=arch, d1_teams={"T1", "T2"}, enforce_gate=False)
     assert s["settled_paired_games"] == 30
     assert s["primary"]["game_1"]["N"] == 20 and s["primary"]["games_2_3"]["N"] == 10
-    assert s["primary"]["game_1"]["paired_abs_change_ci90_day_bootstrap"] is not None
+    # every fixture game is on one day: a day-clustered interval needs >= 10 days
+    assert s["primary"]["game_1"]["paired_abs_change_ci90_day_bootstrap"] is None
     assert s["primary"]["games_2_3"]["paired_abs_change_ci90_day_bootstrap"] is None  # n < 20
     assert sum(t["N"] for t in s["diagnostic_game1_adj_b_buckets"].values()) == 20
     assert set(s["diagnostic_team_game_number"]) == {"team_game_1", "team_game_2", "team_game_3"}
@@ -110,10 +111,15 @@ def test_score_summary_slices_and_dashboard_show_n(tmp_path):
         and (tg.loc[tg["team_id"] == "T1", "n_transfer_expected"] == 2).all()
     )
     md = ps.dashboard(s, "x")
-    assert "**Settled paired games: 30**" in md and "| game_1 | **20** |" in md
+    assert "game 1 N = 20" in md and "| game_1 | **20** |" in md
+    head = md.split("## HEADLINE")[1].split("##")[0]
+    assert "| **20** |" in head and "departed-player" in head
+    assert md.index("HEADLINE") < md.index("Game 2 and Game 3, separately")
     # deterministic: identical inputs -> byte-identical outputs
     ps.write(tmp_path / "o1", frames, s, "x")
-    frames2, s2 = ps.score(recs, res, roster_archive=arch, d1_teams={"T1", "T2"})
+    frames2, s2 = ps.score(
+        recs, res, roster_archive=arch, d1_teams={"T1", "T2"}, enforce_gate=False
+    )
     ps.write(tmp_path / "o2", frames2, s2, "x")
     for f in (tmp_path / "o1").iterdir():
         assert f.read_bytes() == (tmp_path / "o2" / f.name).read_bytes(), f.name
@@ -123,7 +129,8 @@ def test_no_results_writes_empty_scoreboard(tmp_path):
     frames, s = ps.score([], pd.DataFrame(columns=["espn_game_id", "result_margin"]))
     assert s["settled_paired_games"] == 0 and "note" in s
     ps.write(tmp_path, frames, s, "x")
-    assert "Settled paired games: 0" in (tmp_path / "dashboard.md").read_text()
+    md = (tmp_path / "dashboard.md").read_text()
+    assert "game 1 N = 0" in md and "NO DATA" in md
 
 
 def test_rotation_in_record_must_match_snapshot(tmp_path):
@@ -174,8 +181,14 @@ def test_membership_keeps_history_and_marks_2026_27_changes():
     assert not membership.is_member("T0293", 2027) and membership.is_member("T0293", 2026)
     uwf = membership.members(2027)
     uwf = uwf[uwf["school"] == "University of West Florida"].iloc[0]
-    assert pd.isna(uwf["team_id"]) and uwf["espn_team_id"] == 2697
-    assert uwf["status"] == "MEMBER_NO_CANONICAL_ID" and "exact location" in uwf["evidence_detail"]
+    assert uwf["team_id"] == "T0374" and uwf["espn_team_id"] == 2697  # Wave 9
+    assert uwf["status"] == "MEMBER"
+    assert (
+        not (membership.table()["team_id"] == "T0374")
+        .loc[lambda s: s]
+        .index.isin(membership.table().index[membership.table()["season"] < 2027])
+        .any()
+    )  # never backfilled
     assert len(membership.members(2027)) == 365 and len(membership.members(2026)) == 365
     tr = membership.transitions()["2026->2027"]
     assert {"espn_team_id": 2598, "change": "left"} in tr
@@ -251,7 +264,9 @@ def test_full_path_with_box_scores_and_overlay_confidence(tmp_path):
                         "player_id": [f"P{i}" for i in range(8)] + ["X1"],
                         "minutes": [30, 30, 30, 30, 30, 20, 15, 15.0, 0.0],
                         "starter": [True] * 5 + [False] * 4})  # fmt: skip
-    frames, s = ps.score(recs, res, roster_archive=arch, box=box, games=games, d1_teams={"T1"})
+    frames, s = ps.score(
+        recs, res, roster_archive=arch, box=box, games=games, d1_teams={"T1"}, enforce_gate=False
+    )
     assert len(frames["false_inclusion_realized"]) and len(frames["rotation_validation"])
     rv = frames["rotation_validation"].iloc[0]
     assert np.isclose(rv["predicted_minutes_on_non_players"], 16.0)  # P8, P9 never played
@@ -259,3 +274,16 @@ def test_full_path_with_box_scores_and_overlay_confidence(tmp_path):
     assert "latest" in s["intermediate_rotation"] and "BASE" in s["intermediate_rotation"]
     assert not frames["team_games"].set_index("side").loc["home", "opponent_d1"]  # T2 not D-I
     assert "Intermediate" in ps.dashboard(s, "x")
+
+
+def test_interval_only_with_20_games_on_10_days_and_tiny_samples_flagged():
+    import numpy as np
+
+    rng = np.random.default_rng(1)
+    d = rng.normal(0, 1, 40)
+    assert ps._boot_ci(d, np.repeat(np.arange(4), 10)) is None  # 4 days
+    assert ps._boot_ci(d[:19], np.arange(19)) is None  # 19 games
+    assert ps._boot_ci(d, np.repeat(np.arange(10), 4)) is not None
+    s = {"headline": {"game_1": {"N": 5}}, "gate": {"counts": {"VALID": 5}}}
+    assert "INSUFFICIENT SAMPLE (N = 5 < 20)" in ps.dashboard(s, "x")
+    assert "SYNTHETIC" in ps.dashboard(s, "x", banner="SYNTHETIC DRY RUN")

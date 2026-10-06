@@ -2,7 +2,7 @@
  "generated_by": "cbb_edge.rosters.ncaa_directory",
  "source": "NCAA Membership Directory, Athletics Link (athleticWebUrl)",
  "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB",
- "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+ "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
  "academic_year": 2027,
  "teams": [
   {
@@ -16,7 +16,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -30,7 +30,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -44,7 +44,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -58,7 +58,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -72,7 +72,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -86,7 +86,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -100,7 +100,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -114,7 +114,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -128,7 +128,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -142,7 +142,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -154,10 +154,6 @@
    "host": "sundevils.com",
    "redirect_hosts": [],
    "redirect_evidence": [],
-   "status": "VERIFIED",
-   "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
-   "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB",
    "linked_hosts": [
     "thesundevils.com"
    ],
@@ -170,7 +166,11 @@
      "kind": "official_home_page_roster_link",
      "evidence_sample": "roster-source-samples:20261006T032543Z/gaps (probe run 37408616872)"
     }
-   ]
+   ],
+   "status": "VERIFIED",
+   "exception": null,
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
+   "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
    "team_id": "T0007",
@@ -183,7 +183,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -197,7 +197,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -211,7 +211,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -225,7 +225,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -239,7 +239,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -253,7 +253,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -267,7 +267,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -281,7 +281,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -295,7 +295,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -309,7 +309,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -323,7 +323,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -345,7 +345,7 @@
    ],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -359,7 +359,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -373,7 +373,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -387,7 +387,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -401,7 +401,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -415,7 +415,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -429,7 +429,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -443,7 +443,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -457,7 +457,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -471,7 +471,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -485,7 +485,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -499,7 +499,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -513,7 +513,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -527,7 +527,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -541,7 +541,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -555,7 +555,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -569,7 +569,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -583,7 +583,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -597,7 +597,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -611,7 +611,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -625,7 +625,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -639,7 +639,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -653,7 +653,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -667,7 +667,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -681,7 +681,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -695,7 +695,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -709,7 +709,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -723,7 +723,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -737,7 +737,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -751,7 +751,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -765,7 +765,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -779,7 +779,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -793,7 +793,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -807,7 +807,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -821,7 +821,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -835,7 +835,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -849,7 +849,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -863,7 +863,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -877,7 +877,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -891,7 +891,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -905,7 +905,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -919,7 +919,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -933,7 +933,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -947,7 +947,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -961,7 +961,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -975,7 +975,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -989,7 +989,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1003,7 +1003,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1017,7 +1017,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1031,7 +1031,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1045,7 +1045,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1059,7 +1059,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1073,7 +1073,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1087,7 +1087,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1101,7 +1101,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1115,7 +1115,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1129,7 +1129,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1143,7 +1143,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1157,7 +1157,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1171,7 +1171,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1185,7 +1185,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1199,7 +1199,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1213,7 +1213,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1227,7 +1227,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1241,7 +1241,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1255,7 +1255,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1269,7 +1269,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1283,7 +1283,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1297,7 +1297,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1311,7 +1311,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1325,7 +1325,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1339,7 +1339,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1353,7 +1353,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1367,7 +1367,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1381,7 +1381,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1395,7 +1395,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1409,7 +1409,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1423,7 +1423,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1437,7 +1437,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1451,7 +1451,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1465,7 +1465,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1479,7 +1479,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1493,7 +1493,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1507,7 +1507,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1521,7 +1521,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1535,7 +1535,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1549,7 +1549,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1563,7 +1563,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1577,7 +1577,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1591,7 +1591,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1605,7 +1605,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1619,7 +1619,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1633,7 +1633,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1647,7 +1647,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1661,7 +1661,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1675,7 +1675,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1689,7 +1689,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1703,7 +1703,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1717,7 +1717,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1731,7 +1731,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1745,7 +1745,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1759,7 +1759,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1773,7 +1773,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1787,7 +1787,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1801,7 +1801,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1815,7 +1815,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1829,7 +1829,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1843,7 +1843,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1857,7 +1857,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1871,7 +1871,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1885,7 +1885,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1899,7 +1899,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1913,7 +1913,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1927,7 +1927,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1941,7 +1941,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1955,7 +1955,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1969,7 +1969,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1983,7 +1983,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -1997,7 +1997,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2011,7 +2011,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2025,7 +2025,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2039,7 +2039,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2053,7 +2053,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2067,7 +2067,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2081,7 +2081,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2095,7 +2095,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2109,7 +2109,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2123,7 +2123,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2137,7 +2137,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2151,7 +2151,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2165,7 +2165,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2179,7 +2179,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2193,7 +2193,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2207,7 +2207,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2221,7 +2221,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2235,7 +2235,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2249,7 +2249,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2263,7 +2263,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2277,7 +2277,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2291,7 +2291,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2305,7 +2305,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2319,7 +2319,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2333,7 +2333,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2347,7 +2347,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2361,7 +2361,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2375,7 +2375,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2389,7 +2389,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2403,7 +2403,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2417,7 +2417,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2431,7 +2431,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2445,7 +2445,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2459,7 +2459,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2473,7 +2473,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2487,7 +2487,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2501,7 +2501,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2515,7 +2515,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2529,7 +2529,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2543,7 +2543,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2557,7 +2557,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2571,7 +2571,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2585,7 +2585,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2599,7 +2599,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2613,7 +2613,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2627,7 +2627,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2641,7 +2641,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2655,7 +2655,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2669,7 +2669,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2683,7 +2683,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2697,7 +2697,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2711,7 +2711,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2733,7 +2733,7 @@
    ],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2747,7 +2747,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2761,7 +2761,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2775,7 +2775,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2789,7 +2789,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2803,7 +2803,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2817,7 +2817,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2831,7 +2831,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2845,7 +2845,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2859,7 +2859,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2873,7 +2873,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2887,7 +2887,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2901,7 +2901,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2915,7 +2915,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2929,7 +2929,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2943,7 +2943,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2957,7 +2957,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2971,7 +2971,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2985,7 +2985,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -2999,7 +2999,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3013,7 +3013,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3027,7 +3027,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3041,7 +3041,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3055,7 +3055,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3069,7 +3069,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3083,7 +3083,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3097,7 +3097,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3111,7 +3111,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3125,7 +3125,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3139,7 +3139,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3153,7 +3153,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3167,7 +3167,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3181,7 +3181,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3195,7 +3195,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3209,7 +3209,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3223,7 +3223,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3237,7 +3237,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3251,7 +3251,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3265,7 +3265,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3279,7 +3279,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3293,7 +3293,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3307,7 +3307,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3321,7 +3321,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3335,7 +3335,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3349,7 +3349,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3363,7 +3363,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3377,7 +3377,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3391,7 +3391,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3405,7 +3405,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3419,7 +3419,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3433,7 +3433,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3447,7 +3447,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3461,7 +3461,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3475,7 +3475,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3489,7 +3489,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3503,7 +3503,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3517,7 +3517,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3531,7 +3531,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3545,7 +3545,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3559,7 +3559,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3573,7 +3573,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3587,7 +3587,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3601,7 +3601,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3615,7 +3615,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3629,7 +3629,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3643,7 +3643,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3657,7 +3657,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3671,7 +3671,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3685,7 +3685,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3699,7 +3699,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3713,7 +3713,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3727,7 +3727,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3741,7 +3741,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3755,7 +3755,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3769,7 +3769,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3783,7 +3783,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3797,7 +3797,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3811,7 +3811,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3825,7 +3825,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3839,7 +3839,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3853,7 +3853,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3867,7 +3867,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3881,7 +3881,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3895,7 +3895,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3917,7 +3917,7 @@
    ],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3931,7 +3931,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3945,7 +3945,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3959,7 +3959,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3973,7 +3973,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -3987,7 +3987,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4001,7 +4001,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4015,7 +4015,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4029,7 +4029,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4043,7 +4043,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4057,7 +4057,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4071,7 +4071,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4085,7 +4085,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4099,7 +4099,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4113,7 +4113,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4127,7 +4127,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4141,7 +4141,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4155,7 +4155,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4169,7 +4169,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4183,7 +4183,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4197,7 +4197,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4211,7 +4211,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4225,7 +4225,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4239,7 +4239,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4253,7 +4253,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4267,7 +4267,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4281,7 +4281,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4295,7 +4295,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4309,7 +4309,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4323,7 +4323,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4337,7 +4337,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4351,7 +4351,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4365,7 +4365,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4379,7 +4379,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4393,7 +4393,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4407,7 +4407,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4421,7 +4421,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4435,7 +4435,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4449,7 +4449,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4463,7 +4463,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4477,7 +4477,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4491,7 +4491,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4505,7 +4505,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4519,7 +4519,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4533,7 +4533,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4547,7 +4547,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4561,7 +4561,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4575,7 +4575,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4589,7 +4589,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4603,7 +4603,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4617,7 +4617,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4631,7 +4631,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4645,7 +4645,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4659,7 +4659,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4673,7 +4673,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4687,7 +4687,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4701,7 +4701,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4715,7 +4715,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4729,7 +4729,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4743,7 +4743,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4757,7 +4757,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4771,7 +4771,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4785,7 +4785,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4799,7 +4799,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4813,7 +4813,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4827,7 +4827,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4841,7 +4841,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4855,7 +4855,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4869,7 +4869,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4883,7 +4883,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4897,7 +4897,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4911,7 +4911,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4925,7 +4925,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4939,7 +4939,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4953,7 +4953,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4967,7 +4967,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -4989,7 +4989,7 @@
    ],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5003,7 +5003,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5017,21 +5017,21 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
-   "team_id": null,
+   "team_id": "T0374",
    "ncaa_org_id": 11740,
    "school": "University of West Florida",
-   "espn_team_id": null,
+   "espn_team_id": 2697,
    "athletics_url": "https://www.goargos.com",
    "host": "goargos.com",
    "redirect_hosts": [],
    "redirect_evidence": [],
-   "status": "VERIFIED_UNMAPPED",
-   "exception": "no_canonical_team",
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "status": "VERIFIED",
+   "exception": null,
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5045,7 +5045,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5059,7 +5059,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5073,7 +5073,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5087,7 +5087,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5101,7 +5101,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5115,7 +5115,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5129,7 +5129,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5143,7 +5143,7 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   },
   {
@@ -5157,9 +5157,9 @@
    "redirect_evidence": [],
    "status": "VERIFIED",
    "exception": null,
-   "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
+   "retrieved_at": "2026-10-05T22:17:03.483406+00:00",
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   }
  ],
- "sha256": "e99bb2f747d179cbeefc0ea6211cb900977e8f0488368d8b0be928de31164b60"
+ "sha256": "56e3942577a20d7d905b87703c7778e4ccd7af9972721aae05d7a70bf1449322"
 }

@@ -75,14 +75,23 @@ def load_schedule(season: int) -> pd.DataFrame:
     return out.drop_duplicates("game_id")
 
 
-def d1_membership(sched: pd.DataFrame, prev_d1: set[int] | None = None) -> set[int]:
+def d1_membership(
+    sched: pd.DataFrame, prev_d1: set[int] | None = None, members: frozenset[int] | None = None
+) -> set[int]:
     """D-I teams for a season: teams with >= D1_MIN_GAMES listed games.
 
     D-I membership is an administrative fact known before the season (published
     schedules), so using the season's schedule to classify it is not result leakage.
     For a season whose schedule is still partial (pre-season), membership falls back to
     the previous season's D-I set plus any team already listed >= D1_MIN_GAMES times.
+
+    Wave 9: ``members`` = the season's AUTHORITATIVE membership (NCAA directory; 2026-27
+    on). When given it IS the D-I set (an entering member with few listed games counts,
+    a departed one does not). Every season without it (all of 2006-2026) keeps the rule
+    above unchanged.
     """
+    if members is not None:
+        return set(members)
     listed = sched[sched["status"].ne("STATUS_CANCELED")]
     counts = pd.concat([listed["home_espn_id"], listed["away_espn_id"]]).value_counts()
     d1 = {int(t) for t, n in counts.items() if n >= D1_MIN_GAMES}
@@ -126,11 +135,12 @@ def build_season(
     season: int, prev_d1: set[int] | None = None
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     sched = load_schedule(season)
-    d1 = d1_membership(sched, prev_d1)
+    d1 = d1_membership(sched, prev_d1, team_ids.authoritative_members(season))
+    to_id = team_ids.season_mapper(season)  # entering teams get no id before entry
     sched["home_is_d1"] = sched["home_espn_id"].isin(d1)
     sched["away_is_d1"] = sched["away_espn_id"].isin(d1)
-    sched["home_team_id"] = sched["home_espn_id"].map(team_ids.canonical_from_espn)
-    sched["away_team_id"] = sched["away_espn_id"].map(team_ids.canonical_from_espn)
+    sched["home_team_id"] = sched["home_espn_id"].map(to_id)
+    sched["away_team_id"] = sched["away_espn_id"].map(to_id)
 
     box = load_team_box(season)
     tg = pd.DataFrame()
@@ -162,8 +172,8 @@ def build_season(
         tg["loc"] = np.where(tg["is_home"], 1, np.where(tg["is_away"], -1, 0))
         tg["team_is_d1"] = tg["team_espn_id"].isin(d1)
         tg["opp_is_d1"] = tg["opp_espn_id"].isin(d1)
-        tg["team_id"] = tg["team_espn_id"].map(team_ids.canonical_from_espn)
-        tg["opp_id"] = tg["opp_espn_id"].map(team_ids.canonical_from_espn)
+        tg["team_id"] = tg["team_espn_id"].map(to_id)
+        tg["opp_id"] = tg["opp_espn_id"].map(to_id)
         tg = add_possessions_and_factors(tg)
         tg = tg.drop(columns=["home_espn_id", "completed"])
 
@@ -201,7 +211,7 @@ def build_season(
         pg["athlete_espn_id"] = pg["athlete_espn_id"].astype("int64")
         pg["player_id"] = "P" + pg["athlete_espn_id"].astype(str)
         pg["season"] = season
-        pg["team_id"] = pg["team_espn_id"].map(team_ids.canonical_from_espn)
+        pg["team_id"] = pg["team_espn_id"].map(to_id)
         pg = pg.merge(sched[["game_id", "available_at", "game_date_et"]], on="game_id", how="inner")
     return sched, tg, pg
 
