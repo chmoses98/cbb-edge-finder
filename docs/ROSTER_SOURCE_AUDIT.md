@@ -22,13 +22,16 @@ and is cached. No paid source, CBBD or Odds API is ever called.
 | SportsDataverse `rosters_2027` release asset (espn) | 354 / 5,461 | ESPN athlete id | yes / yes / `experience_display_value` / yes / yes | no | `season` (its fetch parameter, not ESPN's label) | `Last-Modified: Tue, 15 Sep 2026 08:22:10 GMT` | **overwritten in place** (snapshotted with a dated live copy) | a re-packaged ESPN pull, NOT independent; older than our ESPN pull |
 | stats.ncaa.org team list `team/inst_team_list?academic_year=2027` (ncaa) | 365 teams | NCAA team ids | — | — | academic year | none | — | reachable |
 | stats.ncaa.org team roster `teams/{id}/roster` (ncaa) | — | NCAA player ids | — | — | — | — | — | **not usable**: an Akamai bot challenge (JavaScript interstitial). We do not try to defeat bot protection |
-| official school site, SIDEARM nextgen `/sports/mens-basketball/roster` (school) | 3 allowlisted (Duke, Boston College, Maryland) | none (names) | yes / yes / "Academic Year" / yes / yes | "Last School" = high school even for transfers | page heading "2026-27 Men's Basketball Roster" | `Last-Modified` = request time (dynamic) | yes | fresh and official. Fallback only (cached, ≥ 5 s spacing, explicit allowlist `cbb_edge/rosters/school_sites.py` + `cost_policy.SCHOOL_HOSTS`) |
+| NCAA Membership Directory `web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB` (Wave 7) | 365 D-I MBB members (2026-27) | NCAA org id | — | — | `academicYear` 2027 | our capture time | yes | **the authority for the universe and official athletics domains** (`athleticWebUrl`); public JSON the directory app itself calls; robots.txt allows `/directory/`; 1 request per weekly refresh |
+| official school athletics sites, all platforms (school) | every VERIFIED team in `models/rosters/ncaa_athletics_domains.json` (364 hosts, generated from the NCAA Athletics Link) | none (names; profile URLs) | as visibly listed (SIDEARM cards / lists, header-driven tables) | only when the page shows it | page heading / URL season | `Last-Modified` usually dynamic | yes | **membership authority when CURRENT / PROBABLY_CURRENT** (Wave 7); ≥ 5 s per host, robots.txt, ≤ 6 pages per site, known URL = 1 request |
 
 * **Terms and rate limits.** ESPN endpoints are unofficial and free: 1 request/s,
   cached, once per day Sep–Nov. SportsDataverse is a public GitHub release asset.
   stats.ncaa.org and school sites: ≥ 5 s between requests, cached, and only the pages
   listed here.
 * **Recruiting services** are not used: no free, timestamp-safe source was found.
+* **Search engines** are not used to find roster pages (Wave 7): discovery starts from
+  the NCAA Athletics Link and follows only that site's own links and routes.
 * **Head coaches:** no free, timestamped historical coach source exists in the lake.
   Not audited further this wave; reported as unavailable.
 
@@ -121,6 +124,26 @@ coverage:
 
 1. ESPN refreshes rosters as the season nears. The staleness tests will then pass;
    the weekly quality report tracks this.
-2. Add official domains to the school allowlist one at a time, each verified. There is
-   no free machine-readable school → domain mapping in the lake, and domains are never
-   guessed.
+2. ~~Add official domains one at a time.~~ Superseded in Wave 7: the NCAA Membership
+   Directory's Athletics Link gives every member's official domain, so the allowlist
+   is generated (`cbb_edge/rosters/ncaa_directory.py`) and checksum-pinned; a hand
+   list no longer exists.
+
+## Wave 7: universe reconciliation (2026-10-05)
+
+`models/rosters/ncaa_reconciliation.json`. 365 NCAA members, 365 current model teams:
+
+* 257 matched by exact normalized name;
+* 107 matched by verified alias (`models/rosters/ncaa_team_aliases.csv`, NCAA org id →
+  team, each with its athletics domain as evidence);
+* **in the model, not in the NCAA 2026-27 D-I MBB list**: Saint Francis (PA) (`T0293`),
+  which left Division I after 2025-26;
+* **in the NCAA list, not in the model**: University of West Florida (org 11740,
+  ASUN, `goargos.com`), new to D-I in 2026-27. It has no canonical team or ESPN id in
+  the lake yet, so it is reported, never guessed;
+* reclassifying / recent programs handled explicitly: Le Moyne, Mercyhurst, West
+  Georgia, New Haven (all mapped), Merrimack and North Alabama (NCAA reclass fields
+  set), West Florida (unmapped).
+
+Conference labels differ for 60 mapped schools; these are 2026-27 realignment and
+abbreviations ("Southwestern Athletic Conf."). They are informational, never used to match.

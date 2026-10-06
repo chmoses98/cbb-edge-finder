@@ -134,3 +134,18 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Expected rotation model | top-5 82%, starters 78%, minutes MAE 7.4 (naive 10.6) | adopted for P-ROSTER-1 |
 | ESPN preseason rosters | 82% continuity listed vs 42% actual; 183/296 list ≥ 2 exhausted players | stale; CONFIRMED rule |
 | P-ROSTER-1 overlay | deployed PROSPECTIVE_ONLY on pure-0.5.0 | evaluated on 2026–27 |
+
+## Wave 7 outcomes (see research/reports/WAVE7.md; preregistration research/hypotheses/WAVE7.md)
+
+| Item | Result (live snapshot 20261005T215634Z) | Status |
+|---|---|---|
+| NCAA Membership Directory (public memberList JSON) | 365 D-I MBB members; 364 verified athletics domains | authority for universe and domains |
+| Universe reconciliation | 257 exact + 107 verified alias; Saint Francis out; West Florida new (unmapped) | done |
+| Official roster discovery + parsers (SIDEARM / WMT / table) | 349 / 364 pages; 342 CURRENT or PROBABLY_CURRENT | deployed (daily) |
+| Identity (exact only, A2/A4) | 97.2% of official names; 98.6% of ≥ 10-min rotation players have an ESPN id | deployed |
+| Team confidence | CONFIRMED 320, LIKELY 3, CONFLICTED 20, STALE 18, UNKNOWN 4 | 88.5% vs 90% target |
+| Departed-player exposure, pre-tip | BASE 147 / 200 game-1 minutes on departed players; ROSTER 0 | scored after games |
+| Positional rotation bounds | top-5 0.816 → 0.802 | rejected |
+| Water-filled rotation (A3) | same ranking; exactly 200 minutes | adopted |
+| Continuity correction audit | mean −0.67; \|adj\| p95 5.3, max 8.4; explained by measured turnover (truth continuity 0.263 vs expected 0.472) | uncapped; prospective test |
+| Historical freeze | none | by design |

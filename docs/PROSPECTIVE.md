@@ -136,6 +136,16 @@ from that state with the same code. Each record carries
   * `model_monitor.json`: every version and overlay, by games-seen slice, with market
     gap as a benchmark only;
   * `proster_metrics.json`: the preregistered P-ROSTER-1 questions;
-  * `rotation_scorecard.csv`: game-1 rotation accuracy per snapshot.
+  * `rotation_scorecard.csv`: game-1 rotation accuracy per snapshot;
+  * `false_inclusion.csv`: departed-player false inclusion, BASE (last season's shares)
+    vs the archived P-ROSTER rotation (`research/hypotheses/WAVE7.md` 7).
+* Wave 7 inputs:
+  * the roster truth now includes official athletics rosters for the whole D-I
+    universe (NCAA Membership Directory → generated, pinned domain registry →
+    discovery and parsers);
+  * for a CONFIRMED team only official-roster players enter the rotation;
+  * shares are water-filled to exactly 200 minutes, at most 40 per player;
+  * each snapshot archives a continuity-correction audit and rotation sanity checks.
+  * The authority of (a) and (b) is unchanged.
 * Not a frozen version and never the incumbent. Game-1 results never alter archived
   game-1 records.

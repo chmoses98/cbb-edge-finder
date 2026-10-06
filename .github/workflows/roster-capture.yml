@@ -14,6 +14,7 @@ on:
   pull_request:
     paths:
       - "cbb_edge/availability/**"
+      - "cbb_edge/rosters/**"
       - ".github/workflows/roster-capture.yml"
 
 concurrency:
@@ -32,7 +33,7 @@ permissions:
 jobs:
   capture:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -65,12 +66,22 @@ jobs:
         run: |
           if [ -d archive ]; then OUT=archive; LIMIT=""; else OUT=capture_out; LIMIT="--teams-limit 8"; fi
           python -m cbb_edge.availability.capture rosters --out "$OUT" --state "$OUT/state/roster_state.json" $( [ "$(date -u +%u)" = "1" ] && echo --full ) $LIMIT | tee capture_summary.json
-      - name: Roster truth (multi-source resolution, Wave 6)
+      - name: NCAA Membership Directory refresh (weekly Sep-Nov, monthly otherwise)
         if: github.event_name != 'pull_request'
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
           set -o pipefail
+          disc=$(ls archive/official/*/*/*/*_discovery.json 2>/dev/null | sort | tail -1 || true)
+          python -m cbb_edge.rosters.ncaa_directory --out archive --if-due ${disc:+--redirects "$disc"} | tee directory_summary.json
+      - name: Roster truth (official rosters + multi-source resolution, Waves 6-7)
+        if: github.event_name != 'pull_request'
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set -o pipefail
+          # the newest NCAA-derived registry (checksum-verified at import) or the committed one
+          [ -f archive/ncaa_directory/latest_registry.json ] && export CBB_DOMAIN_REGISTRY="$PWD/archive/ncaa_directory/latest_registry.json"
           python -m cbb_edge.rosters.capture --archive archive | tee truth_summary.json
       - uses: actions/upload-artifact@v4
         if: github.event_name == 'pull_request'

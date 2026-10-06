@@ -65,7 +65,8 @@ MIN_OFFICIAL_IDENTITY = 0.8  # share of a fresh official listing matched to ESPN
 STATUSES = ("CONFIRMED", "LIKELY", "CONFLICTED", "STALE", "UNKNOWN")
 ROW_COLS = [
     "source", "captured_at", "team_id", "player_id", "ncaa_player_id", "name", "position",
-    "class_label", "height_in", "jersey", "source_season", "previous_school",
+    "class_label", "height_in", "jersey", "source_season", "previous_school", "identity",
+    "source_url", "profile_url", "hometown",
 ]  # fmt: skip
 
 
@@ -89,8 +90,12 @@ class TruthConfig:
 
 def norm_name(s: object) -> str:
     """Exact-match key: accents stripped, lower case, punctuation and suffixes removed."""
-    t = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode()
-    t = re.sub(r"[^a-z ]", " ", t.lower())
+    t = str(s or "")
+    # a quoted nickname or a parenthetical is not part of the name ("Samuel "Tobi" X")
+    t = re.sub(r'["“”][^"“”]*["“”]|\([^)]*\)', " ", t)
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode()
+    t = re.sub(r"[.'’`]", "", t.lower())  # "D.J." == "DJ", "D'Arcy" == "DArcy"
+    t = re.sub(r"[^a-z ]", " ", t)
     t = re.sub(r"\b(jr|sr|ii|iii|iv|v)\b", " ", t)
     return re.sub(r"\s+", " ", t).strip()
 
@@ -114,6 +119,7 @@ def team_freshness(
     target_season: int,
     prev_core: dict[str, set[str]] | None = None,
     d1_seasons: dict[str, float] | None = None,
+    official_pages: dict[str, tuple[str, str]] | None = None,
 ) -> pd.DataFrame:
     """One row per (source, team): fresh?, reason, n_players.
 
@@ -127,7 +133,11 @@ def team_freshness(
         g = GROUP[src]
         seasons = pd.to_numeric(x["source_season"], errors="coerce")
         players = set(x["player_id"].dropna())
-        if seasons.notna().any() and seasons.max() < target_season:
+        if g in OFFICIAL and official_pages is not None and team in official_pages:
+            # official page freshness (official.page_freshness, Wave 7)
+            st, why = official_pages[team]
+            fresh, reason = st in ("CURRENT", "PROBABLY_CURRENT"), f"official_{st.lower()}:{why}"
+        elif seasons.notna().any() and seasons.max() < target_season:
             fresh, reason = False, f"season_label_{int(seasons.max())}"
         elif (
             g == "espn"
@@ -174,7 +184,10 @@ def match_official(rows: pd.DataFrame) -> pd.DataFrame:
     """Give official (name-only) rows the ESPN id of the same team's unique exact-name
     match. Returns rows with ``player_id`` filled where matched and ``identity`` flag."""
     rows = rows.copy()
-    rows["identity"] = np.where(rows["player_id"].notna(), "espn_id", "unmatched")
+    prior = rows["identity"] if "identity" in rows else pd.Series(index=rows.index, dtype=object)
+    rows["identity"] = np.where(
+        prior.notna(), prior, np.where(rows["player_id"].notna(), "espn_id", "unmatched")
+    )
     espn = rows[(rows["group"] == "espn") & rows["player_id"].notna()]
     key = espn.drop_duplicates(["team_id", "player_id"]).groupby(["team_id", "name_key"])
     uniq = key["player_id"].agg(lambda v: v.iloc[0] if v.nunique() == 1 else None)
@@ -246,6 +259,12 @@ def resolve(
         fresh[["source", "team_id", "fresh", "reason"]], on=["source", "team_id"], how="left"
     )
     r["fresh"] = r["fresh"].fillna(False).astype(bool)
+    # no D-I history by exact search + listed as a freshman (identity.py): a stable
+    # synthetic id, so the player is ON the roster (first_d1) without an ESPN identity
+    nod1 = r["identity"].eq("no_d1_history") & r["player_id"].isna()
+    r.loc[nod1, "player_id"] = (
+        "N:" + r.loc[nod1, "team_id"].astype(str) + ":" + r.loc[nod1, "name_key"]
+    )
     r["key"] = r["player_id"].fillna("U:" + r["team_id"].astype(str) + ":" + r["name_key"])
     # same-feed supersession: per (player, group) keep the latest fresh capture only
     r["captured_ts"] = pd.to_datetime(r["captured_at"], utc=True, format="ISO8601")
@@ -270,13 +289,24 @@ def resolve(
     off_fr = fr[fr["group"].isin(OFFICIAL)]
     official_teams = set(off_fr["team_id"])
     official_keys = set(zip(off_fr["key"], off_fr["team_id"], strict=True))
+    # ... and that is applied BEFORE cross-team conflicts are looked for: a transfer on
+    # his new team's official roster whom his old team's fresh official roster omits is
+    # a departure from the old team, not a conflict (only the old team's ESPN listing
+    # still names him there)
+    omitted = np.array([
+        t in official_teams and (k, t) not in official_keys and g not in OFFICIAL
+        for k, t, g in zip(r["key"], r["team_id"], r["group"], strict=True)
+    ], dtype=bool)  # fmt: skip
+    r["official_omits"] = omitted & r["fresh"].to_numpy()
+    r.loc[r["official_omits"], "fresh"] = False
+    fr = r[r["fresh"]]
     fresh_teams = fr.groupby("key")["team_id"].agg(lambda v: sorted(set(v)))
     recs = []
     for (key, team), x in r.groupby(["key", "team_id"]):
         fx = x[x["fresh"]]
         groups = sorted(set(fx["group"]))
         other = [t for t in fresh_teams.get(key, []) if t != team]
-        absent = False
+        absent = bool(x["official_omits"].any())
         if str(key).startswith("U:"):
             status = "UNKNOWN"
         elif fx.empty:
@@ -285,15 +315,13 @@ def resolve(
             status = "CONFLICTED"
         elif len(groups) >= 2 or (set(groups) & OFFICIAL):
             status = "CONFIRMED"
-        elif team in official_teams and (key, team) not in official_keys:
-            status, absent = "STALE", True
         else:
             status = "LIKELY"
         first = x.iloc[0]
         recs.append(
             {
                 "player_id": None if str(key).startswith("U:") else key,
-                "espn_athlete_id": None if str(key).startswith("U:") else str(key)[1:],
+                "espn_athlete_id": None if str(key)[:2] in ("U:", "N:") else str(key)[1:],
                 "ncaa_player_id": x["ncaa_player_id"].dropna().iloc[0]
                 if x["ncaa_player_id"].notna().any()
                 else None,
@@ -395,7 +423,9 @@ def team_summary(truth: pd.DataFrame, fresh: pd.DataFrame) -> pd.DataFrame:
     s["n_dropped"] = dropped.groupby(truth["team_id"]).sum().astype(int)
     ok = (s["n_confirmed"] + s["n_likely"]) / (s["n_listed"] - s["n_dropped"]).clip(lower=1)
     # identity coverage of the fresh official listing: names that match no ESPN id have
-    # no observed history, so the team's rotation cannot be built from them
+    # no observed history, so the team's rotation cannot be built from them (a listed
+    # freshman with no D-I history by exact search carries an "N:" id and counts as
+    # resolved: there is no history to find, amendment A2)
     off = truth["fresh_sources"].map(lambda v: any(GROUP.get(x) in OFFICIAL for x in v))
     cov = truth[off].groupby("team_id")["player_id"].apply(lambda v: float(v.notna().mean()))
     s["official_identity_coverage"] = cov.reindex(s.index)

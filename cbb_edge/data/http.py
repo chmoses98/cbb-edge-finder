@@ -25,6 +25,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urljoin
 
 import requests
 
@@ -73,13 +74,53 @@ class FetchResult:
         return json.loads(self.path.read_text())
 
 
-def _space(spec: cost_policy.SourceSpec) -> None:
+def _space(spec: cost_policy.SourceSpec, url: str = "") -> None:
+    """Minimum spacing per source, or per (source, host) for ``per_host`` sources (many
+    independent official school sites: each host gets its own 5 s spacing). The slot is
+    reserved under the lock and the wait happens outside it, so concurrent workers on
+    different hosts never block each other and two workers never share a slot."""
+    key = spec.key
+    if spec.per_host:
+        key = f"{spec.key}|{cost_policy._host(url)}"
     with _spacing_lock:
-        last = _last_request.get(spec.key, 0.0)
-        wait = spec.min_interval_s - (time.monotonic() - last)
-        if wait > 0:
-            time.sleep(wait)
-        _last_request[spec.key] = time.monotonic()
+        now = time.monotonic()
+        slot = max(now, _last_request.get(key, -1e18) + spec.min_interval_s)
+        _last_request[key] = slot
+    if slot > now:
+        time.sleep(slot - now)
+
+
+MAX_REDIRECTS = 5
+
+
+class RedirectNotAuthorized(cost_policy.CostPolicyViolation):
+    """A redirect pointed at a host the cost policy does not authorize for this source.
+    The target is NOT requested; ``target`` records where it pointed."""
+
+    def __init__(self, msg: str, target: str):
+        super().__init__(msg)
+        self.target = target
+
+
+def _get_following(sess, source, spec, url, params, hdrs, timeout):  # noqa: ANN001, ANN202
+    """GET with redirects followed here, hop by hop: every hop is authorized (and
+    spaced) BEFORE it is requested, so a redirect can never reach an unregistered host."""
+    cur, cur_params = url, params
+    for hop in range(MAX_REDIRECTS + 1):
+        if hop:
+            try:
+                cost_policy.authorize(source, cur, record=False)
+            except cost_policy.CostPolicyViolation as e:
+                raise RedirectNotAuthorized(str(e), cur) from e
+        _space(spec, cur)
+        resp = sess.get(cur, params=cur_params, headers=hdrs, timeout=timeout, stream=True,
+                        allow_redirects=False)  # fmt: skip
+        if not resp.is_redirect:
+            return resp
+        nxt = urljoin(resp.url or cur, resp.headers.get("Location", ""))
+        resp.close()
+        cur, cur_params = nxt, None
+    raise requests.TooManyRedirects(f"more than {MAX_REDIRECTS} redirects from {url}")
 
 
 def fetch(
@@ -122,8 +163,7 @@ def fetch(
         attempt += 1
         # Authorize EVERY attempt (retries also consume paid quota).
         cost_policy.authorize(source, url)
-        _space(spec)
-        resp = sess.get(url, params=params, headers=hdrs, timeout=timeout, stream=True)
+        resp = _get_following(sess, source, spec, url, params, hdrs, timeout)
         if resp.status_code == 404 and not_found_ok:
             miss_path.parent.mkdir(parents=True, exist_ok=True)
             miss_path.write_text(
@@ -161,6 +201,8 @@ def fetch(
         "bytes": path.stat().st_size,
         "schema_version": schema_version,
         "content_type": resp.headers.get("Content-Type"),
+        "final_url": resp.url,
+        "status": resp.status_code,
         # source-side freshness (roster truth: is the source overwritten in place?)
         "last_modified": resp.headers.get("Last-Modified"),
         "etag": resp.headers.get("ETag"),

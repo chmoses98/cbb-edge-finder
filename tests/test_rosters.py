@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from cbb_edge.rosters import school_sites, truth
+from cbb_edge.rosters import truth
+from cbb_edge.rosters.parsers import sidearm
 
 CFG = truth.TruthConfig(target_season=2027)
 NOW = pd.Timestamp("2026-10-06T12:00:00Z")
@@ -161,8 +162,9 @@ Jersey Number</span> 3<!--]--></span><h3>Ann Guard</h3><span class="s-person-det
 
 
 def test_sidearm_parser_players_only_and_season():
-    rows = school_sites.parse_sidearm(SIDEARM)
-    assert school_sites.season_label(SIDEARM) == 2027
+    parsed = sidearm.parse(SIDEARM, "https://goduke.com/sports/mens-basketball/roster")
+    rows = parsed.players
+    assert parsed.season_label == 2027
     assert len(rows) == 1
     r = rows[0]
     assert (r["name"], r["jersey"], r["position"], r["class_label"]) == (
@@ -172,3 +174,28 @@ def test_sidearm_parser_players_only_and_season():
         "So.",
     )
     assert r["height_in"] == 74.0 and r["previous_school"] == "Some HS"
+
+
+def test_transfer_omitted_by_old_teams_official_roster_is_not_a_conflict():
+    rows = truth.rows_frame(
+        [
+            _row("espn_site", "T1", "P2", "Bee Two", 2027),  # stale ESPN: still on T1
+            _row("school_site", "T1", None, "Other Guy", 2027),  # T1 official omits him
+            _row("espn_site", "T1", "P8", "Other Guy", 2027),
+            _row("school_site", "T2", "P2", "Bee Two", 2027),  # T2 official (identity resolved)
+            _row("espn_core", "T2", "P2", None, 2027),
+        ]
+    )
+    t, conf = truth.resolve(rows, truth.team_freshness(rows, 2027), _exp(), CFG, NOW)
+    st = t.dropna(subset=["player_id"]).set_index(["player_id", "team_id"])
+    assert st.loc[("P2", "T2"), "status"] == "CONFIRMED"
+    assert st.loc[("P2", "T1"), "status"] == "STALE" and bool(
+        st.loc[("P2", "T1"), "absent_from_official"]
+    )
+    assert "listed_on_multiple_teams" not in set(conf["kind"])
+
+
+def test_norm_name_initials_apostrophes_nicknames():
+    assert truth.norm_name("D.J. Wagner") == truth.norm_name("DJ Wagner") == "dj wagner"
+    assert truth.norm_name('Samuel "Tobi" Ariyibi') == "samuel ariyibi"
+    assert truth.norm_name("Patrick D'Arcy") == "patrick darcy"

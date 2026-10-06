@@ -72,15 +72,18 @@ def kalshi_map(kalshi: pd.DataFrame, games: pd.DataFrame) -> dict[str, tuple[int
     return out
 
 
-def rotation_card(rosters: Path, games: pd.DataFrame, season: int) -> pd.DataFrame:
+def rotation_card(
+    rosters: Path, games: pd.DataFrame, season: int
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Each team's first game vs the archived P-ROSTER states (actual minutes from the
-    free SportsDataverse player box release asset)."""
+    free SportsDataverse player box release asset): the rotation scorecard and the
+    departed-player false-inclusion table (WAVE7.md 7)."""
     from cbb_edge.rosters import scorecard
 
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     p = sdv.download_live("player_box", season, stamp)
     if p is None:
-        return pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame()
     b = pd.read_parquet(p)
     box = pd.DataFrame(
         {
@@ -103,7 +106,16 @@ def rotation_card(rosters: Path, games: pd.DataFrame, season: int) -> pd.DataFra
     ).dropna()
     first = g.sort_values("start_time_utc").groupby("team_id").head(1)
     first = first.rename(columns={"game_id": "espn_game_id", "start_time_utc": "tip"})
-    return scorecard.rotation_scorecard(rosters, first, box)
+    # departed-player false inclusion (WAVE7.md 7): each team's first five games, DNP rows kept
+    g5 = g.sort_values("start_time_utc").groupby("team_id").head(5)
+    box5 = box.merge(
+        g5.rename(columns={"game_id": "espn_game_id"})[["espn_game_id", "team_id"]],
+        on=["espn_game_id", "team_id"],
+    )
+    hist = pd.read_parquet(Path(scorecard.__file__).resolve().parents[2] / "models" / "rosters"
+                           / "history_2026.parquet")  # fmt: skip
+    fi = scorecard.false_inclusion(rosters, first, box5, hist, season)
+    return scorecard.rotation_scorecard(rosters, first, box), fi
 
 
 def main() -> None:
@@ -151,8 +163,9 @@ def main() -> None:
     (a.out / "proster_metrics.json").write_text(json.dumps(proster, indent=1, default=float))
     rot = pd.DataFrame()
     if a.rosters is not None and a.rosters.exists() and len(games):
-        rot = rotation_card(a.rosters, games, a.season)
+        rot, fi = rotation_card(a.rosters, games, a.season)
         rot.to_csv(a.out / "rotation_scorecard.csv", index=False)
+        fi.to_csv(a.out / "false_inclusion.csv", index=False)
     summary = {
         "season": a.season,
         "projection_records": len(recs),

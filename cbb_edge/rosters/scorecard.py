@@ -177,3 +177,67 @@ def rotation_scorecard(
                 "rotation_recall": len(a_rot & p_rot) / len(a_rot) if a_rot else np.nan,
             })  # fmt: skip
     return pd.DataFrame(rows)
+
+
+def _rotation_metrics(
+    shares: pd.Series, listed: set, actual: pd.Series, hist: pd.DataFrame
+) -> dict:
+    s = shares[shares > 0]
+    false = s[~s.index.isin(listed)]
+    h = hist.reindex(false.index)
+    in_rot = set(s.index)
+    tot = float(actual.sum())
+    return {
+        "n_rotation": int(len(s)),
+        "false_players": int(len(false)),
+        "false_minutes": float(40 * false.sum()),
+        "false_usage": float((false * h["usage_share"].fillna(0.0)).sum()),
+        "false_value": float((false * h["rapm_net"].fillna(0.0)).sum()),
+        "omitted_minutes_share": float(actual[~actual.index.isin(in_rot)].sum() / tot)
+        if tot > 0
+        else np.nan,
+    }
+
+
+def false_inclusion(
+    roster_archive: Path,
+    first_games: pd.DataFrame,
+    box5: pd.DataFrame,
+    history: pd.DataFrame,
+    season: int,
+) -> pd.DataFrame:
+    """Departed-player false inclusion (preregistered, research/hypotheses/WAVE7.md 7).
+
+    ``first_games``: team_id, espn_game_id, tip. ``box5``: every box-score row (played
+    or DNP) of each team's first five games: espn_game_id, team_id, player_id, minutes.
+    ``history``: models/rosters/history_2026.parquet. A rotation player is FALSE if he
+    is listed in none of the team's first five box scores. BASE = last season's full
+    minute shares (what pure-0.5.0 uses at game 1); ROSTER = the archived P-ROSTER-1
+    expected rotation at each offset."""
+    states = _states(roster_archive)
+    last = history[history["role_season"] == season - 1]
+    hist = history.drop_duplicates("player_id").set_index("player_id")
+    rows = []
+    for g in first_games.itertuples(index=False):
+        listed = set(box5.loc[box5["team_id"] == g.team_id, "player_id"])
+        if not listed:
+            continue
+        act = box5[(box5["espn_game_id"] == g.espn_game_id) & (box5["team_id"] == g.team_id)]
+        actual = act.set_index("player_id")["minutes"].astype(float)
+        base = last[last["role_team"] == g.team_id].set_index("player_id")["min_share"]
+        rows.append({"team_id": g.team_id, "espn_game_id": g.espn_game_id, "rotation": "BASE",
+                     "snapshot": None, **_rotation_metrics(base, listed, actual, hist)})  # fmt: skip
+        for lab, off in OFFSETS.items():
+            snap = [s for s in states if s[0] < g.tip - off]
+            if not snap:
+                continue
+            ts, st = snap[-1]
+            team = next((t for t in st if t["team_id"] == g.team_id), None)
+            if team is None or not team.get("expected_rotation"):
+                continue
+            sh = pd.Series({r["player_id"]: r["share"] for r in team["expected_rotation"]})
+            rows.append({"team_id": g.team_id, "espn_game_id": g.espn_game_id,
+                         "rotation": "ROSTER", "snapshot": lab, "snapshot_ts": ts.isoformat(),
+                         "roster_confidence": team.get("roster_confidence"),
+                         **_rotation_metrics(sh, listed, actual, hist)})  # fmt: skip
+    return pd.DataFrame(rows)

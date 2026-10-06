@@ -9,8 +9,10 @@ Sources (docs/ROSTER_SOURCE_AUDIT.md), all through the network chokepoint:
 * ``espn_core``   ESPN core season athletes for the target season (and, once, the
                   previous season: the "copy" freshness test);
 * ``sdv_rosters`` the SportsDataverse rosters release asset (a dated live copy);
-* ``school_site`` official SIDEARM roster pages for allowlisted teams
-                  (``school_sites.SCHOOL_ROSTERS``).
+* ``school_site`` official athletics roster pages for every team in the NCAA-derived
+                  domain registry (``official`` / ``discovery`` / ``parsers``), with
+                  identities resolved by ``identity`` and page freshness from
+                  ``official.page_freshness`` (Wave 7).
 
 stats.ncaa.org roster pages sit behind a bot challenge and are NOT used.
 
@@ -39,7 +41,7 @@ import pandas as pd
 from cbb_edge.availability.capture import current_d1_teams
 from cbb_edge.data.http import fetch
 from cbb_edge.data.ids.teams import _espn_map
-from cbb_edge.rosters import school_sites, truth
+from cbb_edge.rosters import events, identity, official, truth
 
 CORE = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball"
 REPO = Path(__file__).resolve().parents[2]
@@ -131,30 +133,6 @@ def sdv_rows(season: int, stamp: str) -> list[dict]:
     ]
 
 
-def school_rows(stamp: str) -> list[dict]:
-    emap = _espn_map()
-    out = []
-    for t, url in school_sites.SCHOOL_ROSTERS.items():
-        try:
-            r = fetch("school_athletics", url, dest=f"rosters_school/{stamp}_{t}.html", timeout=60)
-        except Exception:  # noqa: BLE001
-            continue
-        page = r.path.read_text(errors="replace")
-        season = school_sites.season_label(page)
-        for p in school_sites.parse_sidearm(page):
-            out.append(
-                {
-                    "source": "school_site",
-                    "captured_at": r.meta["retrieved_at"],
-                    "team_id": emap.get(t),
-                    "player_id": None,
-                    **p,
-                    "source_season": season,
-                }
-            )
-    return out
-
-
 def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, Any]:
     now = now or datetime.now(UTC)
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
@@ -178,22 +156,33 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
         for t, ids in core.items() for a in ids
     ]  # fmt: skip
     rows += sdv_rows(season, stamp)
-    rows += school_rows(stamp)
+    hist = pd.read_parquet(HISTORY) if HISTORY.exists() else pd.DataFrame(columns=["player_id"])
+    ost_p = archive / "state" / "official_state.json"
+    ostate = json.loads(ost_p.read_text()) if ost_p.exists() else {}
+    known = {t: v["roster_url"] for t, v in ostate.items() if v.get("roster_url")}
+    found = official.capture(season, stamp, known)
+    orows = pd.DataFrame(official.official_rows(found))
+    if len(orows):
+        espn_named = pd.DataFrame([r for r in rows if r.get("name") and r.get("player_id")])
+        orows = identity.resolve(orows, espn_named, season)
+        rows += orows.drop(columns=["identity_resolved", "platform"]).to_dict("records")
+    pages = official.page_freshness(orows, hist, season, found) if len(orows) else pd.DataFrame()
+    official_pages = {r.team_id: (r.page_status, r.page_reason) for r in pages.itertuples()}
     df = truth.rows_frame(rows)
     df = df[df["team_id"].notna()]
     prev_core = {emap.get(t): {f"P{a}" for a in ids} for t, ids in prev.items() if emap.get(t)}
-    hist = pd.read_parquet(HISTORY) if HISTORY.exists() else pd.DataFrame(columns=["player_id"])
     d1 = (
         dict(zip(hist["player_id"], hist["d1_seasons"], strict=True))
         if "d1_seasons" in hist
         else {}
     )
-    fresh = truth.team_freshness(df, season, prev_core, d1)
+    fresh = truth.team_freshness(df, season, prev_core, d1, official_pages)
     state_p = archive / "state" / "truth_state.json"
     prev_state = pd.DataFrame(json.loads(state_p.read_text())) if state_p.exists() else None
     recs, conflicts = truth.resolve(df, fresh, hist, truth.TruthConfig(season), pd.Timestamp(now),
                                     prev_state)  # fmt: skip
     teams_s = truth.team_summary(recs, fresh)
+    prev_snap = latest_snapshot(archive, stamp)
     day = archive / "truth" / now.strftime("%Y/%m/%d")
     day.mkdir(parents=True, exist_ok=True)
     for name, frame in (("records", recs), ("freshness", fresh), ("conflicts", conflicts)):
@@ -204,10 +193,10 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     (day / f"{stamp}_teams.json").write_text(teams_s.to_json(orient="records", indent=1))
     # P-ROSTER-1 team state at this snapshot (expected rotation + continuity inputs):
     # the archived T-7d / T-72h / T-24h / T-6h states for game-1 evaluation
-    from cbb_edge.rosters import overlay
+    from cbb_edge.rosters import overlay, rotation
 
     try:
-        rot = overlay.expected_rotation(recs, season)
+        rot = overlay.expected_rotation(recs, season, teams_s)
         cont = overlay.continuity(rot, season)
         conf = teams_s.set_index("team_id")["roster_confidence"] if len(teams_s) else {}
         state = []
@@ -217,11 +206,23 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
                 "team_id": t, "as_of": now.isoformat(), "roster_confidence": conf.get(t, "UNKNOWN"),
                 **{k: v for k, v in c.items() if k != "team_id"},
                 "expected_rotation": [
-                    {"player_id": q, "share": round(float(v), 4), "class": cl}
-                    for q, v, cl in zip(x["player_id"], x["share"], x["classification"], strict=True)
+                    {"player_id": q, "share": round(float(v), 4), "class": cl,
+                     "minutes": round(float(mi), 1), "p_rotation": float(pr),
+                     "expected_starter": bool(es), "usage_role": ur}
+                    for q, v, cl, mi, pr, es, ur in zip(
+                        x["player_id"], x["share"], x["classification"], x["minutes"],
+                        x["p_rotation"], x["expected_starter"], x["usage_role"], strict=True)
                 ],
             })  # fmt: skip
         (day / f"{stamp}_proster_state.json").write_text(json.dumps(state, default=str))
+        audit = overlay.continuity_audit(cont, dict(conf), season)
+        (day / f"{stamp}_continuity_audit.json").write_text(json.dumps(audit, indent=1))
+        gone = recs[recs["status"].eq("STALE") & recs["player_id"].notna()]
+        sanity = rotation.sanity(
+            rot, departed=set(zip(gone["team_id"], gone["player_id"], strict=True)),
+            exhausted=set(hist.loc[hist["d1_seasons"] >= 5, "player_id"]) if "d1_seasons" in hist else set(),
+        )  # fmt: skip
+        sanity.to_json(day / f"{stamp}_rotation_sanity.jsonl", orient="records", lines=True)
     except Exception as e:  # noqa: BLE001  the truth snapshot itself is already written
         (day / f"{stamp}_proster_state.error.txt").write_text(repr(e)[:2000])
     new_keys = 0
@@ -234,11 +235,61 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     st = recs[["player_id", "team_id", "first_seen", "last_confirmed"]].dropna(subset=["player_id"])
     state_p.parent.mkdir(parents=True, exist_ok=True)
     state_p.write_text(st.to_json(orient="records"))
+    # official pages: discovery report, page freshness, parsed rows, raw evidence
+    od = archive / "official" / now.strftime("%Y/%m/%d")
+    od.mkdir(parents=True, exist_ok=True)
+    disc = official.discovery_report(found)
+    (od / f"{stamp}_discovery.json").write_text(json.dumps(disc, indent=1, default=str))
+    if len(pages):
+        pages.to_json(od / f"{stamp}_pages.jsonl", orient="records", lines=True)
+    if len(orows):
+        orows.to_json(od / f"{stamp}_rows.jsonl", orient="records", lines=True,
+                      default_handler=str)  # fmt: skip
+    ost_p.parent.mkdir(parents=True, exist_ok=True)
+    ost_p.write_text(json.dumps(official.save_evidence(found, archive, stamp, ostate), indent=1))
+    # roster change events vs the previous snapshot (append-only)
+    ev = events.diff(stamp, recs, teams_s, fresh, *prev_snap)
+    evp = archive / "events" / now.strftime("%Y") / f"{stamp}_events.jsonl"
+    evp.parent.mkdir(parents=True, exist_ok=True)
+    evp.write_text("".join(json.dumps(e, default=str) + "\n" for e in ev))
     rep = quality_report(df, fresh, recs, conflicts, teams_s, new_keys, stamp)
+    rep["official"] = {k: v for k, v in disc.items() if k not in ("not_found", "redirects")}
+    rep["official"]["page_status"] = (
+        pages["page_status"].value_counts().to_dict() if len(pages) else {}
+    )
+    rep["official"]["identity"] = orows["identity"].value_counts().to_dict() if len(orows) else {}
+    rep["events"] = pd.Series([e["event"] for e in ev]).value_counts().to_dict() if ev else {}
+    from cbb_edge.rosters import dashboard, ncaa_directory
+
+    sc = dashboard.scorecard(official.load_registry(), found, pages, orows, fresh, teams_s,
+                             len(ncaa_directory.current_teams()))  # fmt: skip
+    rep["scorecard"] = sc
+    (archive / "reports").mkdir(parents=True, exist_ok=True)
+    md = dashboard.markdown(sc, stamp)
+    (archive / "reports" / f"roster_dashboard_{stamp}.md").write_text(md)
+    (archive / "reports" / "latest_dashboard.md").write_text(md)
     rp = archive / "reports" / f"roster_quality_{stamp}.json"
     rp.parent.mkdir(parents=True, exist_ok=True)
     rp.write_text(json.dumps(rep, indent=1, default=str))
     return rep
+
+
+def latest_snapshot(
+    archive: Path, before: str
+) -> tuple[pd.DataFrame | None, pd.DataFrame | None, pd.DataFrame | None]:
+    """Records, teams and freshness of the newest truth snapshot older than ``before``."""
+    snaps = sorted(
+        f for f in (archive / "truth").rglob("*_records.jsonl") if f.name.split("_")[0] < before
+    )
+    if not snaps:
+        return None, None, None
+    f = snaps[-1]
+    stamp = f.name.split("_")[0]
+    recs = pd.read_json(f, lines=True, dtype={"player_id": str, "team_id": str})
+    tp, fp = f.with_name(f"{stamp}_teams.json"), f.with_name(f"{stamp}_freshness.jsonl")
+    teams = pd.read_json(tp) if tp.exists() else None
+    fresh = pd.read_json(fp, lines=True) if fp.exists() else None
+    return recs, teams, fresh
 
 
 def quality_report(df, fresh, recs, conflicts, teams_s, new_keys, stamp) -> dict[str, Any]:

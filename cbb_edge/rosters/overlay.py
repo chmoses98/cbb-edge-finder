@@ -118,15 +118,24 @@ def rotation_features(recs: pd.DataFrame, season: int) -> pd.DataFrame:
     return out
 
 
-def expected_rotation(recs: pd.DataFrame, season: int) -> pd.DataFrame:
+def expected_rotation(
+    recs: pd.DataFrame, season: int, teams: pd.DataFrame | None = None
+) -> pd.DataFrame:
+    """Expected rotation over roster-truth players. For a CONFIRMED team only CONFIRMED
+    players (the current official roster) enter (Wave 7); other teams: CONFIRMED or
+    LIKELY players (the Wave 6 rule). Shares: ``rotation.allocate`` (200 minutes,
+    <= 40 per player)."""
+    from cbb_edge.rosters import rotation
+
+    if teams is not None and len(teams):
+        conf = teams.set_index("team_id")["roster_confidence"]
+        confirmed = recs["team_id"].map(conf).eq("CONFIRMED")
+        recs = recs[~confirmed | recs["status"].eq("CONFIRMED")]
     r = rotation_features(recs, season)
     if r.empty:
         return r.assign(share=[])
-    raw = np.clip(_rotation_model().predict(r[ROT_FEATURES]), 0.0, 1.0)
-    r["share_raw"] = raw
-    tot = r.groupby("team_id")["share_raw"].transform("sum")
-    r["share"] = (5 * r["share_raw"] / tot.replace(0, np.nan)).clip(upper=1.0).fillna(0.0)
-    return r
+    r["share_raw"] = np.clip(_rotation_model().predict(r[ROT_FEATURES]), 0.0, 1.0)
+    return rotation.allocate(r)
 
 
 def continuity(rot: pd.DataFrame, season: int) -> pd.DataFrame:
@@ -179,11 +188,17 @@ def roster_overlay(
     recs, teams, stamp = tr
     spec = load_spec()
     conf = teams.set_index("team_id")["roster_confidence"].to_dict()
-    rot = expected_rotation(recs, season)
+    rot = expected_rotation(recs, season, teams)
     cont = continuity(rot, season).set_index("team_id")
     ck = checkpoints.Checkpoint(model["version"], season - 1)
     pre = ck.preseason().set_index("team_id")["ret_min"]
-    trusted = {t for t, c in conf.items() if c in TRUSTED}
+    # a rotation that fails the structural checks (fewer than 5 players, not 200
+    # minutes, departed players) is never used: the base model stays authoritative
+    from cbb_edge.rosters import rotation as _rot
+
+    sane = _rot.sanity(rot)
+    sane_ok = set(sane.loc[sane["ok"], "team_id"]) if len(sane) else set()
+    trusted = {t for t, c in conf.items() if c in TRUSTED and t in sane_ok}
     shares = {
         (t, season): (x["player_id"].to_numpy(), x["share"].to_numpy())
         for t, x in rot.groupby("team_id")
@@ -275,3 +290,46 @@ def roster_overlay(
         }
         out.append(rec)
     return out
+
+
+def continuity_audit(cont: pd.DataFrame, conf: dict[str, str], season: int,
+                     version: str = "pure-0.5.0") -> dict[str, Any]:  # fmt: skip
+    """Pre-opening-day audit of component (b) (WAVE7.md 6): the per-team side term
+    coef . (dcont, tr_prev, first_d1) at games-seen 0 (decay 1) for every CONFIRMED team,
+    with the turnover that explains it. No cap, no rescaling: this only reports."""
+    from cbb_edge.app import checkpoints
+
+    spec = load_spec()
+    b = spec["component_b"]
+    coef = dict(zip(b["features"], b["coef"], strict=True))
+    pre = checkpoints.Checkpoint(version, season - 1).preseason().set_index("team_id")["ret_min"]
+    rows = []
+    for r in cont.itertuples(index=False):
+        if conf.get(r.team_id) != "CONFIRMED":
+            continue
+        exp_ret = float(pre.get(r.team_id, np.nan))
+        if not (np.isfinite(r.truth_cont) and np.isfinite(exp_ret)):
+            continue
+        f = {"dcont": r.truth_cont - exp_ret, "tr_prev": r.tr_prev, "first_d1": r.first_d1}
+        rows.append({"team_id": r.team_id, "adjustment": float(sum(coef[k] * f[k] for k in coef)),
+                     "truth_returning_share": float(r.truth_cont), "expected_returning_share": exp_ret,
+                     "incoming_transfer_prev_share": float(r.tr_prev),
+                     "first_d1_expected_to_play": float(r.first_d1),
+                     **{f"term_{k}": float(coef[k] * f[k]) for k in coef}})  # fmt: skip
+    a = pd.DataFrame(rows)
+    if a.empty:
+        return {"confirmed_teams": 0}
+    x = a["adjustment"].abs()
+    return {
+        "confirmed_teams": int(len(a)),
+        "mean": float(a["adjustment"].mean()),
+        "median": float(a["adjustment"].median()),
+        "abs_p90": float(x.quantile(0.9)),
+        "abs_p95": float(x.quantile(0.95)),
+        "abs_max": float(x.max()),
+        "n_abs_gt_2": int((x > 2).sum()),
+        "n_abs_gt_3": int((x > 3).sum()),
+        "n_abs_gt_4": int((x > 4).sum()),
+        "large": a[x > 2].sort_values("adjustment").to_dict(orient="records"),
+        "all": a.to_dict(orient="records"),
+    }
