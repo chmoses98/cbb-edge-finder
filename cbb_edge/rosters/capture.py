@@ -253,16 +253,25 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     evp.parent.mkdir(parents=True, exist_ok=True)
     evp.write_text("".join(json.dumps(e, default=str) + "\n" for e in ev))
     rep = quality_report(df, fresh, recs, conflicts, teams_s, new_keys, stamp)
-    rep["official"] = {k: v for k, v in disc.items() if k not in ("not_found", "redirects")}
+    rep["official"] = {
+        k: v for k, v in disc.items() if k not in ("not_found", "redirects", "linked")
+    }
     rep["official"]["page_status"] = (
         pages["page_status"].value_counts().to_dict() if len(pages) else {}
     )
     rep["official"]["identity"] = orows["identity"].value_counts().to_dict() if len(orows) else {}
     rep["events"] = pd.Series([e["event"] for e in ev]).value_counts().to_dict() if ev else {}
-    from cbb_edge.rosters import dashboard, ncaa_directory
+    from cbb_edge.rosters import dashboard, membership, ncaa_directory
 
+    n_univ = len(ncaa_directory.current_teams())
+    try:  # Wave 8: season-aware membership (a season outside the table: no filter)
+        m = membership.members(season)
+        mem = set(m["team_id"].dropna()) or None
+        n_univ = len(m) or n_univ  # members without a canonical id still count as uncovered
+    except Exception:  # noqa: BLE001
+        mem = None
     sc = dashboard.scorecard(official.load_registry(), found, pages, orows, fresh, teams_s,
-                             len(ncaa_directory.current_teams()))  # fmt: skip
+                             n_univ, mem)  # fmt: skip
     rep["scorecard"] = sc
     (archive / "reports").mkdir(parents=True, exist_ok=True)
     md = dashboard.markdown(sc, stamp)

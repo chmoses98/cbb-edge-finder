@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -55,6 +56,10 @@ def main() -> None:
     now = pd.Timestamp(datetime.now(UTC))
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     seasons = list(range(a.season - a.warmup, a.season + 1))
+    # provenance (Wave 8): the code commit and the roster-archive commit each record was
+    # built from. Added after validation; never an input to any projection.
+    code_sha = os.environ.get("GITHUB_SHA")
+    roster_commit = os.environ.get("CBB_ROSTER_ARCHIVE_COMMIT") or None
     for ds in HIST:
         sdv.download(ds, seasons[:-1])
         sdv.download_live(ds, a.season, stamp)
@@ -94,6 +99,7 @@ def main() -> None:
             continue
         for r in recs:
             r["prospective"]["role"] = role
+            r["prospective"]["code_sha"] = code_sha  # provenance only (Wave 8)
         out[version] = write_archive(recs, Path(a.out))
         if role == "challenger" and a.roster_dir and "possession" in model.get("extra_blocks", []):
             from cbb_edge.rosters.overlay import roster_overlay
@@ -102,6 +108,8 @@ def main() -> None:
                 ro = roster_overlay(a.season, now, model, recs, Path(a.roster_dir), a.horizon_h)
                 for r in ro:
                     r["prospective"]["role"] = "challenger_roster_overlay"
+                    r["prospective"]["code_sha"] = code_sha
+                    r["roster"]["truth_archive_commit"] = roster_commit
                 out[f"{version}+roster"] = write_archive(ro, Path(a.out))
             except Exception as e:  # noqa: BLE001
                 failed[f"{version}+roster"] = f"{type(e).__name__}: {e}"
@@ -110,6 +118,7 @@ def main() -> None:
             av = availability_overlay(a.season, now, model, recs, over, when, a.horizon_h)
             for r in av:
                 r["prospective"]["role"] = "challenger_availability_overlay"
+                r["prospective"]["code_sha"] = code_sha
             out[f"{version}+avail"] = write_archive(av, Path(a.out))
     print(
         json.dumps(

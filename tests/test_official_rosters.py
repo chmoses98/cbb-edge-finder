@@ -341,3 +341,97 @@ def test_roster_layer_never_imports_market_code():
             elif isinstance(node, ast.ImportFrom) and node.module:
                 mods = [node.module]
             assert not any(m.startswith("cbb_edge.market") for m in mods), p
+
+
+# ------------------------------------------------------------------ Wave 8: linked hosts
+ASU_HOME = (
+    '<html><a href="/sports/rosters">Rosters</a><script>var nav={"m":'
+    '"https:\\/\\/thesundevils.com\\/sports\\/mens-basketball\\/roster",'
+    '"w":"https:\\/\\/thesundevils.com\\/sports\\/womens-basketball\\/roster"}</script></html>'
+)
+
+
+def test_linked_host_rule_is_deterministic():
+    assert ncaa_directory.linked_host_ok("sundevils.com", "thesundevils.com")
+    assert not ncaa_directory.linked_host_ok("sundevils.com", "sundevils.com")
+    assert not ncaa_directory.linked_host_ok("sundevils.com", "big12sports.com")
+    assert not ncaa_directory.linked_host_ok("ua.edu", "rolltide.com")  # label < 5 chars
+
+
+def test_escaped_nav_link_is_read_but_unregistered_host_never_requested(monkeypatch):
+    calls = []
+
+    class R:
+        def __init__(self, url):
+            self.meta = {"final_url": url, "sha256": "abc"}
+            self.path = mock.Mock(read_text=lambda errors=None: ASU_HOME)
+
+    def fake_fetch(source, url, **kw):
+        calls.append(url)
+        return R(url) if url == "https://sundevils.com" else None
+
+    monkeypatch.setattr(discovery, "fetch", fake_fetch)
+    monkeypatch.setattr(discovery.robots, "allowed", lambda *a: True)
+    assert discovery.offsite_roster_links(ASU_HOME, "https://sundevils.com", "sundevils.com") == [
+        "https://thesundevils.com/sports/mens-basketball/roster"
+    ]
+    d = discovery.discover("T0006", "https://sundevils.com", 2027, "20261006T000000Z")
+    assert d.linked_to == "https://thesundevils.com/sports/mens-basketball/roster"
+    assert d.linked_evidence["page_sha256"] == "abc"
+    assert not any("thesundevils" in c for c in calls)  # recorded, never requested
+    # once the registry carries the host for this team, discovery follows the link
+    calls.clear()
+    d = discovery.discover("T0006", "https://sundevils.com", 2027, "20261006T000000Z",
+                           team_hosts=frozenset({"thesundevils.com"}))  # fmt: skip
+    assert calls[1] == "https://thesundevils.com/sports/mens-basketball/roster"
+    assert d.linked_to is None
+
+
+def test_registry_adds_linked_host_only_under_the_rule(tmp_path):
+    members = [_member(1, "Duke University", "goduke.com"), _member(2, "UNC", "goheels.com")]
+    u, _ = ncaa_directory.reconcile(
+        members, TEAMS, pd.DataFrame({"ncaa_org_id": [2], "team_id": ["T2"]})
+    )
+    ev = {"T1": [{"from": "https://goduke.com", "to": "https://www.thegoduke.com/x",
+                  "observed_at": "s"}],
+          "T2": [{"from": "https://goheels.com", "to": "https://goduke.com/r", "observed_at": "s"},
+                 {"from": "https://goheels.com", "to": "https://acc.com/r", "observed_at": "s"}]}  # fmt: skip
+    reg = ncaa_directory.build_registry(u, "t", "src", None, ev)
+    by = {r["team_id"]: r for r in reg["teams"]}
+    assert by["T1"]["linked_hosts"] == ["thegoduke.com"]
+    assert "linked_hosts" not in by["T2"]  # another member's host / unrelated host: rejected
+    assert ncaa_directory.registry_problems(reg) == []
+    p = tmp_path / "r.json"
+    p.write_text(json.dumps(reg))
+    assert "thegoduke.com" in cost_policy.registry_hosts(p)
+
+
+def test_discovery_report_carries_linked_evidence():
+    d = discovery.Discovery("T0006", "https://sundevils.com", "sundevils.com")
+    d.linked_to = "https://thesundevils.com/sports/mens-basketball/roster"
+    d.linked_evidence = {"from": "https://sundevils.com", "to": d.linked_to, "observed_at": "s"}
+    rep = official.discovery_report([d])
+    assert rep["linked"] == {"T0006": [d.linked_evidence]}
+    assert rep["not_found"][0]["linked_to"] == d.linked_to
+
+
+def test_www_404_falls_back_to_the_registered_bare_host(monkeypatch):
+    calls = []
+    page = '<a href="/sports/mens-basketball/roster">Roster</a>' + "".join(
+        f'<div class="s-person-card"><h3>P {i}</h3></div>' for i in range(3)
+    )
+
+    class R:
+        def __init__(self, url):
+            self.meta = {"final_url": url}
+            self.path = mock.Mock(read_text=lambda errors=None: page)
+
+    def fake_fetch(source, url, **kw):
+        calls.append(url)
+        return None if "://www." in url else R(url)
+
+    monkeypatch.setattr(discovery, "fetch", fake_fetch)
+    monkeypatch.setattr(discovery.robots, "allowed", lambda *a: True)
+    discovery.discover("T0065", "https://www.mutigers.com", 2027, "s")
+    assert calls[:3] == ["https://www.mutigers.com", "https://mutigers.com",
+                         "https://mutigers.com/sports/mens-basketball/roster"]  # fmt: skip

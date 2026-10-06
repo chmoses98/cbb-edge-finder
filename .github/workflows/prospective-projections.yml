@@ -59,6 +59,8 @@ jobs:
           mkdir -p rosters && cd rosters && git init -q
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch -q --depth=1 origin roster-archive && git checkout -q FETCH_HEAD || echo "no roster-archive yet"
+          # provenance (Wave 8): the roster-archive commit the P-ROSTER-1 records read
+          echo "CBB_ROSTER_ARCHIVE_COMMIT=$(git rev-parse -q --verify HEAD || true)" >> "$GITHUB_ENV"
       - name: Refresh free inputs and project
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data

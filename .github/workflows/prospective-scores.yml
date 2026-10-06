@@ -1,0 +1,108 @@
+name: prospective-scores
+
+# Wave 8: daily P-ROSTER-1 prospective scoreboard under the LOCKED Wave 7 protocol
+# (research/hypotheses/WAVE7.md section 7). Read-only over the archives; writes a dated
+# report directory to the append-only `prospective-scores` branch. With no settled game
+# it writes an empty scoreboard, so scoring starts by itself when the first game settles.
+# Nothing here can change a projection, a roster snapshot or any P-ROSTER-1 rule.
+
+on:
+  schedule:
+    - cron: "40 12 * 11,12 *"   # Nov-Dec daily, after SDV's 07:00 UTC refresh
+    - cron: "40 12 * 1-4 *"     # Jan-Apr
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "season (end year)"
+        default: "2027"
+  pull_request:
+    paths:
+      - "cbb_edge/rosters/prospective_score.py"
+      - "cbb_edge/rosters/membership.py"
+      - "scripts/prospective/score_proster.py"
+      - ".github/workflows/prospective-scores.yml"
+
+concurrency:
+  group: prospective-scores
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Fetch archive branches (read-only, FULL history for commit-time integrity)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          for b in projections-archive roster-archive espn-lines-archive; do
+            mkdir -p "arch/$b"
+            git -C "arch/$b" init -q
+            git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            if git -C "arch/$b" fetch -q origin "$b"; then
+              git -C "arch/$b" checkout -q -B "$b" FETCH_HEAD
+            else
+              echo "no $b yet"
+            fi
+          done
+      - name: Score
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set -o pipefail
+          python scripts/prospective/score_proster.py --season "${{ github.event.inputs.season || '2027' }}" \
+            --projections arch/projections-archive --rosters arch/roster-archive \
+            --espn arch/espn-lines-archive --out score_out | tee score_summary.json
+          cat score_out/dashboard.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prospective-scores-${{ github.run_id }}
+          path: score_out
+          retention-days: 90
+      - name: Append to prospective-scores (never overwrite)
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir rep && cd rep
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin prospective-scores; then
+            git checkout -q -b prospective-scores FETCH_HEAD
+          else
+            git checkout -q --orphan prospective-scores
+            printf '# P-ROSTER-1 prospective scoreboards\n\nAppend-only. One dated directory per run. Protocol: research/hypotheses/WAVE7.md section 7 (locked); diagnostics: research/hypotheses/WAVE8.md.\n' > README.md
+          fi
+          d="scores/$(date -u +%Y/%m/%Y-%m-%dT%H%M%SZ)"
+          [ -e "$d" ] && { echo "exists: $d"; exit 1; }
+          mkdir -p "$d" && cp ../score_out/* "$d/"
+          cp ../score_out/dashboard.md latest_dashboard.md
+          printf '%s\n' "$d" > LATEST
+          git add -A && git commit -q -m "prospective scores $d (code ${GITHUB_SHA})"
+          for i in 1 2 3 4; do
+            git push -q origin prospective-scores && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin prospective-scores && git rebase -q FETCH_HEAD || true
+          done
+          exit 1

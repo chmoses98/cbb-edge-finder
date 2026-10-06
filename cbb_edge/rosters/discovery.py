@@ -14,6 +14,13 @@ Order (fixed; no search engine, no spidering):
 3. a very small set of conventional paths;
 4. one level of links from the men's basketball page found on the home page.
 
+Wave 8: links are also read from JSON-escaped URLs in the page (written with backslash-escaped slashes,
+e.g. Drupal navigation data), and a men's basketball roster link from the official
+home page to ANOTHER host is followed only when that host is already registered to the
+same team (``team_hosts``). An unregistered one is recorded as ``linked_to`` evidence
+and never requested: the registry adds it, under the deterministic rule in
+``ncaa_directory.linked_host_ok``, at its next refresh.
+
 At most ``MAX_REQUESTS`` page requests per team (robots.txt aside).
 """
 
@@ -52,25 +59,32 @@ def detect_platform(html: str) -> str:
     return best if hits[best] > 0 else "generic"
 
 
+ESCAPED_URL = r"https?:\\/\\/[A-Za-z0-9.-]+(?:\\/[A-Za-z0-9._~%+-]+)+(?:\\/)?"
+
+
 def _links(html: str, base: str) -> list[tuple[str, str]]:
     out = []
     for m in re.finditer(r'<a\b[^>]*href="([^"#]+)"[^>]*>(.*?)</a>', html, flags=re.S | re.I):
         text = re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", m.group(2)))).strip()
         out.append((urljoin(base, unescape(m.group(1))), text))
+    # URLs inside JSON / script data, written with escaped slashes (no link text)
+    for m in re.finditer(ESCAPED_URL, html):
+        out.append((m.group(0).replace("\\/", "/"), ""))
     return out
 
 
-def _same_site(url: str, host: str) -> bool:
-    h = (urlsplit(url).hostname or "").lower()
-    return h == host or h.endswith("." + host) or host.endswith("." + h)
+def _same_site(url: str, host: str, extra: frozenset[str] = frozenset()) -> bool:
+    h = (urlsplit(url).hostname or "").lower().removeprefix("www.")
+    return any(h == x or h.endswith("." + x) or x.endswith("." + h) for x in {host, *extra})
 
 
-def roster_links(html: str, base: str, host: str) -> list[str]:
-    """Same-site links that look like the men's basketball roster (women's excluded)."""
+def roster_links(html: str, base: str, host: str, extra: frozenset[str] = frozenset()) -> list[str]:
+    """Links that look like the men's basketball roster (women's excluded), on the
+    site's own host or another host registered to the same team (``extra``)."""
     out = []
     for u, t in _links(html, base):
         lu = u.lower()
-        if not _same_site(u, host) or "women" in lu or "wbb" in lu or "wbkb" in lu:
+        if not _same_site(u, host, extra) or "women" in lu or "wbb" in lu or "wbkb" in lu:
             continue
         if (
             re.search(MBB, lu)
@@ -81,6 +95,19 @@ def roster_links(html: str, base: str, host: str) -> list[str]:
                 and "women" not in t.lower()
             )
         ):
+            out.append(u.split("?")[0])
+    return list(dict.fromkeys(out))
+
+
+def offsite_roster_links(html: str, base: str, host: str) -> list[str]:
+    """Men's basketball roster links (by path) from the official page to OTHER hosts."""
+    out = []
+    for u, _t in _links(html, base):
+        lu = u.lower()
+        h = (urlsplit(u).hostname or "").lower().removeprefix("www.")
+        if not h or _same_site(u, host) or "women" in lu:
+            continue
+        if re.search(MBB, lu) and "roster" in lu:
             out.append(u.split("?")[0])
     return list(dict.fromkeys(out))
 
@@ -121,6 +148,8 @@ class Discovery:
     error: str | None = None
     redirect_to: str | None = None  # an unregistered host the official link redirects to
     stamp: str | None = None
+    linked_to: str | None = None  # unregistered roster link on the official home page
+    linked_evidence: dict[str, Any] | None = None
 
 
 def _get(d: Discovery, url: str, stamp: str) -> str | None:
@@ -187,10 +216,16 @@ def _try_roster(d: Discovery, url: str, html: str | None, method: str, season: i
 
 
 def discover(
-    team_id: str, base_url: str, season: int, stamp: str, known_url: str | None = None
+    team_id: str,
+    base_url: str,
+    season: int,
+    stamp: str,
+    known_url: str | None = None,
+    team_hosts: frozenset[str] = frozenset(),
 ) -> Discovery:
     """``known_url``: the roster URL found by an earlier run (tried first: a normal daily
-    run costs one page request per site, plus robots.txt)."""
+    run costs one page request per site, plus robots.txt). ``team_hosts``: the team's
+    other registered hosts (redirect / linked evidence in the registry)."""
     host = (urlsplit(base_url).hostname or "").lower().removeprefix("www.")
     d = Discovery(team_id, base_url, host, stamp=stamp)
     if known_url:
@@ -200,6 +235,14 @@ def discover(
             if _try_roster(d, known_url, page, "known_url", season, stamp):
                 return d
     home = _get(d, base_url, stamp)
+    if home is None and (urlsplit(base_url).hostname or "").lower().startswith("www."):
+        # Wave 8 (C4): the www. name of the registered host answers 404 (e.g.
+        # www.mutigers.com while mutigers.com serves the site): try the bare host once
+        if d.attempts and d.attempts[-1].get("result") == "404":
+            apex = base_url.replace("://www.", "://", 1)
+            home = _get(d, apex, stamp)
+            if home is not None:
+                base_url = apex
     if home is None:
         d.error = "home_unreachable"
         # the conventional routes may still work when only the home page is blocked
@@ -213,7 +256,20 @@ def discover(
             base_url, host = final, fh
     d.platform = detect_platform(home) if home else "unknown"
     tried: set[str] = set()
-    cands = [(u, "home_link") for u in roster_links(home, base_url, host)[:2]]
+    cands = [(u, "home_link") for u in roster_links(home, base_url, host, team_hosts)[:2]]
+    if home and not cands:
+        from cbb_edge.rosters.ncaa_directory import linked_host_ok
+
+        for u in offsite_roster_links(home, base_url, host):
+            lh = (urlsplit(u).hostname or "").lower().removeprefix("www.")
+            if lh in team_hosts or not linked_host_ok(host, lh) or d.linked_to:
+                continue
+            page = d._last.meta if hasattr(d, "_last") else {}  # type: ignore[attr-defined]
+            d.linked_to = u
+            d.linked_evidence = {"from": page.get("final_url") or base_url, "to": u,
+                                 "observed_at": stamp, "page_sha256": page.get("sha256"),
+                                 "kind": "official_home_page_roster_link"}  # fmt: skip
+            d.attempts.append({"url": u, "result": "linked_unregistered"})
     cands += [(urljoin(base_url, p), "platform_route") for p in platform_paths(d.platform, season)]
     for u, how in cands:
         if u in tried:

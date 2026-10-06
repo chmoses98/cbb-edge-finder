@@ -85,7 +85,7 @@ def registry_hosts(path: Path = DOMAIN_REGISTRY) -> tuple[str, ...]:
     hosts = set()
     for r in body.get("teams", []):
         if r.get("status") == "VERIFIED":
-            hosts |= {r["host"], *r.get("redirect_hosts", [])}
+            hosts |= {r["host"], *r.get("redirect_hosts", []), *r.get("linked_hosts", [])}
     return tuple(sorted(h for h in hosts if h))
 
 

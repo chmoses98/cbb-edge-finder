@@ -28,6 +28,11 @@ the ONLY source of official school hosts for the cost policy
 (``cost_policy.SCHOOL_HOSTS``). A host that two unrelated schools share is an exception,
 not verified. A redirect observed from an NCAA Athletics Link to another host (recorded
 by roster discovery, ``redirects``) adds that host to the school's row, with evidence.
+Wave 8: so does a men's basketball roster link on the Athletics Link HOME page to
+another host (``linked``), when ``linked_host_ok`` holds (preregistered in
+research/hypotheses/WAVE8.md): the linked host's second-level label contains the
+registered host's second-level label (>= 5 characters, e.g. sundevils.com ->
+thesundevils.com) and the host is not registered to any other member.
 
     python -m cbb_edge.rosters.ncaa_directory --out <archive dir> [--write-models]
                                               [--redirects <discovery report json>]
@@ -177,15 +182,35 @@ def _conf(s: object) -> str:
     return normalize(str(s or "")).replace(" conference", "").replace(" conf", "")
 
 
+def _sld(host: str) -> str:
+    parts = host.lower().removeprefix("www.").split(".")
+    return parts[-2] if len(parts) >= 2 else parts[0]
+
+
+def linked_host_ok(registered: str, linked: str) -> bool:
+    """A roster link from the official home page to ``linked`` may add ``linked`` to the
+    school's hosts: its second-level label contains the registered one (>= 5 chars)."""
+    a, b = _sld(registered), _sld(linked)
+    return len(a) >= 5 and a in b and registered.lower() != linked.lower()
+
+
+def _hosts_of(ev: list[dict[str, Any]], own: str) -> list[str]:
+    return sorted({(urlsplit(x["to"]).hostname or "").lower().removeprefix("www.")
+                   for x in ev} - {own, ""})  # fmt: skip
+
+
 def build_registry(
     u: pd.DataFrame,
     retrieved_at: str,
     source_url: str,
     redirects: dict[str, list[dict[str, str]]] | None = None,
+    linked: dict[str, list[dict[str, Any]]] | None = None,
 ) -> dict[str, Any]:
     """Official athletics-domain registry rows (one per NCAA member). ``redirects``:
-    team_id -> [{"from": url, "to": url, "observed_at": ts}] observed by discovery."""
+    team_id -> [{"from": url, "to": url, "observed_at": ts}] observed by discovery;
+    ``linked``: the same for home-page roster links to another host (Wave 8)."""
     host_n = u["athletics_host"].value_counts()
+    taken = set(u["athletics_host"].dropna())
     rows = []
     for r in u.sort_values("ncaa_org_id").itertuples(index=False):
         if r.athletics_host is None:
@@ -197,6 +222,13 @@ def build_registry(
         else:
             status, why = "VERIFIED", None
         rd = (redirects or {}).get(str(r.team_id), [])
+        lk = [e for e in (linked or {}).get(str(r.team_id), [])
+              if r.athletics_host and linked_host_ok(r.athletics_host,
+                                                     urlsplit(e["to"]).hostname or "")
+              and (urlsplit(e["to"]).hostname or "").lower().removeprefix("www.") not in taken]  # fmt: skip
+        extra = {}
+        if lk:
+            extra = {"linked_hosts": _hosts_of(lk, r.athletics_host), "linked_evidence": lk}
         rows.append({
             "team_id": None if pd.isna(r.team_id) else r.team_id,
             "ncaa_org_id": int(r.ncaa_org_id), "school": r.school,
@@ -205,6 +237,7 @@ def build_registry(
             "redirect_hosts": sorted({(urlsplit(x["to"]).hostname or "").lower()
                                       .removeprefix("www.") for x in rd} - {r.athletics_host}),
             "redirect_evidence": rd,
+            **extra,
             "status": status, "exception": why,
             "retrieved_at": retrieved_at, "source_url": source_url,
         })  # fmt: skip
@@ -229,7 +262,7 @@ def registry_problems(reg: dict[str, Any]) -> list[str]:
         out.append("checksum")
     owner: dict[str, str] = {}
     for r in reg["teams"]:
-        for h in [r["host"], *r.get("redirect_hosts", [])]:
+        for h in [r["host"], *r.get("redirect_hosts", []), *r.get("linked_hosts", [])]:
             if h is None:
                 continue
             if not re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)+", h):
@@ -252,14 +285,32 @@ def _redirect_hosts(path: Path) -> set[tuple[str, str]]:
     if not path.exists():
         return set()
     return {(str(r.get("team_id")), h) for r in json.loads(path.read_text()).get("teams", [])
-            for h in r.get("redirect_hosts", [])}  # fmt: skip
+            for h in [*r.get("redirect_hosts", []), *r.get("linked_hosts", [])]}  # fmt: skip
 
 
-def missing_evidence(out: Path) -> bool:
-    """The committed registry carries redirect evidence the archived registry lacks:
-    regenerate now (otherwise the archived registry would override it)."""
-    return bool(_redirect_hosts(REGISTRY) - _redirect_hosts(out / "ncaa_directory" /
-                                                             "latest_registry.json"))  # fmt: skip
+def _report_hosts(report: Path | None) -> set[tuple[str, str]]:
+    if report is None or not Path(report).exists():
+        return set()
+    rep = json.loads(Path(report).read_text())
+    out = set()
+    for kind in ("redirects", "linked"):
+        for t, ev in (rep.get(kind) or {}).items():
+            for e in ev:
+                if isinstance(e.get("to"), str):
+                    out.add((str(t), (urlsplit(e["to"]).hostname or "").lower()
+                             .removeprefix("www.")))  # fmt: skip
+    return out
+
+
+def missing_evidence(out: Path, report: Path | None = None) -> bool:
+    """The committed registry or the latest discovery report carries redirect / linked
+    evidence the archived registry lacks: regenerate now (otherwise the archived
+    registry would override it, or new evidence would wait for the next refresh)."""
+    have = _redirect_hosts(out / "ncaa_directory" / "latest_registry.json")
+    own = {
+        (str(r.get("team_id")), r.get("host")) for r in json.loads(REGISTRY.read_text())["teams"]
+    }
+    return bool((_redirect_hosts(REGISTRY) | (_report_hosts(report) - own)) - have)
 
 
 def main() -> None:
@@ -275,7 +326,9 @@ def main() -> None:
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     snaps = sorted((Path(a.out) / "ncaa_directory").glob("2*"))
     if a.if_due and snaps:
-        if not is_due(snaps[-1].name, now) and not missing_evidence(Path(a.out)):
+        if not is_due(snaps[-1].name, now) and not missing_evidence(
+            Path(a.out), Path(a.redirects) if a.redirects else None
+        ):
             print(json.dumps({"skipped": True, "latest": snaps[-1].name}))
             return
     members, meta = fetch_members(stamp)
@@ -283,19 +336,24 @@ def main() -> None:
     # redirect evidence carries forward: the committed registry, the newest archived
     # registry, then the newest discovery report (latest observation last)
     redirects: dict[str, list[dict[str, str]]] = {}
+    linked: dict[str, list[dict[str, Any]]] = {}
     prev_regs = [REGISTRY, Path(a.out) / "ncaa_directory" / "latest_registry.json"]
     for pr in prev_regs:
         if pr.exists():
             for r in json.loads(pr.read_text()).get("teams", []):
                 if r.get("team_id") and r.get("redirect_evidence"):
                     redirects[r["team_id"]] = r["redirect_evidence"]
+                if r.get("team_id") and r.get("linked_evidence"):
+                    linked[r["team_id"]] = r["linked_evidence"]
     if a.redirects and Path(a.redirects).exists():
-        for t, ev in (json.loads(Path(a.redirects).read_text()).get("redirects") or {}).items():
-            ok = [e for e in ev if isinstance(e.get("to"), str)]
-            if ok:
-                redirects[t] = ok
+        rep_d = json.loads(Path(a.redirects).read_text())
+        for kind, into in (("redirects", redirects), ("linked", linked)):
+            for t, ev in (rep_d.get(kind) or {}).items():
+                ok = [e for e in ev if isinstance(e.get("to"), str)]
+                if ok:
+                    into[t] = ok
     src = MEMBER_LIST + "?" + "&".join(f"{k}={v}" for k, v in PARAMS.items())
-    reg = build_registry(u, meta["retrieved_at"], src, redirects)
+    reg = build_registry(u, meta["retrieved_at"], src, redirects, linked)
     rep["registry_problems"] = registry_problems(reg)
     rep["registry_status"] = pd.Series([r["status"] for r in reg["teams"]]).value_counts().to_dict()
     out = Path(a.out) / "ncaa_directory" / stamp
