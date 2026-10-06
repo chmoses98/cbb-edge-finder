@@ -1,0 +1,263 @@
+{
+ "teams": 365,
+ "roster_pages_found": 356,
+ "by_platform": {
+  "sidearm": 325,
+  "wmt": 28,
+  "presto": 3
+ },
+ "by_method": {
+  "known_url": 355,
+  "home_link": 1
+ },
+ "requests": 376,
+ "not_found": [
+  {
+   "team_id": "T0155",
+   "base_url": "https://www.rolltide.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.rolltide.com",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/mens-basketball/roster"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mens-basketball/roster/_payload.json?_b=5d629968-870d-45f2-8b27-0b64621d988d",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/mens-basketball/roster/_payload.json?_b=5d629968-870d-45f2-8b27-0b64621d988d",
+     "players": 0
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mens-basketball",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/mens-basketball"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/2016/6/10/tickets-m-baskbl-html",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/2016/6/10/tickets-m-baskbl-html"
+    }
+   ]
+  },
+  {
+   "team_id": "T0171",
+   "base_url": "https://lrtrojans.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://lrtrojans.com",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mens-basketball/roster",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mbkb/2026-27/roster",
+     "result": "robots_disallowed"
+    }
+   ]
+  },
+  {
+   "team_id": "T0184",
+   "base_url": "https://www.ccsubluedevils.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.ccsubluedevils.com",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    },
+    {
+     "url": "https://www.ccsubluedevils.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    },
+    {
+     "url": "https://www.ccsubluedevils.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    }
+   ]
+  },
+  {
+   "team_id": "T0190",
+   "base_url": "https://gocolgateraiders.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://gocolgateraiders.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    }
+   ]
+  },
+  {
+   "team_id": "T0137",
+   "base_url": "https://www.judolphins.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.judolphins.com",
+     "result": "ok",
+     "final_url": "https://judolphins.com/splash.aspx?id=splash_47"
+    },
+    {
+     "url": "https://www.judolphins.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://judolphins.com/sports/mens-basketball/roster",
+     "players": 0
+    },
+    {
+     "url": "https://www.judolphins.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    }
+   ]
+  },
+  {
+   "team_id": "T0334",
+   "base_url": "https://www.liuathletics.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.liuathletics.com",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/"
+    },
+    {
+     "url": "https://www.liuathletics.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/sports/mens-basketball/roster",
+     "players": 0
+    },
+    {
+     "url": "https://www.liuathletics.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://www.liuathletics.com/index.aspx",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/index.aspx"
+    },
+    {
+     "url": "https://www.liuathletics.com/sports/mens-basketball/schedule",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/sports/mens-basketball/schedule"
+    }
+   ]
+  },
+  {
+   "team_id": "T0050",
+   "base_url": "https://www.lsusports.net",
+   "platform": "wmt",
+   "error": "roster_not_found",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.lsusports.net",
+     "result": "ok",
+     "final_url": "https://lsusports.net/"
+    },
+    {
+     "url": "https://www.lsusports.net/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://lsusports.net/sports/mb/roster",
+     "players": 4
+    },
+    {
+     "url": "https://www.lsusports.net/sports/mbball/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://www.lsusports.net/tickets/mbball/",
+     "result": "ok",
+     "final_url": "https://lsusports.net/tickets/mbball"
+    },
+    {
+     "url": "https://www.lsusports.net/tickets/group/mbball/",
+     "result": "ok",
+     "final_url": "https://lsusports.net/tickets/group/mbball"
+    }
+   ]
+  },
+  {
+   "team_id": "T0349",
+   "base_url": "https://www.omavs.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.omavs.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    }
+   ]
+  },
+  {
+   "team_id": "T0305",
+   "base_url": "https://www.TTUsports.com/",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.TTUsports.com/",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    },
+    {
+     "url": "https://www.TTUsports.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    },
+    {
+     "url": "https://www.TTUsports.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    }
+   ]
+  }
+ ],
+ "redirects": {},
+ "linked": {}
+}
