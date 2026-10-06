@@ -149,3 +149,16 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Water-filled rotation (A3) | same ranking; exactly 200 minutes | adopted |
 | Continuity correction audit | mean −0.67; \|adj\| p95 5.3, max 8.4; explained by measured turnover (truth continuity 0.263 vs expected 0.472) | uncapped; prospective test |
 | Historical freeze | none | by design |
+
+## Wave 8 outcomes (see research/reports/WAVE8.md; preregistration research/hypotheses/WAVE8.md)
+
+| Item | Result (2026-10-06, no 2026–27 game played) | Status |
+|---|---|---|
+| Freeze audit after PR #7 merge (9b0fbae) | all model / spec / prereg hashes unchanged; main CI green | done |
+| Prospective P-ROSTER-1 scorer (WAVE7 §7 + WAVE8 D1–D8) | daily `prospective-scores` workflow, deterministic, integrity-linked | deployed; no results yet |
+| Season-aware D-I membership | 2006–2026 from frozen pipeline, 2026–27 NCAA; Saint Francis kept, West Florida ESPN 2697 (no canonical id) | deployed |
+| Coverage C1 (linked official host) | ASU: 13 players, 2026–27 (probe) | adopted |
+| Coverage C4 (www. 404 → bare host) | Missouri: 15 players, 2026–27 (probe) | adopted |
+| Alabama / LSU / Jacksonville / LIU | official pages published without (full) player lists | not a parser gap |
+| Unresolved identity impact | ≤ 39.5 of 72,800 rotation minutes | exact-only kept |
+| P-ROSTER-1 game-1 result | — | pending games |

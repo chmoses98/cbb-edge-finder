@@ -149,3 +149,30 @@ from that state with the same code. Each record carries
   * The authority of (a) and (b) is unchanged.
 * Not a frozen version and never the incumbent. Game-1 results never alter archived
   game-1 records.
+
+## P-ROSTER-1 prospective scoreboard (Wave 8)
+
+* `prospective-scores` workflow (daily Nov–Apr, 12:40 UTC) →
+  `scripts/prospective/score_proster.py` → append-only `prospective-scores` branch
+  (`scores/YYYY/MM/<stamp>/`, `latest_dashboard.md`, `LATEST`).
+* It reads the full history of `projections-archive` and `roster-archive`, plus the free
+  SDV schedule and player box. The market column (benchmark only) comes from
+  `espn-lines-archive` and is built outside `cbb_edge.rosters`.
+* Outputs:
+  * `paired_games.csv`: one row per game, base / roster / incumbent errors, paired
+    differences, (a)/(b) split, evidence hashes, commit times;
+  * `team_games.csv`: team game numbers and strata;
+  * `continuity_tail.csv`;
+  * `false_inclusion_{estimated,realized}.csv`;
+  * `rotation_{scorecard,validation}.csv`;
+  * `summary.json`;
+  * `dashboard.md`.
+* Protocol: `research/hypotheses/WAVE7.md` §7 (locked); diagnostics:
+  `research/hypotheses/WAVE8.md` §3. N is shown first everywhere, and no table decides
+  anything.
+* New projection records carry `prospective.code_sha` and
+  `roster.truth_archive_commit` (provenance only).
+* Season-aware D-I membership: `cbb_edge/rosters/membership.py`,
+  `models/rosters/d1_membership.csv`.
+* Pre-tip diagnostics for any truth snapshot:
+  `python scripts/prospective/pretip_diagnostics.py --rosters <roster-archive>`.
