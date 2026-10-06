@@ -79,13 +79,13 @@ def new_archive(root: Path) -> Path:
 
 
 def projection_run(arch: Path, now: str, rosters: Path | None, *, push_delay_min: int = 6,
-                   commit: bool = True) -> dict:  # fmt: skip
+                   commit: bool = True, only: set | None = None) -> dict:  # fmt: skip
     """One production projection run at simulated ``now`` + the workflow's append step
     (copy new files only, refuse to overwrite, commit at push time)."""
     stage = arch.parent / f"stage_{now.replace(':', '')}_{np.random.default_rng().integers(1e9)}"
     out, failed = project_all(SEASON, ts(now), 30.0, stage, str(rosters) if rosters else None,
                               None, "drysha0000000000000000000000000000000000",
-                              "dryrosterarchivecommit")  # fmt: skip
+                              "dryrosterarchivecommit", only)  # fmt: skip
     written = skipped = 0
     for f in sorted(stage.rglob("*.json")):
         dst = arch / "projections" / f.relative_to(stage)
@@ -263,14 +263,56 @@ def main() -> None:
     }
 
     # 6. retry after partial failure: run 1 dies before the append step (nothing
-    # committed), the retry run succeeds -> VALID, no duplicate, no reconstruction
+    # committed). (a) WITHOUT catch-up the next regular slot is the retry: games whose
+    # listed tip passed in between are lost (UNSCORABLE, never reconstructed). (b) WITH
+    # the hourly catch-up tick (cbb_edge/ops/cadence.py) the slot is owed at 21:40 and
+    # re-run in full -> every game VALID
+    from cbb_edge.ops import cadence
+
     arch6 = new_archive(a.sandbox / "retry")
     projection_run(arch6, OPEN_RUNS[0], a.rosters, commit=False)  # crashed before push
     git(arch6, "reset", "-q", "--hard")
     git(arch6, "clean", "-qfd")
-    projection_run(arch6, OPEN_RUNS[1], a.rosters)  # the retry / next tick
+    projection_run(arch6, OPEN_RUNS[1], a.rosters)  # the next regular slot only
     r6 = run_scorer(arch6, a.rosters, sched, res, box, ts(SETTLE), a.sandbox / "s6")
-    rep["retry_after_partial_failure"] = r6["gate"]["status"].value_counts().to_dict()
+    arch6b = new_archive(a.sandbox / "retry_catchup")
+    projection_run(arch6b, OPEN_RUNS[0], a.rosters, commit=False)  # crashed before push
+    git(arch6b, "reset", "-q", "--hard")
+    git(arch6b, "clean", "-qfd")
+    tick = (ts(OPEN_RUNS[0]) + pd.Timedelta(minutes=30)).isoformat()
+    dec = cadence.decide_projections(arch6b, sched, ts(tick), 30.0, d1, True, SEASON)
+    projection_run(arch6b, tick, a.rosters)  # the catch-up tick runs the owed slot
+    # (c) a partial archive: only base records pushed (P-ROSTER-1 failed); the catch-up
+    # tick writes ONLY the missing P-ROSTER-1 records
+    dec2 = cadence.decide_projections(arch6b, sched, ts(tick) + pd.Timedelta(hours=1), 30.0, d1,
+                                      True, SEASON)  # fmt: skip
+    projection_run(arch6b, OPEN_RUNS[1], a.rosters)
+    r6b = run_scorer(arch6b, a.rosters, sched, res, box, ts(SETTLE), a.sandbox / "s6b")
+    rep["retry_after_partial_failure"] = {
+        "next_regular_slot_only": r6["gate"]["status"].value_counts().to_dict(),
+        "with_hourly_catch_up": r6b["gate"]["status"].value_counts().to_dict(),
+        "catch_up_decision_after_crash": {k: dec[k] for k in ("due", "mode", "gaps")},
+        "catch_up_decision_one_hour_later": {k: dec2[k] for k in ("due", "mode", "gaps")},
+    }
+
+    # 6c. partial archive: base pushed, P-ROSTER-1 crashed -> catch-up writes only it
+    arch6c = new_archive(a.sandbox / "partial")
+    projection_run(arch6c, OPEN_RUNS[0], a.rosters)
+    for f in sorted((arch6c / "projections").rglob("*.json")):
+        if "pure-0.5.0_roster" in str(f):
+            f.unlink()  # never pushed: the P-ROSTER-1 step failed in that run
+    git(arch6c, "add", "-A")
+    git(arch6c, "commit", "-q", "-m", "simulate partial push", when=OPEN_RUNS[0])
+    tick2 = (ts(OPEN_RUNS[0]) + pd.Timedelta(minutes=30)).isoformat()
+    dec3 = cadence.decide_projections(arch6c, sched, ts(tick2), 30.0, d1, True, SEASON)
+    only = {(p.split("|")[0], int(p.split("|")[1])) for p in dec3["gap_pairs"]}
+    pr = projection_run(arch6c, tick2, a.rosters, only=only)
+    r6c = run_scorer(arch6c, a.rosters, sched, res, box, ts(SETTLE), a.sandbox / "s6c")
+    rep["partial_push_then_catch_up_missing_only"] = {
+        "decision": {k: dec3[k] for k in ("due", "mode", "gaps")},
+        "files_written": pr["files_written"],
+        "gate": r6c["gate"]["status"].value_counts().to_dict(),
+    }
 
     # 7. archived file mutated after it was pushed -> INVALID, loudly
     arch7 = a.sandbox / "mutated" / "projections-archive"

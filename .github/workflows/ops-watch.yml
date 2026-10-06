@@ -1,0 +1,106 @@
+name: ops-watch
+
+# Wave 9: opening-day readiness, opening-week observability and alert conditions for the
+# frozen prospective experiment. Operational only (no prediction, no tuning). Writes
+# dated reports to the append-only `ops-reports` branch, then FAILS the run when any
+# CRITICAL alert exists (a game tipped without a pre-tip projection, an opening game
+# lost, a hash mismatch, a mutated archive file, a duplicate record that differs, the
+# scorer not running, a settled game never scored) so nothing disappears silently.
+
+on:
+  schedule:
+    - cron: "25 * * 10-12 *"   # hourly Oct-Dec (Oct: opening-week preview)
+    - cron: "25 * * 1-4 *"     # hourly Jan-Apr
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "cbb_edge/ops/**"
+      - ".github/workflows/ops-watch.yml"
+
+concurrency:
+  group: ops-watch
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Fetch archive branches (read-only; full history for mutation checks)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          for b in projections-archive roster-archive prospective-scores; do
+            mkdir -p "arch/$b"
+            git -C "arch/$b" init -q
+            git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            if git -C "arch/$b" fetch -q origin "$b"; then git -C "arch/$b" checkout -q -B "$b" FETCH_HEAD; else echo "no $b yet"; fi
+          done
+      - name: Readiness / observability / alerts
+        id: watch
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set +e
+          python scripts/prospective/pretip_diagnostics.py --rosters arch/roster-archive --out pretip.json > /dev/null
+          python -m cbb_edge.ops.readiness --rosters arch/roster-archive --projections arch/projections-archive \
+            --scores arch/prospective-scores --identity pretip.json --out ops_out | tee watch.json
+          code=${PIPESTATUS[0]}
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          [ -f ops_out/readiness.md ] && cat ops_out/readiness.md | head -60 >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ops-watch-${{ github.run_id }}
+          path: ops_out
+          retention-days: 30
+      - name: Append report to ops-reports
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [ -d ops_out ] || exit 0
+          mkdir rep && cd rep
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin ops-reports; then
+            git checkout -q -b ops-reports FETCH_HEAD
+          else
+            git checkout -q --orphan ops-reports
+            printf '# Operational readiness reports (Wave 9)\n\nAppend-only. Operational only: never research evidence.\n' > README.md
+          fi
+          d="reports/$(date -u +%Y/%m/%Y-%m-%dT%H%M%SZ)"
+          mkdir -p "$d" && cp ../ops_out/* "$d/"
+          cp ../ops_out/readiness.md latest_readiness.md
+          cp ../ops_out/alerts.json latest_alerts.json
+          git add -A && git commit -q -m "ops report $d"
+          for i in 1 2 3 4; do
+            git push -q origin ops-reports && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin ops-reports && git rebase -q FETCH_HEAD || true
+          done
+          exit 1
+      - name: Fail loudly on CRITICAL alerts
+        run: |
+          [ "${{ steps.watch.outputs.code }}" = "0" ] || { echo "CRITICAL alerts (or the watch failed): see ops_out/alerts.json"; exit 1; }

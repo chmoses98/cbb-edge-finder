@@ -84,6 +84,9 @@ def main() -> None:
         "minutes_at_stake_upper_bound": float(ui["max_minutes_at_stake"].sum()) if len(ui) else 0.0,
         "share_of_all_rotation_minutes": float(ui["max_minutes_at_stake"].sum() / rot_total)
         if len(ui) and rot_total else 0.0,
+        "per_team": {t: round(float(v), 2) for t, v in
+                     ui.groupby("team_id")["max_minutes_at_stake"].sum().items() if v > 0}
+        if len(ui) else {},
         "teams_over_10_minutes": sorted(ui.groupby("team_id")["max_minutes_at_stake"].sum()
                                         .loc[lambda s: s > 10].index.tolist()) if len(ui) else [],
     }  # fmt: skip

@@ -205,6 +205,7 @@ def schedule_frame(season: int, stamp: str) -> pd.DataFrame:
         "home_team_id": [canonical_from_espn_in(e, season) for e in s["home_id"]],
         "away_team_id": [canonical_from_espn_in(e, season) for e in s["away_id"]],
         "tip": pd.to_datetime(s["start_date"], utc=True), "status": s["status_type_name"],
+        "home_espn": s["home_id"].astype("Int64"), "away_espn": s["away_id"].astype("Int64"),
     })  # fmt: skip
 
 
