@@ -73,8 +73,23 @@ def validate(season: int, dates: list[str], stamp: str, sdv_path: Path | None) -
     silver = silver_compare(s[s["game_id"].isin(shared)], fb, season) if shared else pd.DataFrame()
     dts = {d[:4] + "-" + d[4:6] + "-" + d[6:] for d in dates}
     s_in = s[pd.to_datetime(s["date"], utc=True).dt.tz_convert(ss.ET).dt.date.astype(str).isin(dts)]
+    # Wave 11 amendment: the production reconciliation of the same shared games (the
+    # disagreements above stay visible; this is what the production row now carries)
+    rec: dict = {}
+    if season >= sc.FIRST_FALLBACK_SEASON and shared:
+        _, crep = sc.complete(s, espn, season)
+        r = crep.get("reconciliation") or {}
+        res = pd.Series(
+            [d.get("resolution") for d in crep.get("material_disagreements", [])], dtype=object
+        )
+        rec = {"shared_games": r.get("shared_games"), "exact_match": r.get("exact_match"),
+               "reconciled_games": r.get("reconciled_games"), "by_group": r.get("by_group"),
+               "teams_kind": r.get("teams_kind"), "unresolved": r.get("unresolved"),
+               "ambiguous": r.get("ambiguous"),
+               "material_disagreements_by_resolution": res.value_counts().to_dict()}  # fmt: skip
     return {
         "season": season, "dates": len(dates), "failed_dates": failed,
+        "reconciliation": rec,
         "espn_games": int(espn["game_id"].nunique()), "sdv_games_on_dates": int(len(s_in)),
         "shared_games": len(shared),
         "espn_only": int(len(set(espn["game_id"]) - set(s["game_id"].astype(int)))),
