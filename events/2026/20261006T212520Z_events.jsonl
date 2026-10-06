@@ -1,0 +1,21 @@
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "N:T0155:anderson diaz", "name": "Anderson Diaz"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "N:T0155:cole cloer", "name": "Cole Cloer"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "N:T0155:jaxon richardson", "name": "Jaxon Richardson"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "N:T0155:qayden samuels", "name": "Qayden Samuels"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "N:T0155:tarris bouie", "name": "Tarris Bouie"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "N:T0155:tj st louis", "name": "TJ St. Louis"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0264", "player_key": "P4685658", "name": "Taylor Bol Bowen"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "P4711306", "name": "Brandon Garrison"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0043", "player_key": "P4873184", "name": "Aiden Sherrell"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "P5082704", "name": "Drew Fielder"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0099", "player_key": "P5101656", "name": "Jalil Bethea"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0155", "player_key": "P5220874", "name": "Jamarion Davis-Fleming"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0321", "player_key": "P5312049", "name": "Jake Baker"}
+{"stamp": "20261006T212520Z", "event": "player_added", "team_id": "T0347", "player_key": "P5325011", "name": "Jacob Martin"}
+{"stamp": "20261006T212520Z", "event": "player_removed", "team_id": "T0155", "player_key": "P5105668", "name": "Noah Williamson"}
+{"stamp": "20261006T212520Z", "event": "player_removed", "team_id": "T0155", "player_key": "P5325013", "name": "Klark James"}
+{"stamp": "20261006T212520Z", "event": "player_removed", "team_id": "T0155", "player_key": "P5325014", "name": "Jack Fagan"}
+{"stamp": "20261006T212520Z", "event": "confidence_changed", "team_id": "T0099", "confidence": "CONFIRMED", "previous": "CONFLICTED"}
+{"stamp": "20261006T212520Z", "event": "confidence_changed", "team_id": "T0155", "confidence": "CONFIRMED", "previous": "STALE"}
+{"stamp": "20261006T212520Z", "event": "confidence_changed", "team_id": "T0264", "confidence": "CONFIRMED", "previous": "CONFLICTED"}
+{"stamp": "20261006T212520Z", "event": "confidence_changed", "team_id": "T0347", "confidence": "CONFIRMED", "previous": "CONFLICTED"}
