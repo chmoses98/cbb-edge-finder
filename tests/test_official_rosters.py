@@ -413,3 +413,25 @@ def test_discovery_report_carries_linked_evidence():
     rep = official.discovery_report([d])
     assert rep["linked"] == {"T0006": [d.linked_evidence]}
     assert rep["not_found"][0]["linked_to"] == d.linked_to
+
+
+def test_www_404_falls_back_to_the_registered_bare_host(monkeypatch):
+    calls = []
+    page = '<a href="/sports/mens-basketball/roster">Roster</a>' + "".join(
+        f'<div class="s-person-card"><h3>P {i}</h3></div>' for i in range(3)
+    )
+
+    class R:
+        def __init__(self, url):
+            self.meta = {"final_url": url}
+            self.path = mock.Mock(read_text=lambda errors=None: page)
+
+    def fake_fetch(source, url, **kw):
+        calls.append(url)
+        return None if "://www." in url else R(url)
+
+    monkeypatch.setattr(discovery, "fetch", fake_fetch)
+    monkeypatch.setattr(discovery.robots, "allowed", lambda *a: True)
+    discovery.discover("T0065", "https://www.mutigers.com", 2027, "s")
+    assert calls[:3] == ["https://www.mutigers.com", "https://mutigers.com",
+                         "https://mutigers.com/sports/mens-basketball/roster"]  # fmt: skip

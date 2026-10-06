@@ -481,6 +481,16 @@ def summarize(pg: pd.DataFrame, tg: pd.DataFrame, fi_real: pd.DataFrame | None =
             }  # fmt: skip
     if fi_real is not None and len(fi_real):
         s["false_inclusion_realized"] = fi_summary(fi_real)
+    if fi_est is not None and len(fi_est) and fi_real is not None and len(fi_real):
+        rb = fi_real[fi_real["rotation"] == "BASE"][["team_id", "false_minutes"]]
+        j = fi_est.merge(rb, on="team_id", suffixes=("_est", "_real"))
+        if len(j):
+            s["false_inclusion_estimate_vs_realized"] = {
+                "teams": int(len(j)),
+                "mean_est_minus_real": float((j["false_minutes_est"] - j["false_minutes_real"]).mean()),
+                "corr": float(j["false_minutes_est"].corr(j["false_minutes_real"]))
+                if len(j) > 2 else None,
+            }  # fmt: skip
     if fi_est is not None and len(fi_est):
         s["false_inclusion_estimated_pretip"] = {
             "teams": int(len(fi_est)),

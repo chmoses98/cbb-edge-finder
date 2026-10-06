@@ -157,7 +157,20 @@
    "status": "VERIFIED",
    "exception": null,
    "retrieved_at": "2026-10-05T20:40:09.849462+00:00",
-   "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
+   "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB",
+   "linked_hosts": [
+    "thesundevils.com"
+   ],
+   "linked_evidence": [
+    {
+     "from": "https://sundevils.com/",
+     "to": "https://thesundevils.com/sports/mens-basketball/roster",
+     "observed_at": "20261006T032217Z",
+     "page_sha256": "24a3e62e73235327688e4de883277a47cf9082b4b60224691adbca56cd4e69cd",
+     "kind": "official_home_page_roster_link",
+     "evidence_sample": "roster-source-samples:20261006T032543Z/gaps (probe run 37408616872)"
+    }
+   ]
   },
   {
    "team_id": "T0007",
@@ -5148,5 +5161,5 @@
    "source_url": "https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=I&sportCode=MBB"
   }
  ],
- "sha256": "bc918385d259c10cc215b2047067a815efd9c0157255fe698b96d7738f5678a8"
+ "sha256": "e99bb2f747d179cbeefc0ea6211cb900977e8f0488368d8b0be928de31164b60"
 }

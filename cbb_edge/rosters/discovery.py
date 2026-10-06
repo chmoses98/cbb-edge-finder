@@ -235,6 +235,14 @@ def discover(
             if _try_roster(d, known_url, page, "known_url", season, stamp):
                 return d
     home = _get(d, base_url, stamp)
+    if home is None and (urlsplit(base_url).hostname or "").lower().startswith("www."):
+        # Wave 8 (C4): the www. name of the registered host answers 404 (e.g.
+        # www.mutigers.com while mutigers.com serves the site): try the bare host once
+        if d.attempts and d.attempts[-1].get("result") == "404":
+            apex = base_url.replace("://www.", "://", 1)
+            home = _get(d, apex, stamp)
+            if home is not None:
+                base_url = apex
     if home is None:
         d.error = "home_unreachable"
         # the conventional routes may still work when only the home page is blocked
