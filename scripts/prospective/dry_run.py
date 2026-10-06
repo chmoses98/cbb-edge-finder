@@ -136,8 +136,9 @@ def settle(sched: pd.DataFrame, recs: list[dict], until: pd.Timestamp, rosters: 
     on = pd.read_json(tr, lines=True, dtype={"player_id": str})
     on = on[on["status"].isin(["CONFIRMED", "LIKELY"]) & on["player_id"].notna()]
     for g in done.itertuples(index=False):
-        m = base[g.espn_game_id]["projection"]["margin"] + rng.normal(0, 11)
-        tot = base[g.espn_game_id]["projection"]["total"] + rng.normal(0, 15)
+        # pure noise, independent of every projection: no direction can be read from it
+        m = rng.normal(0, 12)
+        tot = 140 + rng.normal(0, 15)
         res.append({"espn_game_id": g.espn_game_id, "result_margin": float(round(m)),
                     "result_total": float(round(tot))})  # fmt: skip
         for t in (g.home_team_id, g.away_team_id):
@@ -161,7 +162,8 @@ def run_scorer(arch: Path, rosters: Path, sched: pd.DataFrame, res: pd.DataFrame
         committed_roster=ps.git_first_commit_times(rosters), projections_root=arch,
         expected=exp[["espn_game_id"]],
     )  # fmt: skip
-    ps.write(out, frames, s, now.strftime("%Y%m%dT%H%M%SZ"))
+    ps.write(out, frames, s, now.strftime("%Y%m%dT%H%M%SZ"),
+             banner="SYNTHETIC DRY RUN - sandbox, synthetic results; NOT research evidence")  # fmt: skip
     g = frames["integrity_gate"]
     return {"summary": s, "gate": g, "frames": frames}
 

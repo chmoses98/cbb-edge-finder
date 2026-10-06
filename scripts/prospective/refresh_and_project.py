@@ -64,8 +64,7 @@ def write_manifest(out: Path, now: pd.Timestamp, code_sha: str | None,
         for f in sorted(out.rglob("*.json"))
         if f.parts[len(out.parts)] != "manifests"
     }
-    if not files:
-        return None
+    # written also when no game is in the window: the run's heartbeat (cadence.py)
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     p = out / "manifests" / f"{stamp}.json"
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -84,10 +83,19 @@ def project_all(
     availability_dir: str | None,
     code_sha: str | None,
     roster_commit: str | None,
+    only: set[tuple[str, int]] | None = None,
 ) -> tuple[dict, dict]:
     """Project every active version for games tipping in (now, now + horizon_h] and
     append them to ``out_dir`` (the production step; also driven by the Wave 9 dry run
-    with a simulated clock). Silver must already be built."""
+    with a simulated clock). Silver must already be built. ``only``: catch-up mode
+    (Wave 9) writes just these (version, espn_game_id) records, the ones a missed tick
+    left without any pre-tip record."""
+
+    def keep(rs: list[dict]) -> list[dict]:
+        if only is None:
+            return rs
+        return [r for r in rs if (r["model"]["version"], int(r["game"]["espn_game_id"])) in only]
+
     act = active_models()
     # incumbent + shadow challengers, each from its own frozen artifact; records of one
     # version never touch another's (separate archive paths, append-only)
@@ -107,7 +115,7 @@ def project_all(
         for r in recs:
             r["prospective"]["role"] = role
             r["prospective"]["code_sha"] = code_sha  # provenance only (Wave 8)
-        out[version] = write_archive(recs, out_dir)
+        out[version] = write_archive(keep(recs), out_dir)
         if role == "challenger" and roster_dir and "possession" in model.get("extra_blocks", []):
             from cbb_edge.rosters.overlay import roster_overlay
 
@@ -122,7 +130,7 @@ def project_all(
                     r["roster"]["truth_files_sha256"] = evidence_hashes(
                         Path(roster_dir), r["roster"].get("truth_snapshot")
                     )
-                out[f"{version}+roster"] = write_archive(ro, out_dir)
+                out[f"{version}+roster"] = write_archive(keep(ro), out_dir)
             except Exception as e:  # noqa: BLE001
                 failed[f"{version}+roster"] = f"{type(e).__name__}: {e}"
         if role == "challenger" and availability_dir:
@@ -131,7 +139,7 @@ def project_all(
             for r in av:
                 r["prospective"]["role"] = "challenger_availability_overlay"
                 r["prospective"]["code_sha"] = code_sha
-            out[f"{version}+avail"] = write_archive(av, out_dir)
+            out[f"{version}+avail"] = write_archive(av if only is None else [], out_dir)
     write_manifest(out_dir, now, code_sha, roster_commit)
     return out, failed
 
@@ -151,6 +159,11 @@ def main() -> None:
         "--roster-dir",
         default=None,
         help="checked-out roster-archive (P-ROSTER-1 overlay on pure-0.5.0)",
+    )
+    ap.add_argument(
+        "--only-missing",
+        default=None,
+        help="catch-up mode: JSON list of 'version|espn_game_id' pairs (cbb_edge.ops.cadence)",
     )
     a = ap.parse_args()
     now = pd.Timestamp(datetime.now(UTC))
@@ -182,8 +195,12 @@ def main() -> None:
         # the season-boundary checkpoint); free SDV release asset, basketball columns only
         if sdv.download_live("pbp", a.season, stamp) is not None:
             build_pbp_shots([a.season])
+    only = None
+    if a.only_missing:
+        pairs = json.loads(Path(a.only_missing).read_text())
+        only = {(p.split("|")[0], int(p.split("|")[1])) for p in pairs}
     out, failed = project_all(a.season, now, a.horizon_h, Path(a.out), a.roster_dir,
-                              a.availability_dir, code_sha, roster_commit)  # fmt: skip
+                              a.availability_dir, code_sha, roster_commit, only)  # fmt: skip
     print(
         json.dumps(
             {"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out, "failed": failed}

@@ -10,6 +10,10 @@ on:
   schedule:
     - cron: "17 11 * 9-11 *"          # Sep-Nov: daily change check
     - cron: "17 12 * 12,1-4 1"        # Dec-Apr: weekly (Mondays)
+    # Wave 9 catch-up: hourly ticks that run only when the day's (Mondays' in Dec-Apr)
+    # slot passed without a truth snapshot (cbb_edge/ops/cadence.py)
+    - cron: "47 * * 9-11 *"
+    - cron: "47 * * 12,1-4 1"
   workflow_dispatch:
   pull_request:
     paths:
@@ -60,14 +64,21 @@ jobs:
             git checkout -q --orphan roster-archive
             printf '# Roster snapshots (PURE input, PROSPECTIVE_ONLY)\n\nAppend-only; schema cbb_edge/availability/capture.py (roster-snapshot-v1).\n' > README.md
           fi
+      - name: Decide (regular slot / catch-up / skip)
+        id: decide
+        run: |
+          set -o pipefail
+          if [ "${{ github.event_name }}" != "schedule" ]; then echo "due=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          python -m cbb_edge.ops.cadence rosters --rosters archive | tee decide.json
       - name: Capture
+        if: steps.decide.outputs.due == 'true'
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
           if [ -d archive ]; then OUT=archive; LIMIT=""; else OUT=capture_out; LIMIT="--teams-limit 8"; fi
           python -m cbb_edge.availability.capture rosters --out "$OUT" --state "$OUT/state/roster_state.json" $( [ "$(date -u +%u)" = "1" ] && echo --full ) $LIMIT | tee capture_summary.json
       - name: NCAA Membership Directory refresh (weekly Sep-Nov, monthly otherwise)
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.decide.outputs.due == 'true'
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
@@ -75,7 +86,7 @@ jobs:
           disc=$(ls archive/official/*/*/*/*_discovery.json 2>/dev/null | sort | tail -1 || true)
           python -m cbb_edge.rosters.ncaa_directory --out archive --if-due ${disc:+--redirects "$disc"} | tee directory_summary.json
       - name: Roster truth (official rosters + multi-source resolution, Waves 6-7)
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.decide.outputs.due == 'true'
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
@@ -92,7 +103,7 @@ jobs:
             capture_summary.json
           retention-days: 14
       - name: Append to roster-archive (never rewrite snapshots)
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.decide.outputs.due == 'true'
         run: |
           set -euo pipefail
           cd archive

@@ -53,6 +53,8 @@ TEAM_GAME_NUMBERS = (1, 2, 3)  # Wave 8 diagnostic, never pooled
 ADJ_BUCKETS = [(0, 2, "<2"), (2, 4, "2-4"), (4, 6, "4-6"), (6, np.inf, ">=6")]
 APPEAR_SHARE = 0.10  # P-ROSTER-1's "expected to play" threshold (overlay.APPEAR_SHARE)
 BOOT_REPS, BOOT_SEED = 2000, 20261106
+MIN_N_CI, MIN_DAYS_CI = 20, 10  # WAVE8 D2 + Wave 9 amendment (a cluster bootstrap needs clusters)
+HEADLINE_GAMES = {"game_1": (0, 0), "game_2": (1, 1), "game_3": (2, 2)}  # min games seen
 REPO = Path(__file__).resolve().parents[2]
 
 
@@ -361,8 +363,9 @@ def team_games(pg: pd.DataFrame, roster_archive: Path | None = None,
 
 # ------------------------------------------------------------------------- summaries
 def _boot_ci(d: np.ndarray, groups: np.ndarray) -> list[float] | None:
-    """Day-clustered bootstrap 90% interval of the mean paired difference."""
-    if len(d) < 20:
+    """Day-clustered bootstrap 90% interval of the mean paired difference: only with
+    N >= 20 games on >= 10 distinct days (fewer clusters make the interval meaningless)."""
+    if len(d) < MIN_N_CI or len(np.unique(groups)) < MIN_DAYS_CI:
         return None
     rng = np.random.default_rng(BOOT_SEED)
     u = np.unique(groups)
@@ -456,6 +459,19 @@ def summarize(pg: pd.DataFrame, tg: pd.DataFrame, fi_real: pd.DataFrame | None =
         return s
     s["primary"] = {k: table(pg[pg["min_gs"].between(lo, hi)])
                     for k, (lo, hi) in PRIMARY_SLICES.items()}  # fmt: skip
+    s["headline"] = {k: table(pg[pg["min_gs"].between(lo, hi)])
+                     for k, (lo, hi) in HEADLINE_GAMES.items()}  # fmt: skip
+    if fi_real is not None and len(fi_real):
+        g1 = set(pg.loc[pg["min_gs"] == 0, "espn_game_id"])
+        f1 = fi_real[fi_real["espn_game_id"].isin(g1)]
+        if len(f1):
+            b = f1[f1["rotation"] == "BASE"]
+            r = f1[(f1["rotation"] == "ROSTER") & (f1["snapshot"] == "latest")]
+            s["headline"]["game_1"]["false_inclusion"] = {
+                "teams": int(len(b)),
+                "base_false_minutes": float(b["false_minutes"].mean()) if len(b) else None,
+                "roster_false_minutes": float(r["false_minutes"].mean()) if len(r) else None,
+            }
     oc = overlay_confidence(pg)
     s["primary_by_overlay_confidence"] = {
         f"{k} / {c}": table(pg[pg["min_gs"].between(lo, hi) & (oc == c)])
@@ -612,15 +628,51 @@ def _fmt(v: object, nd: int = 2) -> str:
         f"{v:.{nd}f}" if isinstance(v, float) else str(v))  # fmt: skip
 
 
-def dashboard(s: dict[str, Any], stamp: str) -> str:
-    L = [f"# P-ROSTER-1 prospective scoreboard — {stamp}", "",
-         "Locked protocol: `research/hypotheses/WAVE7.md` §7. Base = `pure-0.5.0` (frozen), "
-         "P-ROSTER-1 = `pure-0.5.0+roster`, incumbent `pure-0.2.0` shown for reference. "
-         "error = actual − projected home margin; paired Δ = |e_roster| − |e_base| (negative "
-         "= P-ROSTER-1 better). **Small samples decide nothing.**", "",
-         f"**Settled paired games: {s.get('settled_paired_games', 0)}**", ""]  # fmt: skip
+def dashboard(s: dict[str, Any], stamp: str, banner: str | None = None) -> str:
+    L = [f"# P-ROSTER-1 prospective scoreboard — {stamp}", ""]
+    if banner:
+        L += [f"> **{banner}**", ""]
+    g = (s.get("gate") or {}).get("counts", {})
+    h1 = (s.get("headline") or {}).get("game_1", {})
+    n1 = h1.get("N", 0)
+    L += ["Locked protocol: `research/hypotheses/WAVE7.md` §7. Base = `pure-0.5.0` (frozen), "
+          "P-ROSTER-1 = `pure-0.5.0+roster`, incumbent `pure-0.2.0` shown for reference. "
+          "error = actual − projected home margin; paired Δ = |e_roster| − |e_base| (negative "
+          "= P-ROSTER-1 better). Only games whose whole evidence chain passed the pre-tip "
+          "gate are counted.", "",
+          f"## Sample size first: **game 1 N = {n1}**",
+          "",
+          f"Pre-tip gate: VALID {g.get('VALID', 0)} · INVALID {g.get('INVALID', 0)} · "
+          f"UNSCORABLE {g.get('UNSCORABLE', 0)} · PENDING {g.get('PENDING', 0)} "
+          "(INVALID / UNSCORABLE games are never scored and never reconstructed; see "
+          "`integrity_gate.csv`).", ""]  # fmt: skip
+    if n1 == 0:
+        L += ["**NO DATA. Nothing can be concluded.**", ""]
+    elif n1 < MIN_N_CI:
+        L += [f"**INSUFFICIENT SAMPLE (N = {n1} < {MIN_N_CI}): descriptive only, no interval, "
+              "no conclusion.**", ""]  # fmt: skip
+    else:
+        L += [f"Intervals need N ≥ {MIN_N_CI} games on ≥ {MIN_DAYS_CI} distinct days; until "
+              "then they are suppressed. **No table here decides anything during 2026–27.**", ""]  # fmt: skip
     if not s.get("primary"):
         return "\n".join(L + [s.get("note", ""), ""])
+    fi = h1.get("false_inclusion") or {}
+    L += ["## HEADLINE — Game 1 (each version's latest pre-tip record; min games seen = 0)", "",
+          "| N | Base MAE | P-ROSTER-1 MAE | Δ MAE | Base RMSE | P-ROSTER-1 RMSE | Δ RMSE | "
+          "Base bias | P-ROSTER-1 bias | % improved | paired mean \\|e\\| diff | departed-player "
+          "false minutes (Base → P-ROSTER-1) |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]  # fmt: skip
+    if n1:
+        L.append(
+            f"| **{n1}** | {_fmt(h1['base']['MAE'])} | {_fmt(h1['roster']['MAE'])} | "
+            f"{_fmt(h1['delta_MAE'])} | {_fmt(h1['base']['RMSE'])} | {_fmt(h1['roster']['RMSE'])} | "
+            f"{_fmt(h1['delta_RMSE'])} | {_fmt(h1['base']['bias'])} | {_fmt(h1['roster']['bias'])} | "
+            f"{_fmt(100 * h1['pct_games_improved'], 0)}% | {_fmt(h1['mean_paired_abs_change'])} | "
+            + (f"{_fmt(fi.get('base_false_minutes'), 1)} → {_fmt(fi.get('roster_false_minutes'), 1)}"
+               f" ({fi.get('teams')} teams)" if fi else "box scores pending") + " |"
+        )  # fmt: skip
+    else:
+        L.append("| **0** | | | | | | | | | | | |")
+    L.append("")
 
     def rows(title: str, d: dict[str, dict]) -> list[str]:
         out = [f"## {title}", "", "| slice | N | base MAE | roster MAE | Δ MAE | base RMSE | "
@@ -636,11 +688,14 @@ def dashboard(s: dict[str, Any], stamp: str) -> str:
                 f"{_fmt(t['delta_MAE'])} | {_fmt(t['base']['RMSE'])} | {_fmt(t['roster']['RMSE'])} | "
                 f"{_fmt(t['delta_RMSE'])} | {_fmt(t['base']['bias'])} | {_fmt(t['roster']['bias'])} | "
                 f"{_fmt(100 * t['pct_games_improved'], 0)}% | {_fmt(t['mean_paired_abs_change'])} | "
-                f"{'n < 20' if ci is None else f'[{ci[0]:.2f}, {ci[1]:.2f}]'} |"
+                f"{'suppressed (N<20 or <10 days)' if ci is None else f'[{ci[0]:.2f}, {ci[1]:.2f}]'} |"
             )
         return out + [""]
 
-    L += rows("PRIMARY (preregistered): game 1 = min(games seen) 0; games 2–3 = 1–2", s["primary"])
+    L += rows("Game 2 and Game 3, separately (never pooled into the game-1 headline)",
+              {k: v for k, v in s["headline"].items() if k != "game_1"})  # fmt: skip
+    L += rows("PRIMARY (preregistered WAVE7 §7 slices): game 1 = min(games seen) 0; "
+              "games 2–3 = 1–2", s["primary"])  # fmt: skip
     if s.get("primary_by_overlay_confidence"):
         L += rows("PRIMARY by confidence of the side(s) that triggered the overlay",
                   s["primary_by_overlay_confidence"])  # fmt: skip
@@ -684,7 +739,8 @@ def dashboard(s: dict[str, Any], stamp: str) -> str:
     return "\n".join(L)
 
 
-def write(out: Path, frames: dict[str, pd.DataFrame], s: dict[str, Any], stamp: str) -> None:
+def write(out: Path, frames: dict[str, pd.DataFrame], s: dict[str, Any], stamp: str,
+          banner: str | None = None) -> None:  # fmt: skip
     out.mkdir(parents=True, exist_ok=True)
     for name, f in frames.items():
         if f is None or f.empty:
@@ -692,7 +748,7 @@ def write(out: Path, frames: dict[str, pd.DataFrame], s: dict[str, Any], stamp: 
         keys = [c for c in ("espn_game_id", "side", "team_id", "rotation", "snapshot") if c in f]
         f.sort_values(keys).to_csv(out / f"{name}.csv", index=False)
     (out / "summary.json").write_text(json.dumps(s, indent=1, sort_keys=True, default=str))
-    (out / "dashboard.md").write_text(dashboard(s, stamp))
+    (out / "dashboard.md").write_text(dashboard(s, stamp, banner))
 
 
 # ------------------------------------------------------------------------------- run

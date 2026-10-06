@@ -306,11 +306,23 @@ def missing_evidence(out: Path, report: Path | None = None) -> bool:
     """The committed registry or the latest discovery report carries redirect / linked
     evidence the archived registry lacks: regenerate now (otherwise the archived
     registry would override it, or new evidence would wait for the next refresh)."""
-    have = _redirect_hosts(out / "ncaa_directory" / "latest_registry.json")
+    latest = out / "ncaa_directory" / "latest_registry.json"
+    have = _redirect_hosts(latest)
     own = {
         (str(r.get("team_id")), r.get("host")) for r in json.loads(REGISTRY.read_text())["teams"]
     }
-    return bool((_redirect_hosts(REGISTRY) | (_report_hosts(report) - own)) - have)
+    if (_redirect_hosts(REGISTRY) | (_report_hosts(report) - own)) - have:
+        return True
+    # Wave 9: the committed registry verifies a team the archived one does not (a new
+    # canonical team, e.g. West Florida T0374): regenerate with the current team ids
+    return bool(_verified(REGISTRY) - _verified(latest))
+
+
+def _verified(path: Path) -> set[tuple[str, str]]:
+    if not path.exists():
+        return set()
+    return {(str(r.get("team_id")), str(r.get("host"))) for r in json.loads(path.read_text())["teams"]
+            if r.get("status") == "VERIFIED" and r.get("team_id")}  # fmt: skip
 
 
 def main() -> None:

@@ -10,6 +10,9 @@ on:
   schedule:
     - cron: "40 12 * 11,12 *"   # Nov-Dec daily, after SDV's 07:00 UTC refresh
     - cron: "40 12 * 1-4 *"     # Jan-Apr
+    # Wave 9 catch-up: hourly ticks that run only when the 12:40 slot was missed
+    - cron: "50 * * 11,12 *"
+    - cron: "50 * * 1-4 *"
   workflow_dispatch:
     inputs:
       season:
@@ -63,7 +66,20 @@ jobs:
               echo "no $b yet"
             fi
           done
+      - name: Decide (regular slot / catch-up / skip)
+        id: decide
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          if [ "${{ github.event_name }}" != "schedule" ]; then echo "due=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          mkdir -p arch/prospective-scores && cd arch/prospective-scores && git init -q
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth=1 origin prospective-scores && git checkout -q FETCH_HEAD || echo "no scores yet"
+          cd ../..
+          python -m cbb_edge.ops.cadence scores --scores arch/prospective-scores | tee decide.json
       - name: Score
+        if: steps.decide.outputs.due == 'true'
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
@@ -73,12 +89,13 @@ jobs:
             --espn arch/espn-lines-archive --out score_out | tee score_summary.json
           cat score_out/dashboard.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
+        if: steps.decide.outputs.due == 'true'
         with:
           name: prospective-scores-${{ github.run_id }}
           path: score_out
           retention-days: 90
       - name: Append to prospective-scores (never overwrite)
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.decide.outputs.due == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
