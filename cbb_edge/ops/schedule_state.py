@@ -278,6 +278,21 @@ def live_window(obs: list[dict[str, Any]], now: pd.Timestamp, horizon_h: float,
     return {"extra": extra, "exclude": exclude, "unprotected": unprotected}
 
 
+def _observe_sdv(archive: Path, season: int, stamp: str, prior: pd.DataFrame,
+                 now: pd.Timestamp) -> tuple[int, int]:  # fmt: skip
+    from cbb_edge.data.bronze import sportsdataverse as sdv
+
+    p = sdv.download_live("schedules", season, stamp)
+    if p is None:
+        return 0, 0
+    # fetched just now (the immutable live copy and its sidecar are recorded in the
+    # bronze manifest); the canonical copy carries no sidecar
+    so = from_sdv(pd.read_parquet(p), pd.Timestamp(datetime.now(UTC)).isoformat())
+    so_kept = thin(so, prior, now)
+    write_obs(archive, so_kept, stamp, "sdv_schedule")
+    return len(so), len(so_kept)
+
+
 def main() -> None:
     """``observe``: fetch the live scoreboard for the window and append the observations
     (and the SDV schedule's, if given) to the schedule archive."""
@@ -302,19 +317,15 @@ def main() -> None:
     kept = thin(obs, prior, now)
     write_obs(a.archive, kept, stamp, "espn_scoreboard")
     n_sdv = n_sdv_kept = 0
+    sdv_error = None
     if a.sdv:
-        from cbb_edge.data.bronze import sportsdataverse as sdv
-
-        p = sdv.download_live("schedules", a.season, stamp)
-        if p is not None:
-            meta = json.loads(Path(str(p) + ".meta.json").read_text())
-            so = from_sdv(pd.read_parquet(p), meta["retrieved_at"])
-            so_kept = thin(so, prior, now)
-            write_obs(a.archive, so_kept, stamp, "sdv_schedule")
-            n_sdv, n_sdv_kept = len(so), len(so_kept)
+        try:
+            n_sdv, n_sdv_kept = _observe_sdv(a.archive, a.season, stamp, prior, now)
+        except Exception as e:  # noqa: BLE001 -- the scoreboard observations above are still committed
+            sdv_error = f"{type(e).__name__}: {e}"
     print(json.dumps({"stamp": stamp, "scoreboard_obs": len(obs), "scoreboard_archived": len(kept),
                       "failed_dates": failed, "sdv_obs": n_sdv,
-                      "sdv_archived": n_sdv_kept}))  # fmt: skip
+                      "sdv_archived": n_sdv_kept, "sdv_error": sdv_error}))  # fmt: skip
 
 
 if __name__ == "__main__":

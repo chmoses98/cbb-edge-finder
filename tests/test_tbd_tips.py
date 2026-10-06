@@ -286,3 +286,24 @@ def test_archive_keeps_changes_and_gate_evidence_only(tmp_path):
     assert (
         S.thin([dict(o, observed_at=now.isoformat()) for o in sdv], S.load_obs(tmp_path), now) == []
     )
+
+
+def test_observe_cli_archives_scoreboard_even_if_sdv_fails(tmp_path, monkeypatch, capsys):
+    import json
+
+    from cbb_edge.data.bronze import sportsdataverse as sdv
+
+    monkeypatch.setattr(
+        S, "fetch_scoreboard", lambda dates, stamp: ([obs(1, "2026-11-03T14:11Z")], [])
+    )
+
+    def boom(*a, **k):
+        raise FileNotFoundError("no sidecar")
+
+    monkeypatch.setattr(sdv, "download_live", boom)
+    monkeypatch.setattr(sys, "argv", ["x", "observe", "--archive", str(tmp_path / "sa"), "--sdv",
+                                      "--full-out", str(tmp_path / "run")])  # fmt: skip
+    S.main()
+    out = json.loads(capsys.readouterr().out)
+    assert out["scoreboard_archived"] == 1 and out["sdv_error"].startswith("FileNotFoundError")
+    assert len(S.load_obs(tmp_path / "sa")) == 1 and len(S.load_obs(tmp_path / "run")) == 1
