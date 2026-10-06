@@ -130,10 +130,17 @@ def required_versions(roster_available: bool) -> list[str]:
 
 
 def coverage_gaps(sched: pd.DataFrame, have: set[tuple[str, int]], now: pd.Timestamp,
-                  horizon_h: float, versions: list[str], d1: set[str]) -> list[tuple[str, int]]:  # fmt: skip
-    """(version, game) pairs owed: D-I vs D-I, not cancelled, tip in (now, now+h]."""
+                  horizon_h: float, versions: list[str], d1: set[str],
+                  live: dict | None = None) -> list[tuple[str, int]]:  # fmt: skip
+    """(version, game) pairs owed: D-I vs D-I, not cancelled, tip in (now, now+h].
+    ``live`` (Wave 10, ``schedule_state.live_window``): TBD games whose listed
+    placeholder has passed but are positively "pre" are still owed (``extra``); games
+    the live scoreboard shows started / postponed / cancelled never are (``exclude``)."""
     end = _ts(now) + pd.Timedelta(hours=horizon_h)
-    w = sched[(sched["tip"] > _ts(now)) & (sched["tip"] <= end)
+    extra = (live or {}).get("extra", set())
+    excl = (live or {}).get("exclude", set())
+    in_win = ((sched["tip"] > _ts(now)) & (sched["tip"] <= end)) | sched["espn_game_id"].isin(extra)
+    w = sched[in_win & ~sched["espn_game_id"].isin(excl)
               & sched["home_team_id"].isin(d1) & sched["away_team_id"].isin(d1)
               & ~sched["status"].isin(["STATUS_CANCELED", "STATUS_POSTPONED"])]  # fmt: skip
     return sorted((v, int(g)) for g in w["espn_game_id"] for v in versions
@@ -158,12 +165,13 @@ def scores_last(scores: Path) -> pd.Timestamp | None:
 
 # --------------------------------------------------------------------- decisions
 def decide_projections(archive: Path, sched: pd.DataFrame, now: pd.Timestamp, horizon_h: float,
-                       d1: set[str], roster_available: bool, season: int = 2027) -> dict:  # fmt: skip
+                       d1: set[str], roster_available: bool, season: int = 2027,
+                       live: dict | None = None) -> dict:  # fmt: skip
     last = last_manifest(archive) if Path(archive).exists() else None
     in_season = _ts(now).month in SEASON_MONTHS
     slot = in_season and slot_owed(last, now, PROJECTION_SLOTS)
     have = existing_records(archive, season) if Path(archive).exists() else set()
-    gaps = coverage_gaps(sched, have, now, horizon_h, required_versions(roster_available), d1)
+    gaps = coverage_gaps(sched, have, now, horizon_h, required_versions(roster_available), d1, live)
     mode = "full" if slot else ("missing_only" if gaps else "skip")
     return {"workflow": "projections", "due": mode != "skip", "mode": mode,
             "last_run_manifest": None if last is None else last.isoformat(),
@@ -206,7 +214,17 @@ def schedule_frame(season: int, stamp: str) -> pd.DataFrame:
         "away_team_id": [canonical_from_espn_in(e, season) for e in s["away_id"]],
         "tip": pd.to_datetime(s["start_date"], utc=True), "status": s["status_type_name"],
         "home_espn": s["home_id"].astype("Int64"), "away_espn": s["away_id"].astype("Int64"),
+        "time_state": [time_state_of(v, t, d) for v, t, d in zip(
+            s["time_valid"] if "time_valid" in s else [None] * len(s), s["start_date"],
+            s["status_type_short_detail"] if "status_type_short_detail" in s else [None] * len(s),
+            strict=True)],
     })  # fmt: skip
+
+
+def time_state_of(v: object, t: object, d: object) -> str:
+    from cbb_edge.ops.schedule_state import time_state
+
+    return time_state(None if v is None or (isinstance(v, float) and v != v) else bool(v), t, d)
 
 
 def main() -> None:
@@ -227,8 +245,16 @@ def main() -> None:
         d1 = set(membership.members(a.season)["team_id"].dropna())
         sched = schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"))
         roster_ok = bool(a.rosters and truth_last(a.rosters) is not None)
+        from cbb_edge.ops import schedule_state
+
+        obs, failed = schedule_state.fetch_scoreboard(
+            schedule_state.window_dates(now, a.horizon_h), now.strftime("%Y%m%dT%H%M%SZ")
+        )
+        live = schedule_state.live_window(obs, now, a.horizon_h, sched[["espn_game_id", "tip"]])
         dec = decide_projections(a.archive or Path("none"), sched, now, a.horizon_h, d1,
-                                 roster_ok, a.season)  # fmt: skip
+                                 roster_ok, a.season, live)  # fmt: skip
+        dec["live_scoreboard"] = {"observations": len(obs), "failed_dates": failed,
+                                  "tbd_extra": len(live["extra"]), "excluded": len(live["exclude"])}  # fmt: skip
         if a.gaps_out:
             a.gaps_out.write_text(json.dumps(dec["gap_pairs"]))
     elif a.workflow == "scores":

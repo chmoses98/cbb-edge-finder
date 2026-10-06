@@ -84,62 +84,110 @@ def project_all(
     code_sha: str | None,
     roster_commit: str | None,
     only: set[tuple[str, int]] | None = None,
+    live: list[dict] | None = None,
 ) -> tuple[dict, dict]:
     """Project every active version for games tipping in (now, now + horizon_h] and
     append them to ``out_dir`` (the production step; also driven by the Wave 9 dry run
     with a simulated clock). Silver must already be built. ``only``: catch-up mode
     (Wave 9) writes just these (version, espn_game_id) records, the ones a missed tick
-    left without any pre-tip record."""
+    left without any pre-tip record. ``live``: this run's live ESPN scoreboard
+    observations, fetched AFTER ``now`` (Wave 10): games shown started / postponed /
+    cancelled are never projected; TBD-time games whose listed placeholder has passed
+    are projected only while positively "pre" (``schedule_state.live_window``). None
+    keeps the frozen window rule exactly."""
+    from contextlib import nullcontext
+
+    from cbb_edge.app.prospective import window_override
+    from cbb_edge.ops import schedule_state
+
+    win = None
+    if live is not None:
+        g = pd.read_parquet(data_dir() / "silver" / "games.parquet",
+                            columns=["season", "game_id", "start_time_utc"])  # fmt: skip
+        g = g[g["season"] == season]
+        listed = pd.DataFrame({"espn_game_id": g["game_id"].astype(int),
+                               "tip": pd.to_datetime(g["start_time_utc"], utc=True)})  # fmt: skip
+        win = schedule_state.live_window(live, now, horizon_h, listed)
+        stamp = now.strftime("%Y%m%dT%H%M%SZ")
+        p = out_dir / "schedule_obs" / f"{stamp}.jsonl"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("".join(json.dumps(o, sort_keys=True, default=str) + "\n" for o in live))
+    lv = {o["espn_game_id"]: o for o in (live or [])}
+
+    def stamp_schedule(rs: list[dict]) -> list[dict]:
+        """Provenance only: what the schedule said when this record was made."""
+        for r in rs:
+            gid = int(r["game"]["espn_game_id"])
+            o = lv.get(gid)
+            r["schedule"] = {
+                "listed_start": r["game"]["start_time_utc"],
+                "window": "tbd_extra" if win and gid in win["extra"] else "listed",
+                "live": None if o is None else {k: o[k] for k in (
+                    "observed_at", "start_utc", "time_state", "state", "status_name")},
+            }  # fmt: skip
+        return rs
 
     def keep(rs: list[dict]) -> list[dict]:
         if only is None:
             return rs
         return [r for r in rs if (r["model"]["version"], int(r["game"]["espn_game_id"])) in only]
 
-    act = active_models()
-    # incumbent + shadow challengers, each from its own frozen artifact; records of one
-    # version never touch another's (separate archive paths, append-only)
-    out = {}
-    failed: dict[str, str] = {}
-    for role, version in [("incumbent", act["incumbent"])] + [
-        ("challenger", v) for v in act.get("challengers", [])
-    ]:
-        model = load_model(version)
-        try:
-            recs = project_window(season, now, horizon_h, model=model)
-        except Exception as e:  # a challenger must never block the incumbent or others
-            if role == "incumbent":
-                raise
-            failed[version] = f"{type(e).__name__}: {e}"
-            continue
-        for r in recs:
-            r["prospective"]["role"] = role
-            r["prospective"]["code_sha"] = code_sha  # provenance only (Wave 8)
-        out[version] = write_archive(keep(recs), out_dir)
-        if role == "challenger" and roster_dir and "possession" in model.get("extra_blocks", []):
-            from cbb_edge.rosters.overlay import roster_overlay
+    ctx = window_override(win["extra"], win["exclude"]) if win is not None else nullcontext()
+    with ctx:
+        act = active_models()
+        # incumbent + shadow challengers, each from its own frozen artifact; records of one
+        # version never touch another's (separate archive paths, append-only)
+        out = {}
+        failed: dict[str, str] = {}
+        for role, version in [("incumbent", act["incumbent"])] + [
+            ("challenger", v) for v in act.get("challengers", [])
+        ]:
+            model = load_model(version)
+            try:
+                recs = project_window(season, now, horizon_h, model=model)
+            except Exception as e:  # a challenger must never block the incumbent or others
+                if role == "incumbent":
+                    raise
+                failed[version] = f"{type(e).__name__}: {e}"
+                continue
+            for r in recs:
+                r["prospective"]["role"] = role
+                r["prospective"]["code_sha"] = code_sha  # provenance only (Wave 8)
+            out[version] = write_archive(stamp_schedule(keep(recs)), out_dir)
+            if (
+                role == "challenger"
+                and roster_dir
+                and "possession" in model.get("extra_blocks", [])
+            ):
+                from cbb_edge.rosters.overlay import roster_overlay
 
-            try:  # P-ROSTER-1 (PROSPECTIVE_ONLY): base records are never touched
-                ro = roster_overlay(season, now, model, recs, Path(roster_dir), horizon_h)
-                for r in ro:
-                    r["prospective"]["role"] = "challenger_roster_overlay"
+                try:  # P-ROSTER-1 (PROSPECTIVE_ONLY): base records are never touched
+                    ro = roster_overlay(season, now, model, recs, Path(roster_dir), horizon_h)
+                    for r in ro:
+                        r["prospective"]["role"] = "challenger_roster_overlay"
+                        r["prospective"]["code_sha"] = code_sha
+                        r["roster"]["truth_archive_commit"] = roster_commit
+                        # Wave 9: hashes of the exact pre-tip evidence this record used, so
+                        # a later replacement of any snapshot file is detectable
+                        r["roster"]["truth_files_sha256"] = evidence_hashes(
+                            Path(roster_dir), r["roster"].get("truth_snapshot")
+                        )
+                    out[f"{version}+roster"] = write_archive(stamp_schedule(keep(ro)), out_dir)
+                except Exception as e:  # noqa: BLE001
+                    failed[f"{version}+roster"] = f"{type(e).__name__}: {e}"
+            if role == "challenger" and availability_dir:
+                over, when = load_overrides(Path(availability_dir), now)
+                av = availability_overlay(season, now, model, recs, over, when, horizon_h)
+                for r in av:
+                    r["prospective"]["role"] = "challenger_availability_overlay"
                     r["prospective"]["code_sha"] = code_sha
-                    r["roster"]["truth_archive_commit"] = roster_commit
-                    # Wave 9: hashes of the exact pre-tip evidence this record used, so
-                    # a later replacement of any snapshot file is detectable
-                    r["roster"]["truth_files_sha256"] = evidence_hashes(
-                        Path(roster_dir), r["roster"].get("truth_snapshot")
-                    )
-                out[f"{version}+roster"] = write_archive(keep(ro), out_dir)
-            except Exception as e:  # noqa: BLE001
-                failed[f"{version}+roster"] = f"{type(e).__name__}: {e}"
-        if role == "challenger" and availability_dir:
-            over, when = load_overrides(Path(availability_dir), now)
-            av = availability_overlay(season, now, model, recs, over, when, horizon_h)
-            for r in av:
-                r["prospective"]["role"] = "challenger_availability_overlay"
-                r["prospective"]["code_sha"] = code_sha
-            out[f"{version}+avail"] = write_archive(av if only is None else [], out_dir)
+                out[f"{version}+avail"] = write_archive(
+                    stamp_schedule(av) if only is None else [], out_dir
+                )
+    if win is not None:
+        failed_or_note = {"tbd_extra": sorted(win["extra"]), "live_excluded": sorted(win["exclude"]),
+                          "unprotected_no_live_evidence": sorted(win["unprotected"])}  # fmt: skip
+        out["_schedule_window"] = {k: len(v) for k, v in failed_or_note.items()}
     write_manifest(out_dir, now, code_sha, roster_commit)
     return out, failed
 
@@ -199,8 +247,16 @@ def main() -> None:
     if a.only_missing:
         pairs = json.loads(Path(a.only_missing).read_text())
         only = {(p.split("|")[0], int(p.split("|")[1])) for p in pairs}
+    # Wave 10: live game state, fetched now (after as_of): no projection for a game that
+    # may have started; TBD-time games stay projectable while positively "pre"
+    from cbb_edge.ops import schedule_state
+
+    live, failed_dates = schedule_state.fetch_scoreboard(
+        schedule_state.window_dates(now, a.horizon_h), stamp
+    )
     out, failed = project_all(a.season, now, a.horizon_h, Path(a.out), a.roster_dir,
-                              a.availability_dir, code_sha, roster_commit, only)  # fmt: skip
+                              a.availability_dir, code_sha, roster_commit, only, live)  # fmt: skip
+    out["_live_scoreboard"] = {"observations": len(live), "failed_dates": failed_dates}
     print(
         json.dumps(
             {"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out, "failed": failed}

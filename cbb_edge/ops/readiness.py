@@ -45,7 +45,15 @@ ALERTS = {
     "TEAM_ID_UNRESOLVED": "WARNING",  # a scheduled D-I member without a canonical id
     "WORKFLOW_STALE": "WARNING",  # a regular slot has been owed for > 3 h
     "UNRESOLVED_IDENTITY_MATERIAL": "WARNING",  # a team's unresolved names could carry > 10 min
+    "TBD_GAME_UNPROTECTED": "WARNING",  # TBD time, placeholder passed, no fresh live evidence
+    "TBD_START_UNPROVABLE": "WARNING",  # gate could not prove a TBD record pre-start
+    # Wave 10: a D-I vs D-I game the live ESPN scoreboard lists but the projection
+    # schedule source (SDV) does not: it cannot be projected, and nothing else sees it
+    "GAME_MISSING_FROM_SCHEDULE_SOURCE": "WARNING",  # more than 30 h ahead
+    "GAME_MISSING_FROM_SCHEDULE_SOURCE_IMMINENT": "CRITICAL",  # within 30 h, or started
 }
+SOURCE_HORIZON = pd.Timedelta(hours=30)
+LIVE_FRESH = pd.Timedelta(hours=2)
 STALE_GRACE = pd.Timedelta(hours=3)
 
 
@@ -164,20 +172,90 @@ def _latest_gate(scores: Path | None) -> tuple[pd.DataFrame, pd.Timestamp | None
     return g, last
 
 
+def live_only_games(sched: pd.DataFrame, schedule_obs: pd.DataFrame | None,
+                    season: int) -> pd.DataFrame:  # fmt: skip
+    """Games on the live ESPN scoreboard (latest observation) that the projection
+    schedule source does not list, with canonical team ids (``in_schedule_source``
+    False). Postponed / cancelled games are left out."""
+    from cbb_edge.data.ids.teams import canonical_from_espn_in
+    from cbb_edge.ops import schedule_state as ss
+
+    if schedule_obs is None or not len(schedule_obs):
+        return pd.DataFrame()
+    live = schedule_obs[schedule_obs["source"] == "espn_scoreboard"]
+    live = live[~live["espn_game_id"].isin(set(sched["espn_game_id"].astype(int)))]
+    if not len(live):
+        return pd.DataFrame()
+    last = live.sort_values("observed_at").groupby("espn_game_id").tail(1)
+    last = last[~last["status_name"].isin(ss.NOT_PLAYED)]
+
+    def tid(e: object) -> str | None:
+        return None if e is None or e != e else canonical_from_espn_in(int(e), season)
+
+    return pd.DataFrame({
+        "espn_game_id": last["espn_game_id"].astype(int).to_numpy(),
+        "home_team_id": [tid(e) for e in last["home_espn"]],
+        "away_team_id": [tid(e) for e in last["away_espn"]],
+        "tip": pd.to_datetime(last["start_utc"], utc=True).to_numpy(),
+        "status": last["status_name"].to_numpy(), "time_state": last["time_state"].to_numpy(),
+        "in_schedule_source": False,
+    })  # fmt: skip
+
+
 def build(sched: pd.DataFrame, rosters: Path, projections: Path | None, scores: Path | None,
           now: pd.Timestamp, start: pd.Timestamp, days: float, season: int,
           versions: list[str], d1: set[str], members_espn: set[int] | None = None,
-          identity_exposure: dict[str, float] | None = None) -> dict[str, Any]:  # fmt: skip
+          identity_exposure: dict[str, float] | None = None,
+          schedule_obs: pd.DataFrame | None = None) -> dict[str, Any]:  # fmt: skip
+    from cbb_edge.ops import schedule_state as ss
+
     end = start + pd.Timedelta(days=days)
     sched = sched.copy()
+    sched["in_schedule_source"] = True
+    missing = live_only_games(sched, schedule_obs, season)
+    if len(missing):
+        sched = pd.concat([sched, missing], ignore_index=True)
     sched["d1_game"] = sched["home_team_id"].isin(d1) & sched["away_team_id"].isin(d1)
+    if "time_state" not in sched:
+        sched["time_state"] = ss.ANNOUNCED
+    # Wave 10: when did each game (possibly) start? announced tip; else the first live
+    # observation showing it started; else not yet (a TBD placeholder is NOT a start)
+    live = (schedule_obs[schedule_obs["source"] == "espn_scoreboard"]
+            if schedule_obs is not None and len(schedule_obs) else pd.DataFrame())  # fmt: skip
+    first_started, last_live, last_pre = {}, {}, {}
+    if len(live):
+        for gid, x in live.groupby("espn_game_id"):
+            st = x[[s in ("in", "post") and n not in ss.NOT_PLAYED
+                    for s, n in zip(x["state"], x["status_name"], strict=True)]]  # fmt: skip
+            pr = x[
+                [ss.not_started(s, n) for s, n in zip(x["state"], x["status_name"], strict=True)]
+            ]
+            if len(st):
+                first_started[int(gid)] = st["observed_at"].min()
+            if len(pr):
+                last_pre[int(gid)] = pr["observed_at"].max()
+            last_live[int(gid)] = x["observed_at"].max()
+    never = pd.Timestamp.max.tz_localize("UTC")
+    sched["eff_tip"] = [g.tip if g.time_state == ss.ANNOUNCED
+                        else first_started.get(int(g.espn_game_id), never)
+                        for g in sched.itertuples(index=False)]  # fmt: skip
+    sched["eff_tip"] = pd.to_datetime(sched["eff_tip"], utc=True) if len(sched) else pd.Series(
+        dtype="datetime64[ns, UTC]")  # fmt: skip
+    sched["started"] = sched["eff_tip"] <= now
     elig = team_eligibility(rosters, season, before=min(now, start) if start > now else now)
     el = elig.set_index("team_id") if len(elig) else pd.DataFrame()
     capable = projection_capable(season)
     recs = _records(projections, season)
     gate, last_score = _latest_gate(scores)
     gi = gate.set_index("espn_game_id") if len(gate) else gate
-    pre = recs[recs["as_of"] < recs["tip"]] if len(recs) else recs
+    if len(recs):
+        et = sched.set_index("espn_game_id")["eff_tip"]
+        recs["eff_tip"] = [
+            et.get(g, t) for g, t in zip(recs["espn_game_id"], recs["tip"], strict=True)
+        ]
+        pre = recs[recs["as_of"] < recs["eff_tip"]]
+    else:
+        pre = recs
     have = set(zip(pre["version"], pre["espn_game_id"], strict=True)) if len(pre) else set()
 
     # ---- readiness (per team with a game in the window)
@@ -240,7 +318,8 @@ def build(sched: pd.DataFrame, rosters: Path, projections: Path | None, scores: 
         obs.append({
             "espn_game_id": gid, "tip": g.tip.isoformat(), "home": g.home_team_id, "away": g.away_team_id,
             "status": g.status, "in_experiment": bool(g.d1_game), "tip_tbd": tip_tbd(g.tip),
-            "tipped": bool(g.tip <= now),
+            "time_state": g.time_state, "tipped": bool(g.started),
+            "live_state_last_seen": None if gid not in last_live else last_live[gid].isoformat(),
             **{f"projection:{v}": got[v] for v in versions},
             "roster_snapshot": rr["truth_snapshot"].max() if len(rr) else None,
             "roster_confidence": "/".join(str(c) for c in conf),
@@ -256,7 +335,7 @@ def build(sched: pd.DataFrame, rosters: Path, projections: Path | None, scores: 
         alerts.append({"code": code, "severity": ALERTS[code], **kw})
 
     in_season = now.month in cadence.SEASON_MONTHS
-    past = sched[sched["d1_game"] & (sched["tip"] <= now) & ~sched["status"].isin(
+    past = sched[sched["d1_game"] & sched["started"] & ~sched["status"].isin(
         ["STATUS_CANCELED", "STATUS_POSTPONED"])]  # fmt: skip
     for g in past.itertuples(index=False):
         miss = [v for v in versions if (v, int(g.espn_game_id)) not in have]
@@ -268,9 +347,8 @@ def build(sched: pd.DataFrame, rosters: Path, projections: Path | None, scores: 
         if (g.status == "STATUS_FINAL" and g.tip < now - pd.Timedelta(hours=36) and not miss
                 and (st is None or st["status"] in ("PENDING",))):  # fmt: skip
             alert("SETTLED_GAME_NEVER_SCORED", espn_game_id=int(g.espn_game_id))
-    soon = sched[
-        sched["d1_game"] & (sched["tip"] > now) & (sched["tip"] <= now + pd.Timedelta(hours=6))
-    ]
+    soon = sched[sched["d1_game"] & ~sched["started"] & (sched["tip"] <= now + pd.Timedelta(hours=6))
+                 & ((sched["tip"] > now) | (sched["time_state"] != ss.ANNOUNCED))]  # fmt: skip
     for g in soon.itertuples(index=False):
         miss = [v for v in versions if (v, int(g.espn_game_id)) not in have]
         if miss:
@@ -312,9 +390,86 @@ def build(sched: pd.DataFrame, rosters: Path, projections: Path | None, scores: 
     for t, m in sorted((identity_exposure or {}).items()):
         if m > 10:
             alert("UNRESOLVED_IDENTITY_MATERIAL", team_id=t, minutes_at_stake=round(m, 1))
+    tbd_now = sched[sched["d1_game"] & (sched["time_state"] != ss.ANNOUNCED) & ~sched["started"]
+                    & (sched["tip"] <= now) & ~sched["status"].isin(["STATUS_CANCELED"])]  # fmt: skip
+    for g in tbd_now.itertuples(index=False):
+        seen = last_live.get(int(g.espn_game_id))
+        if seen is None or now - seen > LIVE_FRESH:
+            alert("TBD_GAME_UNPROTECTED", espn_game_id=int(g.espn_game_id), date_placeholder=g.tip.isoformat(),
+                  last_live_observation=None if seen is None else seen.isoformat())  # fmt: skip
+    for r in gate.itertuples(index=False):
+        if "tbd_start_unprovable" in str(r.reasons):
+            alert("TBD_START_UNPROVABLE", espn_game_id=int(r.espn_game_id))
+    src = sched[sched["d1_game"] & ~sched["in_schedule_source"].astype(bool)
+                & (sched["tip"] >= now - pd.Timedelta(hours=36))]  # fmt: skip
+    near = src[src["started"] | (src["tip"] <= now + SOURCE_HORIZON)]
+    for g in near.itertuples(index=False):
+        alert("GAME_MISSING_FROM_SCHEDULE_SOURCE_IMMINENT", espn_game_id=int(g.espn_game_id),
+              tip=g.tip.isoformat(), home=g.home_team_id, away=g.away_team_id)  # fmt: skip
+    far = src[~src["espn_game_id"].isin(near["espn_game_id"])]
+    if len(far):
+        alert("GAME_MISSING_FROM_SCHEDULE_SOURCE", n_games=int(len(far)),
+              first_tip=far["tip"].min().isoformat(),
+              espn_game_ids=sorted(int(x) for x in far["espn_game_id"])[:25])  # fmt: skip
+    games_df = game_readiness(
+        sched, win, have, versions, el, capable, now, last_live, last_pre, pre
+    )
     return {"now": now.isoformat(), "window": [start.isoformat(), end.isoformat()],
             "readiness": ready_df, "observability": obs_df, "alerts": alerts,
-            "eligibility": elig}  # fmt: skip
+            "eligibility": elig, "games": games_df}  # fmt: skip
+
+
+def game_readiness(sched: pd.DataFrame, win: pd.DataFrame, have: set, versions: list[str],
+                   el: pd.DataFrame, capable: set[str], now: pd.Timestamp,
+                   last_live: dict, last_pre: dict, pre: pd.DataFrame) -> pd.DataFrame:  # fmt: skip
+    """Per game in the window (Wave 10, opening-week readiness): tip-time state, a valid
+    pre-game snapshot available now, baseline possible, P-ROSTER-1 eligible, roster
+    status, and whether it is currently at risk of becoming unscorable (and why)."""
+    from cbb_edge.ops import schedule_state as ss
+
+    rows = []
+    w = sched[sched["espn_game_id"].isin(win["espn_game_id"])]
+    for g in w.itertuples(index=False):
+        gid = int(g.espn_game_id)
+        teams = (g.home_team_id, g.away_team_id)
+        conf = [
+            el.loc[t, "roster_confidence"] if len(el) and t in el.index else None for t in teams
+        ]
+        snap = all((v, gid) in have for v in versions)
+        risk = []
+        if g.d1_game and not g.in_schedule_source:
+            risk.append("listed on the live ESPN scoreboard but missing from the projection "
+                        "schedule source (SDV): cannot be projected")  # fmt: skip
+        if not g.d1_game:
+            risk.append("not a D-I vs D-I game (outside the experiment)")
+        elif not all(t in capable for t in teams):
+            risk.append("a team the frozen pipeline cannot project")
+        if g.d1_game and any(c is None for c in conf):
+            risk.append("a team without a roster truth row (no P-ROSTER-1 record)")
+        hrs = (g.tip - now).total_seconds() / 3600
+        if g.d1_game and not snap and not g.started and hrs <= 30 and g.time_state == ss.ANNOUNCED:
+            risk.append("inside the 30 h window without a snapshot for every version")
+        if g.d1_game and g.time_state != ss.ANNOUNCED and not g.started and g.tip <= now:
+            seen = last_live.get(gid)
+            if seen is None or now - seen > LIVE_FRESH:
+                risk.append("TBD time, placeholder passed, no fresh live game-state evidence")
+        if g.d1_game and g.time_state != ss.ANNOUNCED and snap and len(pre):
+            last_rec = pre.loc[pre["espn_game_id"] == gid, "as_of"].max()
+            lp = last_pre.get(gid)
+            if lp is None or lp < last_rec:
+                risk.append("TBD time: no live 'pre' observation after the latest snapshot yet")
+        rows.append({
+            "espn_game_id": gid, "listed_tip": g.tip.isoformat(), "time_state": g.time_state,
+            "home": g.home_team_id, "away": g.away_team_id, "in_experiment": bool(g.d1_game),
+            "in_schedule_source": bool(g.in_schedule_source),
+            "pre_game_snapshot_available": snap,
+            "baseline_projection_possible": bool(g.d1_game and all(t in capable for t in teams)),
+            "proster_eligible": any(bool(el.loc[t, "proster_input_substitution"]) for t in teams
+                                    if len(el) and t in el.index),
+            "roster_status": "/".join(str(c) for c in conf), "at_risk": bool(risk),
+            "why": "; ".join(risk),
+        })  # fmt: skip
+    return pd.DataFrame(rows)
 
 
 def markdown(r: dict[str, Any]) -> str:
@@ -347,11 +502,27 @@ def markdown(r: dict[str, Any]) -> str:
         bad = rd[rd["currently_unscorable"]]
         L += ["### 8. Why unscorable", ""] + [f"* `{x.team_id}` (next game {x.next_game}): {x.why}"
                                              for x in bad.itertuples()] + [""]  # fmt: skip
+    gm = r.get("games")
+    if gm is not None and len(gm):
+        ex = gm[gm["in_experiment"]]
+        L += ["## Opening-week games (Wave 10: tip-time state)", "",
+              "| measure | games |", "|---|---|",
+              f"| games total (D-I vs D-I / all) | {len(ex)} / {len(gm)} |",
+              f"| announced tip | {int((ex['time_state'] == 'ANNOUNCED').sum())} |",
+              f"| TBD / placeholder / unknown | {int((ex['time_state'] != 'ANNOUNCED').sum())} |",
+              f"| on the live scoreboard but MISSING from the projection schedule source (SDV) | {int((~ex['in_schedule_source']).sum())} |",
+              f"| valid pre-game snapshot available now | {int(ex['pre_game_snapshot_available'].sum())} |",
+              f"| baseline projection possible | {int(ex['baseline_projection_possible'].sum())} |",
+              f"| P-ROSTER-1 eligible (a side with input substitution) | {int(ex['proster_eligible'].sum())} |",
+              f"| roster status (both sides CONFIRMED) | {int((ex['roster_status'] == 'CONFIRMED/CONFIRMED').sum())} |",
+              f"| currently at risk of becoming unscorable | {int(ex['at_risk'].sum())} |", ""]  # fmt: skip
+        why = ex.loc[ex["at_risk"], "why"].str.split("; ").explode().value_counts()
+        L += [f"* {k}: {v}" for k, v in why.items()] + [""]
     if len(ob):
         vcols = [c for c in ob.columns if c.startswith("projection:")]
         L += ["## Opening-week observability (per game)", "",
-              "TBD = ESPN has not set the tip time (00:00 ET placeholder): the last projection "
-              "chance is the evening before. ", "",
+              "TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholder "
+              "passes, the game is projected only while the live scoreboard shows it not started.", "",
               "| tip | game | home | away | in exp. | " + " | ".join(c.split(":")[1] for c in vcols)
               + " | roster snapshot | confidence | P-ROSTER-1 eligible | gate | settled | scored |",
               "|" + "---|" * (11 + len(vcols))]  # fmt: skip
@@ -367,6 +538,7 @@ def markdown(r: dict[str, Any]) -> str:
 
 def main() -> None:
     from cbb_edge.data.ids.teams import authoritative_members
+    from cbb_edge.ops import schedule_state as ss
     from cbb_edge.rosters import membership
 
     ap = argparse.ArgumentParser()
@@ -379,11 +551,16 @@ def main() -> None:
     ap.add_argument("--now", default=None)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--identity", type=Path, default=None, help="pretip_diagnostics JSON")
+    ap.add_argument("--schedule-archive", type=Path, nargs="*", default=[])
     a = ap.parse_args()
     now = _ts(a.now) if a.now else pd.Timestamp(datetime.now(UTC))
     sched = cadence.schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"))
-    # before the season opener the report previews opening week (from the first tip)
-    opener = sched["tip"].min() if len(sched) else now
+    obs = ss.load_obs(*a.schedule_archive, a.projections)
+    # before the season opener the report previews opening week, from the first tip in
+    # EITHER source (Wave 10: SDV can lag the live scoreboard)
+    tips = pd.concat([sched["tip"], live_only_games(sched, obs, a.season).get(
+        "tip", pd.Series(dtype="datetime64[ns, UTC]"))])  # fmt: skip
+    opener = pd.to_datetime(tips, utc=True).min() if len(tips) else now
     start = _ts(a.start) if a.start else max(now, opener.normalize())
     d1 = set(membership.members(a.season)["team_id"].dropna())
     versions = cadence.required_versions(True)
@@ -391,10 +568,11 @@ def main() -> None:
     if a.identity and a.identity.exists():
         exposure = json.loads(a.identity.read_text()).get("identity_impact", {}).get("per_team")
     r = build(sched, a.rosters, a.projections, a.scores, now, start, a.days, a.season, versions,
-              d1, set(authoritative_members(a.season) or []), exposure)  # fmt: skip
+              d1, set(authoritative_members(a.season) or []), exposure, obs)  # fmt: skip
     a.out.mkdir(parents=True, exist_ok=True)
     r["readiness"].to_csv(a.out / "readiness.csv", index=False)
     r["observability"].to_csv(a.out / "observability.csv", index=False)
+    r["games"].to_csv(a.out / "games.csv", index=False)
     (a.out / "alerts.json").write_text(json.dumps(r["alerts"], indent=1, default=str))
     (a.out / "readiness.md").write_text(markdown(r))
     crit = [x for x in r["alerts"] if x["severity"] == "CRITICAL"]

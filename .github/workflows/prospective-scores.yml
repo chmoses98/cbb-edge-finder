@@ -56,7 +56,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
-          for b in projections-archive roster-archive espn-lines-archive; do
+          for b in projections-archive roster-archive espn-lines-archive schedule-archive; do
             mkdir -p "arch/$b"
             git -C "arch/$b" init -q
             git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
@@ -86,7 +86,7 @@ jobs:
           set -o pipefail
           python scripts/prospective/score_proster.py --season "${{ github.event.inputs.season || '2027' }}" \
             --projections arch/projections-archive --rosters arch/roster-archive \
-            --espn arch/espn-lines-archive --out score_out | tee score_summary.json
+            --espn arch/espn-lines-archive --schedule arch/schedule-archive --out score_out | tee score_summary.json
           cat score_out/dashboard.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: steps.decide.outputs.due == 'true'

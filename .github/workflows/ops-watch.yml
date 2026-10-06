@@ -12,6 +12,10 @@ on:
     - cron: "25 * * 10-12 *"   # hourly Oct-Dec (Oct: opening-week preview)
     - cron: "25 * * 1-4 *"     # hourly Jan-Apr
   workflow_dispatch:
+    inputs:
+      observe_hours:
+        description: "scoreboard window for the game-state observation (hours ahead)"
+        default: "192"
   pull_request:
     paths:
       - "cbb_edge/ops/**"
@@ -48,12 +52,43 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
-          for b in projections-archive roster-archive prospective-scores; do
+          for b in projections-archive roster-archive prospective-scores schedule-archive; do
             mkdir -p "arch/$b"
             git -C "arch/$b" init -q
             git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
             if git -C "arch/$b" fetch -q origin "$b"; then git -C "arch/$b" checkout -q -B "$b" FETCH_HEAD; else echo "no $b yet"; fi
           done
+      - name: Observe game states (append-only schedule-archive; Wave 10)
+        if: github.event_name != 'pull_request'
+        continue-on-error: true  # the readiness report must still run (it alerts on stale evidence)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set -euo pipefail
+          rm -rf sa && mkdir sa && cd sa
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin schedule-archive; then
+            git checkout -q -b schedule-archive FETCH_HEAD
+          else
+            git checkout -q --orphan schedule-archive
+            printf '# Schedule-time and game-state observations (Wave 10)\n\nAppend-only. Pre-game scheduling metadata only (ESPN scoreboard, SDV schedule): tip-time history and not-started evidence for the pre-tip gate.\n' > README.md
+          fi
+          cd ..
+          python -m cbb_edge.ops.schedule_state observe --archive sa --hours "${{ github.event.inputs.observe_hours || '192' }}" --sdv --full-out run_obs | tee observe.json
+          cd sa
+          git add -A
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -q -m "schedule observations $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q origin schedule-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin schedule-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1
       - name: Readiness / observability / alerts
         id: watch
         env:
@@ -62,7 +97,8 @@ jobs:
           set +e
           python scripts/prospective/pretip_diagnostics.py --rosters arch/roster-archive --out pretip.json > /dev/null
           python -m cbb_edge.ops.readiness --rosters arch/roster-archive --projections arch/projections-archive \
-            --scores arch/prospective-scores --identity pretip.json --out ops_out | tee watch.json
+            --scores arch/prospective-scores --identity pretip.json \
+            --schedule-archive "$( [ -d sa ] && echo sa || echo arch/schedule-archive )" run_obs --out ops_out | tee watch.json
           code=${PIPESTATUS[0]}
           echo "code=$code" >> "$GITHUB_OUTPUT"
           [ -f ops_out/readiness.md ] && cat ops_out/readiness.md | head -60 >> "$GITHUB_STEP_SUMMARY"

@@ -281,6 +281,44 @@ def availability_overlay(
     return out
 
 
+# Wave 10 window override (operations only; None = the frozen rule exactly). Set by
+# ``window_override`` around a production run so every caller of ``project_window`` in
+# that run (incumbent, challengers, the P-ROSTER-1 and availability overlays) sees the
+# same game set without any change to their code:
+# * ``extra``   games whose LISTED tip has passed but whose time is not announced (ESPN
+#               "TBD" placeholder) and whose live game state, observed after ``as_of``,
+#               is still "pre" (cbb_edge/ops/schedule_state.py);
+# * ``exclude`` games whose live state shows they have started, been postponed or been
+#               cancelled: never projected, whatever their listed tip says.
+_WINDOW: dict[str, frozenset[int]] = {}
+
+
+class window_override:  # noqa: N801  (context manager)
+    def __init__(self, extra: set[int] | None = None, exclude: set[int] | None = None):
+        self.new = {"extra": frozenset(extra or ()), "exclude": frozenset(exclude or ())}
+
+    def __enter__(self) -> window_override:
+        self.old = dict(_WINDOW)
+        _WINDOW.clear()
+        _WINDOW.update(self.new)
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        _WINDOW.clear()
+        _WINDOW.update(self.old)
+
+
+def select_window(df: pd.DataFrame, as_of: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
+    """The frozen rule (listed tip in (as_of, end]) plus the Wave 10 override."""
+    keep = (df["start_time_utc"] > as_of) & (df["start_time_utc"] <= end)
+    if _WINDOW:
+        gid = df["game_id"].astype("int64")
+        keep = (keep | gid.isin(_WINDOW.get("extra", frozenset()))) & ~gid.isin(
+            _WINDOW.get("exclude", frozenset())
+        )
+    return df[keep]
+
+
 def project_window(
     season: int,
     as_of: pd.Timestamp,
@@ -295,7 +333,7 @@ def project_window(
     )
     recon = df.attrs.get("reconstruction")
     end = as_of + pd.Timedelta(hours=horizon_h)
-    win = df[(df["start_time_utc"] > as_of) & (df["start_time_utc"] <= end)]
+    win = select_window(df, as_of, end)
     if win.empty:
         return []
     margin = apply_linear(win, model["margin"])

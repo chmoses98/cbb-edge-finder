@@ -21,6 +21,7 @@ import pandas as pd
 
 from cbb_edge.data.bronze import sportsdataverse as sdv
 from cbb_edge.data.ids.teams import canonical_from_espn
+from cbb_edge.ops import schedule_state
 from cbb_edge.rosters import membership, prospective_score
 
 
@@ -36,8 +37,13 @@ def schedule(season: int, stamp: str) -> tuple[pd.DataFrame, pd.DataFrame]:
             "away_team_id": s["away_id"].map(canonical_from_espn),
             "tip": pd.to_datetime(s["start_date"], utc=True),
             "status": s["status_type_name"],
+            # Wave 10: the listing's tip-time state (ANNOUNCED / TBD / PLACEHOLDER / UNKNOWN)
+            "time_state": [schedule_state.time_state(v, t, d) for v, t, d in zip(
+                s["time_valid"] if "time_valid" in s else [None] * len(s), s["start_date"],
+                s["status_type_short_detail"] if "status_type_short_detail" in s
+                else [None] * len(s), strict=True)],
         }
-    )
+    )  # fmt: skip
     sched = sched[sched["status"].ne("STATUS_CANCELED")]
     c = s[s["status_type_completed"].fillna(False).astype(bool)]
     res = pd.DataFrame(
@@ -99,6 +105,7 @@ def main() -> None:
     ap.add_argument("--rosters", type=Path, required=True)
     ap.add_argument("--espn", type=Path, default=None)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--schedule", type=Path, default=None, help="schedule-archive checkout")
     a = ap.parse_args()
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     recs = prospective_score.load_records(a.projections, a.season) if a.projections.exists() else []
@@ -109,11 +116,16 @@ def main() -> None:
     expected = expected_games(sched, d1, now)
     frames, s = prospective_score.score(
         recs, res, market(a.espn, sched), a.rosters if a.rosters.exists() else None, bx,
-        sched, a.season, d1,
+        sched[["espn_game_id", "home_team_id", "away_team_id", "tip", "time_state"]]
+        if len(sched) else sched, a.season, d1,
         committed=prospective_score.git_first_commit_times(a.projections),
         committed_roster=prospective_score.git_first_commit_times(a.rosters),
         projections_root=a.projections if a.projections.exists() else None,
         expected=expected,
+        schedule_obs=schedule_state.load_obs(
+            a.schedule if a.schedule and a.schedule.exists() else None,
+            a.projections if a.projections.exists() else None,
+        ),
     )  # fmt: skip
     s["run"] = {
         "stamp": stamp,
