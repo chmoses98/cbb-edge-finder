@@ -57,8 +57,9 @@ def capture(
         rows = [r for r in rows if r["team_id"] in set(teams)]
 
     def one(r: dict[str, Any]) -> discovery.Discovery:
+        extra = frozenset([*r.get("redirect_hosts", []), *r.get("linked_hosts", [])])
         return discovery.discover(r["team_id"], r["athletics_url"], season, stamp,
-                                  (known or {}).get(r["team_id"]))  # fmt: skip
+                                  (known or {}).get(r["team_id"]), extra)  # fmt: skip
 
     with ThreadPoolExecutor(max_workers=WORKERS) as ex:
         return list(ex.map(one, rows))
@@ -180,6 +181,7 @@ def discovery_report(found: list[discovery.Discovery]) -> dict[str, Any]:
                 "platform": d.platform,
                 "error": d.error,
                 "redirect_to": d.redirect_to,
+                "linked_to": d.linked_to,
                 "attempts": d.attempts,
             }
             for d in found
@@ -195,5 +197,10 @@ def discovery_report(found: list[discovery.Discovery]) -> dict[str, Any]:
             ]
             for d in found
             if isinstance(d.redirect_to, str) and d.redirect_to
+        },
+        "linked": {
+            d.team_id: [d.linked_evidence]
+            for d in found
+            if isinstance(d.linked_evidence, dict) and d.linked_evidence.get("to")
         },
     }

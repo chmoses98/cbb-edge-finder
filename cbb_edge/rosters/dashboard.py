@@ -37,8 +37,12 @@ def scorecard(
     for d in found:
         if not d.roster_url:
             why = d.error or "roster_not_found"
-            reasons[d.team_id] = f"roster page: {why}" + (f" (redirects to {d.redirect_to})"
-                                                          if d.redirect_to else "")  # fmt: skip
+            reasons[d.team_id] = (
+                f"roster page: {why}"
+                + (f" (redirects to {d.redirect_to})" if d.redirect_to else "")
+                + (f" (official link to unregistered {d.linked_to})"
+                   if getattr(d, "linked_to", None) else "")
+            )  # fmt: skip
     if len(pages):
         for r in pages[~pages["page_status"].isin(["CURRENT", "PROBABLY_CURRENT"])].itertuples():
             reasons.setdefault(r.team_id, f"official page {r.page_status}: {r.page_reason}")

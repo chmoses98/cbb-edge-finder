@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "sources (the free-source probes) or official (Wave 7 official roster discovery across the domain registry)"
+        description: "sources (the free-source probes), official (Wave 7 official roster discovery across the domain registry) or gaps (Wave 8 targeted roster-gap evidence)"
         default: sources
   pull_request:
     paths:
@@ -29,7 +29,7 @@ permissions:
 
 jobs:
   probe:
-    if: github.event_name != 'workflow_dispatch' || inputs.mode != 'official'
+    if: github.event_name != 'workflow_dispatch' || (inputs.mode != 'official' && inputs.mode != 'gaps')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -78,7 +78,7 @@ jobs:
     # domain registry, evidence for sites that did not parse (plus three examples per
     # platform) committed gzipped. Polite: per-host 5 s spacing, robots.txt, <= 6 pages
     # per site.
-    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'official'
+    if: github.event_name == 'workflow_dispatch' && (inputs.mode == 'official' || inputs.mode == 'gaps')
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -94,7 +94,11 @@ jobs:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
           set -o pipefail
-          python scripts/data/probe_official_rosters.py | tee probe_official.json
+          if [ "${{ inputs.mode }}" = "gaps" ]; then
+            python scripts/data/probe_roster_gaps.py | tee probe_official.json
+          else
+            python scripts/data/probe_official_rosters.py | tee probe_official.json
+          fi
       - name: Commit evidence (append-only branch)
         if: always()
         env:

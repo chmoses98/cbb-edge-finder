@@ -253,7 +253,9 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     evp.parent.mkdir(parents=True, exist_ok=True)
     evp.write_text("".join(json.dumps(e, default=str) + "\n" for e in ev))
     rep = quality_report(df, fresh, recs, conflicts, teams_s, new_keys, stamp)
-    rep["official"] = {k: v for k, v in disc.items() if k not in ("not_found", "redirects")}
+    rep["official"] = {
+        k: v for k, v in disc.items() if k not in ("not_found", "redirects", "linked")
+    }
     rep["official"]["page_status"] = (
         pages["page_status"].value_counts().to_dict() if len(pages) else {}
     )
