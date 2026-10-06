@@ -802,25 +802,30 @@ def tbd_ambiguous(recs: list[dict], unproven: dict,
     return amb
 
 
-def identity_changed(recs: list[dict], games: pd.DataFrame | None) -> set[int]:
-    """Wave 11 (fail closed): games whose FINAL schedule lists different teams, or the
-    same teams with home / away swapped, from a base / P-ROSTER-1 record made for it
-    (a source changed the matchup under the same id). Such a record predicts another
-    matchup or the opposite margin sign: never paired with the result."""
-    if games is None or not len(games) or "home_team_id" not in games:
+def identity_changed(pre: pd.DataFrame, games: pd.DataFrame | None) -> set[int]:
+    """Wave 11 (fail closed): games whose SCORED pre-tip record (``pregame``: the latest
+    before tip, per version) is for different teams, or the same teams with home / away
+    swapped, than the FINAL schedule (a source changed the matchup under the same id after
+    that record). Such a record predicts another matchup or the opposite margin sign:
+    never paired with the result. A later pre-tip record made for the corrected matchup is
+    the scored one, so a change caught before tip costs nothing."""
+    if (
+        games is None
+        or not len(games)
+        or "home_team_id" not in games
+        or pre is None
+        or not len(pre)
+    ):
         return set()
     fin = {int(g): (h, a) for g, h, a in zip(games["espn_game_id"], games["home_team_id"],
                                              games["away_team_id"], strict=True)}  # fmt: skip
     out = set()
-    for r in recs:
-        if r.get("model", {}).get("version") not in (BASE, ROSTER):
+    for r in pre[pre["version"].isin([BASE, ROSTER])].itertuples(index=False):
+        f = fin.get(int(r.espn_game_id))
+        if f is None or any(x is None or x != x for x in f):
             continue
-        gid = int(r["game"]["espn_game_id"])
-        f = fin.get(gid)
-        if f is None or None in f or any(x != x for x in f):
-            continue
-        if (r["home"]["team_id"], r["away"]["team_id"]) != f:
-            out.add(gid)
+        if (r.home_team_id, r.away_team_id) != f:
+            out.add(int(r.espn_game_id))
     return out
 
 
@@ -868,7 +873,7 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
         mutated_roster=pretip_gate.git_mutated_paths(roster_archive),
         dups=pretip_gate.duplicates(recs),
     )  # fmt: skip
-    changed = identity_changed(recs, games)
+    changed = identity_changed(pre, games)
     amb = tbd_ambiguous(recs, unproven, committed) | changed
     if amb:
         gate = gate[~gate["espn_game_id"].isin(amb)]

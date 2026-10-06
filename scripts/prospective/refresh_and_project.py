@@ -125,11 +125,13 @@ def project_all(
             gid = int(r["game"]["espn_game_id"])
             o = lv.get(gid)
             src = (sources or {}).get(gid) or {}
-            if src.get("schedule_source") == "ESPN_FALLBACK" and src.get("row"):
+            if src.get("row"):  # fallback or field-reconciled: the ESPN row it used
                 used_rows[gid] = src["row"]
             r["schedule"] = {
                 "source": src.get("schedule_source", "SDV" if sources is not None else None),
                 "source_observed_at": src.get("source_observed_at"),
+                "reconciled_fields": src.get("reconciled_fields") or [],
+                "reconciliation": src.get("reconciliation"),
                 "listed_start": r["game"]["start_time_utc"],
                 "window": "tbd_extra" if win and gid in win["extra"] else "listed",
                 "live": None if o is None else {k: o[k] for k in (
@@ -205,7 +207,11 @@ def project_all(
         p.write_text("".join(json.dumps(r, sort_keys=True, default=str) + "\n"
                              for _, r in sorted(used_rows.items())))  # fmt: skip
     if sources is not None:
-        out["_schedule_sources"] = {"records_from_espn_fallback_games": len(used_rows)}
+        out["_schedule_sources"] = {
+            "games_with_espn_rows": len(used_rows),
+            "fallback_games": sum(1 for g in used_rows if (sources.get(g) or {}).get("schedule_source") == "ESPN_FALLBACK"),
+            "reconciled_sdv_games": sum(1 for g in used_rows if (sources.get(g) or {}).get("reconciled_fields")),
+        }  # fmt: skip
     write_manifest(out_dir, now, code_sha, roster_commit)
     return out, failed
 
@@ -290,6 +296,7 @@ def main() -> None:
     out["_live_scoreboard"] = {"observations": len(live), "failed_dates": failed_dates}
     out["_schedule_completion"] = {k: completion.get(k) for k in (
         "sdv_games", "fallback_games", "shared_games")} | {
+        "reconciled_sdv_games": (completion.get("reconciliation") or {}).get("reconciled_games"),
         "excluded": len(completion.get("excluded", [])),
         "material_disagreements": len(completion.get("material_disagreements", [])),
         "row_fetch_failed_dates": raw_failed}  # fmt: skip

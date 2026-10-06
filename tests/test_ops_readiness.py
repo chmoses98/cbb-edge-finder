@@ -200,3 +200,40 @@ def test_schedule_completeness_alerts(tmp_path, monkeypatch):
     assert g.loc[3, "schedule_source"] == "ESPN_FALLBACK" and g.loc[5, "schedule_source"] == "SDV"
     md = R.markdown(r)
     assert "Schedule completeness" in md and "ESPN-fallback rows (absent from SDV) | 2" in md
+
+
+def test_readiness_window_equals_the_canonical_et_universe(tmp_path, monkeypatch):
+    """Wave 11 amendment: readiness and the dry run count the SAME Nov 1-9 universe
+    (US Eastern calendar dates). The 356-vs-357 case: 401920686 UConn-Wagner tips
+    2026-11-10T00:00Z = Nov 9 7 PM ET, inside the window; Oct 31 10 PM ET is outside."""
+    import cbb_edge.data.ids.teams as teams
+    from cbb_edge.ops import schedule_completion as sc
+    from cbb_edge.ops import schedule_state as ss
+    from tests.espn_fixtures import event, payload
+
+    _patch(monkeypatch)
+    m = {1: "T1", 2: "T2", 3: "T3", 5: "T5"}
+    monkeypatch.setattr(teams, "canonical_from_espn_in", lambda e, s: m.get(int(e)))
+    evs = [event(401920686, "2026-11-10T00:00Z", 1, 2), event(11, "2026-11-01T02:00Z", 1, 3),
+           event(12, "2026-11-01T04:30Z", 2, 3), event(13, "2026-11-10T05:00Z", 1, 5)]  # fmt: skip
+    rows = pd.DataFrame(sc.espn_rows(payload(*evs), "2026-10-06T18:00:00+00:00"))
+    rows["observed_at"] = pd.to_datetime(rows["observed_at"], utc=True)
+    sdv = rows[sc.ROW_COLS].iloc[:0]
+    universe = sc.canonical_universe(sdv, rows, 2027, "2026-11-01", "2026-11-09", set(m.values()))
+    frame, _ = sc.complete(sdv, rows, 2027)
+    sched = pd.DataFrame({
+        "espn_game_id": frame["game_id"].astype(int),
+        "home_team_id": frame["home_id"].map(lambda e: m.get(int(e))),
+        "away_team_id": frame["away_id"].map(lambda e: m.get(int(e))),
+        "tip": pd.to_datetime(frame["start_date"], utc=True), "status": frame["status_type_name"],
+        "time_state": "ANNOUNCED", "schedule_source": frame["schedule_source"],
+    })  # fmt: skip
+    now = T("2026-10-06T18:00Z")
+    r = R.build(sched, tmp_path, None, None, now, ss.et_midnight("2026-11-01"), 9, 2027, V,
+                set(m.values()), None)  # fmt: skip
+    g = r["games"]
+    assert (
+        set(g.loc[g["in_experiment"], "espn_game_id"])
+        == set(universe["game_id"])
+        == {401920686, 12}
+    )

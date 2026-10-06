@@ -144,6 +144,22 @@ def from_sdv(s: pd.DataFrame, observed_at: str) -> list[dict[str, Any]]:
     return out
 
 
+def et_midnight(day: str) -> pd.Timestamp:
+    """00:00 US Eastern of ``day`` (YYYY-MM-DD), in UTC."""
+    return pd.Timestamp(day).tz_localize(ET).tz_convert("UTC")
+
+
+def et_window_end(start: pd.Timestamp, days: float) -> pd.Timestamp:
+    """``start`` + ``days`` US Eastern calendar days (wall clock, DST-aware: Nov 1 2026
+    00:00 EDT + 9 days = Nov 10 00:00 EST), in UTC."""
+    st = _ts(start).tz_convert(ET)
+    whole = int(days)
+    end = st + pd.DateOffset(days=whole)
+    if days != whole:
+        end = end + pd.Timedelta(days=days - whole)
+    return end.tz_convert("UTC")
+
+
 def window_dates(now: pd.Timestamp, hours_ahead: float, back_days: int = 1) -> list[str]:
     """ET dates from ``back_days`` before now through now + hours_ahead (YYYYMMDD)."""
     a = (_ts(now) - pd.Timedelta(days=back_days)).tz_convert(ET).date()

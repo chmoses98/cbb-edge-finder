@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 import pytest
 
@@ -54,9 +56,17 @@ def test_sdv_first_espn_only_when_absent_with_provenance():
     espn_g1 = event(401902275, "2026-11-03T00:00Z", 2000, 5, neutral=True)  # disagrees
     frame, rep = sc.complete(sdv, _espn(espn_g1, G2, G3), 2027)
     s = frame.set_index("game_id")
+    # amended policy: the game stays SDV-native; its stale mutable field takes ESPN's
+    # current value, with the SDV value, ESPN value and observation time recorded
     assert s.loc[401902275, "schedule_source"] == sc.SDV
-    assert not s.loc[401902275, "neutral_site"]  # SDV kept; ESPN never overwrites
-    assert [d["field"] for d in rep["material_disagreements"]] == ["neutral_site"]
+    assert bool(s.loc[401902275, "neutral_site"])
+    assert "neutral_site" in json.loads(s.loc[401902275, "reconciled_fields"])
+    audit = json.loads(s.loc[401902275, "reconciliation"])
+    assert audit["neutral_site"] == {"sdv": "False", "espn": "True"}
+    assert s.loc[401902275, "source_observed_at"] == pd.Timestamp(AT).isoformat()
+    assert [(d["field"], d["resolution"]) for d in rep["material_disagreements"]] == [
+        ("neutral_site", "reconciled_to_espn")
+    ]  # the disagreement stays in the audit
     assert s.loc[401913099, "schedule_source"] == sc.ESPN_FALLBACK
     assert s.loc[401913099, "source_observed_at"] == pd.Timestamp(AT).isoformat()
     assert rep["fallback_games"] == 2 and rep["sdv_games"] == 1
@@ -148,8 +158,12 @@ def test_placeholder_brackets_and_identity_disagreements():
         d["game_id"]: d["result"] for d in rep["material_disagreements"] if d["field"] == "teams"
     }
     assert kinds == {401902275: "orientation_swap", 401911454: "different_teams"}
+    assert rep["reconciliation"]["teams_kind"] == {"orientation_swap": 1, "different_teams": 1}
     s = frame.set_index("game_id")
-    assert s.loc[401911454, "home_id"] == 9999 and s.loc[401902275, "home_id"] == 2000  # SDV kept
+    # reconciled to ESPN's current matchup / orientation; both games stay SDV-native
+    assert s.loc[401911454, "home_id"] == 2540 and s.loc[401902275, "home_id"] == 5
+    assert (s.loc[[401911454, 401902275], "schedule_source"] == sc.SDV).all()
+    assert json.loads(s.loc[401911454, "reconciliation"])["_teams"]["kind"] == "different_teams"
 
 
 def test_scorer_fails_closed_when_the_matchup_changes_under_the_same_id(tmp_path):
@@ -171,3 +185,45 @@ def test_scorer_fails_closed_when_the_matchup_changes_under_the_same_id(tmp_path
     assert status(score("T1", "T2"), 1) == ("VALID", "")
     assert status(score("T2", "T1"), 1) == ("UNSCORABLE", "schedule_identity_changed")
     assert status(score("T1", "T3"), 1) == ("UNSCORABLE", "schedule_identity_changed")
+
+
+def test_reconciliation_fails_closed_and_leaves_state_to_sdv():
+    """An invalid ESPN row (bracket placeholder) leaves SDV's row (unresolved); a
+    reconciled matchup colliding with another game is excluded; status and scores are
+    never taken from ESPN for an SDV-native game; a historical season is untouched."""
+    sdv = _sdv(G1, event(401911460, "2026-11-12T00:00Z", 30, 31),
+               event(401911461, "2026-11-12T01:00Z", 30, 32))  # fmt: skip
+    espn = _espn(
+        event(401902275, "2026-11-03T00:00Z", -1, -2),  # placeholder: not a valid observation
+        event(401911460, "2026-11-12T00:00Z", 30, 32),  # becomes 401911461's matchup
+        event(401911461, "2026-11-12T01:00Z", 30, 32, state="post", name="STATUS_FINAL",
+              completed=True, hs=70, as_=60),
+    )  # fmt: skip
+    frame, rep = sc.complete(sdv, espn, 2027)
+    r = rep["reconciliation"]
+    assert [u["game_id"] for u in r["unresolved"]] == [401902275]
+    assert [a["game_id"] for a in r["ambiguous"]] == [401911460]
+    s = frame.set_index("game_id")
+    assert 401911460 not in s.index and s.loc[401902275, "home_id"] == 2000
+    assert s.loc[401911461, "status_type_name"] == "STATUS_SCHEDULED"  # state stays SDV's
+    assert s.loc[401911461, "home_score"] == 0
+    old = _sdv(event(1, "2026-01-03T00:00Z", 1, 2, season=2026))
+    f2, _ = sc.complete(old, _espn(event(1, "2026-01-03T00:00Z", 2, 1, season=2026)), 2026)
+    assert f2.loc[0, "home_id"] == 1 and f2.loc[0, "reconciled_fields"] == ""
+
+
+def test_canonical_universe_uses_eastern_dates(monkeypatch):
+    """Nov 9 7 PM ET (00:00Z Nov 10) is IN the Nov 1-9 universe; Oct 31 10 PM ET (02:00Z
+    Nov 1) is NOT; the readiness window is the same ET calendar range."""
+    import cbb_edge.data.ids.teams as teams
+    from cbb_edge.ops import schedule_state as ss
+
+    m = {41: "T1", 2: "T2", 3: "T3"}
+    monkeypatch.setattr(teams, "canonical_from_espn_in", lambda e, s: m.get(int(e)))
+    sdv = _sdv(event(1, "2026-11-10T00:00Z", 41, 2), event(2, "2026-11-01T02:00Z", 41, 3))
+    espn = _espn(event(3, "2026-11-05T00:00Z", 2, 3), event(4, "2026-11-10T05:00Z", 41, 3))
+    u = sc.canonical_universe(sdv, espn, 2027, "2026-11-01", "2026-11-09", {"T1", "T2", "T3"})
+    assert list(u["game_id"]) == [1, 3]
+    start = ss.et_midnight("2026-11-01")
+    assert start == pd.Timestamp("2026-11-01T04:00Z")  # EDT
+    assert ss.et_window_end(start, 9) == pd.Timestamp("2026-11-10T05:00Z")  # EST (DST ended)

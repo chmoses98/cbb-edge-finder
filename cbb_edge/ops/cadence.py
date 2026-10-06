@@ -200,13 +200,14 @@ def decide_rosters(rosters: Path, now: pd.Timestamp) -> dict:
 
 
 def schedule_frame(season: int, stamp: str, roots: list[Path | None] | None = None,
-                   fresh: list[dict] | None = None) -> pd.DataFrame:  # fmt: skip
+                   fresh: list[dict] | None = None,
+                   sdv_frame: pd.DataFrame | None = None) -> pd.DataFrame:  # fmt: skip
     """The season's schedule: SDV, completed (Wave 11) with ESPN-fallback rows for games
     SDV does not list (archived scoreboard rows under ``roots`` + ``fresh`` rows)."""
     from cbb_edge.data.ids.teams import canonical_from_espn_in
     from cbb_edge.ops import schedule_completion as sc
 
-    s, rep = sc.completed_schedule(season, stamp, roots, fresh)
+    s, rep = sc.completed_schedule(season, stamp, roots, fresh, sdv_frame)
     if not len(s):
         out = pd.DataFrame(columns=["espn_game_id", "home_team_id", "away_team_id", "tip",
                                     "status", "schedule_source"])  # fmt: skip
@@ -223,6 +224,7 @@ def schedule_frame(season: int, stamp: str, roots: list[Path | None] | None = No
             s["status_type_short_detail"] if "status_type_short_detail" in s else [None] * len(s),
             strict=True)],
         "schedule_source": s["schedule_source"].to_numpy(),
+        "reconciled_fields": s["reconciled_fields"].to_numpy() if "reconciled_fields" in s else "",
     })  # fmt: skip
     out.attrs["completion"] = rep  # exclusions + disagreements (readiness alerts)
     return out

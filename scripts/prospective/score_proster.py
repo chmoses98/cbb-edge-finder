@@ -52,6 +52,7 @@ def results_and_schedule(s: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
                 s["status_type_short_detail"] if "status_type_short_detail" in s
                 else [None] * len(s), strict=True)],
             "schedule_source": s["schedule_source"].to_numpy(),
+        "reconciled_fields": s["reconciled_fields"].to_numpy() if "reconciled_fields" in s else "",
         }
     )  # fmt: skip
     sched = sched[sched["status"].ne("STATUS_CANCELED")]
