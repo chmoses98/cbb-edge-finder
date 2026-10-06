@@ -753,6 +753,55 @@ def write(out: Path, frames: dict[str, pd.DataFrame], s: dict[str, Any], stamp: 
     (out / "dashboard.md").write_text(dashboard(s, stamp, banner))
 
 
+# ------------------------------------------------------------------- TBD tips (W10)
+def tbd_bounds(games: pd.DataFrame | None,
+               obs: pd.DataFrame | None) -> dict[int, tuple[pd.Timestamp, pd.Timestamp | None]]:  # fmt: skip
+    """For games whose FINAL listing has no announced time (``games.time_state`` not
+    ANNOUNCED): (provable start lower bound, first observation showing it started)."""
+    from cbb_edge.ops import schedule_state as ss
+
+    out: dict[int, tuple[pd.Timestamp, pd.Timestamp | None]] = {}
+    if games is None or not len(games) or "time_state" not in games:
+        return out
+    live = obs[obs["source"] == "espn_scoreboard"] if obs is not None and len(obs) else None
+    for g in games[games["time_state"] != ss.ANNOUNCED].itertuples(index=False):
+        gid = int(g.espn_game_id)
+        bound, first = _ts(g.tip), None
+        if live is not None:
+            x = live[live["espn_game_id"] == gid]
+            pre = [t for t, s, n in zip(x["observed_at"], x["state"], x["status_name"], strict=True)
+                   if ss.not_started(s, n)]  # fmt: skip
+            st = [t for t, s, n in zip(x["observed_at"], x["state"], x["status_name"], strict=True)
+                  if s in ("in", "post") and n not in ss.NOT_PLAYED]  # fmt: skip
+            if pre:
+                bound = max(bound, _ts(max(pre)))
+            first = _ts(min(st)) if st else None
+        out[gid] = (bound, first)
+    return out
+
+
+def tbd_ambiguous(recs: list[dict], unproven: dict,
+                  committed: dict[str, pd.Timestamp] | None = None) -> set[int]:  # fmt: skip
+    """Games with a base / P-ROSTER-1 record that exists (``as_of`` and, when known, its
+    first commit) only after the provable bound but not provably after the start: their
+    latest pre-tip record cannot be established."""
+    amb = set()
+    for r in recs:
+        if r.get("model", {}).get("version") not in (BASE, ROSTER):
+            continue
+        gid = int(r["game"]["espn_game_id"])
+        if gid not in unproven:
+            continue
+        bound, first = unproven[gid]
+        t = _ts(r["prospective"]["as_of"])
+        c = (committed or {}).get(r.get("_path"))
+        if c is not None:
+            t = max(t, _ts(c))
+        if t >= bound and (first is None or t < first):
+            amb.add(gid)
+    return amb
+
+
 # ------------------------------------------------------------------------------- run
 def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
           roster_archive: Path | None = None, box: pd.DataFrame | None = None,
@@ -761,7 +810,8 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
           committed: dict[str, pd.Timestamp] | None = None,
           committed_roster: dict[str, pd.Timestamp] | None = None,
           projections_root: Path | None = None, expected: pd.DataFrame | None = None,
-          enforce_gate: bool = True) -> tuple[dict, dict]:  # fmt: skip
+          enforce_gate: bool = True,
+          schedule_obs: pd.DataFrame | None = None) -> tuple[dict, dict]:  # fmt: skip
     """``games``: espn_game_id, home_team_id, away_team_id, tip (the season schedule; for
     each team's first five games). ``box``: espn_game_id, team_id, player_id, minutes,
     starter (played and DNP rows). ``expected``: the D-I games (espn_game_id) that tipped
@@ -775,6 +825,16 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
     tips = None
     if games is not None and len(games) and "tip" in games:
         tips = {int(k): _ts(v) for k, v in zip(games["espn_game_id"], games["tip"], strict=True)}
+    # Wave 10: a game whose final listing still has no announced time (ESPN "TBD"
+    # placeholder) has no known start. Its tip becomes a PROVABLE LOWER BOUND on the
+    # start, the later of its date's 00:00 ET placeholder and the last live observation
+    # showing it not started. A record between that bound and the first observation
+    # showing it started may or may not be pre-tip, so the latest pre-tip record cannot
+    # be established and the game is UNSCORABLE (never guessed).
+    unproven = tbd_bounds(games, schedule_obs) if games is not None else {}
+    for gid, (bound, _first_started) in unproven.items():
+        tips = tips or {}
+        tips[gid] = bound
     pre = pregame(recs, tips)
     pg_all = paired_games(pre, res, mkt, roster_archive, committed, committed_roster)
     tg_all = team_games(pg_all, roster_archive, d1_teams)
@@ -786,6 +846,14 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
         mutated_roster=pretip_gate.git_mutated_paths(roster_archive),
         dups=pretip_gate.duplicates(recs),
     )  # fmt: skip
+    amb = tbd_ambiguous(recs, unproven, committed)
+    if amb:
+        gate = gate[~gate["espn_game_id"].isin(amb)]
+        settled = set(res["espn_game_id"].astype(int)) if len(res) else set()
+        gate = pd.concat([gate, pd.DataFrame(
+            [{"espn_game_id": g, "status": pretip_gate.UNSCORABLE if g in settled
+              else pretip_gate.PENDING, "reasons": "tbd_start_unprovable"} for g in sorted(amb)]
+        )], ignore_index=True)  # fmt: skip
     if len(pg_all):
         gi = gate.set_index("espn_game_id")
         pg_all["gate_status"] = pg_all["espn_game_id"].map(gi["status"])

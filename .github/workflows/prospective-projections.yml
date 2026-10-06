@@ -136,6 +136,36 @@ jobs:
             git fetch -q --depth=1 origin projections-archive && git rebase -q FETCH_HEAD || true
           done
           exit 1
+      - name: Observe game states (append-only schedule-archive; Wave 10)
+        if: github.event_name != 'pull_request' && steps.decide.outputs.due == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set -euo pipefail
+          rm -rf sa && mkdir sa && cd sa
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin schedule-archive; then
+            git checkout -q -b schedule-archive FETCH_HEAD
+          else
+            git checkout -q --orphan schedule-archive
+            printf '# Schedule-time and game-state observations (Wave 10)\n\nAppend-only. Pre-game scheduling metadata only (ESPN scoreboard, SDV schedule): tip-time history and not-started evidence for the pre-tip gate.\n' > README.md
+          fi
+          cd ..
+          python -m cbb_edge.ops.schedule_state observe --archive sa --hours 30 --full-out run_obs | tee observe.json
+          cd sa
+          git add -A
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -q -m "schedule observations $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q origin schedule-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin schedule-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1
       - name: Fail if any model failed to project
         if: steps.decide.outputs.due == 'true'
         run: |
