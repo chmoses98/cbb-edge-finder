@@ -51,7 +51,26 @@ ALERTS = {
     # schedule source (SDV) does not: it cannot be projected, and nothing else sees it
     "GAME_MISSING_FROM_SCHEDULE_SOURCE": "WARNING",  # more than 30 h ahead
     "GAME_MISSING_FROM_SCHEDULE_SOURCE_IMMINENT": "CRITICAL",  # within 30 h, or started
+    # Wave 11 (schedule completeness): "schedule source" = SDV + the ESPN fallback, so the
+    # two codes above now mean a game absent from BOTH projection sources
+    "SCHEDULE_RECONCILIATION_AMBIGUOUS": "WARNING",  # same teams + date, different id (fail closed)
+    "SCHEDULE_DUPLICATE_GAME": "WARNING",  # two ESPN-only ids for one matchup (fail closed)
+    "SCHEDULE_FALLBACK_ROW_INCOMPLETE": "WARNING",  # ESPN row lacks a required field (fail closed)
+    "SCHEDULE_SOURCE_DISAGREEMENT": "WARNING",  # SDV and ESPN differ on a material field (SDV kept)
+    "SCHEDULE_IDENTITY_DISAGREEMENT": "WARNING",  # SDV and ESPN list different teams (SDV kept)
+    "SCHEDULE_IDENTITY_DISAGREEMENT_IMMINENT": "CRITICAL",  # ... on the teams, within 30 h
+    "SCHEDULE_ORIENTATION_DISAGREEMENT": "WARNING",  # same teams, home / away swapped (SDV kept)
+    # Wave 11 amendment: shared games are field-reconciled to ESPN's current observation;
+    # matchup / orientation corrections stay visible (the other fields: audit counts only)
+    "SCHEDULE_IDENTITY_RECONCILED": "WARNING",  # SDV's opponent was stale: ESPN's teams used
+    "SCHEDULE_ORIENTATION_RECONCILED": "WARNING",  # SDV's home / away was stale: ESPN's used
+    "FALLBACK_GAME_DISAPPEARED": "WARNING",  # an ESPN-fallback game no longer listed by ESPN
+    "FALLBACK_GAME_NO_SNAPSHOT_NEAR_TIP": "CRITICAL",  # fallback game tips within 6 h, no record
 }
+COMPLETION_REASON = {"ambiguous_reconciliation": "SCHEDULE_RECONCILIATION_AMBIGUOUS",
+                     "teams_not_determined": None,  # bracket placeholder: not a game yet
+                     "duplicate_scheduled_game": "SCHEDULE_DUPLICATE_GAME",
+                     "missing_required_field": "SCHEDULE_FALLBACK_ROW_INCOMPLETE"}  # fmt: skip
 SOURCE_HORIZON = pd.Timedelta(hours=30)
 LIVE_FRESH = pd.Timedelta(hours=2)
 STALE_GRACE = pd.Timedelta(hours=3)
@@ -209,9 +228,12 @@ def build(sched: pd.DataFrame, rosters: Path, projections: Path | None, scores: 
           schedule_obs: pd.DataFrame | None = None) -> dict[str, Any]:  # fmt: skip
     from cbb_edge.ops import schedule_state as ss
 
-    end = start + pd.Timedelta(days=days)
+    end = ss.et_window_end(start, days)  # Wave 11: US Eastern calendar days (DST-aware)
+    completion = dict(sched.attrs.get("completion") or {})
     sched = sched.copy()
     sched["in_schedule_source"] = True
+    if "schedule_source" not in sched:
+        sched["schedule_source"] = "SDV"
     missing = live_only_games(sched, schedule_obs, season)
     if len(missing):
         sched = pd.concat([sched, missing], ignore_index=True)
@@ -411,12 +433,64 @@ def build(sched: pd.DataFrame, rosters: Path, projections: Path | None, scores: 
         alert("GAME_MISSING_FROM_SCHEDULE_SOURCE", n_games=int(len(far)),
               first_tip=far["tip"].min().isoformat(),
               espn_game_ids=sorted(int(x) for x in far["espn_game_id"])[:25])  # fmt: skip
+    # ---- Wave 11: schedule completeness (independent of roster readiness)
+    excl = {int(e["game_id"]): e for e in completion.get("excluded", [])}
+    for gid, e in sorted(excl.items()):
+        code = COMPLETION_REASON.get(e["reason"], "SCHEDULE_FALLBACK_ROW_INCOMPLETE")
+        if code:
+            alert(code, espn_game_id=gid,
+                  **{k: v for k, v in e.items() if k not in ("game_id", "reason")})  # fmt: skip
+    tips = sched.set_index("espn_game_id")["tip"] if len(sched) else pd.Series(dtype=object)
+    for a in (completion.get("reconciliation") or {}).get("ambiguous", []):
+        alert("SCHEDULE_RECONCILIATION_AMBIGUOUS", espn_game_id=int(a["game_id"]),
+              collides_with=a.get("collides_with"), action="excluded (fail closed)")  # fmt: skip
+    for d in completion.get("material_disagreements", []):
+        gid = int(d["game_id"])
+        t = tips.get(gid)
+        near = t is not None and pd.notna(t) and t <= now + SOURCE_HORIZON
+        if d.get("resolution", "unresolved_sdv_kept") == "reconciled_to_espn":
+            if d["field"] == "teams":
+                alert("SCHEDULE_ORIENTATION_RECONCILED" if d.get("result") == "orientation_swap"
+                      else "SCHEDULE_IDENTITY_RECONCILED", espn_game_id=gid, sdv=d.get("sdv"),
+                      espn=d.get("espn"))  # fmt: skip
+            continue  # other reconciled fields: audit counts (completeness section)
+        if d.get("resolution") == "ambiguous_excluded":
+            continue
+        if d["field"] == "teams" and d.get("result") == "orientation_swap":
+            code = "SCHEDULE_ORIENTATION_DISAGREEMENT"
+        elif d["field"] in ("teams", "season"):
+            code = (
+                "SCHEDULE_IDENTITY_DISAGREEMENT_IMMINENT"
+                if near
+                else "SCHEDULE_IDENTITY_DISAGREEMENT"
+            )
+        else:
+            code = "SCHEDULE_SOURCE_DISAGREEMENT"
+        alert(code, espn_game_id=gid, field=d["field"], sdv=d.get("sdv"), espn=d.get("espn"))
+    fb = sched[sched["schedule_source"] == "ESPN_FALLBACK"]
+    if len(live) and len(fb):
+        lt = live.groupby("date_et")["observed_at"].max()  # each date's latest full fetch
+        last = live.groupby("espn_game_id")["observed_at"].max()
+        for g in fb.itertuples(index=False):
+            d = g.tip.tz_convert(ss.ET).date().isoformat() if pd.notna(g.tip) else None
+            seen = last.get(int(g.espn_game_id))
+            if d in lt.index and (seen is None or lt[d] - seen > pd.Timedelta(minutes=30)):
+                alert("FALLBACK_GAME_DISAPPEARED", espn_game_id=int(g.espn_game_id),
+                      last_listed=None if seen is None else seen.isoformat(),
+                      latest_fetch_of_date=lt[d].isoformat())  # fmt: skip
+    for g in fb[
+        fb["d1_game"] & ~fb["started"] & (fb["tip"] <= now + pd.Timedelta(hours=6))
+    ].itertuples(index=False):
+        miss = [v for v in versions if (v, int(g.espn_game_id)) not in have]
+        if miss:
+            alert("FALLBACK_GAME_NO_SNAPSHOT_NEAR_TIP", espn_game_id=int(g.espn_game_id),
+                  tip=g.tip.isoformat(), missing=miss)  # fmt: skip
     games_df = game_readiness(
         sched, win, have, versions, el, capable, now, last_live, last_pre, pre
     )
     return {"now": now.isoformat(), "window": [start.isoformat(), end.isoformat()],
             "readiness": ready_df, "observability": obs_df, "alerts": alerts,
-            "eligibility": elig, "games": games_df}  # fmt: skip
+            "eligibility": elig, "games": games_df, "completion": completion}  # fmt: skip
 
 
 def game_readiness(sched: pd.DataFrame, win: pd.DataFrame, have: set, versions: list[str],
@@ -438,8 +512,8 @@ def game_readiness(sched: pd.DataFrame, win: pd.DataFrame, have: set, versions: 
         snap = all((v, gid) in have for v in versions)
         risk = []
         if g.d1_game and not g.in_schedule_source:
-            risk.append("listed on the live ESPN scoreboard but missing from the projection "
-                        "schedule source (SDV): cannot be projected")  # fmt: skip
+            risk.append("listed on the live ESPN scoreboard but absent from both projection "
+                        "schedule sources (SDV and the ESPN fallback): cannot be projected")  # fmt: skip
         if not g.d1_game:
             risk.append("not a D-I vs D-I game (outside the experiment)")
         elif not all(t in capable for t in teams):
@@ -462,6 +536,9 @@ def game_readiness(sched: pd.DataFrame, win: pd.DataFrame, have: set, versions: 
             "espn_game_id": gid, "listed_tip": g.tip.isoformat(), "time_state": g.time_state,
             "home": g.home_team_id, "away": g.away_team_id, "in_experiment": bool(g.d1_game),
             "in_schedule_source": bool(g.in_schedule_source),
+            "schedule_source": (g.schedule_source if g.in_schedule_source
+                                else "ABSENT_FROM_BOTH"),
+            "reconciled_fields": rf if isinstance(rf := getattr(g, "reconciled_fields", ""), str) else "",  # fmt: skip
             "pre_game_snapshot_available": snap,
             "baseline_projection_possible": bool(g.d1_game and all(t in capable for t in teams)),
             "proster_eligible": any(bool(el.loc[t, "proster_input_substitution"]) for t in teams
@@ -505,12 +582,31 @@ def markdown(r: dict[str, Any]) -> str:
     gm = r.get("games")
     if gm is not None and len(gm):
         ex = gm[gm["in_experiment"]]
+        comp = r.get("completion") or {}
+        exc = pd.Series([e["reason"] for e in comp.get("excluded", [])], dtype=object)
+        L += ["## Schedule completeness (Wave 11: SDV first, ESPN fallback when absent)", "",
+              "| measure | games |", "|---|---|",
+              f"| season schedule: SDV rows | {comp.get('sdv_games', '–')} |",
+              f"| season schedule: ESPN-fallback rows (absent from SDV) | {comp.get('fallback_games', '–')} |",
+              f"| ESPN rows excluded (fail closed) | {len(exc)} |",
+              *[f"| — {k} | {v} |" for k, v in exc.value_counts().items()],
+              f"| shared SDV/ESPN games | {(comp.get('reconciliation') or {}).get('shared_games', comp.get('shared_games', '–'))} |",
+              f"| — exact match | {(comp.get('reconciliation') or {}).get('exact_match', '–')} |",
+              f"| — field-reconciled to ESPN (game stays SDV-native) | {(comp.get('reconciliation') or {}).get('reconciled_games', '–')} |",
+              *[f"| —— {k} | {v} |" for k, v in sorted(((comp.get('reconciliation') or {}).get('by_group') or {}).items())],
+              *[f"| —— teams: {k} | {v} |" for k, v in sorted(((comp.get('reconciliation') or {}).get('teams_kind') or {}).items())],
+              f"| — unresolved (ESPN row not a valid observation; SDV kept) | {len((comp.get('reconciliation') or {}).get('unresolved', []))} |",
+              f"| — ambiguous (excluded, fail closed) | {len((comp.get('reconciliation') or {}).get('ambiguous', []))} |",
+              f"| window D-I games absent from BOTH sources | {int((~gm.loc[gm['in_experiment'], 'in_schedule_source']).sum())} |",
+              ""]  # fmt: skip
         L += ["## Opening-week games (Wave 10: tip-time state)", "",
               "| measure | games |", "|---|---|",
               f"| games total (D-I vs D-I / all) | {len(ex)} / {len(gm)} |",
               f"| announced tip | {int((ex['time_state'] == 'ANNOUNCED').sum())} |",
               f"| TBD / placeholder / unknown | {int((ex['time_state'] != 'ANNOUNCED').sum())} |",
-              f"| on the live scoreboard but MISSING from the projection schedule source (SDV) | {int((~ex['in_schedule_source']).sum())} |",
+              f"| schedule source: SDV | {int((ex['schedule_source'] == 'SDV').sum())} |",
+              f"| schedule source: ESPN fallback (absent from SDV) | {int((ex['schedule_source'] == 'ESPN_FALLBACK').sum())} |",
+              f"| on the live scoreboard but ABSENT from both projection sources | {int((~ex['in_schedule_source']).sum())} |",
               f"| valid pre-game snapshot available now | {int(ex['pre_game_snapshot_available'].sum())} |",
               f"| baseline projection possible | {int(ex['baseline_projection_possible'].sum())} |",
               f"| P-ROSTER-1 eligible (a side with input substitution) | {int(ex['proster_eligible'].sum())} |",
@@ -547,6 +643,9 @@ def main() -> None:
     ap.add_argument("--scores", type=Path, default=None)
     ap.add_argument("--season", type=int, default=2027)
     ap.add_argument("--from", dest="start", default=None)
+    ap.add_argument("--from-date", default=None, help="first US Eastern date (YYYY-MM-DD)")
+    ap.add_argument("--sdv-file", type=Path, default=None,
+                    help="frozen SDV schedule snapshot (reproducible as-of runs)")  # fmt: skip
     ap.add_argument("--days", type=float, default=7.0)
     ap.add_argument("--now", default=None)
     ap.add_argument("--out", type=Path, required=True)
@@ -554,14 +653,18 @@ def main() -> None:
     ap.add_argument("--schedule-archive", type=Path, nargs="*", default=[])
     a = ap.parse_args()
     now = _ts(a.now) if a.now else pd.Timestamp(datetime.now(UTC))
-    sched = cadence.schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"))
+    sched = cadence.schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"),
+                                   [*a.schedule_archive, a.projections],
+                                   sdv_frame=pd.read_parquet(a.sdv_file) if a.sdv_file else None)  # fmt: skip
     obs = ss.load_obs(*a.schedule_archive, a.projections)
     # before the season opener the report previews opening week, from the first tip in
     # EITHER source (Wave 10: SDV can lag the live scoreboard)
     tips = pd.concat([sched["tip"], live_only_games(sched, obs, a.season).get(
         "tip", pd.Series(dtype="datetime64[ns, UTC]"))])  # fmt: skip
     opener = pd.to_datetime(tips, utc=True).min() if len(tips) else now
-    start = _ts(a.start) if a.start else max(now, opener.normalize())
+    # Wave 11: windows are US Eastern calendar days (the canonical opening-week universe)
+    start = (_ts(a.start) if a.start else ss.et_midnight(a.from_date) if a.from_date
+             else max(now, ss.et_midnight(opener.tz_convert(ss.ET).date().isoformat())))  # fmt: skip
     d1 = set(membership.members(a.season)["team_id"].dropna())
     versions = cadence.required_versions(True)
     exposure = None

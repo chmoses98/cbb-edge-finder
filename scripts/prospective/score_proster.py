@@ -25,11 +25,20 @@ from cbb_edge.ops import schedule_state
 from cbb_edge.rosters import membership, prospective_score
 
 
-def schedule(season: int, stamp: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    p = sdv.download_live("schedules", season, stamp)
-    if p is None:
+def schedule(season: int, stamp: str, roots: list[Path | None] | None = None
+             ) -> tuple[pd.DataFrame, pd.DataFrame]:  # fmt: skip
+    """SDV schedule + results, completed (Wave 11) with ESPN-fallback rows for games SDV
+    does not list (archived scoreboard rows; a fallback game settles from ESPN's final)."""
+    from cbb_edge.ops import schedule_completion
+
+    s, _ = schedule_completion.completed_schedule(season, stamp, roots)
+    return results_and_schedule(s)
+
+
+def results_and_schedule(s: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """(results of completed games, schedule) from a completed SDV-schema frame."""
+    if not len(s):
         return pd.DataFrame(columns=["espn_game_id", "result_margin"]), pd.DataFrame()
-    s = pd.read_parquet(p)
     sched = pd.DataFrame(
         {
             "espn_game_id": s["game_id"].astype(int),
@@ -42,6 +51,8 @@ def schedule(season: int, stamp: str) -> tuple[pd.DataFrame, pd.DataFrame]:
                 s["time_valid"] if "time_valid" in s else [None] * len(s), s["start_date"],
                 s["status_type_short_detail"] if "status_type_short_detail" in s
                 else [None] * len(s), strict=True)],
+            "schedule_source": s["schedule_source"].to_numpy(),
+        "reconciled_fields": s["reconciled_fields"].to_numpy() if "reconciled_fields" in s else "",
         }
     )  # fmt: skip
     sched = sched[sched["status"].ne("STATUS_CANCELED")]
@@ -51,6 +62,7 @@ def schedule(season: int, stamp: str) -> tuple[pd.DataFrame, pd.DataFrame]:
             "espn_game_id": c["game_id"].astype(int),
             "result_margin": c["home_score"].astype(float) - c["away_score"].astype(float),
             "result_total": c["home_score"].astype(float) + c["away_score"].astype(float),
+            "result_source": c["schedule_source"].to_numpy(),
         }
     )
     return res, sched
@@ -109,7 +121,7 @@ def main() -> None:
     a = ap.parse_args()
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     recs = prospective_score.load_records(a.projections, a.season) if a.projections.exists() else []
-    res, sched = schedule(a.season, stamp)
+    res, sched = schedule(a.season, stamp, [a.schedule, a.projections])
     bx = box(a.season, stamp) if len(res) else pd.DataFrame()
     d1 = set(membership.members(a.season)["team_id"].dropna())
     now = pd.Timestamp(datetime.now(UTC))
@@ -127,8 +139,26 @@ def main() -> None:
             a.projections if a.projections.exists() else None,
         ),
     )  # fmt: skip
+    # Wave 11 provenance (presentation only): which source supplied each scored game's
+    # schedule row now, and which one its records were projected from
+    pg = frames.get("paired_games")
+    if pg is not None and len(pg) and len(sched):
+        now_src = sched.set_index("espn_game_id")["schedule_source"]
+        at_proj: dict[int, str] = {}
+        for r in recs:
+            if r.get("model", {}).get("version") == prospective_score.BASE:
+                at_proj[int(r["game"]["espn_game_id"])] = (r.get("schedule") or {}).get(
+                    "source"
+                ) or "SDV"
+        pg["schedule_source_now"] = pg["espn_game_id"].map(now_src)
+        pg["schedule_source_at_projection"] = pg["espn_game_id"].map(at_proj)
+        pg["sdv_added_later"] = (pg["schedule_source_at_projection"] == "ESPN_FALLBACK") & (
+            pg["schedule_source_now"] == "SDV")  # fmt: skip
     s["run"] = {
         "stamp": stamp,
+        "settled_from_espn_fallback": int((res.get("result_source") == "ESPN_FALLBACK").sum())
+        if len(res)
+        else 0,
         "records_read": len(recs),
         "completed_games_in_schedule": int(len(res)),
         "box_rows": int(len(bx)),

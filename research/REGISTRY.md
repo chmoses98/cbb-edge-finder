@@ -190,3 +190,22 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Opening week Nov 1–9 | 356 D-I games (262 TBD); **249 missing from the SDV schedule** (SDV lag) | alerted; owner decision |
 | T0333 Utah Valley "Tanner Davis" | blocked by an NAIA namesake in the frozen identity pool (pool includes 38,169 never-D-I players) | documented; owner decision |
 | Model / P-ROSTER-1 / scoring change | none | by design |
+
+## Wave 11 outcomes (see research/reports/WAVE11.md; rules research/hypotheses/WAVE11.md)
+
+| Item | Result (2026-10-06, no 2026–27 game played) | Status |
+|---|---|---|
+| PR #10 merge (6165438) + freeze audit | all frozen hashes unchanged; CI, scores, ops-watch, roster-capture green on main | done |
+| ESPN-vs-SDV overlap (completed 2025–26, 1,391 games) | every pipeline field identical; only display / venue names differ | validated |
+| ESPN fallback (SDV first, ESPN only when absent) | 2026–27: 1,629 SDV + 4,158 fallback rows; 55 bracket placeholders excluded | deployed |
+| Historical safety | silver 2006–2027 byte-identical to main without fallback | proven |
+| Nov 1–9 readiness (pre-A1, UTC window; superseded) | 356 D-I games: 107 SDV + 249 fallback; 0 absent from both; 0 at risk | superseded by A1 |
+| Full-window dry run (pre-A1, synthetic; superseded) | 357 / 357 projected, P-ROSTER-1, settled, VALID; catch-up 8 games, 0 mutations, 0 post-tip records | superseded by A1 |
+| Gate rule G1 (tightening) | schedule identity changed → UNSCORABLE | adopted (pre-results) |
+| Amendment A1: field-level reconciliation of shared games | 1,625 shared: 1,371 exact, 254 reconciled to ESPN (tip 204, venue 41, notes 37, teams 35, conference 18, tournament 8, neutral 4); 0 unresolved, 0 ambiguous | adopted (pre-results, owner) |
+| A1 historical invariance | silver 2006–2027 byte-identical to main without a completion file | re-proven |
+| A1 rest days | 639 SDV-native games change: 452 from new fallback games, 187 from reconciled tips, 0 unexplained; formula unchanged | approved consequence |
+| A1 canonical ET universe (356 vs 357) | 401920686 (UConn–Wagner, Nov 9 7 PM ET) was dropped by the old UTC window; canonical Nov 1–9 = 357 | fixed + regression test |
+| A1 Nov 1–9 readiness (frozen snapshot) | 357 = canonical: 107 SDV + 250 fallback; 0 absent, 0 at risk; 0 CRITICAL, 16 WARNING (all reconciled) | target met |
+| A1 full dry run (synthetic) | 357 projected/settled; 356 VALID + 1 designed UNSCORABLE (matchup changed after last pre-tip record); duplicate run 0 written | passed |
+| Model / P-ROSTER-1 / scoring change | none | by design |

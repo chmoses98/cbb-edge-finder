@@ -16,6 +16,9 @@ on:
       observe_hours:
         description: "scoreboard window for the game-state observation (hours ahead)"
         default: "192"
+      validate_overlap:
+        description: "Wave 11: run the ESPN-vs-SDV schedule overlap validation"
+        default: "false"
   pull_request:
     paths:
       - "cbb_edge/ops/**"
@@ -78,7 +81,11 @@ jobs:
             printf '# Schedule-time and game-state observations (Wave 10)\n\nAppend-only. Pre-game scheduling metadata only (ESPN scoreboard, SDV schedule): tip-time history and not-started evidence for the pre-tip gate.\n' > README.md
           fi
           cd ..
-          python -m cbb_edge.ops.schedule_state observe --archive sa --hours "${{ github.event.inputs.observe_hours || '192' }}" --sdv --full-out run_obs | tee observe.json
+          # hourly: today .. +8 days; once a day (06 UTC) the whole remaining season, so
+          # every ESPN-listed game has archived schedule rows (Wave 11 fallback source)
+          H="${{ github.event.inputs.observe_hours || '192' }}"
+          [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%H)" = "06" ] && H=4500
+          python -m cbb_edge.ops.schedule_state observe --archive sa --hours "$H" --sdv --full-out run_obs | tee observe.json
           cd sa
           git add -A
           git diff --cached --quiet && { echo "nothing new"; exit 0; }
@@ -89,6 +96,13 @@ jobs:
             git fetch -q --depth=1 origin schedule-archive && git rebase -q FETCH_HEAD || true
           done
           exit 1
+      - name: ESPN-vs-SDV schedule overlap validation (Wave 11; dispatch only)
+        if: github.event.inputs.validate_overlap == 'true'
+        continue-on-error: true
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          python scripts/prospective/schedule_overlap.py --season 2027 --hist-season 2026 --out overlap_out | tee overlap_summary.json
       - name: Readiness / observability / alerts
         id: watch
         env:
@@ -101,6 +115,7 @@ jobs:
             --schedule-archive "$( [ -d sa ] && echo sa || echo arch/schedule-archive )" run_obs --out ops_out | tee watch.json
           code=${PIPESTATUS[0]}
           echo "code=$code" >> "$GITHUB_OUTPUT"
+          [ -f overlap_out/overlap.json ] && mkdir -p ops_out && cp overlap_out/overlap.json ops_out/
           [ -f ops_out/readiness.md ] && cat ops_out/readiness.md | head -60 >> "$GITHUB_STEP_SUMMARY"
           exit 0
       - uses: actions/upload-artifact@v4

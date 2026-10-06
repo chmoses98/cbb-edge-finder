@@ -73,6 +73,13 @@ jobs:
           mkdir -p arch_proj && cd arch_proj && git init -q
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch -q --depth=1 origin projections-archive && git checkout -q FETCH_HEAD || echo "no projections-archive yet"
+      - name: Fetch schedule archive (read-only; Wave 11 ESPN-fallback rows)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p sched_arch && cd sched_arch && git init -q
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth=1 origin schedule-archive && git checkout -q FETCH_HEAD || echo "no schedule-archive yet"
       - name: Decide (regular slot / catch-up / skip)
         id: decide
         env:
@@ -83,6 +90,7 @@ jobs:
             echo "due=true" >> "$GITHUB_OUTPUT"; echo "mode=full" >> "$GITHUB_OUTPUT"; exit 0
           fi
           python -m cbb_edge.ops.cadence projections --archive arch_proj --rosters rosters \
+            --schedule-archive sched_arch \
             --season "${{ github.event.inputs.season || '2027' }}" --gaps-out gaps.json | tee decide.json
       - name: Refresh free inputs and project
         if: steps.decide.outputs.due == 'true'
@@ -94,7 +102,7 @@ jobs:
           [ "${{ steps.decide.outputs.mode }}" = "missing_only" ] && ONLY="--only-missing gaps.json"
           python scripts/prospective/refresh_and_project.py \
             --season "${{ github.event.inputs.season || '2027' }}" --out projections_out \
-            --availability-dir avail --roster-dir rosters $ONLY | tee run_summary.json
+            --availability-dir avail --roster-dir rosters --schedule-archive sched_arch $ONLY | tee run_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

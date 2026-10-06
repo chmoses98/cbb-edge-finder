@@ -199,16 +199,21 @@ def decide_rosters(rosters: Path, now: pd.Timestamp) -> dict:
             "last_truth_snapshot": None if last is None else last.isoformat()}  # fmt: skip
 
 
-def schedule_frame(season: int, stamp: str) -> pd.DataFrame:
-    from cbb_edge.data.bronze import sportsdataverse as sdv
+def schedule_frame(season: int, stamp: str, roots: list[Path | None] | None = None,
+                   fresh: list[dict] | None = None,
+                   sdv_frame: pd.DataFrame | None = None) -> pd.DataFrame:  # fmt: skip
+    """The season's schedule: SDV, completed (Wave 11) with ESPN-fallback rows for games
+    SDV does not list (archived scoreboard rows under ``roots`` + ``fresh`` rows)."""
     from cbb_edge.data.ids.teams import canonical_from_espn_in
+    from cbb_edge.ops import schedule_completion as sc
 
-    p = sdv.download_live("schedules", season, stamp)
-    if p is None:
-        return pd.DataFrame(columns=["espn_game_id", "home_team_id", "away_team_id", "tip",
-                                     "status"])  # fmt: skip
-    s = pd.read_parquet(p)
-    return pd.DataFrame({
+    s, rep = sc.completed_schedule(season, stamp, roots, fresh, sdv_frame)
+    if not len(s):
+        out = pd.DataFrame(columns=["espn_game_id", "home_team_id", "away_team_id", "tip",
+                                    "status", "schedule_source"])  # fmt: skip
+        out.attrs["completion"] = rep
+        return out
+    out = pd.DataFrame({
         "espn_game_id": s["game_id"].astype(int),
         "home_team_id": [canonical_from_espn_in(e, season) for e in s["home_id"]],
         "away_team_id": [canonical_from_espn_in(e, season) for e in s["away_id"]],
@@ -218,7 +223,11 @@ def schedule_frame(season: int, stamp: str) -> pd.DataFrame:
             s["time_valid"] if "time_valid" in s else [None] * len(s), s["start_date"],
             s["status_type_short_detail"] if "status_type_short_detail" in s else [None] * len(s),
             strict=True)],
+        "schedule_source": s["schedule_source"].to_numpy(),
+        "reconciled_fields": s["reconciled_fields"].to_numpy() if "reconciled_fields" in s else "",
     })  # fmt: skip
+    out.attrs["completion"] = rep  # exclusions + disagreements (readiness alerts)
+    return out
 
 
 def time_state_of(v: object, t: object, d: object) -> str:
@@ -237,19 +246,24 @@ def main() -> None:
     ap.add_argument("--season", type=int, default=2027)
     ap.add_argument("--horizon-h", type=float, default=30.0)
     ap.add_argument("--gaps-out", type=Path, default=None)
+    ap.add_argument("--schedule-archive", type=Path, default=None,
+                    help="schedule-archive checkout (Wave 11: ESPN fallback rows)")  # fmt: skip
     a = ap.parse_args()
     now = _ts(a.now) if a.now else pd.Timestamp(datetime.now(UTC))
     if a.workflow == "projections":
         from cbb_edge.rosters import membership
 
         d1 = set(membership.members(a.season)["team_id"].dropna())
-        sched = schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"))
-        roster_ok = bool(a.rosters and truth_last(a.rosters) is not None)
-        from cbb_edge.ops import schedule_state
+        from cbb_edge.ops import schedule_completion, schedule_state
 
-        obs, failed = schedule_state.fetch_scoreboard(
-            schedule_state.window_dates(now, a.horizon_h), now.strftime("%Y%m%dT%H%M%SZ")
+        stamp = now.strftime("%Y%m%dT%H%M%SZ")
+        raw, failed = schedule_state.fetch_scoreboard_raw(
+            schedule_state.window_dates(now, a.horizon_h), stamp
         )
+        obs = [o for js, at in raw for o in schedule_state.parse_scoreboard(js, at)]
+        fresh = [r for js, at in raw for r in schedule_completion.espn_rows(js, at)]
+        sched = schedule_frame(a.season, stamp, [a.schedule_archive], fresh)
+        roster_ok = bool(a.rosters and truth_last(a.rosters) is not None)
         live = schedule_state.live_window(obs, now, a.horizon_h, sched[["espn_game_id", "tip"]])
         dec = decide_projections(a.archive or Path("none"), sched, now, a.horizon_h, d1,
                                  roster_ok, a.season, live)  # fmt: skip

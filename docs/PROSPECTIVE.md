@@ -245,7 +245,7 @@ The rules:
   the last live "pre" observation. A required record not provably made (and committed)
   before the start is **UNSCORABLE** (`tbd_start_unprovable`). It is never guessed or
   reconstructed. The Wave 9 gate checks are unchanged.
-- **Schedule source gap.** The projection window reads the SDV schedule. Readiness
+- **Schedule source gap (Wave 10 detection).** The projection window reads the SDV schedule. Readiness
   compares it with the live scoreboard and alerts on every D-I game SDV lacks:
   `GAME_MISSING_FROM_SCHEDULE_SOURCE` (WARNING), turning CRITICAL within 30 h of tip.
   On 2026-10-06, 249 of 356 Nov 1–9 games were missing (SDV lag).
@@ -258,3 +258,48 @@ python scripts/prospective/dry_run.py --rosters <roster-archive> --sandbox DIR
 
 This uses the production code, a simulated clock and synthetic settlement. It is never
 research evidence.
+
+## Schedule completeness (Wave 11): SDV first, ESPN fallback when absent
+
+`cbb_edge/ops/schedule_completion.py` completes the current season's schedule:
+
+| case | rule |
+|---|---|
+| game in SDV | SDV-native (`schedule_source = SDV`): game id, season, game state and results stay SDV's. Its mutable schedule-only fields (teams + orientation, tip / TBD state, neutral site, conference game, tournament id, season type, notes, venue) are **field-reconciled** to ESPN's latest valid observation of the same id, with every change recorded (`reconciled_fields`, `reconciliation`: SDV value, ESPN value, ESPN `observed_at`). An invalid ESPN observation leaves SDV's row (`unresolved`); a reconciled matchup colliding with another game is excluded (`ambiguous`). |
+| game absent from SDV | the ESPN scoreboard row in SDV's own schema (`ESPN_FALLBACK`, with the ESPN `observed_at`) |
+| ESPN row lacks a required field | excluded (`missing_required_field`) |
+| bracket placeholder (team ids ≤ 0) | excluded (`teams_not_determined`) |
+| same teams on the same ET date as another id | excluded (`ambiguous_reconciliation` / `duplicate_scheduled_game`) |
+
+Notes:
+
+- It applies only to the current season (≥ 2026–27).
+- Historical silver is byte-identical.
+- Silver, the decide step, the projection step, readiness and the scorer all read the
+  completed schedule.
+- ESPN rows are archived append-only on `schedule-archive` (`rows/…`), with every change.
+  ops-watch sweeps the whole remaining season daily at 06 UTC.
+- The rows behind each run's fallback records go to `projections-archive`
+  (`schedule_rows/`).
+- When SDV later lists the game (same id), its row wins. Archived records keep their
+  provenance; the scorer pairs one observation per game.
+- A game whose scored (latest pre-tip) record is for other teams, or the opposite
+  home/away orientation, than the final schedule is UNSCORABLE
+  (`schedule_identity_changed`).
+- Date windows are US Eastern calendar days (`readiness --from-date 2026-11-01 --days 9`);
+  `schedule_completion.canonical_universe` is the known D-I universe that readiness and
+  the dry run both count.
+- Readiness shows schedule completeness separately from roster readiness, with alerts
+  (`SCHEDULE_*`, `FALLBACK_GAME_*`).
+
+Overlap validation (on dispatch):
+
+```
+python scripts/prospective/schedule_overlap.py --season 2027 --hist-season 2026 --out ov
+```
+
+Full opening-window dry run:
+
+```
+python scripts/prospective/dry_run_w11.py --rosters <roster-archive> --schedule-archive <schedule-archive> --sandbox DIR
+```

@@ -42,6 +42,21 @@ def _bronze(dataset: str, season: int) -> Path:
 
 def load_schedule(season: int) -> pd.DataFrame:
     s = pd.read_parquet(_bronze("schedules", season))
+    # Wave 11: the current season's COMPLETED schedule written by this prospective run
+    # (cbb_edge.ops.schedule_completion): SDV rows, field-reconciled against ESPN's
+    # latest observation, + ESPN-fallback rows for games SDV does not list. Current
+    # season only (never historical); every SDV game id is kept (or failed closed).
+    from cbb_edge.ops.schedule_completion import completed_rows_for_silver
+
+    comp = completed_rows_for_silver(season)
+    if comp is not None and len(comp):
+        s = comp[[c for c in comp.columns if c in s.columns]].reset_index(drop=True)
+    return schedule_rows_to_silver(s, season)
+
+
+def schedule_rows_to_silver(s: pd.DataFrame, season: int) -> pd.DataFrame:
+    """SDV-schema schedule rows -> the silver games columns (one transform for SDV rows
+    and ESPN-fallback rows alike)."""
     out = pd.DataFrame(
         {
             "game_id": s["game_id"].astype("int64"),

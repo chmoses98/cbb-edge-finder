@@ -155,7 +155,85 @@ def test_game_missing_from_schedule_source_is_never_silent(tmp_path, monkeypatch
     g = r["games"].set_index("espn_game_id")
     assert (
         not g.loc[77, "in_schedule_source"]
-        and "missing from the projection schedule" in g.loc[77, "why"]
+        and "absent from both projection schedule sources" in g.loc[77, "why"]
     )
     assert 79 not in g.index  # postponed: not owed
-    assert "MISSING from the projection schedule source" in R.markdown(r)
+    assert "ABSENT from both projection sources" in R.markdown(r)
+
+
+def test_schedule_completeness_alerts(tmp_path, monkeypatch):
+    """Wave 11: fallback games are visible as such, and every completeness failure alerts."""
+    _patch(monkeypatch)
+    s = _sched()
+    s["schedule_source"] = ["SDV", "SDV", "ESPN_FALLBACK", "ESPN_FALLBACK", "SDV"]
+    s["time_state"] = "ANNOUNCED"
+    s.attrs["completion"] = {
+        "sdv_games": 3, "fallback_games": 2,
+        "excluded": [{"game_id": 90, "reason": "ambiguous_reconciliation", "sdv_game_id": 1},
+                     {"game_id": 91, "reason": "duplicate_scheduled_game", "espn_game_ids": [91, 92]},
+                     {"game_id": 93, "reason": "teams_not_determined"}],
+        "material_disagreements": [
+            {"game_id": 3, "field": "teams", "result": "different_teams", "sdv": "1 vs 3", "espn": "1 vs 8"},
+            {"game_id": 5, "field": "teams", "result": "orientation_swap", "sdv": "1 vs 999", "espn": "999 vs 1"},
+            {"game_id": 4, "field": "conference_competition", "result": "different", "sdv": "False", "espn": "True"}],
+    }  # fmt: skip
+    now = T("2026-11-04T22:00Z")  # game 3 (fallback) tips in 3 h, game 4 in 4 h
+    live = pd.DataFrame([
+        {"espn_game_id": g, "observed_at": T("2026-11-04T20:00Z") if g == 3 else T("2026-11-04T21:55Z"),
+         "source": "espn_scoreboard", "start_utc": "2026-11-05T01:00:00+00:00", "date_et": "2026-11-04", "time_valid": True,
+         "time_state": "ANNOUNCED", "state": "pre", "status_name": "STATUS_SCHEDULED",
+         "short_detail": "", "home_espn": 1, "away_espn": 2} for g in (3, 4, 77)])  # fmt: skip
+    r = R.build(s, tmp_path, None, None, now, now, 7, 2027, V,
+                {"T1", "T2", "T3", "T4", "T5", "T6"}, None, None, live)  # fmt: skip
+    c = {}
+    for x in r["alerts"]:
+        c.setdefault(x["code"], []).append(x)
+    assert [x["espn_game_id"] for x in c["SCHEDULE_RECONCILIATION_AMBIGUOUS"]] == [90]
+    assert [x["espn_game_id"] for x in c["SCHEDULE_DUPLICATE_GAME"]] == [91]
+    assert c["SCHEDULE_IDENTITY_DISAGREEMENT_IMMINENT"][0]["espn_game_id"] == 3
+    assert c["SCHEDULE_ORIENTATION_DISAGREEMENT"][0]["espn_game_id"] == 5
+    assert c["SCHEDULE_SOURCE_DISAGREEMENT"][0]["field"] == "conference_competition"
+    assert [x["espn_game_id"] for x in c["FALLBACK_GAME_DISAPPEARED"]] == [3]  # not in 21:55 fetch
+    assert {x["espn_game_id"] for x in c["FALLBACK_GAME_NO_SNAPSHOT_NEAR_TIP"]} == {3, 4}
+    assert "teams_not_determined" not in str(c)  # a bracket placeholder is not an alert
+    g = r["games"].set_index("espn_game_id")
+    assert g.loc[3, "schedule_source"] == "ESPN_FALLBACK" and g.loc[5, "schedule_source"] == "SDV"
+    md = R.markdown(r)
+    assert "Schedule completeness" in md and "ESPN-fallback rows (absent from SDV) | 2" in md
+
+
+def test_readiness_window_equals_the_canonical_et_universe(tmp_path, monkeypatch):
+    """Wave 11 amendment: readiness and the dry run count the SAME Nov 1-9 universe
+    (US Eastern calendar dates). The 356-vs-357 case: 401920686 UConn-Wagner tips
+    2026-11-10T00:00Z = Nov 9 7 PM ET, inside the window; Oct 31 10 PM ET is outside."""
+    import cbb_edge.data.ids.teams as teams
+    from cbb_edge.ops import schedule_completion as sc
+    from cbb_edge.ops import schedule_state as ss
+    from tests.espn_fixtures import event, payload
+
+    _patch(monkeypatch)
+    m = {1: "T1", 2: "T2", 3: "T3", 5: "T5"}
+    monkeypatch.setattr(teams, "canonical_from_espn_in", lambda e, s: m.get(int(e)))
+    evs = [event(401920686, "2026-11-10T00:00Z", 1, 2), event(11, "2026-11-01T02:00Z", 1, 3),
+           event(12, "2026-11-01T04:30Z", 2, 3), event(13, "2026-11-10T05:00Z", 1, 5)]  # fmt: skip
+    rows = pd.DataFrame(sc.espn_rows(payload(*evs), "2026-10-06T18:00:00+00:00"))
+    rows["observed_at"] = pd.to_datetime(rows["observed_at"], utc=True)
+    sdv = rows[sc.ROW_COLS].iloc[:0]
+    universe = sc.canonical_universe(sdv, rows, 2027, "2026-11-01", "2026-11-09", set(m.values()))
+    frame, _ = sc.complete(sdv, rows, 2027)
+    sched = pd.DataFrame({
+        "espn_game_id": frame["game_id"].astype(int),
+        "home_team_id": frame["home_id"].map(lambda e: m.get(int(e))),
+        "away_team_id": frame["away_id"].map(lambda e: m.get(int(e))),
+        "tip": pd.to_datetime(frame["start_date"], utc=True), "status": frame["status_type_name"],
+        "time_state": "ANNOUNCED", "schedule_source": frame["schedule_source"],
+    })  # fmt: skip
+    now = T("2026-10-06T18:00Z")
+    r = R.build(sched, tmp_path, None, None, now, ss.et_midnight("2026-11-01"), 9, 2027, V,
+                set(m.values()), None)  # fmt: skip
+    g = r["games"]
+    assert (
+        set(g.loc[g["in_experiment"], "espn_game_id"])
+        == set(universe["game_id"])
+        == {401920686, 12}
+    )
