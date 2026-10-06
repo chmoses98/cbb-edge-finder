@@ -265,7 +265,7 @@ research evidence.
 
 | case | rule |
 |---|---|
-| game in SDV | SDV row, unchanged (`schedule_source = SDV`). Disagreements with ESPN are reported, never applied. |
+| game in SDV | SDV-native (`schedule_source = SDV`): game id, season, game state and results stay SDV's. Its mutable schedule-only fields (teams + orientation, tip / TBD state, neutral site, conference game, tournament id, season type, notes, venue) are **field-reconciled** to ESPN's latest valid observation of the same id, with every change recorded (`reconciled_fields`, `reconciliation`: SDV value, ESPN value, ESPN `observed_at`). An invalid ESPN observation leaves SDV's row (`unresolved`); a reconciled matchup colliding with another game is excluded (`ambiguous`). |
 | game absent from SDV | the ESPN scoreboard row in SDV's own schema (`ESPN_FALLBACK`, with the ESPN `observed_at`) |
 | ESPN row lacks a required field | excluded (`missing_required_field`) |
 | bracket placeholder (team ids ≤ 0) | excluded (`teams_not_determined`) |
@@ -283,8 +283,12 @@ Notes:
   (`schedule_rows/`).
 - When SDV later lists the game (same id), its row wins. Archived records keep their
   provenance; the scorer pairs one observation per game.
-- A game whose final schedule changes teams or home/away orientation from a record's is
-  UNSCORABLE (`schedule_identity_changed`).
+- A game whose scored (latest pre-tip) record is for other teams, or the opposite
+  home/away orientation, than the final schedule is UNSCORABLE
+  (`schedule_identity_changed`).
+- Date windows are US Eastern calendar days (`readiness --from-date 2026-11-01 --days 9`);
+  `schedule_completion.canonical_universe` is the known D-I universe that readiness and
+  the dry run both count.
 - Readiness shows schedule completeness separately from roster readiness, with alerts
   (`SCHEDULE_*`, `FALLBACK_GAME_*`).
 

@@ -31,18 +31,15 @@ It changes **no**:
 
 ## 2. Schedule source policy (S1–S6)
 
-**S1. SDV first.**
+**S1. SDV first for existence and identity; ESPN for current mutable metadata
+(amended A1, see §6).**
 
-- A game SDV lists keeps its SDV row, unchanged.
-- ESPN never overwrites an SDV row.
-- When the two sources disagree on a material field of a shared game, the SDV row is
-  used and a diagnostic is raised. Material fields:
-  - season and season type;
-  - teams and their orientation;
-  - neutral site;
-  - conference game;
-  - tournament id;
-  - status.
+- A game SDV lists stays an SDV-native game: its game id, season and SDV identity are
+  kept, as are its game state and results (status, completion, scores, period).
+- *Original rule (superseded by A1 before merge):* the SDV row was kept unchanged and a
+  diagnostic raised when ESPN disagreed.
+- *A1 rule:* the game's mutable schedule-only fields are field-level reconciled to
+  ESPN's latest valid observation of the same game id (§6).
 
 **S2. ESPN fallback only when absent.**
 
@@ -62,10 +59,13 @@ It changes **no**:
 
 **S4. Provenance.**
 
-- Every row carries `schedule_source`: `SDV` or `ESPN_FALLBACK`.
+- Every row carries `schedule_source`: `SDV` or `ESPN_FALLBACK`. A field-reconciled SDV
+  row also carries `reconciled_fields` and `reconciliation` (per field: SDV value, ESPN
+  value) and the ESPN `source_observed_at` (A1).
 - A fallback row also carries the ESPN `observed_at` it came from.
-- Every projection record carries `schedule.source` and `schedule.source_observed_at`.
-  The exact ESPN rows behind a run's fallback records are archived next to them
+- Every projection record carries `schedule.source`, `schedule.source_observed_at`,
+  `schedule.reconciled_fields` and `schedule.reconciliation`. The exact ESPN rows behind
+  a run's fallback and reconciled records are archived next to them
   (`schedule_rows/<stamp>.jsonl`).
 - ESPN rows are archived append-only on `schedule-archive` (`rows/…`). The archive keeps
   every change, and once a day the whole remaining season.
@@ -86,14 +86,20 @@ It changes **no**:
 
 ## 3. Consequences recorded before any result
 
-**C1. Rest-day context of SDV-native games.**
+**C1. Rest-day context of SDV-native games (approved by the owner before merge).**
 
-- Rest days (all versions) are computed from the whole season schedule.
-- With the fallback, a team's games that SDV lacks now count, for 441 of the 1,629
-  SDV-native games (38 of the 114 in Nov 1–9).
-- Their own rows are unchanged. Their rest-day inputs are what a caught-up SDV would
-  give, instead of the 7-day cap for a game SDV did not list.
-- This is input completeness, not a model change.
+- Rest days (all versions) are computed from the whole season schedule by the frozen
+  formula (`cbb_edge/features/context.py`, unchanged from main).
+- With the fallback and the A1 reconciliation, the schedule the formula reads is the
+  most complete known real one.
+- Measured on the frozen snapshot: rest-day inputs change for 639 of the 1,629
+  SDV-native games, 45 of them in Nov 1–9. Every change is attributed to a schedule
+  event:
+  - 452 to a newly included ESPN-fallback game before them;
+  - 187 to a reconciled tip time (their own or the previous game's);
+  - 0 unexplained.
+- **A schedule-input correction is not a model-methodology change.** The rest-day
+  formula, its cap and every feature definition are frozen.
 
 **C2. Settlement.**
 
@@ -109,28 +115,86 @@ contributes to ratings once SDV publishes its box score, as before Wave 11.
 
 ## 4. Gate rule added (fail closed; tightening only)
 
-**G1. Schedule identity changed.**
+**G1. Schedule identity changed (kept by the owner; refined in A1).**
 
-- Applies when a game's final schedule lists different teams from a base or P-ROSTER-1
-  record made for it, or the same teams with home and away swapped.
-- That record predicts another matchup, or a margin of the opposite sign.
-- The game is **UNSCORABLE** (`schedule_identity_changed`; PENDING until settled) and is
-  never paired with the result.
-- Observed today on shared games: 4 matchups changed and 12 orientations swapped
-  between SDV's build and ESPN's current listing.
+- The record judged is the **scored** pre-tip record of a version: the latest before
+  tip.
+- If that record is for different teams than the game's final resolved schedule, or for
+  the same teams with home and away swapped, it predicts another matchup or a margin of
+  the opposite sign.
+- The game is then **UNSCORABLE** (`schedule_identity_changed`; PENDING until settled)
+  and is never paired with the result.
+- A matchup corrected before a later pre-tip projection costs nothing: the corrected
+  record is the scored one.
+- This is a research-integrity safeguard. A1 makes it rare; it stays fail-closed.
 
 The Wave 9 and Wave 10 gate checks are unchanged.
 
-## 5. FUTURE (inactive)
+## 5. Canonical opening-week universe (A1)
+
+- A window of dates ("Nov 1–9") means **US Eastern calendar dates**, DST-aware. Nov 1
+  starts at 00:00 EDT and the window ends Nov 10 00:00 EST.
+- The known D-I vs D-I universe of the window is `schedule_completion.canonical_universe`:
+  every game id SDV or ESPN lists, with ESPN's latest valid teams and tip, else SDV's.
+- Readiness and the dry run both count this universe.
+- The pre-amendment readiness window was UTC. It dropped 401920686 (UConn–Wagner,
+  2026-11-10T00:00Z = Nov 9 7 PM ET) and so reported 356 games where the dry run had
+  357.
+
+## 6. Amendment A1 (owner, 2026-10-06, before merge and before any 2026–27 outcome)
+
+Overlap validation showed two things:
+
+- ESPN reproduces every pipeline field on 1,391 completed games;
+- SDV's current-season copy is stale on shared games.
+
+So, for the **current season only**:
+
+**A1a. Existence and identity.**
+
+- A game SDV lists stays SDV-native (same game id).
+- A game SDV does not list uses the ESPN fallback (S2, S3).
+
+**A1b. Field-level reconciliation of shared games** (`schedule_completion.reconcile`).
+
+- For a shared game whose ESPN latest observation is valid, these groups take ESPN's
+  current value:
+
+| group | fields |
+|---|---|
+| teams | home/away ids with their names and conference ids |
+| tip | time with its `time_valid` and status detail (the TBD state) |
+| other | neutral site, conference game, tournament id, season type, notes, venue |
+
+- All are schedule-only fields validated identical in semantics on the completed season.
+- Never reconciled: game id, season, game state and results (status, completion,
+  scores, period). Those stay SDV's; the live game-state gate reads ESPN state directly
+  (Wave 10).
+- This is not a generic ESPN overwrite.
+
+**A1c. Fail closed.**
+
+- An ESPN observation that is not valid (missing a required field, or placeholder
+  teams) leaves the SDV row as is (`unresolved`, reported).
+- A reconciled matchup that collides with another game (same two teams, same ET date)
+  is excluded (`ambiguous`, alerted).
+
+**A1d. Audit.** Every disagreement stays visible in the report and in readiness, with its
+resolution: `reconciled_to_espn`, `unresolved_sdv_kept` or `ambiguous_excluded`.
+Matchup and orientation reconciliations alert (`SCHEDULE_IDENTITY_RECONCILED`,
+`SCHEDULE_ORIENTATION_RECONCILED`).
+
+**A1e. Historical.** No historical schedule is touched. The code path applies to seasons
+≥ 2026–27 inside a prospective run only. Silver 2006–2027 without a completion file is
+byte-identical to main (re-verified after A1).
+
+**A1f.** C1 (rest days), G1 (refined) and §5 (canonical ET universe) as above.
+
+## 7. FUTURE (inactive)
 
 - **Identity data quality (from Wave 10, unchanged):**
   - T0333 Utah Valley "Tanner Davis" stays unresolved.
   - The frozen identity pool holds 38,169 players without D-I participation.
   - This is to be investigated separately. No alias is added, the pool is not
     restricted, and the table is not altered.
-- **Shared-game staleness:**
-  - On shared games ESPN is fresher than SDV. Examples: Louisiana Tech's new Sun Belt
-    games are flagged conference games on ESPN, not on SDV.
-  - Preferring ESPN for shared games would change SDV-native inputs, so it is not done.
-    It is an owner decision.
 - **External pinger:** not added. Hourly catch-up stays the design.
