@@ -669,6 +669,7 @@ def build(w: World) -> Built:
 
     # ---- rankings
     rankings: dict[str, dict] = {}
+    pid_to_tid = {tm["pid"]: t for t, tm in teams.items()}
     team_obs: dict[str, list[dict]] = {t: [] for t in teams}
     universe = f"NCAA D-I men's teams, {w.season - 1}-{str(w.season)[2:]}"
     r_window = R.window("SEASON", label="LATEST_PREGAME")
@@ -710,12 +711,14 @@ def build(w: World) -> Built:
         rankings[m.slug] = rk
         for e in rk["entries"]:
             t = e["entity_id"]
+            # as of: the team's own archived rating time, or the roster-truth snapshot
+            obs_asof = ((ratings.get(pid_to_tid[t]) or {}).get("as_of") if m.source == "ratings"
+                        else w.truth.as_of if w.truth else now) or now  # fmt: skip
             team_obs.setdefault(t, []).append(R.observation(
                 sport=SPORT, metric_id=mid(m.slug), entity_id=t, entity_type="TEAM", value=e["value"],
                 adjusted_value=e["value"] if m.adjusted else None, unit=m.unit,
-                window=rk["window"], as_of=now, source=q["source"],
+                window=rk["window"], as_of=obs_asof, source=q["source"],
                 quality_status=q["status"], context=R.context_from_ranking(rk, t),
-                extensions={"as_of": (ratings.get(_tid(t, teams)) or {}).get("as_of")} if m.source == "ratings" else {},
             ))  # fmt: skip
 
     # ---- events (board window) and research (research window)
@@ -870,13 +873,6 @@ def build(w: World) -> Built:
         "overall_status": health["overall_status"],
     }  # fmt: skip
     return Built(run_id, v1, docs, health, summary)
-
-
-def _tid(pid: str, teams: dict[str, dict]) -> str | None:
-    for t, tm in teams.items():
-        if tm["pid"] == pid:
-            return t
-    return None
 
 
 def _flat_ratings(rt: dict[str, Any]) -> dict[str, float | None]:
@@ -1068,6 +1064,7 @@ def _event_research(
         notes.append("Neutral site: no home-court edge in the model.")
     if not markets:
         notes.append("No executable Kalshi market is published for this game.")
+    notes += packet_notes(models, pro, roster, h, a, w)
     ext = {"cbb": {
         **ev["extensions"]["cbb"],
         "models": models, "primary_version": prim.version if prim else None,
@@ -1103,6 +1100,52 @@ def _event_research(
         markets=[R.market_ref(m) for m in markets],
         context={"venue": ext["cbb"]["venue"], "notes": notes}, links=links, extensions=ext,
     )  # fmt: skip
+
+
+def packet_notes(
+    models: list[dict], pro: dict | None, roster: dict, h: dict, a: dict, w: World
+) -> list[str]:
+    """Plain-language evidence lines for the generic handicap packet (``context.notes``):
+    every projection row with its archive time and role, roster confidence, the P-ROSTER-1
+    state and the prospective sample. Evidence, never an instruction."""
+    out = []
+    hn, an = h["location"], a["location"]
+    for m in models:
+        if m["margin"] is None:
+            continue
+        lead = hn if m["margin"] >= 0 else an
+        r80 = m["margin_range_80"]
+        rng = f"; 80% model range {r80[0]:+.1f} to {r80[1]:+.1f}" if r80 else ""
+        out.append(
+            f"{m['role_label']} {m['version']} projection, archived pre-tip {m['as_of']} (research "
+            f"evidence): {an} {m['away_score']:.1f}, {hn} {m['home_score']:.1f}; {lead} by "
+            f"{abs(m['margin']):.1f} (model SD {m['margin_sd']}{rng}); total {m['total']:.1f} "
+            f"(SD {m['total_sd']}); {m['possessions']:.1f} possessions; {hn} win probability "
+            f"{100 * m['home_win_prob']:.0f}%."
+        )  # fmt: skip
+    if pro is not None:
+        for side, team in (("home", h), ("away", a)):
+            s = pro["sides"][side]
+            out.append(
+                f"P-ROSTER-1 roster overlay, {team['location']}: roster {s['roster_confidence']}; "
+                f"input substitution {'active' if s['input_substitution_active'] else 'not applied'}; "
+                f"continuity correction {'active' if s['continuity_correction_active'] else 'not applied'}"
+                + (f"; returning-minutes share {100 * s['returning_minutes_share']:.0f}%"
+                   if s["returning_minutes_share"] is not None else "") + "."
+            )  # fmt: skip
+        if pro["adjustment_total"] is not None:
+            out.append(f"P-ROSTER-1 margin adjustment vs its frozen base: {pro['adjustment_total']:+.2f} "
+                       "(input substitution + continuity correction).")  # fmt: skip
+    elif roster.get("basis") == "current_truth":
+        for side, team in (("home", h), ("away", a)):
+            ro = roster.get(side) or {}
+            out.append(f"Roster confidence {team['location']}: {ro.get('confidence', 'UNKNOWN')} — "
+                       f"{ro.get('explanation', '')} (snapshot {ro.get('snapshot')}).")  # fmt: skip
+    sb = w.scoreboard
+    n1 = (((sb.summary.get("headline") or {}).get("game_1") or {}).get("N", 0)) if sb else 0
+    out.append(f"Prospective evaluation: game-1 N = {n1}; no model is ranked above another before the "
+               "preregistered evaluation, and no inference is drawn below the locked minimum sample.")  # fmt: skip
+    return out
 
 
 def _team_profile(
@@ -1147,7 +1190,7 @@ def _team_profile(
         s_ = sel.get(row["espn_game_id"])
         if s_ is not None and not row["completed"] and len(nxt) < 3:
             nxt.append({"event_id": eid, "cbb_game_id": row["gid"], "start": iso(row["start"]),
-                        "tbd": row["time_state"] != ANNOUNCED, "opponent": opp["name"],
+                        "tbd": row["time_state"] != ANNOUNCED, "date_et": row["date_et"], "opponent": opp["name"],
                         "home_away": "NEUTRAL" if row["neutral"] else row["_side"].upper(),
                         "projection_state": s_.state,
                         "primary": _compact(model_row(p)) if (p := s_.primary(ROLE_ORDER)) else None,
@@ -1408,7 +1451,7 @@ def _search(
                                       aliases=[ev["extensions"]["cbb"]["cbb_game_id"]]))  # fmt: skip
     for slug, rk in rankings.items():
         m = next(x for x in METRICS if x.slug == slug)
-        entries.append(R.search_entry(id=rk["ranking_id"], kind="RANKING", label=f"{m.name} — D-I ranking",
+        entries.append(R.search_entry(id=rk["ranking_id"], kind="RANKING", label=f"{m.name} ranking · NCAA D-I",
                                       path=R.ranking_path(rk["ranking_id"]), sport=SPORT,
                                       secondary=m.short, aliases=[m.short]))  # fmt: skip
     return R.search_index(sport=SPORT, run_id=run_id, generated_at=gen, entries=entries)

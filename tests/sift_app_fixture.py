@@ -370,16 +370,20 @@ def _put(pa: Path, r: dict) -> dict[str, str]:
 
 
 def publish_fixture(out: Path, variant: str = "season") -> dict[str, Any]:
-    from cbb_edge.app.sift_app.__main__ import main
+    """Publish the fixture app root. The D-I universe is cut to the fixture's teams so the
+    fixture stays small; everything else runs the production code path."""
+    from cbb_edge.app.sift_app.__main__ import load_world, publish
+    from cbb_edge.app.sift_app.selection import ts
 
     a = build_archives(out, variant)
-    argv = ["--season", str(SEASON), "--projections", str(a["projections"]), "--rosters", str(a["rosters"]),
-            "--scores", str(a["scores"]), "--schedule-archive", str(a["schedule_archive"]),
-            "--schedule-parquet", str(a["schedule_parquet"]), "--out", str(Path(out) / "app" / "latest"),
-            "--now", a["now"], "--code-sha", "fixture000000"]  # fmt: skip
-    rc = main(argv)
-    if rc != 0:
-        raise RuntimeError("fixture publication failed")
+    argv = argparse.Namespace(
+        season=SEASON, projections=str(a["projections"]), rosters=str(a["rosters"]),
+        scores=str(a["scores"]), schedule_archive=str(a["schedule_archive"]), kalshi=None,
+        schedule_parquet=str(a["schedule_parquet"]), code_sha="fixture000000",
+    )  # fmt: skip
+    w = load_world(argv, ts(a["now"]))
+    w.members = w.members[w.members["team_id"].isin(TEAMS)].reset_index(drop=True)
+    publish(w, Path(out) / "app" / "latest")
     return a
 
 

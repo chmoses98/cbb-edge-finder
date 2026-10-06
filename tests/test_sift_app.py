@@ -12,6 +12,7 @@ import ast
 import gzip
 import hashlib
 import json
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -343,3 +344,23 @@ def test_kalshi_game_contracts_map_exactly_and_are_never_priced(season, tmp_path
     )
     assert json.loads((_app(tmp_path) / "model_prices.json").read_text())["count"] == 0
     assert PUB.verify_published(_app(tmp_path)) == [] and R.verify_explorer(_app(tmp_path)) == []
+
+
+def test_packet_notes_carry_the_projection_rows_as_evidence(season):
+    notes = _research(season[0], "G900000005")["context"]["notes"]
+    assert any(n.startswith("Incumbent pure-0.2.0 projection, archived pre-tip") for n in notes)
+    assert any(n.startswith("P-ROSTER-1 roster overlay") for n in notes)
+    assert any(n.startswith("Prospective evaluation: game-1 N =") for n in notes)
+    assert not re.search(r"best bets?|\blocks?\b|guaranteed", " ".join(notes).lower())
+
+
+def test_team_rating_observations_carry_their_own_archive_time(season):
+    out = season[0]
+    rk = [
+        json.loads(p.read_text())
+        for p in (_app(out) / "explorer" / "teams").glob("*.json")
+        if json.loads(p.read_text())["entity"]["source_ids"]["cbb_team_id"] == "T0220"
+    ][0]
+    adj = next(o for o in rk["metrics"] if o["metric_id"] == "met_cbb.adj_off")
+    assert adj["as_of"] == rk["extensions"]["cbb"]["ratings"]["as_of"]
+    assert adj["as_of"] < "2026-11-02T18:00:00Z"
