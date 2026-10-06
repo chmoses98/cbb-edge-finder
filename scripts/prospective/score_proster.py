@@ -32,6 +32,11 @@ def schedule(season: int, stamp: str, roots: list[Path | None] | None = None
     from cbb_edge.ops import schedule_completion
 
     s, _ = schedule_completion.completed_schedule(season, stamp, roots)
+    return results_and_schedule(s)
+
+
+def results_and_schedule(s: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """(results of completed games, schedule) from a completed SDV-schema frame."""
     if not len(s):
         return pd.DataFrame(columns=["espn_game_id", "result_margin"]), pd.DataFrame()
     sched = pd.DataFrame(

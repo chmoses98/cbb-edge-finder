@@ -802,6 +802,28 @@ def tbd_ambiguous(recs: list[dict], unproven: dict,
     return amb
 
 
+def identity_changed(recs: list[dict], games: pd.DataFrame | None) -> set[int]:
+    """Wave 11 (fail closed): games whose FINAL schedule lists different teams, or the
+    same teams with home / away swapped, from a base / P-ROSTER-1 record made for it
+    (a source changed the matchup under the same id). Such a record predicts another
+    matchup or the opposite margin sign: never paired with the result."""
+    if games is None or not len(games) or "home_team_id" not in games:
+        return set()
+    fin = {int(g): (h, a) for g, h, a in zip(games["espn_game_id"], games["home_team_id"],
+                                             games["away_team_id"], strict=True)}  # fmt: skip
+    out = set()
+    for r in recs:
+        if r.get("model", {}).get("version") not in (BASE, ROSTER):
+            continue
+        gid = int(r["game"]["espn_game_id"])
+        f = fin.get(gid)
+        if f is None or None in f or any(x != x for x in f):
+            continue
+        if (r["home"]["team_id"], r["away"]["team_id"]) != f:
+            out.add(gid)
+    return out
+
+
 # ------------------------------------------------------------------------------- run
 def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
           roster_archive: Path | None = None, box: pd.DataFrame | None = None,
@@ -846,13 +868,16 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
         mutated_roster=pretip_gate.git_mutated_paths(roster_archive),
         dups=pretip_gate.duplicates(recs),
     )  # fmt: skip
-    amb = tbd_ambiguous(recs, unproven, committed)
+    changed = identity_changed(recs, games)
+    amb = tbd_ambiguous(recs, unproven, committed) | changed
     if amb:
         gate = gate[~gate["espn_game_id"].isin(amb)]
         settled = set(res["espn_game_id"].astype(int)) if len(res) else set()
         gate = pd.concat([gate, pd.DataFrame(
             [{"espn_game_id": g, "status": pretip_gate.UNSCORABLE if g in settled
-              else pretip_gate.PENDING, "reasons": "tbd_start_unprovable"} for g in sorted(amb)]
+              else pretip_gate.PENDING,
+              "reasons": "schedule_identity_changed" if g in changed else "tbd_start_unprovable"}
+             for g in sorted(amb)]
         )], ignore_index=True)  # fmt: skip
     if len(pg_all):
         gi = gate.set_index("espn_game_id")

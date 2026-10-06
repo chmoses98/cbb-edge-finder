@@ -234,7 +234,7 @@ def complete(
     s = sdv.copy()
     s["schedule_source"], s["source_observed_at"] = SDV, None
     rep: dict[str, Any] = {"season": season, "sdv_games": int(len(s)), "fallback_games": 0,
-                           "excluded": [], "material_disagreements": []}  # fmt: skip
+                           "excluded": [], "material_disagreements": [], "shared_games": 0}  # fmt: skip
     if season < FIRST_FALLBACK_SEASON or espn is None or not len(espn):
         return s, rep
     e = latest(espn)
@@ -243,9 +243,24 @@ def complete(
     shared = e[e["game_id"].isin(sdv_ids)]
     cmp = compare(s[s["game_id"].isin(set(shared["game_id"]))], shared)
     if len(cmp):
-        bad = cmp[cmp["material"] & (cmp["result"] == "different")]
+        bad = cmp[cmp["material"] & (cmp["result"] == "different")
+                  & ~cmp["field"].isin(["home_id", "away_id"])]  # fmt: skip
         rep["material_disagreements"] = bad.to_dict("records")
         rep["shared_games"] = int(shared["game_id"].nunique())
+    # team identity per shared game: same / orientation_swap / different_teams
+    ei = shared.set_index("game_id")
+    for r in s[s["game_id"].isin(set(ei.index))].to_dict("records"):
+        x = ei.loc[int(r["game_id"])]
+        a, b = (
+            (_norm(r["home_id"]), _norm(r["away_id"])),
+            (_norm(x["home_id"]), _norm(x["away_id"])),
+        )
+        if a == b or None in a or None in b:
+            continue
+        kind = "orientation_swap" if a == b[::-1] else "different_teams"
+        rep["material_disagreements"].append(
+            {"game_id": int(r["game_id"]), "field": "teams", "result": kind,
+             "sdv": f"{a[0]} vs {a[1]}", "espn": f"{b[0]} vs {b[1]}", "material": True})  # fmt: skip
     cand = e[~e["game_id"].isin(sdv_ids)].copy()
     # same two teams on the same ET date under a different id (either orientation)
     key = lambda h, a, d: (frozenset((int(h), int(a))), d)  # noqa: E731
@@ -256,7 +271,8 @@ def complete(
     keep = []
     cand_keys: dict[tuple, list[int]] = {}
     for r in cand.to_dict("records"):
-        if pd.notna(r.get("home_id")) and pd.notna(r.get("away_id")):
+        if pd.notna(r.get("home_id")) and pd.notna(r.get("away_id")) and min(
+                int(r["home_id"]), int(r["away_id"])) > 0:  # fmt: skip
             cand_keys.setdefault(key(r["home_id"], r["away_id"], _et_date(r["date"])), []).append(
                 int(r["game_id"]))  # fmt: skip
     for r in cand.to_dict("records"):
@@ -269,6 +285,10 @@ def complete(
         if miss:
             rep["excluded"].append({"game_id": g, "reason": "missing_required_field",
                                     "fields": miss})  # fmt: skip
+            continue
+        if int(r["home_id"]) <= 0 or int(r["away_id"]) <= 0:
+            # ESPN's bracket placeholder ("TBD" teams, ids -1 / -2): not a game yet
+            rep["excluded"].append({"game_id": g, "reason": "teams_not_determined"})
             continue
         k = key(r["home_id"], r["away_id"], _et_date(r["date"]))
         if k in sdv_keys:

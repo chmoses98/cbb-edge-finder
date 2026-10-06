@@ -132,3 +132,42 @@ def test_row_archive_is_append_only_and_change_only(tmp_path):
     sc.write_rows(tmp_path, kept, "20261006T190000Z")
     lat = sc.latest(sc.load_rows(tmp_path)).set_index("game_id")
     assert bool(lat.loc[401913100, "time_valid"]) and len(lat) == 2
+
+
+def test_placeholder_brackets_and_identity_disagreements():
+    bracket = event(401920568, "2026-11-14T20:30Z", -1, -2, neutral=True)
+    bracket2 = event(401920567, "2026-11-14T18:00Z", -1, -2, neutral=True)
+    sdv = _sdv(G1, G2, event(401911454, "2026-11-12T02:00Z", 9999, 2440))
+    espn = _espn(event(401902275, "2026-11-03T00:00Z", 5, 2000, detail="x"),  # swapped
+                 event(401911454, "2026-11-12T02:00Z", 2540, 2440),  # new opponent
+                 G2, bracket, bracket2)  # fmt: skip
+    frame, rep = sc.complete(sdv, espn, 2027)
+    why = {e["game_id"]: e["reason"] for e in rep["excluded"]}
+    assert why == {401920568: "teams_not_determined", 401920567: "teams_not_determined"}
+    kinds = {
+        d["game_id"]: d["result"] for d in rep["material_disagreements"] if d["field"] == "teams"
+    }
+    assert kinds == {401902275: "orientation_swap", 401911454: "different_teams"}
+    s = frame.set_index("game_id")
+    assert s.loc[401911454, "home_id"] == 9999 and s.loc[401902275, "home_id"] == 2000  # SDV kept
+
+
+def test_scorer_fails_closed_when_the_matchup_changes_under_the_same_id(tmp_path):
+    from cbb_edge.rosters import prospective_score as ps
+    from tests.test_pretip_gate import archive, rec, results, roster_archive, status
+
+    ra = roster_archive(tmp_path)
+    recs = [rec(ps.BASE, 1, "T1", "T2", 2.0, ra), rec(ps.ROSTER, 1, "T1", "T2", 3.0, ra)]
+    pa = archive(tmp_path, recs)
+
+    def score(h, a):
+        g = pd.DataFrame({"espn_game_id": [1], "home_team_id": [h], "away_team_id": [a],
+                          "tip": [pd.Timestamp(recs[0]["game"]["start_time_utc"])]})  # fmt: skip
+        return ps.score(ps.load_records(pa, 2027), results(1), roster_archive=ra, games=g,
+                        committed=ps.git_first_commit_times(pa),
+                        committed_roster=ps.git_first_commit_times(ra), projections_root=pa,
+                        expected=pd.DataFrame({"espn_game_id": [1]}))[0]  # fmt: skip
+
+    assert status(score("T1", "T2"), 1) == ("VALID", "")
+    assert status(score("T2", "T1"), 1) == ("UNSCORABLE", "schedule_identity_changed")
+    assert status(score("T1", "T3"), 1) == ("UNSCORABLE", "schedule_identity_changed")

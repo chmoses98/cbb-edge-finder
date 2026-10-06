@@ -206,11 +206,13 @@ def schedule_frame(season: int, stamp: str, roots: list[Path | None] | None = No
     from cbb_edge.data.ids.teams import canonical_from_espn_in
     from cbb_edge.ops import schedule_completion as sc
 
-    s, _ = sc.completed_schedule(season, stamp, roots, fresh)
+    s, rep = sc.completed_schedule(season, stamp, roots, fresh)
     if not len(s):
-        return pd.DataFrame(columns=["espn_game_id", "home_team_id", "away_team_id", "tip",
-                                     "status", "schedule_source"])  # fmt: skip
-    return pd.DataFrame({
+        out = pd.DataFrame(columns=["espn_game_id", "home_team_id", "away_team_id", "tip",
+                                    "status", "schedule_source"])  # fmt: skip
+        out.attrs["completion"] = rep
+        return out
+    out = pd.DataFrame({
         "espn_game_id": s["game_id"].astype(int),
         "home_team_id": [canonical_from_espn_in(e, season) for e in s["home_id"]],
         "away_team_id": [canonical_from_espn_in(e, season) for e in s["away_id"]],
@@ -222,6 +224,8 @@ def schedule_frame(season: int, stamp: str, roots: list[Path | None] | None = No
             strict=True)],
         "schedule_source": s["schedule_source"].to_numpy(),
     })  # fmt: skip
+    out.attrs["completion"] = rep  # exclusions + disagreements (readiness alerts)
+    return out
 
 
 def time_state_of(v: object, t: object, d: object) -> str:

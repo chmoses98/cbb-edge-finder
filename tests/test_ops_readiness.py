@@ -155,7 +155,7 @@ def test_game_missing_from_schedule_source_is_never_silent(tmp_path, monkeypatch
     g = r["games"].set_index("espn_game_id")
     assert (
         not g.loc[77, "in_schedule_source"]
-        and "missing from the projection schedule" in g.loc[77, "why"]
+        and "absent from both projection schedule sources" in g.loc[77, "why"]
     )
     assert 79 not in g.index  # postponed: not owed
-    assert "MISSING from the projection schedule source" in R.markdown(r)
+    assert "ABSENT from both projection sources" in R.markdown(r)
