@@ -1,0 +1,636 @@
+{
+ "ncaa_members": 365,
+ "model_current_teams": 365,
+ "resolved": 364,
+ "by_method": {
+  "exact_name": 257,
+  "verified_alias": 107,
+  "unresolved": 1
+ },
+ "in_model_not_ncaa": [
+  {
+   "team_id": "T0293",
+   "espn_team_id": 2598,
+   "espn_location": "Saint Francis",
+   "conference_latest": NaN,
+   "last_d1_season": 2026
+  }
+ ],
+ "in_ncaa_not_model": [
+  {
+   "ncaa_org_id": 11740,
+   "school": "University of West Florida",
+   "conference": "Atlantic Sun Conference",
+   "state": "FL",
+   "athletics_url": "https://www.goargos.com",
+   "resolution": "unresolved"
+  }
+ ],
+ "duplicate_team_mappings": [],
+ "reclassifying": [
+  {
+   "ncaa_org_id": 349,
+   "school": "Le Moyne College",
+   "team_id": "T0370",
+   "first_d1_season": 2024.0,
+   "reclass_year": NaN,
+   "reclass_division": NaN,
+   "provisional_member": false
+  },
+  {
+   "ncaa_org_id": 408,
+   "school": "Mercyhurst University",
+   "team_id": "T0371",
+   "first_d1_season": 2025.0,
+   "reclass_year": NaN,
+   "reclass_division": NaN,
+   "provisional_member": false
+  },
+  {
+   "ncaa_org_id": 410,
+   "school": "Merrimack College",
+   "team_id": "T0357",
+   "first_d1_season": 2020.0,
+   "reclass_year": 2.0,
+   "reclass_division": 1.0,
+   "provisional_member": false
+  },
+  {
+   "ncaa_org_id": 470,
+   "school": "University of New Haven",
+   "team_id": "T0373",
+   "first_d1_season": 2026.0,
+   "reclass_year": NaN,
+   "reclass_division": NaN,
+   "provisional_member": false
+  },
+  {
+   "ncaa_org_id": 487,
+   "school": "University of North Alabama",
+   "team_id": "T0355",
+   "first_d1_season": 2019.0,
+   "reclass_year": 3.0,
+   "reclass_division": 1.0,
+   "provisional_member": false
+  },
+  {
+   "ncaa_org_id": 766,
+   "school": "University of West Georgia",
+   "team_id": "T0372",
+   "first_d1_season": 2025.0,
+   "reclass_year": NaN,
+   "reclass_division": NaN,
+   "provisional_member": false
+  }
+ ],
+ "naming_differences": [
+  {
+   "ncaa_org_id": 9,
+   "school": "University of Alabama at Birmingham",
+   "espn_location": "UAB"
+  },
+  {
+   "ncaa_org_id": 14,
+   "school": "University at Albany",
+   "espn_location": "UAlbany"
+  },
+  {
+   "ncaa_org_id": 27,
+   "school": "Appalachian State University",
+   "espn_location": "App State"
+  },
+  {
+   "ncaa_org_id": 31,
+   "school": "University of Arkansas, Fayetteville",
+   "espn_location": "Arkansas"
+  },
+  {
+   "ncaa_org_id": 32,
+   "school": "University of Arkansas at Little Rock",
+   "espn_location": "Little Rock"
+  },
+  {
+   "ncaa_org_id": 43,
+   "school": "Austin Peay State University",
+   "espn_location": "Austin Peay"
+  },
+  {
+   "ncaa_org_id": 71,
+   "school": "Bowling Green State University",
+   "espn_location": "Bowling Green"
+  },
+  {
+   "ncaa_org_id": 77,
+   "school": "Brigham Young University",
+   "espn_location": "BYU"
+  },
+  {
+   "ncaa_org_id": 86,
+   "school": "University at Buffalo, the State University of New York",
+   "espn_location": "Buffalo"
+  },
+  {
+   "ncaa_org_id": 90,
+   "school": "California Polytechnic State University",
+   "espn_location": "Cal Poly"
+  },
+  {
+   "ncaa_org_id": 94,
+   "school": "California State University, Bakersfield",
+   "espn_location": "Cal State Bakersfield"
+  },
+  {
+   "ncaa_org_id": 96,
+   "school": "California State University, Fresno",
+   "espn_location": "Fresno State"
+  },
+  {
+   "ncaa_org_id": 97,
+   "school": "California State University, Fullerton",
+   "espn_location": "Cal State Fullerton"
+  },
+  {
+   "ncaa_org_id": 101,
+   "school": "California State University, Northridge",
+   "espn_location": "Cal State Northridge"
+  },
+  {
+   "ncaa_org_id": 102,
+   "school": "California State University, Sacramento",
+   "espn_location": "Sacramento State"
+  },
+  {
+   "ncaa_org_id": 107,
+   "school": "University of California, Berkeley",
+   "espn_location": "California"
+  },
+  {
+   "ncaa_org_id": 108,
+   "school": "University of California, Davis",
+   "espn_location": "UC Davis"
+  },
+  {
+   "ncaa_org_id": 109,
+   "school": "University of California, Irvine",
+   "espn_location": "UC Irvine"
+  },
+  {
+   "ncaa_org_id": 110,
+   "school": "University of California, Los Angeles",
+   "espn_location": "UCLA"
+  },
+  {
+   "ncaa_org_id": 111,
+   "school": "University of California, Riverside",
+   "espn_location": "UC Riverside"
+  },
+  {
+   "ncaa_org_id": 112,
+   "school": "University of California, San Diego",
+   "espn_location": "UC San Diego"
+  },
+  {
+   "ncaa_org_id": 104,
+   "school": "University of California, Santa Barbara",
+   "espn_location": "UC Santa Barbara"
+  },
+  {
+   "ncaa_org_id": 127,
+   "school": "Central Connecticut State University",
+   "espn_location": "Central Connecticut"
+  },
+  {
+   "ncaa_org_id": 128,
+   "school": "University of Central Florida",
+   "espn_location": "UCF"
+  },
+  {
+   "ncaa_org_id": 1014,
+   "school": "College of Charleston (South Carolina)",
+   "espn_location": "Charleston"
+  },
+  {
+   "ncaa_org_id": 157,
+   "school": "University of Colorado Boulder",
+   "espn_location": "Colorado"
+  },
+  {
+   "ncaa_org_id": 158,
+   "school": "Columbia University-Barnard College",
+   "espn_location": "Columbia"
+  },
+  {
+   "ncaa_org_id": 164,
+   "school": "University of Connecticut",
+   "espn_location": "UConn"
+  },
+  {
+   "ncaa_org_id": 222,
+   "school": "Fairleigh Dickinson University, Metropolitan Campus",
+   "espn_location": "Fairleigh Dickinson"
+  },
+  {
+   "ncaa_org_id": 255,
+   "school": "Georgia Institute of Technology",
+   "espn_location": "Georgia Tech"
+  },
+  {
+   "ncaa_org_id": 261,
+   "school": "Grambling State University",
+   "espn_location": "Grambling"
+  },
+  {
+   "ncaa_org_id": 277,
+   "school": "University of Hawaii, Manoa",
+   "espn_location": "Hawai'i"
+  },
+  {
+   "ncaa_org_id": 285,
+   "school": "College of the Holy Cross",
+   "espn_location": "Holy Cross"
+  },
+  {
+   "ncaa_org_id": 302,
+   "school": "University of Illinois Chicago",
+   "espn_location": "UIC"
+  },
+  {
+   "ncaa_org_id": 301,
+   "school": "University of Illinois Urbana-Champaign",
+   "espn_location": "Illinois"
+  },
+  {
+   "ncaa_org_id": 2699,
+   "school": "Indiana University Indianapolis",
+   "espn_location": "IU Indianapolis"
+  },
+  {
+   "ncaa_org_id": 306,
+   "school": "Indiana University, Bloomington",
+   "espn_location": "Indiana"
+  },
+  {
+   "ncaa_org_id": 365,
+   "school": "Louisiana State University",
+   "espn_location": "LSU"
+  },
+  {
+   "ncaa_org_id": 671,
+   "school": "University of Louisiana at Lafayette",
+   "espn_location": "Louisiana"
+  },
+  {
+   "ncaa_org_id": 498,
+   "school": "University of Louisiana Monroe",
+   "espn_location": "UL Monroe"
+  },
+  {
+   "ncaa_org_id": 371,
+   "school": "Loyola University Chicago",
+   "espn_location": "Loyola Chicago"
+  },
+  {
+   "ncaa_org_id": 369,
+   "school": "Loyola University Maryland",
+   "espn_location": "Loyola Maryland"
+  },
+  {
+   "ncaa_org_id": 391,
+   "school": "University of Maryland, Baltimore County",
+   "espn_location": "UMBC"
+  },
+  {
+   "ncaa_org_id": 392,
+   "school": "University of Maryland, College Park",
+   "espn_location": "Maryland"
+  },
+  {
+   "ncaa_org_id": 400,
+   "school": "University of Massachusetts, Amherst",
+   "espn_location": "Massachusetts"
+  },
+  {
+   "ncaa_org_id": 368,
+   "school": "University of Massachusetts Lowell",
+   "espn_location": "UMass Lowell"
+  },
+  {
+   "ncaa_org_id": 402,
+   "school": "McNeese State University",
+   "espn_location": "McNeese"
+  },
+  {
+   "ncaa_org_id": 415,
+   "school": "University of Miami (Florida)",
+   "espn_location": "Miami"
+  },
+  {
+   "ncaa_org_id": 414,
+   "school": "Miami University (Ohio)",
+   "espn_location": "Miami (OH)"
+  },
+  {
+   "ncaa_org_id": 419,
+   "school": "Middle Tennessee State University",
+   "espn_location": "Middle Tennessee"
+  },
+  {
+   "ncaa_org_id": 428,
+   "school": "University of Minnesota, Twin Cities",
+   "espn_location": "Minnesota"
+  },
+  {
+   "ncaa_org_id": 433,
+   "school": "University of Mississippi",
+   "espn_location": "Ole Miss"
+  },
+  {
+   "ncaa_org_id": 434,
+   "school": "University of Missouri, Columbia",
+   "espn_location": "Missouri"
+  },
+  {
+   "ncaa_org_id": 2707,
+   "school": "University of Missouri-Kansas City",
+   "espn_location": "Kansas City"
+  },
+  {
+   "ncaa_org_id": 440,
+   "school": "Montana State University-Bozeman",
+   "espn_location": "Montana State"
+  },
+  {
+   "ncaa_org_id": 464,
+   "school": "University of Nebraska at Omaha",
+   "espn_location": "Omaha"
+  },
+  {
+   "ncaa_org_id": 463,
+   "school": "University of Nebraska-Lincoln",
+   "espn_location": "Nebraska"
+  },
+  {
+   "ncaa_org_id": 465,
+   "school": "University of Nevada, Las Vegas",
+   "espn_location": "UNLV"
+  },
+  {
+   "ncaa_org_id": 466,
+   "school": "University of Nevada, Reno",
+   "espn_location": "Nevada"
+  },
+  {
+   "ncaa_org_id": 471,
+   "school": "New Jersey Institute of Technology",
+   "espn_location": "NJIT"
+  },
+  {
+   "ncaa_org_id": 483,
+   "school": "Nicholls State University",
+   "espn_location": "Nicholls"
+  },
+  {
+   "ncaa_org_id": 456,
+   "school": "University of North Carolina Asheville",
+   "espn_location": "UNC Asheville"
+  },
+  {
+   "ncaa_org_id": 488,
+   "school": "North Carolina A&T State University",
+   "espn_location": "North Carolina A&T"
+  },
+  {
+   "ncaa_org_id": 490,
+   "school": "North Carolina State University",
+   "espn_location": "NC State"
+  },
+  {
+   "ncaa_org_id": 460,
+   "school": "University of North Carolina Wilmington",
+   "espn_location": "UNC Wilmington"
+  },
+  {
+   "ncaa_org_id": 457,
+   "school": "University of North Carolina, Chapel Hill",
+   "espn_location": "North Carolina"
+  },
+  {
+   "ncaa_org_id": 458,
+   "school": "The University of North Carolina at Charlotte",
+   "espn_location": "Charlotte"
+  },
+  {
+   "ncaa_org_id": 459,
+   "school": "The University of North Carolina at Greensboro",
+   "espn_location": "UNC Greensboro"
+  },
+  {
+   "ncaa_org_id": 539,
+   "school": "Pennsylvania State University",
+   "espn_location": "Penn State"
+  },
+  {
+   "ncaa_org_id": 308,
+   "school": "Purdue University Fort Wayne",
+   "espn_location": "Purdue Fort Wayne"
+  },
+  {
+   "ncaa_org_id": 11504,
+   "school": "Queens University of Charlotte",
+   "espn_location": "Queens University"
+  },
+  {
+   "ncaa_org_id": 587,
+   "school": "Rutgers, The State University of New Jersey, New Brunswick",
+   "espn_location": "Rutgers"
+  },
+  {
+   "ncaa_org_id": 624,
+   "school": "Sam Houston State University",
+   "espn_location": "Sam Houston"
+  },
+  {
+   "ncaa_org_id": 1356,
+   "school": "Seattle University",
+   "espn_location": "Seattle U"
+  },
+  {
+   "ncaa_org_id": 648,
+   "school": "University of South Carolina, Columbia",
+   "espn_location": "South Carolina"
+  },
+  {
+   "ncaa_org_id": 655,
+   "school": "Southeastern Louisiana University",
+   "espn_location": "SE Louisiana"
+  },
+  {
+   "ncaa_org_id": 657,
+   "school": "University of Southern California",
+   "espn_location": "USC"
+  },
+  {
+   "ncaa_org_id": 659,
+   "school": "Southern Illinois University at Carbondale",
+   "espn_location": "Southern Illinois"
+  },
+  {
+   "ncaa_org_id": 660,
+   "school": "Southern Illinois University Edwardsville",
+   "espn_location": "SIU Edwardsville"
+  },
+  {
+   "ncaa_org_id": 663,
+   "school": "Southern Methodist University",
+   "espn_location": "SMU"
+  },
+  {
+   "ncaa_org_id": 664,
+   "school": "The University of Southern Mississippi",
+   "espn_location": "Southern Miss"
+  },
+  {
+   "ncaa_org_id": 665,
+   "school": "Southern University, Baton Rouge",
+   "espn_location": "Southern"
+  },
+  {
+   "ncaa_org_id": 603,
+   "school": "St. John's University (New York)",
+   "espn_location": "St. John's"
+  },
+  {
+   "ncaa_org_id": 610,
+   "school": "Saint Mary's College of California",
+   "espn_location": "Saint Mary's"
+  },
+  {
+   "ncaa_org_id": 620,
+   "school": "University of St. Thomas (Minnesota)",
+   "espn_location": "St. Thomas"
+  },
+  {
+   "ncaa_org_id": 676,
+   "school": "Stephen F. Austin State University",
+   "espn_location": "Stephen F. Austin"
+  },
+  {
+   "ncaa_org_id": 692,
+   "school": "Tennessee Technological University",
+   "espn_location": "Tennessee Tech"
+  },
+  {
+   "ncaa_org_id": 693,
+   "school": "University of Tennessee at Chattanooga",
+   "espn_location": "Chattanooga"
+  },
+  {
+   "ncaa_org_id": 694,
+   "school": "University of Tennessee, Knoxville",
+   "espn_location": "Tennessee"
+  },
+  {
+   "ncaa_org_id": 695,
+   "school": "University of Tennessee at Martin",
+   "espn_location": "UT Martin"
+  },
+  {
+   "ncaa_org_id": 697,
+   "school": "Texas A&M University, College Station",
+   "espn_location": "Texas A&M"
+  },
+  {
+   "ncaa_org_id": 26172,
+   "school": "Texas A&M University-Corpus Christi",
+   "espn_location": "Texas A&M-Corpus Christi"
+  },
+  {
+   "ncaa_org_id": 702,
+   "school": "University of Texas at Arlington",
+   "espn_location": "UT Arlington"
+  },
+  {
+   "ncaa_org_id": 698,
+   "school": "Texas Christian University",
+   "espn_location": "TCU"
+  },
+  {
+   "ncaa_org_id": 536,
+   "school": "The University of Texas Rio Grande Valley",
+   "espn_location": "UT Rio Grande Valley"
+  },
+  {
+   "ncaa_org_id": 703,
+   "school": "University of Texas at Austin",
+   "espn_location": "Texas"
+  },
+  {
+   "ncaa_org_id": 704,
+   "school": "University of Texas at El Paso",
+   "espn_location": "UTEP"
+  },
+  {
+   "ncaa_org_id": 706,
+   "school": "University of Texas at San Antonio",
+   "espn_location": "UTSA"
+  },
+  {
+   "ncaa_org_id": 721,
+   "school": "U.S. Air Force Academy",
+   "espn_location": "Air Force"
+  },
+  {
+   "ncaa_org_id": 725,
+   "school": "U.S. Military Academy",
+   "espn_location": "Army"
+  },
+  {
+   "ncaa_org_id": 726,
+   "school": "U.S. Naval Academy",
+   "espn_location": "Navy"
+  },
+  {
+   "ncaa_org_id": 740,
+   "school": "Virginia Commonwealth University",
+   "espn_location": "VCU"
+  },
+  {
+   "ncaa_org_id": 741,
+   "school": "Virginia Military Institute",
+   "espn_location": "VMI"
+  },
+  {
+   "ncaa_org_id": 742,
+   "school": "Virginia Polytechnic Institute and State University",
+   "espn_location": "Virginia Tech"
+  },
+  {
+   "ncaa_org_id": 794,
+   "school": "University of Wisconsin-Green Bay",
+   "espn_location": "Green Bay"
+  },
+  {
+   "ncaa_org_id": 796,
+   "school": "University of Wisconsin-Madison",
+   "espn_location": "Wisconsin"
+  },
+  {
+   "ncaa_org_id": 797,
+   "school": "University of Wisconsin-Milwaukee",
+   "espn_location": "Milwaukee"
+  }
+ ],
+ "unresolved": [
+  {
+   "ncaa_org_id": 11740,
+   "school": "University of West Florida",
+   "resolution": "unresolved"
+  }
+ ],
+ "conference_label_differences": 60,
+ "registry_problems": [],
+ "registry_status": {
+  "VERIFIED": 364,
+  "VERIFIED_UNMAPPED": 1
+ }
+}

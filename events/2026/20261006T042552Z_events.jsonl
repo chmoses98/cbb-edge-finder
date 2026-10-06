@@ -1,0 +1,4 @@
+{"stamp": "20261006T042552Z", "event": "player_added", "team_id": "T0154", "player_key": "P5319514", "name": "Ayden Hamilton"}
+{"stamp": "20261006T042552Z", "event": "player_removed", "team_id": "T0154", "player_key": "P5455817", "name": "Ayden Hamilton"}
+{"stamp": "20261006T042552Z", "event": "confidence_changed", "team_id": "T0006", "confidence": "CONFIRMED", "previous": "LIKELY"}
+{"stamp": "20261006T042552Z", "event": "confidence_changed", "team_id": "T0065", "confidence": "CONFIRMED", "previous": "STALE"}
