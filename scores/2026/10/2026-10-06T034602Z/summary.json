@@ -1,0 +1,17 @@
+{
+ "note": "no settled game with both base and P-ROSTER-1 pregame records yet",
+ "protocol": "research/hypotheses/WAVE7.md section 7 (locked); Wave 8 diagnostics in research/hypotheses/WAVE8.md",
+ "run": {
+  "box_rows": 0,
+  "completed_games_in_schedule": 0,
+  "d1_members": 364,
+  "records_read": 0,
+  "stamp": "20261006T034600Z"
+ },
+ "settled_paired_games": 0,
+ "versions": {
+  "base": "pure-0.5.0",
+  "incumbent": "pure-0.2.0",
+  "roster": "pure-0.5.0+roster"
+ }
+}
