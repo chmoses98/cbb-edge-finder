@@ -287,3 +287,16 @@ def test_manifest_lookup_is_exact_with_the_incumbent_legacy_layout(tmp_path):
     assert str(Path("projections") / rel_new) in idx
     frames, _ = score(pa, ra, results(1))
     assert "hash_mismatch" not in status(frames, 1)[1]
+
+
+def test_component_record_must_add_up_for_attribution(tmp_path):
+    """Attribution later (a: departed players / inputs; b: continuity) uses only the
+    record's own frozen pre-tip split; a record whose split does not add up is INVALID."""
+    ra = roster_archive(tmp_path)
+    bad = rec(ps.ROSTER, 1, "T1", "T2", 3.0, ra)
+    bad["roster"]["adjustment_b_continuity"] = 0.9  # 2.0 + 0.6 + 0.9 != 3.0
+    pa = archive(tmp_path, [rec(ps.BASE, 1, "T1", "T2", 2.0, ra), bad])
+    frames, _ = score(pa, ra, results(1))
+    assert "component_sum_mismatch" in status(frames, 1)[1]
+    pg = frames["paired_games"].iloc[0]
+    assert {"adj_a", "adj_b", "a_only_err", "d_abs_from_a", "d_abs_from_b"} <= set(pg.index)

@@ -24,7 +24,9 @@ Checks (fail closed; "unknown" fails):
    records file and of the official rows file < tip;
 7. none of those files was ever modified or deleted after it was added;
 8. no second, different record with the same (version, game, as_of);
-9. the record's expected rotation equals the archived snapshot's rotation.
+9. the record's expected rotation equals the archived snapshot's rotation;
+10. the record's frozen component split adds up: margin = margin_base + (a) input
+    substitution + (b) continuity correction (what later attribution relies on).
 """
 
 from __future__ import annotations
@@ -174,6 +176,17 @@ def check_pair(row: pd.Series, *, roster_archive: Path | None, manifests: dict[s
                 why.append(f"{k}_archived_file_mutated")
     if rotation_match is False:
         why.append("rotation_differs_from_snapshot")
+    # the frozen pre-tip component record (attribution without hindsight): the
+    # P-ROSTER-1 margin must equal margin_base + (a) input substitution + (b) continuity
+    parts = [
+        row.get("roster_margin_base"),
+        row.get("roster_adj_a_raw"),
+        row.get("roster_adj_b_raw"),
+    ]
+    if any(_blank(x) for x in parts):
+        why.append("component_record_missing")
+    elif abs(float(sum(parts)) - float(row["roster_margin"])) > 1e-6:
+        why.append("component_sum_mismatch")
     return sorted(set(why))
 
 

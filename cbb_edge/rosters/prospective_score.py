@@ -242,6 +242,8 @@ def paired_games(pre: pd.DataFrame, res: pd.DataFrame, mkt: pd.DataFrame | None 
         row["d_sq"] = row["roster_sq"] - row["base_sq"]
         row["d_abs_from_a"] = row["a_only_abs"] - row["base_abs"]
         row["d_abs_from_b"] = row["roster_abs"] - row["a_only_abs"]  # signed effect of (b)
+        row["roster_margin_base"] = ro["margin_base_in_record"]
+        row["roster_adj_a_raw"], row["roster_adj_b_raw"] = ro["adj_a"], ro["adj_b"]
         row["margin_base_consistent"] = ro["margin_base_in_record"] is None or bool(
             np.isclose(ro["margin_base_in_record"], b["margin"])
         )
