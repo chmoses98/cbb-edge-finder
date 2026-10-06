@@ -38,7 +38,7 @@ def schedule(season: int, stamp: str) -> tuple[pd.DataFrame, pd.DataFrame]:
             "status": s["status_type_name"],
         }
     )
-    sched = sched[sched["status"].ne("STATUS_CANCELED")].drop(columns="status")
+    sched = sched[sched["status"].ne("STATUS_CANCELED")]
     c = s[s["status_type_completed"].fillna(False).astype(bool)]
     res = pd.DataFrame(
         {
@@ -83,6 +83,15 @@ def market(espn: Path | None, sched: pd.DataFrame) -> pd.DataFrame | None:
     return last[["espn_game_id", "mkt_margin"]]
 
 
+def expected_games(sched: pd.DataFrame, d1: set[str], now: pd.Timestamp) -> pd.DataFrame:
+    """D-I vs D-I games (both canonical 2026-27 members) that have tipped by ``now``
+    and were not cancelled: every one must end VALID, INVALID or UNSCORABLE."""
+    if sched.empty:
+        return pd.DataFrame(columns=["espn_game_id"])
+    both = sched["home_team_id"].isin(d1) & sched["away_team_id"].isin(d1)
+    return sched[both & (sched["tip"] < now)][["espn_game_id", "tip"]]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--season", type=int, default=2027)
@@ -96,11 +105,15 @@ def main() -> None:
     res, sched = schedule(a.season, stamp)
     bx = box(a.season, stamp) if len(res) else pd.DataFrame()
     d1 = set(membership.members(a.season)["team_id"].dropna())
+    now = pd.Timestamp(datetime.now(UTC))
+    expected = expected_games(sched, d1, now)
     frames, s = prospective_score.score(
         recs, res, market(a.espn, sched), a.rosters if a.rosters.exists() else None, bx,
         sched, a.season, d1,
         committed=prospective_score.git_first_commit_times(a.projections),
         committed_roster=prospective_score.git_first_commit_times(a.rosters),
+        projections_root=a.projections if a.projections.exists() else None,
+        expected=expected,
     )  # fmt: skip
     s["run"] = {
         "stamp": stamp,

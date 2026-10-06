@@ -97,15 +97,21 @@ def evidence_files(roster_archive: Path, stamp: str | None) -> dict[str, Path]:
 
 
 # --------------------------------------------------------------------------- pregame
-def pregame(recs: list[dict[str, Any]]) -> pd.DataFrame:
-    """The scored record of each (version, game): latest ``as_of`` strictly before tip."""
+def pregame(
+    recs: list[dict[str, Any]], tips: dict[int, pd.Timestamp] | None = None
+) -> pd.DataFrame:
+    """The scored record of each (version, game): latest ``as_of`` strictly before tip.
+    ``tips``: the ACTUAL tip times from the schedule (Wave 9). A rescheduled game is
+    judged against when it really started, never the tip stored in the record."""
     rows = []
     for r in recs:
         v = r.get("model", {}).get("version")
         if v not in VERSIONS.values():
             continue
         g, p, f, pr = r["game"], r["projection"], r.get("freshness", {}), r.get("prospective", {})
-        tip, asof = _ts(g["start_time_utc"]), _ts(pr.get("as_of"))
+        gid = int(g["espn_game_id"])
+        tip = _ts((tips or {}).get(gid, g["start_time_utc"]))
+        asof = _ts(pr.get("as_of"))
         if asof >= tip:
             continue
         ro = r.get("roster") or {}
@@ -287,8 +293,8 @@ def _state_index(roster_archive: Path | None) -> dict[str, dict[str, dict]]:
             for t in json.loads(tj.read_text()):
                 st.setdefault(t["team_id"], {})["_team"] = t
         fj = f.with_name(f"{stamp}_freshness.jsonl")
-        if fj.exists():
-            fr = pd.read_json(fj, lines=True)
+        fr = pd.read_json(fj, lines=True) if fj.exists() and fj.stat().st_size else pd.DataFrame()
+        if {"team_id", "source", "fresh"} <= set(fr.columns):
             for t, x in fr.groupby("team_id"):
                 st.setdefault(t, {})["_fresh"] = {
                     s: bool(v) for s, v in zip(x["source"], x["fresh"], strict=True)
@@ -708,7 +714,10 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
     the arithmetic."""
     from cbb_edge.rosters import pretip_gate
 
-    pre = pregame(recs)
+    tips = None
+    if games is not None and len(games) and "tip" in games:
+        tips = {int(k): _ts(v) for k, v in zip(games["espn_game_id"], games["tip"], strict=True)}
+    pre = pregame(recs, tips)
     pg_all = paired_games(pre, res, mkt, roster_archive, committed, committed_roster)
     tg_all = team_games(pg_all, roster_archive, d1_teams)
     gate = pretip_gate.classify(

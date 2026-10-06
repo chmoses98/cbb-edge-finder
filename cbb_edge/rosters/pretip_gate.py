@@ -48,25 +48,28 @@ def _ts(x: object) -> pd.Timestamp:
 
 
 def manifest_index(root: Path | None) -> dict[str, str]:
-    """Record path suffix (relative to the run's output dir) -> sha256, all manifests."""
+    """Record path (relative to ``root``, exactly as ``load_records`` reports it) ->
+    sha256, from every run manifest. A manifest at ``<dir>/manifests/<stamp>.json``
+    lists paths relative to ``<dir>`` (the run's output directory). Exact paths only: the
+    incumbent's legacy layout (no version folder) is a suffix of every other version's
+    path, so suffix matching would compare the wrong files."""
     out: dict[str, str] = {}
     if root is None or not Path(root).exists():
         return out
-    for m in sorted(Path(root).rglob("manifests/*.json")):
+    root = Path(root)
+    for m in sorted(root.rglob("manifests/*.json")):
         try:
             body = json.loads(m.read_text())
         except ValueError:
             continue
+        base = m.parent.parent
         for rel, sha in (body.get("files") or {}).items():
-            out.setdefault(rel, sha)
+            out.setdefault(str((base / rel).relative_to(root)), sha)
     return out
 
 
 def _in_manifest(path: str, sha: str, idx: dict[str, str]) -> bool | None:
-    for rel, s in idx.items():
-        if path == rel or path.endswith("/" + rel):
-            return s == sha
-    return None
+    return None if path not in idx else idx[path] == sha
 
 
 def git_mutated_paths(root: Path | None) -> set[str] | None:
@@ -93,6 +96,11 @@ def duplicates(recs: list[dict[str, Any]]) -> set[tuple[str, int, str]]:
     return {k for k, v in seen.items() if len(v) > 1}
 
 
+def _blank(v: object) -> bool:
+    """None, NaN and "" are all MISSING (pandas turns a missing string into NaN)."""
+    return v is None or v == "" or (isinstance(v, float) and v != v)
+
+
 def _sha(p: Path) -> str | None:
     return hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
 
@@ -110,7 +118,7 @@ def check_pair(row: pd.Series, *, roster_archive: Path | None, manifests: dict[s
     for k in ("base", "roster"):
         if not row[f"{k}_as_of"] < tip:
             why.append(f"{k}_as_of_not_before_tip")
-        if not row.get(f"{k}_code_sha"):
+        if _blank(row.get(f"{k}_code_sha")):
             why.append(f"{k}_code_sha_missing")
         m = _in_manifest(row[f"{k}_path"], row[f"{k}_sha256"], manifests)
         if m is None:
@@ -130,15 +138,17 @@ def check_pair(row: pd.Series, *, roster_archive: Path | None, manifests: dict[s
         if (ver, int(row["espn_game_id"]), str(row[f"{k}_as_of_raw"])) in dups:
             why.append(f"{k}_duplicate_record_differs")
     stamp = row.get("truth_snapshot")
+    stamp = None if _blank(stamp) else stamp
     if not stamp:
         why.append("truth_snapshot_missing")
     else:
         ts = _ts(stamp)
         if not (ts < row["roster_as_of"] and ts < tip):
             why.append("truth_snapshot_not_before_as_of_and_tip")
-    if not row.get("truth_archive_commit"):
+    if _blank(row.get("truth_archive_commit")):
         why.append("roster_archive_commit_missing")
-    recorded = row.get("truth_files_sha256") or {}
+    recorded = row.get("truth_files_sha256")
+    recorded = recorded if isinstance(recorded, dict) else {}
     if not recorded:
         why.append("truth_hashes_not_recorded")
     if roster_archive is None or not stamp:
