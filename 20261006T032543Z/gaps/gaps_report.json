@@ -1,0 +1,316 @@
+{
+ "stamp": "20261006T032217Z",
+ "espn": {
+  "2697": {
+   "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2697",
+   "result": "ok",
+   "status": 200,
+   "final_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2697",
+   "bytes": 7303,
+   "sha256": "0b0cfb36316a52cb88d769be49c87d98f562de8d6b0a895a3d87feb6048a5e95",
+   "displayName": "West Florida Argonauts",
+   "isActive": true,
+   "groups": {
+    "id": "46",
+    "parent": {
+     "id": "50"
+    },
+    "isConference": true
+   },
+   "standingSummary": null
+  },
+  "2598": {
+   "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2598",
+   "result": "ok",
+   "status": 200,
+   "final_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2598",
+   "bytes": 27661,
+   "sha256": "51a0dd5a4e076e759904def0f44a0622edd52c0fe7d7020f9625a4a353a83c43",
+   "displayName": "Saint Francis Red Wolves",
+   "isActive": false,
+   "groups": {
+    "id": "51",
+    "parent": {
+     "id": "52"
+    },
+    "isConference": false
+   },
+   "standingSummary": null
+  },
+  "2697_schedule": {
+   "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2697/schedule",
+   "result": "ok",
+   "status": 200,
+   "final_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2697/schedule",
+   "bytes": 540,
+   "sha256": "b9e6675695c287d2132e492c0cc5e4e3247eb7a781e5be41d4f13fb0aa2b50e5",
+   "events": 0,
+   "season": {
+    "year": 2027,
+    "type": 1,
+    "name": "Preseason",
+    "displayName": "2026-27",
+    "half": 1
+   },
+   "first": []
+  }
+ },
+ "missouri": [
+  {
+   "url": "https://www.mutigers.com",
+   "result": "http_error",
+   "status": 404,
+   "headers": {
+    "Content-Type": "text/html",
+    "X-CDN": "Imperva",
+    "X-Iinfo": "12-32440064-32440065 NNYN CT(9 10 0) RT(1791256945254 70) q(0 0 0 0) r(0 0) U11"
+   },
+   "body_head": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n<script type=\"text/javascript\" src=\"/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=2&cb=1423125276\" async></script></body>\r\n</html>\r\n"
+  },
+  {
+   "url": "https://www.mutigers.com/",
+   "result": "http_error",
+   "status": 404,
+   "headers": {
+    "Content-Type": "text/html",
+    "X-CDN": "Imperva",
+    "X-Iinfo": "2-1472289-1472290 NNYN CT(10 13 0) RT(1791256950254 30) q(0 3 3 359) r(4 4) U11"
+   },
+   "body_head": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n<script type=\"text/javascript\" src=\"/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=3&cb=500956934\" async></script></body>\r\n</html>\r\n"
+  },
+  {
+   "url": "https://mutigers.com/",
+   "result": "ok",
+   "status": 200,
+   "final_url": "https://mutigers.com/",
+   "bytes": 367379,
+   "sha256": "f18446b5d25e2f0f1d4e8b50789cb3bf06ac87d8224a8a6896a93c4556d90146"
+  },
+  {
+   "url": "https://mutigers.com/sports/mens-basketball/roster",
+   "result": "ok",
+   "status": 200,
+   "final_url": "https://mutigers.com/sports/mens-basketball/roster",
+   "bytes": 665514,
+   "sha256": "6b5d03425d492b860301554fbe3cd83e60711c864f631bb33ce8ef6d2c4feb28"
+  }
+ ],
+ "alabama": {
+  "page": {
+   "url": "https://rolltide.com/sports/mens-basketball/roster",
+   "result": "ok",
+   "status": 200,
+   "final_url": "https://rolltide.com/sports/mens-basketball/roster",
+   "bytes": 884504,
+   "sha256": "88ff72f2e8a5df0b06292317a3814b4f41bd9effd6705ae40c7a2c627ddd81ca"
+  },
+  "server_state": {
+   "8342197611781247": {
+    "title": "2026-27 Men's Basketball Roster",
+    "players": 0,
+    "coaches": 4,
+    "support": 12
+   }
+  }
+ },
+ "discovery": {
+  "T0006": {
+   "roster_url": null,
+   "players": 0,
+   "error": "roster_not_found",
+   "linked_to": "https://thesundevils.com/sports/mens-basketball/roster",
+   "linked_evidence": {
+    "from": "https://sundevils.com/",
+    "to": "https://thesundevils.com/sports/mens-basketball/roster",
+    "observed_at": "20261006T032217Z",
+    "page_sha256": "24a3e62e73235327688e4de883277a47cf9082b4b60224691adbca56cd4e69cd",
+    "kind": "official_home_page_roster_link"
+   },
+   "season_label": null,
+   "attempts": [
+    {
+     "url": "https://sundevils.com",
+     "result": "ok",
+     "final_url": "https://sundevils.com/"
+    },
+    {
+     "url": "https://thesundevils.com/sports/mens-basketball/roster",
+     "result": "linked_unregistered"
+    },
+    {
+     "url": "https://sundevils.com/sports/mens-basketball/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://sundevils.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    }
+   ]
+  },
+  "T0137": {
+   "roster_url": null,
+   "players": 0,
+   "error": "roster_not_found",
+   "linked_to": null,
+   "linked_evidence": null,
+   "season_label": null,
+   "attempts": [
+    {
+     "url": "https://www.judolphins.com",
+     "result": "ok",
+     "final_url": "https://judolphins.com/splash.aspx?id=splash_47"
+    },
+    {
+     "url": "https://www.judolphins.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://judolphins.com/sports/mens-basketball/roster",
+     "players": 0
+    },
+    {
+     "url": "https://www.judolphins.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    }
+   ]
+  },
+  "T0334": {
+   "roster_url": null,
+   "players": 0,
+   "error": "roster_not_found",
+   "linked_to": null,
+   "linked_evidence": null,
+   "season_label": null,
+   "attempts": [
+    {
+     "url": "https://www.liuathletics.com",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/"
+    },
+    {
+     "url": "https://www.liuathletics.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/sports/mens-basketball/roster",
+     "players": 0
+    },
+    {
+     "url": "https://www.liuathletics.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://www.liuathletics.com/index.aspx",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/index.aspx"
+    },
+    {
+     "url": "https://www.liuathletics.com/sports/mens-basketball/schedule",
+     "result": "ok",
+     "final_url": "https://www.liuathletics.com/sports/mens-basketball/schedule"
+    }
+   ]
+  },
+  "T0050": {
+   "roster_url": null,
+   "players": 0,
+   "error": "roster_not_found",
+   "linked_to": null,
+   "linked_evidence": null,
+   "season_label": null,
+   "attempts": [
+    {
+     "url": "https://www.lsusports.net",
+     "result": "ok",
+     "final_url": "https://lsusports.net/"
+    },
+    {
+     "url": "https://www.lsusports.net/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://lsusports.net/sports/mb/roster",
+     "players": 4
+    },
+    {
+     "url": "https://www.lsusports.net/sports/mbball/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://www.lsusports.net/tickets/mbball/",
+     "result": "ok",
+     "final_url": "https://lsusports.net/tickets/mbball"
+    },
+    {
+     "url": "https://www.lsusports.net/tickets/group/mbball/",
+     "result": "ok",
+     "final_url": "https://lsusports.net/tickets/group/mbball"
+    }
+   ]
+  },
+  "T0155": {
+   "roster_url": null,
+   "players": 0,
+   "error": "roster_not_found",
+   "linked_to": null,
+   "linked_evidence": null,
+   "season_label": null,
+   "attempts": [
+    {
+     "url": "https://www.rolltide.com",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/mens-basketball/roster"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mens-basketball/roster/_payload.json?_b=5d629968-870d-45f2-8b27-0b64621d988d",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/mens-basketball/roster/_payload.json?_b=5d629968-870d-45f2-8b27-0b64621d988d",
+     "players": 0
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/mens-basketball",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/mens-basketball"
+    },
+    {
+     "url": "https://www.rolltide.com/sports/2016/6/10/tickets-m-baskbl-html",
+     "result": "ok",
+     "final_url": "https://rolltide.com:443/sports/2016/6/10/tickets-m-baskbl-html"
+    }
+   ]
+  }
+ },
+ "robots": {
+  "T0171": {
+   "host": "lrtrojans.com",
+   "home_allowed": false,
+   "robots_status": "ok"
+  },
+  "T0184": {
+   "host": "www.ccsubluedevils.com",
+   "home_allowed": false,
+   "robots_status": "fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+  },
+  "T0190": {
+   "host": "gocolgateraiders.com",
+   "home_allowed": false,
+   "robots_status": "fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+  },
+  "T0349": {
+   "host": "www.omavs.com",
+   "home_allowed": false,
+   "robots_status": "fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+  },
+  "T0305": {
+   "host": "www.ttusports.com",
+   "home_allowed": false,
+   "robots_status": "fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+  }
+ },
+ "asu_linked": [
+  "{\"linked_hosts\": [\"thesundevils.com\"], \"roster_url\": \"https://thesundevils.com/sports/mens-basketball/roster\", \"players\": 13, \"season_label\": 2027, \"platform\": \"wmt\", \"error\": null, \"attempts\": [{\"url\": \"https://sundevils.com\", \"result\": \"ok\", \"final_url\": \"https://sundevils.com/\"}, {\"url\": \"https://thesundevils.com/sports/mens-basketball/roster\", \"result\": \"ok\", \"final_url\": \"https://thesundevils.com/sports/mens-basketball/roster\"}], \"names\": [\"Vijay Wallace\", \"Bryce Ford\", \"Paulius Murauskas\", \"Joel Foxwell\", \"Emmanuel Innocenti\", \"Dillan Shaw\", \"Ben Defty\", \"Nate Garcia\", \"Marcus Vaughns\", \"JRob Croy\", \"Ajak Nyuon\", \"Filip Malesevic\", \"Jokubas Rudaitis\"]}"
+ ]
+}
