@@ -1,0 +1,432 @@
+espn_game_id,listed_tip,time_state,home,away,in_experiment,in_schedule_source,pre_game_snapshot_available,baseline_projection_possible,proster_eligible,roster_status,at_risk,why
+401911274,2026-11-08T21:00:00+00:00,ANNOUNCED,T0177,T0273,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911335,2026-11-08T20:00:00+00:00,ANNOUNCED,T0164,T0143,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911453,2026-11-08T05:00:00+00:00,TBD,T0250,T0296,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911306,2026-11-08T05:00:00+00:00,TBD,T0225,T0101,True,True,False,True,True,STALE/CONFIRMED,False,
+401911238,2026-11-08T05:00:00+00:00,TBD,T0097,T0120,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909707,2026-11-08T05:00:00+00:00,TBD,T0099,T0096,True,True,False,True,True,CONFLICTED/UNKNOWN,False,
+401902277,2026-11-08T05:00:00+00:00,TBD,T0037,T0180,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911345,2026-11-08T01:00:00+00:00,ANNOUNCED,T0352,T0176,True,True,False,True,True,CONFIRMED/CONFLICTED,False,
+401911470,2026-11-07T05:00:00+00:00,TBD,T0140,T0011,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911262,2026-11-07T05:00:00+00:00,TBD,T0182,T0085,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911186,2026-11-07T05:00:00+00:00,TBD,T0193,T0258,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911007,2026-11-07T05:00:00+00:00,TBD,T0088,T0359,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909760,2026-11-07T05:00:00+00:00,TBD,T0010,T0018,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909532,2026-11-07T05:00:00+00:00,TBD,T0269,T0075,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909513,2026-11-07T05:00:00+00:00,TBD,T0024,T0059,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911305,2026-11-07T00:00:00+00:00,ANNOUNCED,T0101,T0052,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909751,2026-11-06T22:00:00+00:00,ANNOUNCED,T0109,T0170,True,True,False,True,True,CONFIRMED/CONFLICTED,False,
+401912208,2026-11-06T05:00:00+00:00,TBD,T0103,T0022,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911249,2026-11-06T05:00:00+00:00,TBD,T0063,T0065,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911006,2026-11-06T05:00:00+00:00,TBD,T0186,,False,True,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401911005,2026-11-06T05:00:00+00:00,TBD,T0174,T0133,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909797,2026-11-06T05:00:00+00:00,TBD,T0221,T0260,True,True,False,True,True,CONFIRMED/STALE,False,
+401909785,2026-11-06T05:00:00+00:00,TBD,T0220,T0239,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909772,2026-11-06T05:00:00+00:00,TBD,T0036,T0289,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909695,2026-11-06T05:00:00+00:00,TBD,T0028,T0312,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909552,2026-11-06T05:00:00+00:00,TBD,T0051,T0056,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909542,2026-11-06T05:00:00+00:00,TBD,T0329,T0203,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909523,2026-11-06T05:00:00+00:00,TBD,T0126,T0196,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906802,2026-11-06T05:00:00+00:00,TBD,T0093,T0240,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906780,2026-11-06T05:00:00+00:00,TBD,T0034,T0340,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906758,2026-11-06T05:00:00+00:00,TBD,T0155,T0172,True,True,False,True,True,STALE/CONFIRMED,False,
+401911334,2026-11-06T01:30:00+00:00,ANNOUNCED,T0164,,False,True,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401911375,2026-11-06T00:00:00+00:00,ANNOUNCED,T0187,,False,True,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401912227,2026-11-05T23:00:00+00:00,ANNOUNCED,T0159,,False,True,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401911518,2026-11-05T05:00:00+00:00,TBD,T0142,,False,True,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401911273,2026-11-05T05:00:00+00:00,TBD,T0297,T0177,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911229,2026-11-05T05:00:00+00:00,TBD,T0229,T0372,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911195,2026-11-05T05:00:00+00:00,TBD,T0208,T0366,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909739,2026-11-05T05:00:00+00:00,TBD,T0007,T0008,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909726,2026-11-05T05:00:00+00:00,TBD,T0108,T0073,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909717,2026-11-05T05:00:00+00:00,TBD,T0086,T0184,True,True,False,True,True,CONFIRMED/STALE,False,
+401909706,2026-11-05T05:00:00+00:00,TBD,T0099,T0179,True,True,False,True,True,CONFLICTED/CONFIRMED,False,
+401909563,2026-11-05T05:00:00+00:00,TBD,T0069,T0150,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909501,2026-11-05T05:00:00+00:00,TBD,T0144,T0032,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909491,2026-11-05T05:00:00+00:00,TBD,T0074,T0370,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906864,2026-11-05T05:00:00+00:00,TBD,T0115,T0210,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906792,2026-11-05T05:00:00+00:00,TBD,T0158,T0262,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906770,2026-11-05T05:00:00+00:00,TBD,T0031,T0137,True,True,False,True,True,CONFIRMED/STALE,False,
+401902276,2026-11-04T05:00:00+00:00,TBD,T0180,T0078,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909796,2026-11-03T05:00:00+00:00,TBD,T0221,T0288,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909551,2026-11-03T05:00:00+00:00,TBD,T0051,T0317,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906848,2026-11-03T05:00:00+00:00,TBD,T0303,T0326,True,True,False,True,True,CONFIRMED/CONFLICTED,False,
+401906757,2026-11-03T05:00:00+00:00,TBD,T0155,T0276,True,True,False,True,True,STALE/CONFIRMED,False,
+401911469,2026-11-03T03:00:00+00:00,ANNOUNCED,T0011,T0306,True,True,False,True,True,CONFIRMED/UNKNOWN,False,
+401909738,2026-11-03T03:00:00+00:00,ANNOUNCED,T0007,T0014,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909750,2026-11-03T02:30:00+00:00,ANNOUNCED,T0109,T0262,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911389,2026-11-03T02:00:00+00:00,ANNOUNCED,T0352,T0308,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909694,2026-11-03T01:30:00+00:00,ANNOUNCED,T0028,T0027,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911304,2026-11-03T00:00:00+00:00,ANNOUNCED,T0101,T0077,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911532,2026-11-02T19:00:00+00:00,ANNOUNCED,T0307,T0350,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911707,2026-11-02T16:30:00+00:00,ANNOUNCED,T0304,T0046,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401912207,2026-11-02T05:00:00+00:00,TBD,T0189,T0022,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911517,2026-11-02T05:00:00+00:00,TBD,T0142,T0355,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911452,2026-11-02T05:00:00+00:00,TBD,T0250,T0274,True,True,False,True,True,CONFIRMED/CONFLICTED,False,
+401911390,2026-11-02T05:00:00+00:00,TBD,T0019,T0210,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911374,2026-11-02T05:00:00+00:00,TBD,T0032,T0187,True,True,False,True,True,CONFIRMED/CONFLICTED,False,
+401911333,2026-11-02T05:00:00+00:00,TBD,T0327,T0164,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911261,2026-11-02T05:00:00+00:00,TBD,T0085,T0330,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911248,2026-11-02T05:00:00+00:00,TBD,T0063,T0225,True,True,False,True,True,CONFIRMED/STALE,False,
+401911237,2026-11-02T05:00:00+00:00,TBD,T0120,T0245,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911228,2026-11-02T05:00:00+00:00,TBD,T0229,T0310,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911208,2026-11-02T05:00:00+00:00,TBD,T0023,T0244,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911185,2026-11-02T05:00:00+00:00,TBD,T0193,T0337,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911004,2026-11-02T05:00:00+00:00,TBD,T0135,T0174,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911003,2026-11-02T05:00:00+00:00,TBD,T0004,T0090,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911002,2026-11-02T05:00:00+00:00,TBD,T0119,T0088,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911001,2026-11-02T05:00:00+00:00,TBD,T0312,T0056,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401911000,2026-11-02T05:00:00+00:00,TBD,T0228,T0222,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401910999,2026-11-02T05:00:00+00:00,TBD,T0172,T0311,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401910998,2026-11-02T05:00:00+00:00,TBD,T0150,T0203,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401910997,2026-11-02T05:00:00+00:00,TBD,T0138,T0320,True,True,False,True,True,UNKNOWN/CONFIRMED,False,
+401910996,2026-11-02T05:00:00+00:00,TBD,T0248,T0186,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401910995,2026-11-02T05:00:00+00:00,TBD,T0129,T0179,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401910994,2026-11-02T05:00:00+00:00,TBD,T0212,T0087,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401910993,2026-11-02T05:00:00+00:00,TBD,T0145,T0165,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909784,2026-11-02T05:00:00+00:00,TBD,T0220,T0208,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909771,2026-11-02T05:00:00+00:00,TBD,T0036,T0106,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909759,2026-11-02T05:00:00+00:00,TBD,T0018,T0351,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909725,2026-11-02T05:00:00+00:00,TBD,T0073,T0236,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909716,2026-11-02T05:00:00+00:00,TBD,T0086,T0373,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909705,2026-11-02T05:00:00+00:00,TBD,T0099,T0273,True,True,False,True,True,CONFLICTED/CONFIRMED,False,
+401909562,2026-11-02T05:00:00+00:00,TBD,T0069,T0159,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909541,2026-11-02T05:00:00+00:00,TBD,T0329,T0057,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909531,2026-11-02T05:00:00+00:00,TBD,T0269,T0146,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909522,2026-11-02T05:00:00+00:00,TBD,T0126,T0371,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909500,2026-11-02T05:00:00+00:00,TBD,T0144,T0372,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401909490,2026-11-02T05:00:00+00:00,TBD,T0074,T0064,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906863,2026-11-02T05:00:00+00:00,TBD,T0115,T0188,True,True,False,True,True,CONFIRMED/STALE,False,
+401906801,2026-11-02T05:00:00+00:00,TBD,T0093,T0369,True,True,False,True,True,CONFIRMED/STALE,False,
+401906791,2026-11-02T05:00:00+00:00,TBD,T0158,T0305,True,True,False,True,True,CONFIRMED/STALE,False,
+401906779,2026-11-02T05:00:00+00:00,TBD,T0034,T0339,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401906769,2026-11-02T05:00:00+00:00,TBD,T0031,T0238,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401902275,2026-11-02T05:00:00+00:00,TBD,T0180,T0149,True,True,False,True,True,CONFIRMED/CONFIRMED,False,
+401920409,2026-11-02T04:59:00+00:00,ANNOUNCED,T0226,T0215,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925811,2026-11-02T05:00:00+00:00,TBD,T0112,T0224,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918051,2026-11-02T05:00:00+00:00,TBD,T0013,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401924717,2026-11-02T23:00:00+00:00,ANNOUNCED,T0084,T0265,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922043,2026-11-03T00:30:00+00:00,ANNOUNCED,T0227,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401924732,2026-11-02T21:00:00+00:00,ANNOUNCED,T0079,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925818,2026-11-02T05:00:00+00:00,TBD,T0133,T0246,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924894,2026-11-02T05:00:00+00:00,TBD,T0082,T0361,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924875,2026-11-03T00:00:00+00:00,ANNOUNCED,T0275,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925826,2026-11-02T05:00:00+00:00,TBD,T0113,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921731,2026-11-02T05:00:00+00:00,TBD,T0006,T0200,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924743,2026-11-02T05:00:00+00:00,TBD,T0021,T0025,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919001,2026-11-03T01:00:00+00:00,ANNOUNCED,T0313,T0302,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920071,2026-11-02T21:00:00+00:00,ANNOUNCED,T0211,T0235,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925857,2026-11-02T05:00:00+00:00,TBD,T0097,T0184,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919014,2026-11-02T22:00:00+00:00,ANNOUNCED,T0234,T0003,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918976,2026-11-03T00:00:00+00:00,ANNOUNCED,T0070,T0341,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919845,2026-11-03T00:00:00+00:00,ANNOUNCED,T0366,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921766,2026-11-02T05:00:00+00:00,TBD,T0130,T0148,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918312,2026-11-02T05:00:00+00:00,TBD,T0323,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401922029,2026-11-02T05:00:00+00:00,TBD,T0264,T0068,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919803,2026-11-03T00:00:00+00:00,ANNOUNCED,T0206,T0334,True,False,False,True,True,CONFLICTED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925640,2026-11-03T00:30:00+00:00,ANNOUNCED,T0166,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925683,2026-11-02T05:00:00+00:00,TBD,T0066,T0168,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922020,2026-11-02T05:00:00+00:00,TBD,T0153,T0143,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925105,2026-11-03T01:30:00+00:00,ANNOUNCED,T0136,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401922247,2026-11-02T23:00:00+00:00,ANNOUNCED,T0374,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401918073,2026-11-02T05:00:00+00:00,TBD,T0103,T0030,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925096,2026-11-02T05:00:00+00:00,TBD,T0152,T0162,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918947,2026-11-02T05:00:00+00:00,TBD,T0048,T0107,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925088,2026-11-03T00:30:00+00:00,ANNOUNCED,T0298,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925733,2026-11-02T05:00:00+00:00,TBD,T0061,T0263,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922260,2026-11-02T05:00:00+00:00,TBD,T0038,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401918955,2026-11-02T05:00:00+00:00,TBD,T0071,T0181,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925062,2026-11-02T17:00:00+00:00,ANNOUNCED,T0252,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401919047,2026-11-02T05:00:00+00:00,TBD,T0301,T0368,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918967,2026-11-02T05:00:00+00:00,TBD,T0286,T0291,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919780,2026-11-02T05:00:00+00:00,TBD,T0075,T0370,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401923269,2026-11-02T05:00:00+00:00,TBD,T0348,T0285,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925010,2026-11-03T00:00:00+00:00,ANNOUNCED,T0223,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401923317,2026-11-02T05:00:00+00:00,TBD,T0163,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925771,2026-11-02T05:00:00+00:00,TBD,T0125,T0192,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919039,2026-11-02T05:00:00+00:00,TBD,T0091,T0354,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401923324,2026-11-03T00:00:00+00:00,ANNOUNCED,T0353,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921753,2026-11-02T05:00:00+00:00,TBD,T0185,T0338,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920701,2026-11-02T05:00:00+00:00,TBD,T0283,T0134,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921422,2026-11-02T11:00:00+00:00,ANNOUNCED,T0357,T0169,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917508,2026-11-02T05:00:00+00:00,TBD,T0141,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920886,2026-11-03T00:30:00+00:00,ANNOUNCED,T0284,T0297,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926787,2026-11-02T05:00:00+00:00,TBD,,T0156,False,False,False,False,True,None/CONFIRMED,True,not a D-I vs D-I game (outside the experiment)
+401920893,2026-11-02T05:00:00+00:00,TBD,T0128,T0195,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917173,2026-11-02T05:00:00+00:00,TBD,T0096,T0182,True,False,False,True,True,UNKNOWN/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920902,2026-11-03T00:00:00+00:00,ANNOUNCED,T0026,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926776,2026-11-03T03:00:00+00:00,ANNOUNCED,T0015,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920912,2026-11-02T08:00:00+00:00,ANNOUNCED,T0258,T0331,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926771,2026-11-02T05:00:00+00:00,TBD,T0016,T0127,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926739,2026-11-03T00:30:00+00:00,ANNOUNCED,T0029,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401917506,2026-11-02T05:00:00+00:00,TBD,T0035,T0346,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917507,2026-11-03T03:00:00+00:00,ANNOUNCED,T0296,T0217,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920951,2026-11-03T01:00:00+00:00,ANNOUNCED,T0041,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920370,2026-11-03T03:00:00+00:00,ANNOUNCED,T0358,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921704,2026-11-03T00:30:00+00:00,ANNOUNCED,T0270,T0213,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920959,2026-11-02T05:00:00+00:00,TBD,T0049,T0242,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917509,2026-11-02T05:00:00+00:00,TBD,T0280,T0058,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917510,2026-11-03T01:00:00+00:00,ANNOUNCED,T0266,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921036,2026-11-02T05:00:00+00:00,TBD,T0309,T0219,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920354,2026-11-03T00:00:00+00:00,ANNOUNCED,T0054,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921060,2026-11-02T05:00:00+00:00,TBD,T0278,T0272,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920348,2026-11-03T03:00:00+00:00,ANNOUNCED,T0009,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920876,2026-11-02T05:00:00+00:00,TBD,T0137,,False,False,False,False,False,STALE/None,True,not a D-I vs D-I game (outside the experiment)
+401926200,2026-11-02T23:00:00+00:00,ANNOUNCED,T0316,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401916313,2026-11-02T05:00:00+00:00,TBD,T0116,T0089,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926833,2026-11-02T05:00:00+00:00,TBD,T0299,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401913099,2026-11-02T05:00:00+00:00,TBD,T0072,T0321,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401928619,2026-11-02T05:00:00+00:00,TBD,T0239,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920716,2026-11-02T05:00:00+00:00,TBD,T0012,T0154,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401913525,2026-11-02T05:00:00+00:00,TBD,T0161,T0078,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920690,2026-11-03T00:00:00+00:00,ANNOUNCED,T0147,T0123,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920732,2026-11-02T05:00:00+00:00,TBD,T0040,T0177,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401928357,2026-11-02T05:00:00+00:00,TBD,T0207,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401928351,2026-11-03T02:00:00+00:00,ANNOUNCED,T0279,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401916286,2026-11-02T05:00:00+00:00,TBD,T0043,T0201,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920746,2026-11-02T05:00:00+00:00,TBD,T0052,T0055,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920758,2026-11-03T00:30:00+00:00,ANNOUNCED,T0175,T0365,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920679,2026-11-02T23:30:00+00:00,ANNOUNCED,T0294,T0241,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920769,2026-11-02T05:00:00+00:00,TBD,T0124,T0190,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401927368,2026-11-03T00:00:00+00:00,ANNOUNCED,T0157,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401916296,2026-11-02T05:00:00+00:00,TBD,T0059,T0178,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920434,2026-11-02T05:00:00+00:00,TBD,T0333,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401916303,2026-11-02T05:00:00+00:00,TBD,T0062,T0343,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401927360,2026-11-03T01:00:00+00:00,ANNOUNCED,T0039,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401927341,2026-11-02T05:00:00+00:00,TBD,T0194,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920842,2026-11-03T00:00:00+00:00,ANNOUNCED,T0340,T0363,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926862,2026-11-03T00:00:00+00:00,ANNOUNCED,T0160,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926830,2026-11-02T16:30:00+00:00,ANNOUNCED,T0216,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921093,2026-11-02T23:30:00+00:00,ANNOUNCED,T0110,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401924856,2026-11-02T05:00:00+00:00,TBD,T0060,T0271,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921173,2026-11-02T16:00:00+00:00,ANNOUNCED,T0044,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401917913,2026-11-03T01:30:00+00:00,ANNOUNCED,T0335,T0092,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921424,2026-11-03T01:00:00+00:00,ANNOUNCED,T0176,T0104,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925921,2026-11-02T05:00:00+00:00,TBD,T0117,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920201,2026-11-03T00:00:00+00:00,ANNOUNCED,T0314,T0171,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921423,2026-11-02T14:00:00+00:00,ANNOUNCED,T0367,T0324,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925947,2026-11-02T05:00:00+00:00,TBD,T0095,T0318,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920231,2026-11-02T05:00:00+00:00,TBD,T0233,T0076,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925953,2026-11-02T23:00:00+00:00,ANNOUNCED,T0051,T0053,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921264,2026-11-02T23:30:00+00:00,ANNOUNCED,T0024,T0231,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917948,2026-11-02T05:00:00+00:00,TBD,T0173,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926077,2026-11-02T23:00:00+00:00,ANNOUNCED,T0268,,False,False,False,False,True,LIKELY/None,True,not a D-I vs D-I game (outside the experiment)
+401925892,2026-11-03T01:00:00+00:00,ANNOUNCED,T0255,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925887,2026-11-02T05:00:00+00:00,TBD,T0257,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925925,2026-11-02T05:00:00+00:00,TBD,T0287,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921139,2026-11-03T00:00:00+00:00,ANNOUNCED,T0083,T0204,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925862,2026-11-02T05:00:00+00:00,TBD,T0094,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925878,2026-11-02T05:00:00+00:00,TBD,T0017,T0067,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921104,2026-11-02T05:00:00+00:00,TBD,T0108,T0359,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920122,2026-11-02T05:00:00+00:00,TBD,T0008,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926116,2026-11-02T23:30:00+00:00,ANNOUNCED,T0277,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926141,2026-11-03T00:00:00+00:00,ANNOUNCED,T0347,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401921697,2026-11-03T02:00:00+00:00,ANNOUNCED,T0118,T0139,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924911,2026-11-03T05:00:00+00:00,TBD,T0249,T0261,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925779,2026-11-03T05:00:00+00:00,TBD,T0199,T0332,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920343,2026-11-04T03:00:00+00:00,ANNOUNCED,T0356,T0256,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924950,2026-11-04T01:00:00+00:00,ANNOUNCED,T0345,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921153,2026-11-04T00:00:00+00:00,ANNOUNCED,T0253,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926180,2026-11-03T05:00:00+00:00,TBD,T0247,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401927385,2026-11-03T05:00:00+00:00,TBD,T0259,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920422,2026-11-03T05:00:00+00:00,TBD,T0121,T0198,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401928621,2026-11-04T01:00:00+00:00,ANNOUNCED,T0300,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921808,2026-11-03T05:00:00+00:00,TBD,T0050,T0251,True,False,False,True,True,STALE/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921165,2026-11-03T05:00:00+00:00,TBD,T0065,T0151,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921819,2026-11-03T05:00:00+00:00,TBD,T0290,T0030,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920702,2026-11-03T05:00:00+00:00,TBD,T0218,T0134,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920304,2026-11-03T05:00:00+00:00,TBD,T0033,T0214,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924920,2026-11-03T05:00:00+00:00,TBD,T0328,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920376,2026-11-04T00:00:00+00:00,ANNOUNCED,T0122,T0191,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920155,2026-11-03T05:00:00+00:00,TBD,T0010,T0209,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925914,2026-11-04T03:00:00+00:00,ANNOUNCED,T0267,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921801,2026-11-03T05:00:00+00:00,TBD,T0047,T0232,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917511,2026-11-03T05:00:00+00:00,TBD,T0132,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926005,2026-11-04T00:30:00+00:00,ANNOUNCED,T0094,T0354,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920806,2026-11-03T05:00:00+00:00,TBD,T0111,T0167,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920061,2026-11-04T00:00:00+00:00,ANNOUNCED,T0102,T0053,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919028,2026-11-05T01:00:00+00:00,ANNOUNCED,T0322,T0260,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401923391,2026-11-05T01:00:00+00:00,ANNOUNCED,T0365,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401920798,2026-11-04T05:00:00+00:00,TBD,T0001,T0282,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925893,2026-11-05T01:00:00+00:00,ANNOUNCED,T0255,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926151,2026-11-04T05:00:00+00:00,TBD,T0283,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401917977,2026-11-05T00:30:00+00:00,ANNOUNCED,T0248,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926214,2026-11-05T00:30:00+00:00,ANNOUNCED,T0305,,False,False,False,False,False,STALE/None,True,not a D-I vs D-I game (outside the experiment)
+401920191,2026-11-05T00:00:00+00:00,ANNOUNCED,T0295,T0227,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926142,2026-11-05T00:00:00+00:00,ANNOUNCED,T0347,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401920232,2026-11-04T23:30:00+00:00,ANNOUNCED,T0076,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920410,2026-11-05T00:00:00+00:00,ANNOUNCED,T0215,T0236,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922290,2026-11-05T00:00:00+00:00,ANNOUNCED,T0245,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401917514,2026-11-05T03:00:00+00:00,ANNOUNCED,T0230,T0367,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926111,2026-11-04T05:00:00+00:00,TBD,T0104,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401917512,2026-11-04T05:00:00+00:00,TBD,T0296,T0254,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925939,2026-11-04T05:00:00+00:00,TBD,T0361,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401922030,2026-11-05T00:00:00+00:00,ANNOUNCED,T0068,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401917513,2026-11-04T05:00:00+00:00,TBD,T0280,T0127,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918052,2026-11-04T05:00:00+00:00,TBD,T0013,T0272,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401927361,2026-11-04T05:00:00+00:00,TBD,T0197,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925819,2026-11-05T05:00:00+00:00,TBD,T0246,T0212,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401928387,2026-11-05T05:00:00+00:00,TBD,T0331,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925684,2026-11-05T05:00:00+00:00,TBD,T0168,T0025,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401928467,2026-11-06T00:30:00+00:00,ANNOUNCED,T0228,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401918968,2026-11-05T05:00:00+00:00,TBD,T0286,T0316,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926078,2026-11-05T23:00:00+00:00,ANNOUNCED,T0268,,False,False,False,False,True,LIKELY/None,True,not a D-I vs D-I game (outside the experiment)
+401927395,2026-11-06T00:00:00+00:00,ANNOUNCED,T0120,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401917177,2026-11-05T05:00:00+00:00,TBD,T0096,T0107,True,False,False,True,True,UNKNOWN/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926780,2026-11-05T05:00:00+00:00,TBD,T0004,T0029,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925754,2026-11-05T05:00:00+00:00,TBD,T0060,T0311,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925031,2026-11-05T05:00:00+00:00,TBD,T0113,T0234,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924948,2026-11-05T05:00:00+00:00,TBD,T0149,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401916287,2026-11-05T05:00:00+00:00,TBD,T0043,T0359,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401927373,2026-11-06T01:00:00+00:00,ANNOUNCED,T0217,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925922,2026-11-05T05:00:00+00:00,TBD,T0117,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401913526,2026-11-05T05:00:00+00:00,TBD,T0161,T0098,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925954,2026-11-06T00:00:00+00:00,ANNOUNCED,T0054,T0051,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924703,2026-11-06T00:00:00+00:00,ANNOUNCED,T0083,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920691,2026-11-06T00:00:00+00:00,ANNOUNCED,T0205,T0123,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921682,2026-11-06T00:00:00+00:00,ANNOUNCED,T0275,T0146,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921698,2026-11-05T05:00:00+00:00,TBD,T0118,T0058,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921219,2026-11-06T00:00:00+00:00,ANNOUNCED,T0244,T0194,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920377,2026-11-05T05:00:00+00:00,TBD,T0122,T0237,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920960,2026-11-05T05:00:00+00:00,TBD,T0242,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920133,2026-11-06T02:30:00+00:00,ANNOUNCED,T0342,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401921084,2026-11-06T00:00:00+00:00,ANNOUNCED,T0233,T0235,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920913,2026-11-05T05:00:00+00:00,TBD,T0094,T0258,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921679,2026-11-05T05:00:00+00:00,TBD,T0357,T0353,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921680,2026-11-05T05:00:00+00:00,TBD,T0271,T0348,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919732,2026-11-05T05:00:00+00:00,TBD,T0354,T0188,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920765,2026-11-06T01:00:00+00:00,ANNOUNCED,T0304,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401919823,2026-11-05T05:00:00+00:00,TBD,T0045,T0371,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921681,2026-11-06T00:00:00+00:00,ANNOUNCED,T0273,T0077,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921678,2026-11-05T05:00:00+00:00,TBD,T0232,T0163,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924718,2026-11-06T00:00:00+00:00,ANNOUNCED,T0225,T0084,True,False,False,True,True,STALE/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920759,2026-11-06T00:30:00+00:00,ANNOUNCED,T0175,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921747,2026-11-05T05:00:00+00:00,TBD,T0189,T0325,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921094,2026-11-06T01:00:00+00:00,ANNOUNCED,T0110,T0369,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919002,2026-11-05T05:00:00+00:00,TBD,T0313,T0219,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924733,2026-11-06T00:00:00+00:00,ANNOUNCED,T0079,T0216,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920864,2026-11-06T00:00:00+00:00,ANNOUNCED,T0147,T0337,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919804,2026-11-05T23:30:00+00:00,ANNOUNCED,T0284,T0334,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921133,2026-11-05T05:00:00+00:00,TBD,T0309,T0176,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921754,2026-11-06T05:00:00+00:00,TBD,T0185,T0021,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921767,2026-11-06T05:00:00+00:00,TBD,T0130,T0030,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917949,2026-11-06T05:00:00+00:00,TBD,T0156,T0173,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922021,2026-11-06T05:00:00+00:00,TBD,T0328,T0143,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925097,2026-11-07T01:00:00+00:00,ANNOUNCED,T0145,T0162,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921809,2026-11-06T05:00:00+00:00,TBD,T0050,T0308,True,False,False,True,True,STALE/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917515,2026-11-06T05:00:00+00:00,TBD,T0141,T0360,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920423,2026-11-06T05:00:00+00:00,TBD,T0121,T0055,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920920,2026-11-07T00:00:00+00:00,ANNOUNCED,T0057,T0231,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922248,2026-11-06T05:00:00+00:00,TBD,T0207,T0374,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922219,2026-11-06T05:00:00+00:00,TBD,T0014,T0256,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401916304,2026-11-06T05:00:00+00:00,TBD,T0062,T0363,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401916314,2026-11-06T05:00:00+00:00,TBD,T0089,T0330,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922210,2026-11-06T05:00:00+00:00,TBD,T0338,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920894,2026-11-06T05:00:00+00:00,TBD,T0128,T0026,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921719,2026-11-06T05:00:00+00:00,TBD,T0238,T0317,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922059,2026-11-06T23:30:00+00:00,ANNOUNCED,T0341,T0287,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920072,2026-11-07T00:00:00+00:00,ANNOUNCED,T0211,T0191,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925641,2026-11-07T00:00:00+00:00,ANNOUNCED,T0166,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921727,2026-11-06T05:00:00+00:00,TBD,T0012,T0263,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926813,2026-11-06T05:00:00+00:00,TBD,T0105,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920807,2026-11-06T05:00:00+00:00,TBD,T0111,T0350,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921732,2026-11-06T05:00:00+00:00,TBD,T0006,T0257,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926793,2026-11-06T05:00:00+00:00,TBD,T0226,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921739,2026-11-06T05:00:00+00:00,TBD,T0116,T0349,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922261,2026-11-06T05:00:00+00:00,TBD,T0017,T0038,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921802,2026-11-06T05:00:00+00:00,TBD,T0047,T0119,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921061,2026-11-06T05:00:00+00:00,TBD,T0278,T0254,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919015,2026-11-06T05:00:00+00:00,TBD,T0003,T0252,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926161,2026-11-06T05:00:00+00:00,TBD,T0310,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921140,2026-11-06T05:00:00+00:00,TBD,T0204,T0247,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921166,2026-11-07T00:00:00+00:00,ANNOUNCED,T0151,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925089,2026-11-07T00:30:00+00:00,ANNOUNCED,T0298,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926135,2026-11-06T05:00:00+00:00,TBD,T0080,T0373,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920344,2026-11-06T05:00:00+00:00,TBD,T0095,T0356,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920726,2026-11-06T05:00:00+00:00,TBD,T0218,T0201,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926131,2026-11-06T05:00:00+00:00,TBD,T0270,T0315,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401913100,2026-11-06T05:00:00+00:00,TBD,T0072,T0326,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920733,2026-11-06T05:00:00+00:00,TBD,T0040,T0299,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920717,2026-11-06T05:00:00+00:00,TBD,T0264,T0154,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919040,2026-11-06T05:00:00+00:00,TBD,T0091,T0367,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917914,2026-11-06T05:00:00+00:00,TBD,T0066,T0335,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918956,2026-11-06T05:00:00+00:00,TBD,T0071,T0200,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920952,2026-11-06T05:00:00+00:00,TBD,T0064,T0041,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401928622,2026-11-07T01:00:00+00:00,ANNOUNCED,T0300,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401917516,2026-11-07T03:00:00+00:00,ANNOUNCED,T0230,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401920685,2026-11-07T01:00:00+00:00,ANNOUNCED,T0019,T0061,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920305,2026-11-06T05:00:00+00:00,TBD,T0033,T0135,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921285,2026-11-07T00:00:00+00:00,ANNOUNCED,T0100,T0053,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401923260,2026-11-06T23:00:00+00:00,ANNOUNCED,T0327,T0206,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919048,2026-11-06T05:00:00+00:00,TBD,T0301,T0291,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920062,2026-11-07T05:00:00+00:00,TBD,T0102,T0241,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917517,2026-11-07T05:00:00+00:00,TBD,T0346,T0267,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917518,2026-11-07T05:00:00+00:00,TBD,T0039,T0132,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925780,2026-11-07T05:00:00+00:00,TBD,T0199,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925772,2026-11-08T00:00:00+00:00,ANNOUNCED,T0192,T0237,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926825,2026-11-07T23:00:00+00:00,ANNOUNCED,T0023,T0214,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920371,2026-11-08T03:00:00+00:00,ANNOUNCED,T0358,T0131,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921174,2026-11-07T22:00:00+00:00,ANNOUNCED,T0044,T0302,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926112,2026-11-07T05:00:00+00:00,TBD,T0104,T0259,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921154,2026-11-07T05:00:00+00:00,TBD,T0090,T0253,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925839,2026-11-07T21:30:00+00:00,ANNOUNCED,T0236,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920411,2026-11-07T22:00:00+00:00,ANNOUNCED,T0215,T0125,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926006,2026-11-07T20:00:00+00:00,ANNOUNCED,T0094,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926201,2026-11-07T05:00:00+00:00,TBD,T0306,T0316,True,False,False,True,True,UNKNOWN/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917962,2026-11-07T05:00:00+00:00,TBD,T0351,T0223,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920192,2026-11-07T21:00:00+00:00,ANNOUNCED,T0295,T0149,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925923,2026-11-07T05:00:00+00:00,TBD,T0117,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926227,2026-11-08T00:30:00+00:00,ANNOUNCED,T0015,T0195,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401917519,2026-11-07T05:00:00+00:00,TBD,T0280,T0009,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920156,2026-11-07T21:00:00+00:00,ANNOUNCED,T0344,T0209,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920856,2026-11-07T05:00:00+00:00,TBD,T0129,T0311,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919824,2026-11-07T21:00:00+00:00,ANNOUNCED,T0371,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401918977,2026-11-07T19:00:00+00:00,ANNOUNCED,T0070,T0160,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924940,2026-11-07T05:00:00+00:00,TBD,T0178,T0138,True,False,False,True,True,CONFIRMED/UNKNOWN,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922044,2026-11-07T20:00:00+00:00,ANNOUNCED,T0227,T0339,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924264,2026-11-07T20:00:00+00:00,ANNOUNCED,T0067,T0139,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401923392,2026-11-08T01:00:00+00:00,ANNOUNCED,T0157,T0365,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924951,2026-11-07T05:00:00+00:00,TBD,T0345,T0319,True,False,False,True,True,CONFIRMED/UNKNOWN,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920816,2026-11-07T05:00:00+00:00,TBD,T0171,T0282,True,False,False,True,True,STALE/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919758,2026-11-07T05:00:00+00:00,TBD,T0078,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401925106,2026-11-07T22:30:00+00:00,ANNOUNCED,T0136,T0268,True,False,False,True,True,CONFIRMED/LIKELY,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920770,2026-11-07T05:00:00+00:00,TBD,T0198,T0190,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401928352,2026-11-07T21:00:00+00:00,ANNOUNCED,T0279,T0263,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918948,2026-11-07T05:00:00+00:00,TBD,T0048,T0242,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925077,2026-11-07T05:00:00+00:00,TBD,T0046,T0262,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925047,2026-11-07T05:00:00+00:00,TBD,T0251,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401920435,2026-11-08T02:00:00+00:00,ANNOUNCED,T0318,T0333,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924912,2026-11-07T05:00:00+00:00,TBD,T0249,T0277,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401922291,2026-11-07T22:30:00+00:00,ANNOUNCED,T0245,T0321,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919805,2026-11-07T05:00:00+00:00,TBD,T0224,T0334,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920703,2026-11-07T22:00:00+00:00,ANNOUNCED,T0134,T0347,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924895,2026-11-07T05:00:00+00:00,TBD,T0082,T0261,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924843,2026-11-07T23:30:00+00:00,ANNOUNCED,T0148,T0243,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925707,2026-11-07T17:00:00+00:00,ANNOUNCED,T0324,T0343,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918986,2026-11-07T05:00:00+00:00,TBD,T0106,T0314,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401918053,2026-11-08T05:00:00+00:00,TBD,T0013,T0112,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401925894,2026-11-08T05:00:00+00:00,TBD,T0323,T0255,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921684,2026-11-08T19:00:00+00:00,ANNOUNCED,T0146,T0232,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921220,2026-11-08T18:00:00+00:00,ANNOUNCED,T0244,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401926215,2026-11-08T20:00:00+00:00,ANNOUNCED,T0305,T0049,True,False,False,True,True,STALE/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920134,2026-11-08T23:00:00+00:00,ANNOUNCED,T0342,T0254,True,False,False,True,True,CONFLICTED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921686,2026-11-08T05:00:00+00:00,TBD,T0163,T0357,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920355,2026-11-08T18:00:00+00:00,ANNOUNCED,,T0054,False,False,False,False,True,None/CONFIRMED,True,not a D-I vs D-I game (outside the experiment)
+401921687,2026-11-08T18:00:00+00:00,ANNOUNCED,T0353,T0233,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924734,2026-11-08T18:00:00+00:00,ANNOUNCED,T0285,T0079,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921685,2026-11-08T05:00:00+00:00,TBD,T0077,T0275,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920692,2026-11-08T19:00:00+00:00,ANNOUNCED,T0123,T0271,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401921683,2026-11-08T05:00:00+00:00,TBD,T0348,T0205,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926210,2026-11-08T19:00:00+00:00,ANNOUNCED,T0326,,False,False,False,False,True,CONFLICTED/None,True,not a D-I vs D-I game (outside the experiment)
+401927362,2026-11-08T05:00:00+00:00,TBD,T0197,T0291,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920739,2026-11-08T05:00:00+00:00,TBD,T0320,T0181,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401919029,2026-11-08T05:00:00+00:00,TBD,T0322,T0016,True,False,False,True,True,CONFIRMED/CONFLICTED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920424,2026-11-08T18:00:00+00:00,ANNOUNCED,T0121,T0005,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920233,2026-11-08T19:00:00+00:00,ANNOUNCED,T0076,T0184,True,False,False,True,True,CONFIRMED/STALE,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401924646,2026-11-08T17:00:00+00:00,ANNOUNCED,T0294,T0147,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401926867,2026-11-08T18:00:00+00:00,ANNOUNCED,T0127,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401922262,2026-11-08T05:00:00+00:00,TBD,T0038,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401924719,2026-11-08T19:00:00+00:00,ANNOUNCED,T0084,,False,False,False,False,True,CONFIRMED/None,True,not a D-I vs D-I game (outside the experiment)
+401921820,2026-11-08T05:00:00+00:00,TBD,T0290,T0283,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920865,2026-11-08T05:00:00+00:00,TBD,T0337,T0297,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
+401920843,2026-11-08T19:00:00+00:00,ANNOUNCED,T0363,T0325,True,False,False,True,True,CONFIRMED/CONFIRMED,True,listed on the live ESPN scoreboard but missing from the projection schedule source (SDV): cannot be projected
