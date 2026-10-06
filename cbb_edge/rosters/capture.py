@@ -261,10 +261,17 @@ def run(archive: Path, season: int, now: datetime | None = None) -> dict[str, An
     )
     rep["official"]["identity"] = orows["identity"].value_counts().to_dict() if len(orows) else {}
     rep["events"] = pd.Series([e["event"] for e in ev]).value_counts().to_dict() if ev else {}
-    from cbb_edge.rosters import dashboard, ncaa_directory
+    from cbb_edge.rosters import dashboard, membership, ncaa_directory
 
+    n_univ = len(ncaa_directory.current_teams())
+    try:  # Wave 8: season-aware membership (a season outside the table: no filter)
+        m = membership.members(season)
+        mem = set(m["team_id"].dropna()) or None
+        n_univ = len(m) or n_univ  # members without a canonical id still count as uncovered
+    except Exception:  # noqa: BLE001
+        mem = None
     sc = dashboard.scorecard(official.load_registry(), found, pages, orows, fresh, teams_s,
-                             len(ncaa_directory.current_teams()))  # fmt: skip
+                             n_univ, mem)  # fmt: skip
     rep["scorecard"] = sc
     (archive / "reports").mkdir(parents=True, exist_ok=True)
     md = dashboard.markdown(sc, stamp)

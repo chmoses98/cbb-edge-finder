@@ -221,3 +221,16 @@ def test_git_first_commit_times_reads_when_each_file_was_added(tmp_path):
     assert t["f0.json"] == pd.Timestamp("2026-11-01T10:00:00Z")
     assert t["f1.json"] == pd.Timestamp("2026-11-02T10:00:00Z")
     assert ps.git_first_commit_times(tmp_path / "nope") == {}
+
+
+def test_dashboard_excludes_non_members_from_confidence():
+    from cbb_edge.rosters import dashboard
+
+    teams = pd.DataFrame({"team_id": ["T1", "T0293"], "roster_confidence": ["CONFIRMED", "STALE"],
+                          "confidence_reason": ["x", "no_fresh_majority"]})  # fmt: skip
+    reg = {"teams": [{"team_id": "T1", "status": "VERIFIED", "exception": None, "school": "a"}]}
+    sc = dashboard.scorecard(reg, [], pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), teams, 2,
+                             members={"T1"})  # fmt: skip
+    assert sc["confidence"]["STALE"] == 0 and sc["not_d1_this_season"] == ["T0293"]
+    assert "T0293" not in sc["unresolved_teams"]
+    assert "Not D-I this season" in dashboard.markdown(sc, "s")

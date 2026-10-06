@@ -20,8 +20,16 @@ def scorecard(
     fresh: pd.DataFrame,
     teams: pd.DataFrame,
     universe_n: int,
+    members: set[str] | None = None,
 ) -> dict[str, Any]:
+    """``members``: the season's canonical D-I members (``membership.members``). Teams
+    outside it (e.g. Saint Francis (PA) in 2026-27) are reported separately and never
+    counted in the confidence table (Wave 8)."""
     reg = pd.DataFrame(registry["teams"])
+    outside: list[str] = []
+    if members is not None and len(teams):
+        outside = sorted(set(teams["team_id"]) - members)
+        teams = teams[teams["team_id"].isin(members)]
     verified = reg[reg["status"] == "VERIFIED"]
     found_ok = {d.team_id for d in found if d.roster_url}
     cur = pages[pages["page_status"].isin(["CURRENT", "PROBABLY_CURRENT"])] if len(pages) else pages
@@ -51,6 +59,8 @@ def scorecard(
             reasons.setdefault(
                 r.team_id, f"confidence {r.roster_confidence}: {r.confidence_reason}"
             )
+    for t in outside:
+        reasons.pop(t, None)
     n = universe_n
     return {
         "total_d1_teams": n,
@@ -72,6 +82,7 @@ def scorecard(
         "unresolved_players": int((~resolved).sum()) if len(ids) else 0,
         "stale_espn_team_sources": int((~espn["fresh"]).sum()) if len(espn) else 0,
         "unresolved_teams": dict(sorted(reasons.items())),
+        "not_d1_this_season": outside,
     }
 
 
@@ -108,4 +119,7 @@ def markdown(sc: dict[str, Any], stamp: str) -> str:
         "",
         *[f"* `{t}` — {why}" for t, why in sc["unresolved_teams"].items()],
     ]
+    if sc.get("not_d1_this_season"):
+        lines += ["", "## Not D-I this season (season-aware membership; not counted)", "",
+                  *[f"* `{t}`" for t in sc["not_d1_this_season"]]]  # fmt: skip
     return "\n".join(lines) + "\n"
