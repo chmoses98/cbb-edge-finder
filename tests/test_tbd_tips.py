@@ -307,3 +307,33 @@ def test_observe_cli_archives_scoreboard_even_if_sdv_fails(tmp_path, monkeypatch
     out = json.loads(capsys.readouterr().out)
     assert out["scoreboard_archived"] == 1 and out["sdv_error"].startswith("FileNotFoundError")
     assert len(S.load_obs(tmp_path / "sa")) == 1 and len(S.load_obs(tmp_path / "run")) == 1
+
+
+def test_tip_moved_later_and_postponed_to_another_date(tmp_path):
+    """A TBD game later announced for a LATER time, or postponed and replayed on another
+    date: records made before the original date stay pre-tip; the scored record is the
+    latest one before the actual (new) tip."""
+    ra = roster_archive(tmp_path)
+    early = _recs(ra, "2026-11-02T21:10:00+00:00")
+    later = [rec(ps.BASE, 1, "T1", "T2", 4.0, ra, asof="2026-11-09T21:10:00+00:00", tip=PLACE),
+             rec(ps.ROSTER, 1, "T1", "T2", 5.0, ra, asof="2026-11-09T21:10:00+00:00", tip=PLACE)]  # fmt: skip
+    pa = archive(tmp_path, early, when="2026-11-02T21:16:00+00:00")
+    archive(tmp_path, later, when="2026-11-09T21:16:00+00:00")
+    # moved later on the same date (announced 9 PM ET): the Nov 2 record is the latest pre-tip
+    frames, _ = _score(pa, ra, _games(S.ANNOUNCED, "2026-11-04T02:00:00Z"), None)
+    assert status(frames, 1) == ("VALID", "")
+    assert frames["paired_games"].iloc[0]["roster_margin"] == 3.0
+    # postponed, replayed Nov 10 at 7 PM ET: the Nov 9 record is the latest pre-tip
+    frames, _ = _score(pa, ra, _games(S.ANNOUNCED, "2026-11-11T00:00:00Z"), None)
+    assert status(frames, 1) == ("VALID", "")
+    assert frames["paired_games"].iloc[0]["roster_margin"] == 5.0
+
+
+def test_cancelled_or_postponed_games_are_not_projected_or_owed():
+    now = T("2026-11-03T14:40Z")
+    live = [obs(1, "2026-11-03T14:41Z", "post", "STATUS_CANCELED"),
+            obs(2, "2026-11-03T14:41Z", "post", "STATUS_POSTPONED")]  # fmt: skip
+    w = S.live_window(live, now, 30.0, _sched()[["espn_game_id", "tip"]])
+    assert {1, 2} <= w["exclude"] and not ({1, 2} & w["extra"])
+    gaps = C.coverage_gaps(_sched(), set(), now, 30.0, ["pure-0.5.0"], {"T1", "T2"}, w)
+    assert gaps == [("pure-0.5.0", 6)]

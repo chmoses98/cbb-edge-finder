@@ -176,3 +176,17 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Presentation amendment A1 | intervals need N >= 20 on >= 10 days | adopted (pre-results) |
 | Roster coverage after first merged capture | CONFIRMED 329 (Missouri, ASU now CONFIRMED); 355 / 364 pages | live |
 | Model / P-ROSTER-1 change | none | by design |
+
+## Wave 10 outcomes (see research/reports/WAVE10.md; rules research/hypotheses/WAVE10.md)
+
+| Item | Result (2026-10-06, no 2026–27 game played) | Status |
+|---|---|---|
+| PR #9 merge (6c60608) + freeze audit | all frozen hashes unchanged; CI, scores, ops-watch, roster-capture green on main; West Florida CONFIRMED | done |
+| ESPN tip-time semantics | `timeValid=false` ⇔ 00:00 ET ⇔ "TBD" (1,520 / 1,629); 0 midnight listings in 18,866 completed games | documented |
+| TBD-safe projection (R1/R2) | passed-placeholder games projected only on live "pre" evidence; started / postponed / cancelled never projected | deployed |
+| Tip-time history | append-only `schedule-archive` (changes + gate evidence) | deployed |
+| TBD scoring (R5) | never-announced tip: provable lower bound; unprovable → UNSCORABLE `tbd_start_unprovable` | deployed |
+| TBD failure simulations | 17 tests, all fail closed | done |
+| Opening week Nov 1–9 | 356 D-I games (262 TBD); **249 missing from the SDV schedule** (SDV lag) | alerted; owner decision |
+| T0333 Utah Valley "Tanner Davis" | blocked by an NAIA namesake in the frozen identity pool (pool includes 38,169 never-D-I players) | documented; owner decision |
+| Model / P-ROSTER-1 / scoring change | none | by design |

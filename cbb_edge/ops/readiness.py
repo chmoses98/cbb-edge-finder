@@ -555,8 +555,12 @@ def main() -> None:
     a = ap.parse_args()
     now = _ts(a.now) if a.now else pd.Timestamp(datetime.now(UTC))
     sched = cadence.schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"))
-    # before the season opener the report previews opening week (from the first tip)
-    opener = sched["tip"].min() if len(sched) else now
+    obs = ss.load_obs(*a.schedule_archive, a.projections)
+    # before the season opener the report previews opening week, from the first tip in
+    # EITHER source (Wave 10: SDV can lag the live scoreboard)
+    tips = pd.concat([sched["tip"], live_only_games(sched, obs, a.season).get(
+        "tip", pd.Series(dtype="datetime64[ns, UTC]"))])  # fmt: skip
+    opener = pd.to_datetime(tips, utc=True).min() if len(tips) else now
     start = _ts(a.start) if a.start else max(now, opener.normalize())
     d1 = set(membership.members(a.season)["team_id"].dropna())
     versions = cadence.required_versions(True)
@@ -564,8 +568,7 @@ def main() -> None:
     if a.identity and a.identity.exists():
         exposure = json.loads(a.identity.read_text()).get("identity_impact", {}).get("per_team")
     r = build(sched, a.rosters, a.projections, a.scores, now, start, a.days, a.season, versions,
-              d1, set(authoritative_members(a.season) or []), exposure,
-              ss.load_obs(*a.schedule_archive, a.projections))  # fmt: skip
+              d1, set(authoritative_members(a.season) or []), exposure, obs)  # fmt: skip
     a.out.mkdir(parents=True, exist_ok=True)
     r["readiness"].to_csv(a.out / "readiness.csv", index=False)
     r["observability"].to_csv(a.out / "observability.csv", index=False)

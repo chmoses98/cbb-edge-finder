@@ -245,6 +245,10 @@ The rules:
   the last live "pre" observation. A required record not provably made (and committed)
   before the start is **UNSCORABLE** (`tbd_start_unprovable`). It is never guessed or
   reconstructed. The Wave 9 gate checks are unchanged.
+- **Schedule source gap.** The projection window reads the SDV schedule. Readiness
+  compares it with the live scoreboard and alerts on every D-I game SDV lacks:
+  `GAME_MISSING_FROM_SCHEDULE_SOURCE` (WARNING), turning CRITICAL within 30 h of tip.
+  On 2026-10-06, 249 of 356 Nov 1–9 games were missing (SDV lag).
 
 To rehearse the whole production chain in a sandbox:
 
