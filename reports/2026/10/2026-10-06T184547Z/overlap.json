@@ -1,0 +1,2085 @@
+{
+ "stamp": "20261006T184207Z",
+ "current": {
+  "season": 2027,
+  "dates": 161,
+  "failed_dates": [],
+  "espn_games": 5857,
+  "sdv_games_on_dates": 1629,
+  "shared_games": 1625,
+  "espn_only": 4232,
+  "sdv_only_on_dates": 4,
+  "raw_fields": [
+   {
+    "field": "away_conference_id",
+    "different": 23,
+    "equal": 1602,
+    "representation": 0
+   },
+   {
+    "field": "away_id",
+    "different": 15,
+    "equal": 1610,
+    "representation": 0
+   },
+   {
+    "field": "away_location",
+    "different": 15,
+    "equal": 1610,
+    "representation": 0
+   },
+   {
+    "field": "away_score",
+    "different": 0,
+    "equal": 0,
+    "representation": 1625
+   },
+   {
+    "field": "conference_competition",
+    "different": 18,
+    "equal": 1607,
+    "representation": 0
+   },
+   {
+    "field": "date",
+    "different": 253,
+    "equal": 1372,
+    "representation": 0
+   },
+   {
+    "field": "home_conference_id",
+    "different": 24,
+    "equal": 1601,
+    "representation": 0
+   },
+   {
+    "field": "home_id",
+    "different": 14,
+    "equal": 1611,
+    "representation": 0
+   },
+   {
+    "field": "home_location",
+    "different": 14,
+    "equal": 1611,
+    "representation": 0
+   },
+   {
+    "field": "home_score",
+    "different": 0,
+    "equal": 0,
+    "representation": 1625
+   },
+   {
+    "field": "neutral_site",
+    "different": 5,
+    "equal": 1620,
+    "representation": 0
+   },
+   {
+    "field": "notes_headline",
+    "different": 46,
+    "equal": 1579,
+    "representation": 0
+   },
+   {
+    "field": "season",
+    "different": 0,
+    "equal": 1625,
+    "representation": 0
+   },
+   {
+    "field": "season_type",
+    "different": 0,
+    "equal": 1625,
+    "representation": 0
+   },
+   {
+    "field": "start_date",
+    "different": 253,
+    "equal": 1372,
+    "representation": 0
+   },
+   {
+    "field": "status_period",
+    "different": 0,
+    "equal": 1625,
+    "representation": 0
+   },
+   {
+    "field": "status_type_completed",
+    "different": 0,
+    "equal": 1625,
+    "representation": 0
+   },
+   {
+    "field": "status_type_name",
+    "different": 0,
+    "equal": 1625,
+    "representation": 0
+   },
+   {
+    "field": "status_type_short_detail",
+    "different": 253,
+    "equal": 1372,
+    "representation": 0
+   },
+   {
+    "field": "status_type_state",
+    "different": 0,
+    "equal": 1625,
+    "representation": 0
+   },
+   {
+    "field": "time_valid",
+    "different": 253,
+    "equal": 1372,
+    "representation": 0
+   },
+   {
+    "field": "tournament_id",
+    "different": 8,
+    "equal": 1617,
+    "representation": 0
+   },
+   {
+    "field": "venue_address_city",
+    "different": 29,
+    "equal": 1596,
+    "representation": 0
+   },
+   {
+    "field": "venue_address_state",
+    "different": 24,
+    "equal": 1601,
+    "representation": 0
+   },
+   {
+    "field": "venue_full_name",
+    "different": 42,
+    "equal": 1583,
+    "representation": 0
+   },
+   {
+    "field": "venue_id",
+    "different": 31,
+    "equal": 1594,
+    "representation": 0
+   }
+  ],
+  "raw_differences": {
+   "away_conference_id": 23,
+   "away_id": 15,
+   "away_location": 15,
+   "conference_competition": 18,
+   "date": 253,
+   "home_conference_id": 24,
+   "home_id": 14,
+   "home_location": 14,
+   "neutral_site": 5,
+   "notes_headline": 46,
+   "start_date": 253,
+   "status_type_short_detail": 253,
+   "time_valid": 253,
+   "tournament_id": 8,
+   "venue_address_city": 29,
+   "venue_address_state": 24,
+   "venue_full_name": 42,
+   "venue_id": 31
+  },
+  "raw_difference_examples": {
+   "away_conference_id": [
+    {
+     "game_id": 401912067,
+     "field": "away_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912052,
+     "field": "away_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912035,
+     "field": "away_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912027,
+     "field": "away_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912008,
+     "field": "away_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    }
+   ],
+   "away_id": [
+    {
+     "game_id": 401911048,
+     "field": "away_id",
+     "result": "different",
+     "sdv": "2754",
+     "espn": "2870",
+     "material": true
+    },
+    {
+     "game_id": 401911257,
+     "field": "away_id",
+     "result": "different",
+     "sdv": "2545",
+     "espn": "2546",
+     "material": true
+    },
+    {
+     "game_id": 401909506,
+     "field": "away_id",
+     "result": "different",
+     "sdv": "221",
+     "espn": "305",
+     "material": true
+    },
+    {
+     "game_id": 401906807,
+     "field": "away_id",
+     "result": "different",
+     "sdv": "2509",
+     "espn": "201",
+     "material": true
+    },
+    {
+     "game_id": 401911028,
+     "field": "away_id",
+     "result": "different",
+     "sdv": "113",
+     "espn": "111",
+     "material": true
+    }
+   ],
+   "away_location": [
+    {
+     "game_id": 401911048,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "Youngstown State",
+     "espn": "Purdue Fort Wayne",
+     "material": false
+    },
+    {
+     "game_id": 401911257,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "SE Louisiana",
+     "espn": "Southeast Missouri State",
+     "material": false
+    },
+    {
+     "game_id": 401909506,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "Pittsburgh",
+     "espn": "DePaul",
+     "material": false
+    },
+    {
+     "game_id": 401906807,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "Purdue",
+     "espn": "Oklahoma",
+     "material": false
+    },
+    {
+     "game_id": 401911028,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "Massachusetts",
+     "espn": "Northeastern",
+     "material": false
+    }
+   ],
+   "conference_competition": [
+    {
+     "game_id": 401912067,
+     "field": "conference_competition",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401912059,
+     "field": "conference_competition",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401912052,
+     "field": "conference_competition",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401912042,
+     "field": "conference_competition",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401912035,
+     "field": "conference_competition",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    }
+   ],
+   "date": [
+    {
+     "game_id": 401911332,
+     "field": "date",
+     "result": "different",
+     "sdv": "2027-03-06T05:00Z",
+     "espn": "2027-03-07T00:00Z",
+     "material": false
+    },
+    {
+     "game_id": 401905692,
+     "field": "date",
+     "result": "different",
+     "sdv": "2027-03-06T05:00Z",
+     "espn": "2027-03-06T18:00Z",
+     "material": false
+    },
+    {
+     "game_id": 401905687,
+     "field": "date",
+     "result": "different",
+     "sdv": "2027-03-04T05:00Z",
+     "espn": "2027-03-05T01:00Z",
+     "material": false
+    },
+    {
+     "game_id": 401911927,
+     "field": "date",
+     "result": "different",
+     "sdv": "2027-02-27T05:00Z",
+     "espn": "2027-02-28T00:30Z",
+     "material": false
+    },
+    {
+     "game_id": 401911421,
+     "field": "date",
+     "result": "different",
+     "sdv": "2027-02-27T05:00Z",
+     "espn": "2027-02-27T22:00Z",
+     "material": false
+    }
+   ],
+   "home_conference_id": [
+    {
+     "game_id": 401912059,
+     "field": "home_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912042,
+     "field": "home_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912021,
+     "field": "home_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912016,
+     "field": "home_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    },
+    {
+     "game_id": 401912003,
+     "field": "home_conference_id",
+     "result": "different",
+     "sdv": "11.0",
+     "espn": "27.0",
+     "material": false
+    }
+   ],
+   "home_id": [
+    {
+     "game_id": 401909506,
+     "field": "home_id",
+     "result": "different",
+     "sdv": "305",
+     "espn": "221",
+     "material": true
+    },
+    {
+     "game_id": 401906807,
+     "field": "home_id",
+     "result": "different",
+     "sdv": "201",
+     "espn": "2509",
+     "material": true
+    },
+    {
+     "game_id": 401911028,
+     "field": "home_id",
+     "result": "different",
+     "sdv": "111",
+     "espn": "275",
+     "material": true
+    },
+    {
+     "game_id": 401911458,
+     "field": "home_id",
+     "result": "different",
+     "sdv": "2440",
+     "espn": "2541",
+     "material": true
+    },
+    {
+     "game_id": 401906853,
+     "field": "home_id",
+     "result": "different",
+     "sdv": "2633",
+     "espn": "120",
+     "material": true
+    }
+   ],
+   "home_location": [
+    {
+     "game_id": 401909506,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "DePaul",
+     "espn": "Pittsburgh",
+     "material": false
+    },
+    {
+     "game_id": 401906807,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "Oklahoma",
+     "espn": "Purdue",
+     "material": false
+    },
+    {
+     "game_id": 401911028,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "Northeastern",
+     "espn": "Wisconsin",
+     "material": false
+    },
+    {
+     "game_id": 401911458,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "Nevada",
+     "espn": "Santa Clara",
+     "material": false
+    },
+    {
+     "game_id": 401906853,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "Tennessee",
+     "espn": "Maryland",
+     "material": false
+    }
+   ],
+   "neutral_site": [
+    {
+     "game_id": 401911052,
+     "field": "neutral_site",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401911032,
+     "field": "neutral_site",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401911200,
+     "field": "neutral_site",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401911024,
+     "field": "neutral_site",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    },
+    {
+     "game_id": 401911199,
+     "field": "neutral_site",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": true
+    }
+   ],
+   "notes_headline": [
+    {
+     "game_id": 401906767,
+     "field": "notes_headline",
+     "result": "different",
+     "sdv": "",
+     "espn": "Bad Boy Mowers Series",
+     "material": false
+    },
+    {
+     "game_id": 401909540,
+     "field": "notes_headline",
+     "result": "different",
+     "sdv": "",
+     "espn": "Hall of Fame Series - Orlando",
+     "material": false
+    },
+    {
+     "game_id": 401906872,
+     "field": "notes_headline",
+     "result": "different",
+     "sdv": "",
+     "espn": "Houston Hoopfest",
+     "material": false
+    },
+    {
+     "game_id": 401911315,
+     "field": "notes_headline",
+     "result": "different",
+     "sdv": "",
+     "espn": "Basketball Hall of Fame Classic",
+     "material": false
+    },
+    {
+     "game_id": 401906855,
+     "field": "notes_headline",
+     "result": "different",
+     "sdv": "",
+     "espn": "Bad Boy Mowers Series",
+     "material": false
+    }
+   ],
+   "start_date": [
+    {
+     "game_id": 401911332,
+     "field": "start_date",
+     "result": "different",
+     "sdv": "2027-03-06T05:00Z",
+     "espn": "2027-03-07T00:00Z",
+     "material": false
+    },
+    {
+     "game_id": 401905692,
+     "field": "start_date",
+     "result": "different",
+     "sdv": "2027-03-06T05:00Z",
+     "espn": "2027-03-06T18:00Z",
+     "material": false
+    },
+    {
+     "game_id": 401905687,
+     "field": "start_date",
+     "result": "different",
+     "sdv": "2027-03-04T05:00Z",
+     "espn": "2027-03-05T01:00Z",
+     "material": false
+    },
+    {
+     "game_id": 401911927,
+     "field": "start_date",
+     "result": "different",
+     "sdv": "2027-02-27T05:00Z",
+     "espn": "2027-02-28T00:30Z",
+     "material": false
+    },
+    {
+     "game_id": 401911421,
+     "field": "start_date",
+     "result": "different",
+     "sdv": "2027-02-27T05:00Z",
+     "espn": "2027-02-27T22:00Z",
+     "material": false
+    }
+   ],
+   "status_type_short_detail": [
+    {
+     "game_id": 401911332,
+     "field": "status_type_short_detail",
+     "result": "different",
+     "sdv": "TBD",
+     "espn": "3/6 - 7:00 PM EST",
+     "material": false
+    },
+    {
+     "game_id": 401905692,
+     "field": "status_type_short_detail",
+     "result": "different",
+     "sdv": "TBD",
+     "espn": "3/6 - 1:00 PM EST",
+     "material": false
+    },
+    {
+     "game_id": 401905687,
+     "field": "status_type_short_detail",
+     "result": "different",
+     "sdv": "TBD",
+     "espn": "3/4 - 8:00 PM EST",
+     "material": false
+    },
+    {
+     "game_id": 401911927,
+     "field": "status_type_short_detail",
+     "result": "different",
+     "sdv": "TBD",
+     "espn": "2/27 - 7:30 PM EST",
+     "material": false
+    },
+    {
+     "game_id": 401911421,
+     "field": "status_type_short_detail",
+     "result": "different",
+     "sdv": "TBD",
+     "espn": "2/27 - 5:00 PM EST",
+     "material": false
+    }
+   ],
+   "time_valid": [
+    {
+     "game_id": 401911332,
+     "field": "time_valid",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": false
+    },
+    {
+     "game_id": 401905692,
+     "field": "time_valid",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": false
+    },
+    {
+     "game_id": 401905687,
+     "field": "time_valid",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": false
+    },
+    {
+     "game_id": 401911927,
+     "field": "time_valid",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": false
+    },
+    {
+     "game_id": 401911421,
+     "field": "time_valid",
+     "result": "different",
+     "sdv": "False",
+     "espn": "True",
+     "material": false
+    }
+   ],
+   "tournament_id": [
+    {
+     "game_id": 401911315,
+     "field": "tournament_id",
+     "result": "different",
+     "sdv": NaN,
+     "espn": "99.0",
+     "material": true
+    },
+    {
+     "game_id": 401911709,
+     "field": "tournament_id",
+     "result": "different",
+     "sdv": NaN,
+     "espn": "100.0",
+     "material": true
+    },
+    {
+     "game_id": 401911536,
+     "field": "tournament_id",
+     "result": "different",
+     "sdv": NaN,
+     "espn": "75.0",
+     "material": true
+    },
+    {
+     "game_id": 401911708,
+     "field": "tournament_id",
+     "result": "different",
+     "sdv": NaN,
+     "espn": "100.0",
+     "material": true
+    },
+    {
+     "game_id": 401911032,
+     "field": "tournament_id",
+     "result": "different",
+     "sdv": NaN,
+     "espn": "123.0",
+     "material": true
+    }
+   ],
+   "venue_address_city": [
+    {
+     "game_id": 401911216,
+     "field": "venue_address_city",
+     "result": "different",
+     "sdv": "Washington",
+     "espn": "Frisco",
+     "material": false
+    },
+    {
+     "game_id": 401911215,
+     "field": "venue_address_city",
+     "result": "different",
+     "sdv": "Washington",
+     "espn": "Frisco",
+     "material": false
+    },
+    {
+     "game_id": 401911235,
+     "field": "venue_address_city",
+     "result": "different",
+     "sdv": "Boca Raton",
+     "espn": "Frisco",
+     "material": false
+    },
+    {
+     "game_id": 401911463,
+     "field": "venue_address_city",
+     "result": "different",
+     "sdv": "Reno",
+     "espn": "Frisco",
+     "material": false
+    },
+    {
+     "game_id": 401911353,
+     "field": "venue_address_city",
+     "result": "different",
+     "sdv": "Phoenix",
+     "espn": "Jacksonville",
+     "material": false
+    }
+   ],
+   "venue_address_state": [
+    {
+     "game_id": 401911216,
+     "field": "venue_address_state",
+     "result": "different",
+     "sdv": "DC",
+     "espn": "TX",
+     "material": false
+    },
+    {
+     "game_id": 401911215,
+     "field": "venue_address_state",
+     "result": "different",
+     "sdv": "DC",
+     "espn": "TX",
+     "material": false
+    },
+    {
+     "game_id": 401911235,
+     "field": "venue_address_state",
+     "result": "different",
+     "sdv": "FL",
+     "espn": "TX",
+     "material": false
+    },
+    {
+     "game_id": 401911463,
+     "field": "venue_address_state",
+     "result": "different",
+     "sdv": "NV",
+     "espn": "TX",
+     "material": false
+    },
+    {
+     "game_id": 401911353,
+     "field": "venue_address_state",
+     "result": "different",
+     "sdv": "AZ",
+     "espn": "FL",
+     "material": false
+    }
+   ],
+   "venue_full_name": [
+    {
+     "game_id": 401912066,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Fant-Ewing Coliseum",
+     "espn": "b1Bank Fant Coliseum",
+     "material": false
+    },
+    {
+     "game_id": 401912053,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Fant-Ewing Coliseum",
+     "espn": "b1Bank Fant Coliseum",
+     "material": false
+    },
+    {
+     "game_id": 401912046,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Fant-Ewing Coliseum",
+     "espn": "b1Bank Fant Coliseum",
+     "material": false
+    },
+    {
+     "game_id": 401912028,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Fant-Ewing Coliseum",
+     "espn": "b1Bank Fant Coliseum",
+     "material": false
+    },
+    {
+     "game_id": 401912008,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Fant-Ewing Coliseum",
+     "espn": "b1Bank Fant Coliseum",
+     "material": false
+    }
+   ],
+   "venue_id": [
+    {
+     "game_id": 401911216,
+     "field": "venue_id",
+     "result": "different",
+     "sdv": "2125.0",
+     "espn": "2931.0",
+     "material": false
+    },
+    {
+     "game_id": 401911215,
+     "field": "venue_id",
+     "result": "different",
+     "sdv": "2125.0",
+     "espn": "2931.0",
+     "material": false
+    },
+    {
+     "game_id": 401911235,
+     "field": "venue_id",
+     "result": "different",
+     "sdv": "2110.0",
+     "espn": "2931.0",
+     "material": false
+    },
+    {
+     "game_id": 401911463,
+     "field": "venue_id",
+     "result": "different",
+     "sdv": "461.0",
+     "espn": "2931.0",
+     "material": false
+    },
+    {
+     "game_id": 401911353,
+     "field": "venue_id",
+     "result": "different",
+     "sdv": "4534.0",
+     "espn": "687.0",
+     "material": false
+    }
+   ]
+  },
+  "silver_fields": [
+   {
+    "field": "season",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "season_type",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "start_time_utc",
+    "games": 1625,
+    "equal": 1372,
+    "different": 253,
+    "examples": [
+     {
+      "game_id": 401902275,
+      "sdv": "2026-11-02 05:00:00+00:00",
+      "espn": "2026-11-03 00:00:00+00:00"
+     },
+     {
+      "game_id": 401902276,
+      "sdv": "2026-11-04 05:00:00+00:00",
+      "espn": "2026-11-05 00:00:00+00:00"
+     },
+     {
+      "game_id": 401902278,
+      "sdv": "2026-11-13 05:00:00+00:00",
+      "espn": "2026-11-13 23:30:00+00:00"
+     },
+     {
+      "game_id": 401902279,
+      "sdv": "2026-11-17 05:00:00+00:00",
+      "espn": "2026-11-18 00:00:00+00:00"
+     },
+     {
+      "game_id": 401902280,
+      "sdv": "2026-11-19 05:00:00+00:00",
+      "espn": "2026-11-20 00:00:00+00:00"
+     }
+    ]
+   },
+   {
+    "field": "neutral_site",
+    "games": 1625,
+    "equal": 1620,
+    "different": 5,
+    "examples": [
+     {
+      "game_id": 401911024,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911032,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911052,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911199,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911200,
+      "sdv": "False",
+      "espn": "True"
+     }
+    ]
+   },
+   {
+    "field": "conference_game",
+    "games": 1625,
+    "equal": 1607,
+    "different": 18,
+    "examples": [
+     {
+      "game_id": 401911950,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911951,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911958,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911970,
+      "sdv": "False",
+      "espn": "True"
+     },
+     {
+      "game_id": 401911975,
+      "sdv": "False",
+      "espn": "True"
+     }
+    ]
+   },
+   {
+    "field": "tournament_id",
+    "games": 1625,
+    "equal": 1617,
+    "different": 8,
+    "examples": [
+     {
+      "game_id": 401906807,
+      "sdv": "nan",
+      "espn": "85.0"
+     },
+     {
+      "game_id": 401909532,
+      "sdv": "nan",
+      "espn": "59.0"
+     },
+     {
+      "game_id": 401911032,
+      "sdv": "nan",
+      "espn": "123.0"
+     },
+     {
+      "game_id": 401911315,
+      "sdv": "nan",
+      "espn": "99.0"
+     },
+     {
+      "game_id": 401911535,
+      "sdv": "nan",
+      "espn": "115.0"
+     }
+    ]
+   },
+   {
+    "field": "notes",
+    "games": 1625,
+    "equal": 1579,
+    "different": 46,
+    "examples": [
+     {
+      "game_id": 401902281,
+      "sdv": "The Bad Boy Mowers Series",
+      "espn": "Bad Boy Mowers Series"
+     },
+     {
+      "game_id": 401906762,
+      "sdv": "Players Era Festival",
+      "espn": "Players Era Sixteen"
+     },
+     {
+      "game_id": 401906767,
+      "sdv": "",
+      "espn": "Bad Boy Mowers Series"
+     },
+     {
+      "game_id": 401906773,
+      "sdv": "Players Era Festival",
+      "espn": "Players Era Eight"
+     },
+     {
+      "game_id": 401906807,
+      "sdv": "",
+      "espn": "Fort Myers Tip-Off - Beach Division"
+     }
+    ]
+   },
+   {
+    "field": "venue_id",
+    "games": 1625,
+    "equal": 1594,
+    "different": 31,
+    "examples": [
+     {
+      "game_id": 401911024,
+      "sdv": "1895.0",
+      "espn": "12227.0"
+     },
+     {
+      "game_id": 401911028,
+      "sdv": "6018.0",
+      "espn": "348.0"
+     },
+     {
+      "game_id": 401911032,
+      "sdv": "4603.0",
+      "espn": "1899.0"
+     },
+     {
+      "game_id": 401911052,
+      "sdv": "7116.0",
+      "espn": "5986.0"
+     },
+     {
+      "game_id": 401911189,
+      "sdv": "1392.0",
+      "espn": "1828.0"
+     }
+    ]
+   },
+   {
+    "field": "venue_name",
+    "games": 1625,
+    "equal": 1583,
+    "different": 42,
+    "examples": [
+     {
+      "game_id": 401910996,
+      "sdv": "Fant-Ewing Coliseum",
+      "espn": "b1Bank Fant Coliseum"
+     },
+     {
+      "game_id": 401911024,
+      "sdv": "Credit Union 1 Arena",
+      "espn": "The Reef"
+     },
+     {
+      "game_id": 401911028,
+      "sdv": "Cabot Center",
+      "espn": "Kohl Center"
+     },
+     {
+      "game_id": 401911032,
+      "sdv": "SECU Arena",
+      "espn": "The Palestra"
+     },
+     {
+      "game_id": 401911052,
+      "sdv": "Qubein Center",
+      "espn": "Novant Health Fieldhouse"
+     }
+    ]
+   },
+   {
+    "field": "venue_city",
+    "games": 1625,
+    "equal": 1596,
+    "different": 29,
+    "examples": [
+     {
+      "game_id": 401911024,
+      "sdv": "Chicago",
+      "espn": "Jacksonville"
+     },
+     {
+      "game_id": 401911028,
+      "sdv": "Boston",
+      "espn": "Madison"
+     },
+     {
+      "game_id": 401911032,
+      "sdv": "Towson",
+      "espn": "Philadelphia"
+     },
+     {
+      "game_id": 401911052,
+      "sdv": "High Point",
+      "espn": "Greensboro"
+     },
+     {
+      "game_id": 401911189,
+      "sdv": "Memphis",
+      "espn": "Columbus"
+     }
+    ]
+   },
+   {
+    "field": "venue_state",
+    "games": 1625,
+    "equal": 1601,
+    "different": 24,
+    "examples": [
+     {
+      "game_id": 401911024,
+      "sdv": "IL",
+      "espn": "FL"
+     },
+     {
+      "game_id": 401911028,
+      "sdv": "MA",
+      "espn": "WI"
+     },
+     {
+      "game_id": 401911032,
+      "sdv": "MD",
+      "espn": "PA"
+     },
+     {
+      "game_id": 401911189,
+      "sdv": "TN",
+      "espn": "OH"
+     },
+     {
+      "game_id": 401911199,
+      "sdv": "OR",
+      "espn": "CA"
+     }
+    ]
+   },
+   {
+    "field": "home_espn_id",
+    "games": 1625,
+    "equal": 1611,
+    "different": 14,
+    "examples": [
+     {
+      "game_id": 401906773,
+      "sdv": "57",
+      "espn": "87"
+     },
+     {
+      "game_id": 401906806,
+      "sdv": "201",
+      "espn": "221"
+     },
+     {
+      "game_id": 401906807,
+      "sdv": "201",
+      "espn": "2509"
+     },
+     {
+      "game_id": 401906853,
+      "sdv": "2633",
+      "espn": "120"
+     },
+     {
+      "game_id": 401909505,
+      "sdv": "305",
+      "espn": "2509"
+     }
+    ]
+   },
+   {
+    "field": "away_espn_id",
+    "games": 1625,
+    "equal": 1610,
+    "different": 15,
+    "examples": [
+     {
+      "game_id": 401906773,
+      "sdv": "87",
+      "espn": "57"
+     },
+     {
+      "game_id": 401906806,
+      "sdv": "221",
+      "espn": "201"
+     },
+     {
+      "game_id": 401906807,
+      "sdv": "2509",
+      "espn": "201"
+     },
+     {
+      "game_id": 401906853,
+      "sdv": "120",
+      "espn": "2633"
+     },
+     {
+      "game_id": 401909505,
+      "sdv": "2509",
+      "espn": "305"
+     }
+    ]
+   },
+   {
+    "field": "home_name",
+    "games": 1625,
+    "equal": 1611,
+    "different": 14,
+    "examples": [
+     {
+      "game_id": 401906773,
+      "sdv": "Florida",
+      "espn": "Notre Dame"
+     },
+     {
+      "game_id": 401906806,
+      "sdv": "Oklahoma",
+      "espn": "Pittsburgh"
+     },
+     {
+      "game_id": 401906807,
+      "sdv": "Oklahoma",
+      "espn": "Purdue"
+     },
+     {
+      "game_id": 401906853,
+      "sdv": "Tennessee",
+      "espn": "Maryland"
+     },
+     {
+      "game_id": 401909505,
+      "sdv": "DePaul",
+      "espn": "Purdue"
+     }
+    ]
+   },
+   {
+    "field": "away_name",
+    "games": 1625,
+    "equal": 1610,
+    "different": 15,
+    "examples": [
+     {
+      "game_id": 401906773,
+      "sdv": "Notre Dame",
+      "espn": "Florida"
+     },
+     {
+      "game_id": 401906806,
+      "sdv": "Pittsburgh",
+      "espn": "Oklahoma"
+     },
+     {
+      "game_id": 401906807,
+      "sdv": "Purdue",
+      "espn": "Oklahoma"
+     },
+     {
+      "game_id": 401906853,
+      "sdv": "Maryland",
+      "espn": "Tennessee"
+     },
+     {
+      "game_id": 401909505,
+      "sdv": "Purdue",
+      "espn": "DePaul"
+     }
+    ]
+   },
+   {
+    "field": "home_conference_id",
+    "games": 1625,
+    "equal": 1601,
+    "different": 24,
+    "examples": [
+     {
+      "game_id": 401906773,
+      "sdv": "23.0",
+      "espn": "2.0"
+     },
+     {
+      "game_id": 401906806,
+      "sdv": "23.0",
+      "espn": "2.0"
+     },
+     {
+      "game_id": 401906807,
+      "sdv": "23.0",
+      "espn": "7.0"
+     },
+     {
+      "game_id": 401906853,
+      "sdv": "23.0",
+      "espn": "7.0"
+     },
+     {
+      "game_id": 401909505,
+      "sdv": "4.0",
+      "espn": "7.0"
+     }
+    ]
+   },
+   {
+    "field": "away_conference_id",
+    "games": 1625,
+    "equal": 1602,
+    "different": 23,
+    "examples": [
+     {
+      "game_id": 401906773,
+      "sdv": "2.0",
+      "espn": "23.0"
+     },
+     {
+      "game_id": 401906806,
+      "sdv": "2.0",
+      "espn": "23.0"
+     },
+     {
+      "game_id": 401906807,
+      "sdv": "7.0",
+      "espn": "23.0"
+     },
+     {
+      "game_id": 401906853,
+      "sdv": "7.0",
+      "espn": "23.0"
+     },
+     {
+      "game_id": 401909505,
+      "sdv": "7.0",
+      "espn": "4.0"
+     }
+    ]
+   },
+   {
+    "field": "home_score",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "away_score",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "periods",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "status",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "completed",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "game_date_et",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "available_at",
+    "games": 1625,
+    "equal": 1372,
+    "different": 253,
+    "examples": [
+     {
+      "game_id": 401902275,
+      "sdv": "2026-11-02 08:00:00+00:00",
+      "espn": "2026-11-03 03:00:00+00:00"
+     },
+     {
+      "game_id": 401902276,
+      "sdv": "2026-11-04 08:00:00+00:00",
+      "espn": "2026-11-05 03:00:00+00:00"
+     },
+     {
+      "game_id": 401902278,
+      "sdv": "2026-11-13 08:00:00+00:00",
+      "espn": "2026-11-14 02:30:00+00:00"
+     },
+     {
+      "game_id": 401902279,
+      "sdv": "2026-11-17 08:00:00+00:00",
+      "espn": "2026-11-18 03:00:00+00:00"
+     },
+     {
+      "game_id": 401902280,
+      "sdv": "2026-11-19 08:00:00+00:00",
+      "espn": "2026-11-20 03:00:00+00:00"
+     }
+    ]
+   },
+   {
+    "field": "n_ot",
+    "games": 1625,
+    "equal": 1625,
+    "different": 0,
+    "examples": []
+   }
+  ]
+ },
+ "completed_season": {
+  "season": 2026,
+  "dates": 37,
+  "failed_dates": [],
+  "espn_games": 1391,
+  "sdv_games_on_dates": 1390,
+  "shared_games": 1391,
+  "espn_only": 0,
+  "sdv_only_on_dates": 0,
+  "raw_fields": [
+   {
+    "field": "away_conference_id",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "away_id",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "away_location",
+    "different": 8,
+    "equal": 1383,
+    "representation": 0
+   },
+   {
+    "field": "away_score",
+    "different": 0,
+    "equal": 0,
+    "representation": 1391
+   },
+   {
+    "field": "conference_competition",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "date",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "home_conference_id",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "home_id",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "home_location",
+    "different": 4,
+    "equal": 1387,
+    "representation": 0
+   },
+   {
+    "field": "home_score",
+    "different": 0,
+    "equal": 0,
+    "representation": 1391
+   },
+   {
+    "field": "neutral_site",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "notes_headline",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "season",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "season_type",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "start_date",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "status_period",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "status_type_completed",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "status_type_name",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "status_type_short_detail",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "status_type_state",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "time_valid",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "tournament_id",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "venue_address_city",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "venue_address_state",
+    "different": 0,
+    "equal": 1391,
+    "representation": 0
+   },
+   {
+    "field": "venue_full_name",
+    "different": 14,
+    "equal": 1377,
+    "representation": 0
+   },
+   {
+    "field": "venue_id",
+    "different": 0,
+    "equal": 0,
+    "representation": 1391
+   }
+  ],
+  "raw_differences": {
+   "away_location": 8,
+   "home_location": 4,
+   "venue_full_name": 14
+  },
+  "raw_difference_examples": {
+   "away_location": [
+    {
+     "game_id": 401858194,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "St. Thomas-Minnesota",
+     "espn": "St. Thomas",
+     "material": false
+    },
+    {
+     "game_id": 401851607,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "New Orleans",
+     "espn": "LSU New Orleans",
+     "material": false
+    },
+    {
+     "game_id": 401825580,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "St. Thomas-Minnesota",
+     "espn": "St. Thomas",
+     "material": false
+    },
+    {
+     "game_id": 401808898,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "New Orleans",
+     "espn": "LSU New Orleans",
+     "material": false
+    },
+    {
+     "game_id": 401808895,
+     "field": "away_location",
+     "result": "different",
+     "sdv": "New Orleans",
+     "espn": "LSU New Orleans",
+     "material": false
+    }
+   ],
+   "home_location": [
+    {
+     "game_id": 401818414,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "St. Thomas-Minnesota",
+     "espn": "St. Thomas",
+     "material": false
+    },
+    {
+     "game_id": 401808911,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "New Orleans",
+     "espn": "LSU New Orleans",
+     "material": false
+    },
+    {
+     "game_id": 401829482,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "St. Thomas-Minnesota",
+     "espn": "St. Thomas",
+     "material": false
+    },
+    {
+     "game_id": 401826919,
+     "field": "home_location",
+     "result": "different",
+     "sdv": "St. Thomas-Minnesota",
+     "espn": "St. Thomas",
+     "material": false
+    }
+   ],
+   "venue_full_name": [
+    {
+     "game_id": 401851521,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Steinberg Wellness Center",
+     "espn": "Brooklyn Athletic Center",
+     "material": false
+    },
+    {
+     "game_id": 401812373,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Steinberg Wellness Center",
+     "espn": "Brooklyn Athletic Center",
+     "material": false
+    },
+    {
+     "game_id": 401845842,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Fant-Ewing Coliseum",
+     "espn": "b1Bank Fant Coliseum",
+     "material": false
+    },
+    {
+     "game_id": 401808649,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Fant-Ewing Coliseum",
+     "espn": "b1Bank Fant Coliseum",
+     "material": false
+    },
+    {
+     "game_id": 401812370,
+     "field": "venue_full_name",
+     "result": "different",
+     "sdv": "Steinberg Wellness Center",
+     "espn": "Brooklyn Athletic Center",
+     "material": false
+    }
+   ]
+  },
+  "silver_fields": [
+   {
+    "field": "season",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "season_type",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "start_time_utc",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "neutral_site",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "conference_game",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "tournament_id",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "notes",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "venue_id",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "venue_name",
+    "games": 1391,
+    "equal": 1377,
+    "different": 14,
+    "examples": [
+     {
+      "game_id": 401808649,
+      "sdv": "Fant-Ewing Coliseum",
+      "espn": "b1Bank Fant Coliseum"
+     },
+     {
+      "game_id": 401812354,
+      "sdv": "Steinberg Wellness Center",
+      "espn": "Brooklyn Athletic Center"
+     },
+     {
+      "game_id": 401812365,
+      "sdv": "Steinberg Wellness Center",
+      "espn": "Brooklyn Athletic Center"
+     },
+     {
+      "game_id": 401812367,
+      "sdv": "Steinberg Wellness Center",
+      "espn": "Brooklyn Athletic Center"
+     },
+     {
+      "game_id": 401812370,
+      "sdv": "Steinberg Wellness Center",
+      "espn": "Brooklyn Athletic Center"
+     }
+    ]
+   },
+   {
+    "field": "venue_city",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "venue_state",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "home_espn_id",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "away_espn_id",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "home_name",
+    "games": 1391,
+    "equal": 1387,
+    "different": 4,
+    "examples": [
+     {
+      "game_id": 401808911,
+      "sdv": "New Orleans",
+      "espn": "LSU New Orleans"
+     },
+     {
+      "game_id": 401818414,
+      "sdv": "St. Thomas-Minnesota",
+      "espn": "St. Thomas"
+     },
+     {
+      "game_id": 401826919,
+      "sdv": "St. Thomas-Minnesota",
+      "espn": "St. Thomas"
+     },
+     {
+      "game_id": 401829482,
+      "sdv": "St. Thomas-Minnesota",
+      "espn": "St. Thomas"
+     }
+    ]
+   },
+   {
+    "field": "away_name",
+    "games": 1391,
+    "equal": 1383,
+    "different": 8,
+    "examples": [
+     {
+      "game_id": 401808890,
+      "sdv": "New Orleans",
+      "espn": "LSU New Orleans"
+     },
+     {
+      "game_id": 401808895,
+      "sdv": "New Orleans",
+      "espn": "LSU New Orleans"
+     },
+     {
+      "game_id": 401808898,
+      "sdv": "New Orleans",
+      "espn": "LSU New Orleans"
+     },
+     {
+      "game_id": 401825580,
+      "sdv": "St. Thomas-Minnesota",
+      "espn": "St. Thomas"
+     },
+     {
+      "game_id": 401829347,
+      "sdv": "St. Thomas-Minnesota",
+      "espn": "St. Thomas"
+     }
+    ]
+   },
+   {
+    "field": "home_conference_id",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "away_conference_id",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "home_score",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "away_score",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "periods",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "status",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "completed",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "game_date_et",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "available_at",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   },
+   {
+    "field": "n_ot",
+    "games": 1391,
+    "equal": 1391,
+    "different": 0,
+    "examples": []
+   }
+  ]
+ }
+}
