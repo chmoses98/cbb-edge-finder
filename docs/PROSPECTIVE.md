@@ -207,10 +207,44 @@ python -m cbb_edge.ops.readiness --rosters <roster-archive> \
     [--from 2026-11-02T00:00:00Z] [--days 7] --out ops_out
 ```
 
-Before the opener, the readiness report previews opening week. ESPN lists a game with no
-set tip time at 00:00 ET of its date ("TBD"). The frozen projection step only projects
-games whose listed tip is in the future, so a TBD game's last projection chance is the
-evening before.
+Before the opener, the readiness report previews opening week.
+
+## Unknown tip times (Wave 10)
+
+ESPN lists a game with no set tip time at 00:00 ET of its date: `timeValid` is false and
+the status detail reads "M/D - TBD". `cbb_edge/ops/schedule_state.py` classifies each
+listing from pre-game metadata only:
+
+| state | evidence |
+|---|---|
+| ANNOUNCED | `timeValid` true (a real time, midnight included) |
+| TBD | `timeValid` false and the detail says TBD |
+| PLACEHOLDER | `timeValid` false, no TBD detail |
+| UNKNOWN | no `timeValid` field |
+
+The rules:
+
+- **Projection.** The frozen rule (project games whose listed tip is in the next 30 h)
+  is unchanged. In addition, a game whose 00:00 ET placeholder has passed is projected
+  **only while this run's live ESPN scoreboard shows it positively not started**
+  (`state` "pre", status scheduled / pregame / TBD), its date is within the horizon, and
+  its time is unannounced or still ahead.
+- **Game start.** Any game the scoreboard shows in progress, at halftime, final,
+  delayed, postponed, cancelled or in any unrecognised state is never projected,
+  whatever its listing says. No live evidence means it is not projected; it is reported
+  as `unprotected_no_live_evidence`.
+- **Evidence.** Every run's live observations are archived with its records
+  (`schedule_obs/<stamp>.jsonl`). Each record carries a `schedule` block: listed start,
+  window reason, live state.
+- **Tip-time history.** The append-only `schedule-archive` branch keeps every game's
+  first observed date and time, its time state, every later change with the time it
+  was observed, and the final announced tip. It also keeps the not-started evidence for
+  unannounced games (hourly from ops-watch; also every projection run).
+- **Scoring.** For a game whose final listing never announced a time, the tip used by
+  the gate is the provable lower bound on the start: the later of the placeholder and
+  the last live "pre" observation. A required record not provably made (and committed)
+  before the start is **UNSCORABLE** (`tbd_start_unprovable`). It is never guessed or
+  reconstructed. The Wave 9 gate checks are unchanged.
 
 To rehearse the whole production chain in a sandbox:
 

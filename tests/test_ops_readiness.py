@@ -127,3 +127,35 @@ def test_readiness_answers_and_tbd_tips(tmp_path, monkeypatch):
     assert "1-8. Readiness" in R.markdown(r) and not [
         a for a in r["alerts"] if a["severity"] == "CRITICAL"
     ]
+
+
+def test_game_missing_from_schedule_source_is_never_silent(tmp_path, monkeypatch):
+    """Wave 10: a D-I game the live scoreboard lists but SDV does not (SDV lag) cannot be
+    projected; it must appear in the readiness table and raise an alert (CRITICAL
+    within 30 h of tip)."""
+    from cbb_edge.data.ids import teams
+
+    _patch(monkeypatch)
+    monkeypatch.setattr(
+        teams, "canonical_from_espn_in", lambda e, s: {1: "T1", 2: "T2", 5: "T5"}.get(e)
+    )
+    obs = pd.DataFrame([
+        {"espn_game_id": g, "observed_at": T("2026-11-02T03:00Z"), "source": "espn_scoreboard",
+         "start_utc": tip, "date_et": tip[:10], "time_valid": True, "time_state": "ANNOUNCED",
+         "state": "pre", "status_name": st, "short_detail": "", "home_espn": 1, "away_espn": h}
+        for g, tip, h, st in ((77, "2026-11-02T23:00:00+00:00", 2, "STATUS_SCHEDULED"),
+                              (78, "2026-11-08T23:00:00+00:00", 5, "STATUS_SCHEDULED"),
+                              (79, "2026-11-02T23:00:00+00:00", 2, "STATUS_POSTPONED"))])  # fmt: skip
+    now = T("2026-11-02T03:00Z")
+    r = R.build(_sched(), tmp_path, None, None, now, now, 7, 2027, V,
+                {"T1", "T2", "T3", "T4", "T5", "T6"}, None, None, obs)  # fmt: skip
+    a = {x["code"]: x for x in r["alerts"]}
+    assert a["GAME_MISSING_FROM_SCHEDULE_SOURCE_IMMINENT"]["espn_game_id"] == 77
+    assert a["GAME_MISSING_FROM_SCHEDULE_SOURCE"]["espn_game_ids"] == [78]
+    g = r["games"].set_index("espn_game_id")
+    assert (
+        not g.loc[77, "in_schedule_source"]
+        and "missing from the projection schedule" in g.loc[77, "why"]
+    )
+    assert 79 not in g.index  # postponed: not owed
+    assert "MISSING from the projection schedule source" in R.markdown(r)

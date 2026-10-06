@@ -48,7 +48,8 @@ ANNOUNCED, TBD, PLACEHOLDER, UNKNOWN = "ANNOUNCED", "TBD", "PLACEHOLDER", "UNKNO
 PRE_NAMES = {"STATUS_SCHEDULED", "STATUS_PREGAME", "STATUS_TBD"}
 NOT_PLAYED = {"STATUS_POSTPONED", "STATUS_CANCELED", "STATUS_CANCELLED", "STATUS_FORFEIT"}
 OBS_COLS = ["espn_game_id", "observed_at", "source", "start_utc", "date_et", "time_valid",
-            "time_state", "state", "status_name", "short_detail", "home_espn", "away_espn"]  # fmt: skip
+            "time_state", "state", "status_name", "short_detail", "home_espn", "away_espn",
+            "neutral_site", "conference_game"]  # fmt: skip
 
 
 def _ts(x: object) -> pd.Timestamp:
@@ -91,6 +92,8 @@ def parse_scoreboard(js: dict[str, Any], observed_at: str) -> list[dict[str, Any
             "short_detail": st.get("shortDetail"),
             "home_espn": None if teams.get("home") is None else int(teams["home"]),
             "away_espn": None if teams.get("away") is None else int(teams["away"]),
+            "neutral_site": comp.get("neutralSite"),
+            "conference_game": comp.get("conferenceCompetition"),
         })  # fmt: skip
     return out
 
