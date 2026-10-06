@@ -42,6 +42,7 @@ The full rebuild (bronze → silver → tuning → backtest → Sift outputs) is
 | `docs/LEAKAGE.md` | leakage risks and the tests that guard each one |
 | `docs/KALSHI_CAPTURE.md` | Kalshi discovery, taxonomy, snapshot archive |
 | `docs/SIFT_SCHEMA.md` | stable output contract for Sift Sports Intelligence |
+| `docs/SIFT_APP.md` | the `edge_finder.app.v1` publication Sift reads (`app-data` branch), projection selection rules |
 | `research/REGISTRY.md` | season roles, arms, preregistered hypotheses |
 | `research/reports/BASELINE.md` | PR #1 walk-forward results |
 | `research/reports/WAVE2.md` | wave-2 PURE_BASKETBALL results (player, shot, context, pace, uncertainty, residuals) |
