@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from datetime import UTC, datetime
@@ -34,6 +35,44 @@ from cbb_edge.players.stints import build_season as build_stints
 
 HIST = ("schedules", "team_box", "player_box", "team_crosswalk")
 NCAA = ("ncaa_possessions", "ncaa_lineups")
+
+
+_EVIDENCE: dict[str, dict[str, str | None]] = {}
+
+
+def evidence_hashes(roster_dir: Path, truth_stamp: str | None) -> dict[str, str | None]:
+    """sha256 of the truth snapshot and official-page files a P-ROSTER-1 record used."""
+    from cbb_edge.rosters.prospective_score import evidence_files
+
+    if not truth_stamp:
+        return {}
+    if truth_stamp not in _EVIDENCE:
+        _EVIDENCE[truth_stamp] = {
+            k: hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
+            for k, p in evidence_files(roster_dir, truth_stamp).items()
+        }
+    return _EVIDENCE[truth_stamp]
+
+
+def write_manifest(out: Path, now: pd.Timestamp, code_sha: str | None,
+                   roster_commit: str | None) -> Path | None:  # fmt: skip
+    """Wave 9: one manifest per run, ``manifests/<stamp>.json``: sha256 of every record
+    this run wrote, committed with them. The scorer's pre-tip gate requires each scored
+    record to match its manifest entry (an archived file that later changed fails)."""
+    files = {
+        str(f.relative_to(out)): hashlib.sha256(f.read_bytes()).hexdigest()
+        for f in sorted(out.rglob("*.json"))
+        if f.parts[len(out.parts)] != "manifests"
+    }
+    if not files:
+        return None
+    stamp = now.strftime("%Y%m%dT%H%M%SZ")
+    p = out / "manifests" / f"{stamp}.json"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps({"as_of": now.isoformat(), "code_sha": code_sha,
+                             "roster_archive_commit": roster_commit, "files": files},
+                            indent=1, sort_keys=True))  # fmt: skip
+    return p
 
 
 def main() -> None:
@@ -110,6 +149,11 @@ def main() -> None:
                     r["prospective"]["role"] = "challenger_roster_overlay"
                     r["prospective"]["code_sha"] = code_sha
                     r["roster"]["truth_archive_commit"] = roster_commit
+                    # Wave 9: hashes of the exact pre-tip evidence this record used, so
+                    # a later replacement of any snapshot file is detectable
+                    r["roster"]["truth_files_sha256"] = evidence_hashes(
+                        Path(a.roster_dir), r["roster"].get("truth_snapshot")
+                    )
                 out[f"{version}+roster"] = write_archive(ro, Path(a.out))
             except Exception as e:  # noqa: BLE001
                 failed[f"{version}+roster"] = f"{type(e).__name__}: {e}"
@@ -120,6 +164,7 @@ def main() -> None:
                 r["prospective"]["role"] = "challenger_availability_overlay"
                 r["prospective"]["code_sha"] = code_sha
             out[f"{version}+avail"] = write_archive(av, Path(a.out))
+    write_manifest(Path(a.out), now, code_sha, roster_commit)
     print(
         json.dumps(
             {"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out, "failed": failed}

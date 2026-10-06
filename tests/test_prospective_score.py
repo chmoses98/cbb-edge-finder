@@ -96,7 +96,7 @@ def test_score_summary_slices_and_dashboard_show_n(tmp_path):
         r["_path"], r["_sha256"] = f"r{i}.json", f"h{i}"
     res = pd.DataFrame({"espn_game_id": range(1, 31), "result_margin": rng.normal(1, 10, 30),
                         "result_total": 140.0})  # fmt: skip
-    frames, s = ps.score(recs, res, roster_archive=arch, d1_teams={"T1", "T2"})
+    frames, s = ps.score(recs, res, roster_archive=arch, d1_teams={"T1", "T2"}, enforce_gate=False)
     assert s["settled_paired_games"] == 30
     assert s["primary"]["game_1"]["N"] == 20 and s["primary"]["games_2_3"]["N"] == 10
     assert s["primary"]["game_1"]["paired_abs_change_ci90_day_bootstrap"] is not None
@@ -113,7 +113,9 @@ def test_score_summary_slices_and_dashboard_show_n(tmp_path):
     assert "**Settled paired games: 30**" in md and "| game_1 | **20** |" in md
     # deterministic: identical inputs -> byte-identical outputs
     ps.write(tmp_path / "o1", frames, s, "x")
-    frames2, s2 = ps.score(recs, res, roster_archive=arch, d1_teams={"T1", "T2"})
+    frames2, s2 = ps.score(
+        recs, res, roster_archive=arch, d1_teams={"T1", "T2"}, enforce_gate=False
+    )
     ps.write(tmp_path / "o2", frames2, s2, "x")
     for f in (tmp_path / "o1").iterdir():
         assert f.read_bytes() == (tmp_path / "o2" / f.name).read_bytes(), f.name
@@ -174,8 +176,14 @@ def test_membership_keeps_history_and_marks_2026_27_changes():
     assert not membership.is_member("T0293", 2027) and membership.is_member("T0293", 2026)
     uwf = membership.members(2027)
     uwf = uwf[uwf["school"] == "University of West Florida"].iloc[0]
-    assert pd.isna(uwf["team_id"]) and uwf["espn_team_id"] == 2697
-    assert uwf["status"] == "MEMBER_NO_CANONICAL_ID" and "exact location" in uwf["evidence_detail"]
+    assert uwf["team_id"] == "T0374" and uwf["espn_team_id"] == 2697  # Wave 9
+    assert uwf["status"] == "MEMBER"
+    assert (
+        not (membership.table()["team_id"] == "T0374")
+        .loc[lambda s: s]
+        .index.isin(membership.table().index[membership.table()["season"] < 2027])
+        .any()
+    )  # never backfilled
     assert len(membership.members(2027)) == 365 and len(membership.members(2026)) == 365
     tr = membership.transitions()["2026->2027"]
     assert {"espn_team_id": 2598, "change": "left"} in tr
@@ -251,7 +259,9 @@ def test_full_path_with_box_scores_and_overlay_confidence(tmp_path):
                         "player_id": [f"P{i}" for i in range(8)] + ["X1"],
                         "minutes": [30, 30, 30, 30, 30, 20, 15, 15.0, 0.0],
                         "starter": [True] * 5 + [False] * 4})  # fmt: skip
-    frames, s = ps.score(recs, res, roster_archive=arch, box=box, games=games, d1_teams={"T1"})
+    frames, s = ps.score(
+        recs, res, roster_archive=arch, box=box, games=games, d1_teams={"T1"}, enforce_gate=False
+    )
     assert len(frames["false_inclusion_realized"]) and len(frames["rotation_validation"])
     rv = frames["rotation_validation"].iloc[0]
     assert np.isclose(rv["predicted_minutes_on_non_players"], 16.0)  # P8, P9 never played

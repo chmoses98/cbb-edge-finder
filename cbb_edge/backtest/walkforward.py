@@ -317,13 +317,16 @@ def run(
 
     team_ids = sorted(_registry()["team_id"].tolist())
     prev_end: dict[str, Fit] | None = initial_end
+    # a checkpoint written before a team entered D-I lists its teams in its own order
+    # (Wave 9); a replay's own end-of-season fits always use the registry's order
+    prev_ids = list(getattr(initial_end, "team_ids", team_ids))
     all_states = []
     for season in seasons:
         tgs = d1_rows(tg[tg["season"] == season])
         if prev_end is None:
             pri = default_priors(team_ids, tgs)
         else:
-            pri = priors_from_previous(team_ids, team_ids, prev_end, cfg)
+            pri = priors_from_previous(team_ids, prev_ids, prev_end, cfg)
         pg_prev = pg[pg["season"] == season - 1] if pg is not None else None
         pg_cur = pg[pg["season"] == season] if pg is not None else None
         states, end = replay_season(season, games, tg, pri, cfg, pg_prev, pg_cur, prior_hook)
@@ -331,7 +334,7 @@ def run(
             states["season"] = season
             all_states.append(states)
         if end:
-            prev_end = end
+            prev_end, prev_ids = end, team_ids
             if end_fits_out is not None:
                 end_fits_out[season] = end
         if verbose:

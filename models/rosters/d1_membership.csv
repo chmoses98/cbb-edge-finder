@@ -7355,368 +7355,368 @@ season,team_id,espn_team_id,ncaa_org_id,school,conference,status,evidence,eviden
 2026,T0333,3084,30024,Utah Valley University,,MEMBER,silver_d1_membership,silver/build.py d1_membership (>= D1_MIN_GAMES listed games)
 2026,T0361,3101,30095,Utah Tech University,,MEMBER,silver_d1_membership,silver/build.py d1_membership (>= D1_MIN_GAMES listed games)
 2026,T0334,112358,361,Long Island University,,MEMBER,silver_d1_membership,silver/build.py d1_membership (>= D1_MIN_GAMES listed games)
-2027,T0001,2,37,Auburn University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0003,5,9,University of Alabama at Birmingham,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0004,6,646,University of South Alabama,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0005,8,31,"University of Arkansas, Fayetteville",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0006,9,28,Arizona State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0007,12,29,University of Arizona,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0008,13,90,California Polytechnic State University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0009,16,102,"California State University, Sacramento",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0010,21,626,San Diego State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0011,23,630,San Jose State University,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0012,24,674,Stanford University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0013,25,107,"University of California, Berkeley",Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0014,26,110,"University of California, Los Angeles",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0015,27,111,"University of California, Riverside",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0358,28,112,"University of California, San Diego",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0016,30,657,University of Southern California,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0017,36,156,Colorado State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0018,38,157,University of Colorado Boulder,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0019,41,164,University of Connecticut,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0021,43,813,Yale University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0022,44,23,American University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0023,45,249,George Washington University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0024,46,251,Georgetown University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0025,47,290,Howard University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0026,48,180,University of Delaware,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0027,50,228,Florida A&M University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0028,52,234,Florida State University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0029,55,315,Jacksonville State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0030,56,678,Stetson University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0031,57,235,University of Florida,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0032,58,651,University of South Florida,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0033,59,255,Georgia Institute of Technology,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0034,61,257,University of Georgia,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0035,62,277,"University of Hawaii, Manoa",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0036,66,311,Iowa State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0037,68,66,Boise State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0038,70,295,University of Idaho,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0039,71,72,Bradley University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0040,77,509,Northwestern University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0041,79,659,Southern Illinois University at Carbondale,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0042,82,302,University of Illinois Chicago,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0043,84,306,"Indiana University, Bloomington",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0044,85,2699,Indiana University Indianapolis,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0045,87,513,University of Notre Dame,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0365,88,661,University of Southern Indiana,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0359,91,52,Bellarmine University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0046,93,454,Murray State University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0350,94,505,Northern Kentucky University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0047,96,334,University of Kentucky,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0048,97,367,University of Louisville,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0049,98,772,Western Kentucky University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0050,99,365,Louisiana State University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0051,103,67,Boston College,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0052,104,68,Boston University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0053,107,285,College of the Holy Cross,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0054,108,275,Harvard University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0055,111,500,Northeastern University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0056,113,400,"University of Massachusetts, Amherst",Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0057,116,450,Mount St. Mary's University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0058,119,711,Towson University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0059,120,392,"University of Maryland, College Park",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0060,127,416,Michigan State University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0061,130,418,University of Michigan,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0062,135,428,"University of Minnesota, Twin Cities",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0063,139,609,Saint Louis University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0064,140,2707,University of Missouri-Kansas City,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0065,142,434,"University of Missouri, Columbia",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0066,145,433,University of Mississippi,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0067,147,440,Montana State University-Bozeman,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0068,149,441,University of Montana,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0069,150,193,Duke University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0070,151,196,East Carolina University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0071,152,490,North Carolina State University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0072,153,457,"University of North Carolina, Chapel Hill",Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0073,154,749,Wake Forest University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0343,155,494,University of North Dakota,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0074,156,169,Creighton University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0075,158,463,University of Nebraska-Lincoln,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0076,159,172,Dartmouth College,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0077,160,469,University of New Hampshire,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0078,161,222,"Fairleigh Dickinson University, Metropolitan Campus",Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0079,163,554,Princeton University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0080,164,587,"Rutgers, The State University of New Jersey, New Brunswick",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0081,166,472,New Mexico State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0082,167,473,University of New Mexico,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0083,171,158,Columbia University-Barnard College,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0084,172,167,Cornell University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0085,179,596,St. Bonaventure University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0086,183,688,Syracuse University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0087,189,71,Bowling Green State University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0088,193,414,Miami University (Ohio),Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0089,194,518,The Ohio State University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0090,195,519,Ohio University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0091,197,521,Oklahoma State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0092,198,527,Oral Roberts University,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0093,201,522,University of Oklahoma,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0094,202,719,The University of Tulsa,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0095,204,528,Oregon State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0096,213,539,Pennsylvania State University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0097,218,690,Temple University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0098,219,540,University of Pennsylvania,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0099,221,545,University of Pittsburgh,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0100,222,739,Villanova University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0101,225,80,Brown University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0102,227,572,University of Rhode Island,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0103,228,147,Clemson University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0104,231,244,Furman University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0105,232,1014,College of Charleston (South Carolina),Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0344,233,650,University of South Dakota,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0106,235,404,University of Memphis,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0107,236,693,University of Tennessee at Chattanooga,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0108,238,736,Vanderbilt University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0109,239,51,Baylor University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0110,242,574,Rice University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0111,245,697,"Texas A&M University, College Station",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0112,248,288,University of Houston,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0113,249,497,University of North Texas,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0114,250,702,University of Texas at Arlington,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0115,251,703,University of Texas at Austin,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0116,252,77,Brigham Young University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0117,253,667,Southern Utah University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0118,254,732,University of Utah,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0119,256,317,James Madison University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0120,257,575,University of Richmond,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0121,258,746,University of Virginia,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0122,259,742,Virginia Polytechnic Institute and State University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0123,261,738,University of Vermont,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0124,264,756,University of Washington,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0125,265,754,Washington State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0126,269,387,Marquette University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0127,270,797,University of Wisconsin-Milwaukee,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0128,275,796,University of Wisconsin-Madison,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0129,276,388,Marshall University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0130,277,768,West Virginia University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0131,278,96,"California State University, Fresno",Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0132,279,534,University of the Pacific,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0133,282,305,Indiana State University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0366,284,682,Stonehill College,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0134,288,28600,Lipscomb University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0135,290,253,Georgia Southern University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0136,292,536,The University of Texas Rio Grande Valley,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0137,294,316,Jacksonville University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0138,295,523,Old Dominion University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0139,299,99,Long Beach State University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0140,300,109,"University of California, Irvine",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0141,301,627,University of San Diego,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0142,302,108,"University of California, Davis",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0143,304,294,Idaho State University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0144,305,176,DePaul University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0145,309,671,University of Louisiana at Lafayette,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0146,311,380,University of Maine,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0147,314,310,Iona University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0148,315,482,Niagara University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0149,322,342,Lafayette College,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0150,324,149,Coastal Carolina University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0151,325,148,Cleveland State University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0152,326,670,Texas State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0153,328,731,Utah State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0154,331,207,Eastern Washington University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0155,333,8,University of Alabama,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0156,338,1157,Kennesaw State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0157,339,219,University of Evansville,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0158,344,430,Mississippi State University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0159,349,725,U.S. Military Academy,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0160,350,460,University of North Carolina Wilmington,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0161,356,301,University of Illinois Urbana-Champaign,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0162,357,26172,Texas A&M University-Corpus Christi,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0163,399,14,University at Albany,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0338,526,28755,Florida Gulf Coast University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0351,2000,2,Abilene Christian University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0164,2005,721,U.S. Air Force Academy,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0165,2006,5,University of Akron,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0166,2010,6,Alabama A&M University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0167,2011,7,Alabama State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0168,2016,17,Alcorn State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0169,2026,27,Appalachian State University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0170,2029,2678,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0171,2031,32,University of Arkansas at Little Rock,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0172,2032,30,Arkansas State University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0173,2046,43,Austin Peay State University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0174,2050,47,Ball State University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0175,2057,14927,Belmont University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0176,2065,61,Bethune-Cookman University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0177,2066,62,Binghamton University,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0178,2083,83,Bucknell University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0179,2084,86,"University at Buffalo, the State University of New York",Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0180,2086,87,Butler University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0181,2097,115,Campbell University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0182,2099,116,Canisius University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0335,2110,1004,University of Central Arkansas,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0184,2115,127,Central Connecticut State University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0185,2116,128,University of Central Florida,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0186,2117,129,Central Michigan University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0187,2127,48,Charleston Southern University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0188,2130,136,Chicago State University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0189,2132,140,University of Cincinnati,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0190,2142,153,Colgate University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0191,2154,165,Coppin State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0192,2166,173,Davidson College,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0193,2168,175,University of Dayton,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0194,2169,178,Delaware State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0195,2172,183,University of Denver,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0196,2174,184,University of Detroit Mercy,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0197,2181,189,Drake University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0198,2182,191,Drexel University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0199,2184,194,Duquesne University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0200,2193,198,East Tennessee State University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0201,2197,201,Eastern Illinois University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0202,2198,202,Eastern Kentucky University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0203,2199,204,Eastern Michigan University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0204,2210,1068,Elon University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0205,2217,220,Fairfield University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0206,2226,229,Florida Atlantic University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0207,2229,231,Florida International University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0208,2230,236,Fordham University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0209,2239,97,"California State University, Fullerton",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0210,2241,1092,Gardner-Webb University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0211,2244,248,George Mason University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0212,2247,254,Georgia State University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0213,2250,260,Gonzaga University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0352,2253,1104,Grand Canyon University,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0214,2261,270,Hampton University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0215,2272,19651,High Point University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0216,2275,283,Hofstra University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0345,2277,287,Houston Christian University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0217,2287,299,Illinois State University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0218,2294,312,University of Iowa,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0219,2296,314,Jackson State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0220,2305,328,University of Kansas,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0221,2306,327,Kansas State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0222,2309,331,Kent State University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0223,2320,346,Lamar University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0224,2325,340,La Salle University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0225,2329,352,Lehigh University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0370,2330,349,Le Moyne College,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0226,2335,355,Liberty University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0227,2344,363,Longwood University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0228,2348,366,Louisiana Tech University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0353,2349,368,University of Massachusetts Lowell,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0229,2350,371,Loyola University Chicago,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0230,2351,370,Loyola Marymount University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0231,2352,369,Loyola University Maryland,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0232,2363,381,Manhattan University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0233,2368,386,Marist University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0234,2377,402,McNeese State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0235,2378,391,"University of Maryland, Baltimore County",America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0236,2379,393,University of Maryland Eastern Shore,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0237,2382,406,Mercer University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0371,2385,408,Mercyhurst University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0238,2390,415,University of Miami (Florida),Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0239,2393,419,Middle Tennessee State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0240,2400,432,Mississippi Valley State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0241,2405,439,Monmouth University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0242,2413,444,Morehead State University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0243,2415,446,Morgan State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0244,2426,726,U.S. Naval Academy,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0245,2427,456,University of North Carolina Asheville,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0339,2428,489,North Carolina Central University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0246,2429,458,The University of North Carolina at Charlotte,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0247,2430,459,The University of North Carolina at Greensboro,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0248,2433,498,University of Louisiana Monroe,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0349,2437,464,University of Nebraska at Omaha,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0249,2439,465,"University of Nevada, Las Vegas",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0250,2440,466,"University of Nevada, Reno",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0373,2441,470,University of New Haven,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0251,2443,474,LSU New Orleans,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0252,2447,483,Nicholls State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0253,2448,488,North Carolina A&T State University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0254,2449,493,North Dakota State University,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0255,2450,485,Norfolk State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0355,2453,487,University of North Alabama,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0256,2454,2711,University of North Florida,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0257,2458,502,University of Northern Colorado,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0258,2459,503,Northern Illinois University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0259,2460,504,University of Northern Iowa,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0260,2463,101,"California State University, Northridge",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0261,2464,501,Northern Arizona University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0262,2466,508,Northwestern State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0263,2473,514,Oakland University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0264,2483,529,University of Oregon,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0265,2492,541,Pepperdine University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0266,2501,551,University of Portland,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0267,2502,550,Portland State University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0268,2504,553,Prairie View A&M University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0340,2506,1320,Presbyterian College,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0269,2507,556,Providence College,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0270,2509,559,Purdue University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0367,2511,11504,Queens University of Charlotte,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0271,2514,562,Quinnipiac University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0272,2515,563,Radford University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0273,2520,576,Rider University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0274,2523,579,Robert Morris University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0275,2529,590,Sacred Heart University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0276,2534,624,Sam Houston State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0277,2535,625,Samford University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0278,2539,629,University of San Francisco,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0279,2540,104,"University of California, Santa Barbara",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0280,2541,631,Santa Clara University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0282,2545,655,Southeastern Louisiana University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0283,2546,654,Southeast Missouri State University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0346,2547,1356,Seattle University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0284,2550,635,Seton Hall University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0285,2561,639,Siena University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0347,2565,660,Southern Illinois University Edwardsville,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0286,2567,663,Southern Methodist University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0287,2569,647,South Carolina State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0288,2571,649,South Dakota State University,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0289,2572,664,The University of Southern Mississippi,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0290,2579,648,"University of South Carolina, Columbia",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0291,2582,665,"Southern University, Baton Rouge",Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0294,2599,603,St. John's University (New York),BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0295,2603,606,Saint Joseph's University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0296,2608,610,Saint Mary's College of California,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0297,2612,617,Saint Peter's University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0298,2617,676,Stephen F. Austin State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0299,2619,683,Stony Brook University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0300,2623,669,Missouri State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0360,2627,1395,Tarleton State University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0301,2628,698,Texas Christian University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0302,2630,695,University of Tennessee at Martin,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0303,2633,694,"University of Tennessee, Knoxville",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0304,2634,691,Tennessee State University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0305,2635,692,Tennessee Technological University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0306,2636,706,University of Texas at San Antonio,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0307,2638,704,University of Texas at El Paso,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0308,2640,699,Texas Southern University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0309,2641,700,Texas Tech University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0310,2643,141,The Citadel,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0311,2649,709,University of Toledo,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0312,2653,716,Troy University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0313,2655,718,Tulane University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0314,2670,740,Virginia Commonwealth University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0315,2674,735,Valparaiso University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0316,2678,741,Virginia Military Institute,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0317,2681,748,Wagner College,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0318,2692,758,Weber State University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,,2697,11740,University of West Florida,Atlantic Sun Conference,MEMBER_NO_CANONICAL_ID,ncaa_directory,"memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation unresolved; ESPN id 2697 = exact location 'West Florida' in the 2027 ESPN schedule (14 listed games; SDV asset sha256 bddafb0c3661a72f, retrieved 2026-10-04T22:01:31.204253+00:00)"
-2027,T0372,2698,766,University of West Georgia,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0319,2710,771,Western Illinois University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0320,2711,774,Western Michigan University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0321,2717,769,Western Carolina University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0322,2724,782,Wichita State University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0323,2729,786,William & Mary,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0324,2737,792,Winthrop University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0325,2739,794,University of Wisconsin-Green Bay,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0326,2747,2915,Wofford College,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0327,2750,810,Wright State University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0328,2751,811,University of Wyoming,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0329,2752,812,Xavier University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0330,2754,817,Youngstown State University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0331,2755,261,Grambling State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0357,2771,410,Merrimack College,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0348,2803,81,Bryant University,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0368,2815,30136,Lindenwood University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0369,2837,199,East Texas A&M University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0356,2856,30135,California Baptist University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0332,2870,308,Purdue University Fort Wayne,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0337,2885,471,New Jersey Institute of Technology,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0363,2900,620,University of St. Thomas (Minnesota),The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0341,2908,10411,University of South Carolina Upstate,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0354,2916,2743,University of the Incarnate Word,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0342,2934,94,"California State University, Bakersfield",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation verified_alias
-2027,T0333,3084,30024,Utah Valley University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0361,3101,30095,Utah Tech University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
-2027,T0334,112358,361,Long Island University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T20:40:09.849462+00:00; reconciliation exact_name
+2027,T0001,2,37,Auburn University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0003,5,9,University of Alabama at Birmingham,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0004,6,646,University of South Alabama,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0005,8,31,"University of Arkansas, Fayetteville",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0006,9,28,Arizona State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0007,12,29,University of Arizona,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0008,13,90,California Polytechnic State University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0009,16,102,"California State University, Sacramento",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0010,21,626,San Diego State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0011,23,630,San Jose State University,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0012,24,674,Stanford University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0013,25,107,"University of California, Berkeley",Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0014,26,110,"University of California, Los Angeles",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0015,27,111,"University of California, Riverside",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0358,28,112,"University of California, San Diego",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0016,30,657,University of Southern California,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0017,36,156,Colorado State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0018,38,157,University of Colorado Boulder,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0019,41,164,University of Connecticut,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0021,43,813,Yale University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0022,44,23,American University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0023,45,249,George Washington University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0024,46,251,Georgetown University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0025,47,290,Howard University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0026,48,180,University of Delaware,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0027,50,228,Florida A&M University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0028,52,234,Florida State University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0029,55,315,Jacksonville State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0030,56,678,Stetson University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0031,57,235,University of Florida,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0032,58,651,University of South Florida,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0033,59,255,Georgia Institute of Technology,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0034,61,257,University of Georgia,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0035,62,277,"University of Hawaii, Manoa",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0036,66,311,Iowa State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0037,68,66,Boise State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0038,70,295,University of Idaho,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0039,71,72,Bradley University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0040,77,509,Northwestern University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0041,79,659,Southern Illinois University at Carbondale,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0042,82,302,University of Illinois Chicago,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0043,84,306,"Indiana University, Bloomington",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0044,85,2699,Indiana University Indianapolis,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0045,87,513,University of Notre Dame,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0365,88,661,University of Southern Indiana,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0359,91,52,Bellarmine University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0046,93,454,Murray State University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0350,94,505,Northern Kentucky University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0047,96,334,University of Kentucky,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0048,97,367,University of Louisville,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0049,98,772,Western Kentucky University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0050,99,365,Louisiana State University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0051,103,67,Boston College,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0052,104,68,Boston University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0053,107,285,College of the Holy Cross,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0054,108,275,Harvard University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0055,111,500,Northeastern University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0056,113,400,"University of Massachusetts, Amherst",Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0057,116,450,Mount St. Mary's University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0058,119,711,Towson University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0059,120,392,"University of Maryland, College Park",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0060,127,416,Michigan State University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0061,130,418,University of Michigan,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0062,135,428,"University of Minnesota, Twin Cities",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0063,139,609,Saint Louis University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0064,140,2707,University of Missouri-Kansas City,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0065,142,434,"University of Missouri, Columbia",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0066,145,433,University of Mississippi,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0067,147,440,Montana State University-Bozeman,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0068,149,441,University of Montana,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0069,150,193,Duke University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0070,151,196,East Carolina University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0071,152,490,North Carolina State University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0072,153,457,"University of North Carolina, Chapel Hill",Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0073,154,749,Wake Forest University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0343,155,494,University of North Dakota,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0074,156,169,Creighton University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0075,158,463,University of Nebraska-Lincoln,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0076,159,172,Dartmouth College,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0077,160,469,University of New Hampshire,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0078,161,222,"Fairleigh Dickinson University, Metropolitan Campus",Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0079,163,554,Princeton University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0080,164,587,"Rutgers, The State University of New Jersey, New Brunswick",Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0081,166,472,New Mexico State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0082,167,473,University of New Mexico,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0083,171,158,Columbia University-Barnard College,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0084,172,167,Cornell University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0085,179,596,St. Bonaventure University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0086,183,688,Syracuse University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0087,189,71,Bowling Green State University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0088,193,414,Miami University (Ohio),Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0089,194,518,The Ohio State University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0090,195,519,Ohio University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0091,197,521,Oklahoma State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0092,198,527,Oral Roberts University,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0093,201,522,University of Oklahoma,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0094,202,719,The University of Tulsa,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0095,204,528,Oregon State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0096,213,539,Pennsylvania State University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0097,218,690,Temple University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0098,219,540,University of Pennsylvania,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0099,221,545,University of Pittsburgh,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0100,222,739,Villanova University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0101,225,80,Brown University,The Ivy League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0102,227,572,University of Rhode Island,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0103,228,147,Clemson University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0104,231,244,Furman University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0105,232,1014,College of Charleston (South Carolina),Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0344,233,650,University of South Dakota,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0106,235,404,University of Memphis,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0107,236,693,University of Tennessee at Chattanooga,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0108,238,736,Vanderbilt University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0109,239,51,Baylor University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0110,242,574,Rice University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0111,245,697,"Texas A&M University, College Station",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0112,248,288,University of Houston,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0113,249,497,University of North Texas,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0114,250,702,University of Texas at Arlington,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0115,251,703,University of Texas at Austin,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0116,252,77,Brigham Young University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0117,253,667,Southern Utah University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0118,254,732,University of Utah,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0119,256,317,James Madison University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0120,257,575,University of Richmond,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0121,258,746,University of Virginia,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0122,259,742,Virginia Polytechnic Institute and State University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0123,261,738,University of Vermont,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0124,264,756,University of Washington,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0125,265,754,Washington State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0126,269,387,Marquette University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0127,270,797,University of Wisconsin-Milwaukee,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0128,275,796,University of Wisconsin-Madison,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0129,276,388,Marshall University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0130,277,768,West Virginia University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0131,278,96,"California State University, Fresno",Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0132,279,534,University of the Pacific,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0133,282,305,Indiana State University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0366,284,682,Stonehill College,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0134,288,28600,Lipscomb University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0135,290,253,Georgia Southern University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0136,292,536,The University of Texas Rio Grande Valley,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0137,294,316,Jacksonville University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0138,295,523,Old Dominion University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0139,299,99,Long Beach State University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0140,300,109,"University of California, Irvine",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0141,301,627,University of San Diego,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0142,302,108,"University of California, Davis",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0143,304,294,Idaho State University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0144,305,176,DePaul University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0145,309,671,University of Louisiana at Lafayette,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0146,311,380,University of Maine,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0147,314,310,Iona University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0148,315,482,Niagara University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0149,322,342,Lafayette College,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0150,324,149,Coastal Carolina University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0151,325,148,Cleveland State University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0152,326,670,Texas State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0153,328,731,Utah State University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0154,331,207,Eastern Washington University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0155,333,8,University of Alabama,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0156,338,1157,Kennesaw State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0157,339,219,University of Evansville,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0158,344,430,Mississippi State University,Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0159,349,725,U.S. Military Academy,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0160,350,460,University of North Carolina Wilmington,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0161,356,301,University of Illinois Urbana-Champaign,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0162,357,26172,Texas A&M University-Corpus Christi,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0163,399,14,University at Albany,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0338,526,28755,Florida Gulf Coast University,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0351,2000,2,Abilene Christian University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0164,2005,721,U.S. Air Force Academy,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0165,2006,5,University of Akron,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0166,2010,6,Alabama A&M University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0167,2011,7,Alabama State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0168,2016,17,Alcorn State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0169,2026,27,Appalachian State University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0170,2029,2678,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0171,2031,32,University of Arkansas at Little Rock,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0172,2032,30,Arkansas State University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0173,2046,43,Austin Peay State University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0174,2050,47,Ball State University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0175,2057,14927,Belmont University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0176,2065,61,Bethune-Cookman University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0177,2066,62,Binghamton University,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0178,2083,83,Bucknell University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0179,2084,86,"University at Buffalo, the State University of New York",Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0180,2086,87,Butler University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0181,2097,115,Campbell University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0182,2099,116,Canisius University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0335,2110,1004,University of Central Arkansas,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0184,2115,127,Central Connecticut State University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0185,2116,128,University of Central Florida,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0186,2117,129,Central Michigan University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0187,2127,48,Charleston Southern University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0188,2130,136,Chicago State University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0189,2132,140,University of Cincinnati,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0190,2142,153,Colgate University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0191,2154,165,Coppin State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0192,2166,173,Davidson College,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0193,2168,175,University of Dayton,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0194,2169,178,Delaware State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0195,2172,183,University of Denver,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0196,2174,184,University of Detroit Mercy,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0197,2181,189,Drake University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0198,2182,191,Drexel University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0199,2184,194,Duquesne University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0200,2193,198,East Tennessee State University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0201,2197,201,Eastern Illinois University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0202,2198,202,Eastern Kentucky University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0203,2199,204,Eastern Michigan University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0204,2210,1068,Elon University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0205,2217,220,Fairfield University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0206,2226,229,Florida Atlantic University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0207,2229,231,Florida International University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0208,2230,236,Fordham University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0209,2239,97,"California State University, Fullerton",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0210,2241,1092,Gardner-Webb University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0211,2244,248,George Mason University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0212,2247,254,Georgia State University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0213,2250,260,Gonzaga University,Pac-12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0352,2253,1104,Grand Canyon University,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0214,2261,270,Hampton University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0215,2272,19651,High Point University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0216,2275,283,Hofstra University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0345,2277,287,Houston Christian University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0217,2287,299,Illinois State University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0218,2294,312,University of Iowa,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0219,2296,314,Jackson State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0220,2305,328,University of Kansas,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0221,2306,327,Kansas State University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0222,2309,331,Kent State University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0223,2320,346,Lamar University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0224,2325,340,La Salle University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0225,2329,352,Lehigh University,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0370,2330,349,Le Moyne College,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0226,2335,355,Liberty University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0227,2344,363,Longwood University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0228,2348,366,Louisiana Tech University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0353,2349,368,University of Massachusetts Lowell,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0229,2350,371,Loyola University Chicago,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0230,2351,370,Loyola Marymount University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0231,2352,369,Loyola University Maryland,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0232,2363,381,Manhattan University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0233,2368,386,Marist University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0234,2377,402,McNeese State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0235,2378,391,"University of Maryland, Baltimore County",America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0236,2379,393,University of Maryland Eastern Shore,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0237,2382,406,Mercer University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0371,2385,408,Mercyhurst University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0238,2390,415,University of Miami (Florida),Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0239,2393,419,Middle Tennessee State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0240,2400,432,Mississippi Valley State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0241,2405,439,Monmouth University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0242,2413,444,Morehead State University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0243,2415,446,Morgan State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0244,2426,726,U.S. Naval Academy,Patriot League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0245,2427,456,University of North Carolina Asheville,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0339,2428,489,North Carolina Central University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0246,2429,458,The University of North Carolina at Charlotte,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0247,2430,459,The University of North Carolina at Greensboro,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0248,2433,498,University of Louisiana Monroe,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0349,2437,464,University of Nebraska at Omaha,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0249,2439,465,"University of Nevada, Las Vegas",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0250,2440,466,"University of Nevada, Reno",Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0373,2441,470,University of New Haven,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0251,2443,474,LSU New Orleans,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0252,2447,483,Nicholls State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0253,2448,488,North Carolina A&T State University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0254,2449,493,North Dakota State University,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0255,2450,485,Norfolk State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0355,2453,487,University of North Alabama,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0256,2454,2711,University of North Florida,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0257,2458,502,University of Northern Colorado,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0258,2459,503,Northern Illinois University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0259,2460,504,University of Northern Iowa,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0260,2463,101,"California State University, Northridge",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0261,2464,501,Northern Arizona University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0262,2466,508,Northwestern State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0263,2473,514,Oakland University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0264,2483,529,University of Oregon,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0265,2492,541,Pepperdine University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0266,2501,551,University of Portland,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0267,2502,550,Portland State University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0268,2504,553,Prairie View A&M University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0340,2506,1320,Presbyterian College,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0269,2507,556,Providence College,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0270,2509,559,Purdue University,Big Ten Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0367,2511,11504,Queens University of Charlotte,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0271,2514,562,Quinnipiac University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0272,2515,563,Radford University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0273,2520,576,Rider University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0274,2523,579,Robert Morris University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0275,2529,590,Sacred Heart University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0276,2534,624,Sam Houston State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0277,2535,625,Samford University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0278,2539,629,University of San Francisco,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0279,2540,104,"University of California, Santa Barbara",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0280,2541,631,Santa Clara University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0282,2545,655,Southeastern Louisiana University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0283,2546,654,Southeast Missouri State University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0346,2547,1356,Seattle University,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0284,2550,635,Seton Hall University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0285,2561,639,Siena University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0347,2565,660,Southern Illinois University Edwardsville,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0286,2567,663,Southern Methodist University,Atlantic Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0287,2569,647,South Carolina State University,Mid-Eastern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0288,2571,649,South Dakota State University,The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0289,2572,664,The University of Southern Mississippi,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0290,2579,648,"University of South Carolina, Columbia",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0291,2582,665,"Southern University, Baton Rouge",Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0294,2599,603,St. John's University (New York),BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0295,2603,606,Saint Joseph's University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0296,2608,610,Saint Mary's College of California,West Coast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0297,2612,617,Saint Peter's University,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0298,2617,676,Stephen F. Austin State University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0299,2619,683,Stony Brook University,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0300,2623,669,Missouri State University,Conference USA,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0360,2627,1395,Tarleton State University,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0301,2628,698,Texas Christian University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0302,2630,695,University of Tennessee at Martin,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0303,2633,694,"University of Tennessee, Knoxville",Southeastern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0304,2634,691,Tennessee State University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0305,2635,692,Tennessee Technological University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0306,2636,706,University of Texas at San Antonio,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0307,2638,704,University of Texas at El Paso,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0308,2640,699,Texas Southern University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0309,2641,700,Texas Tech University,Big 12 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0310,2643,141,The Citadel,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0311,2649,709,University of Toledo,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0312,2653,716,Troy University,Sun Belt Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0313,2655,718,Tulane University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0314,2670,740,Virginia Commonwealth University,Atlantic 10 Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0315,2674,735,Valparaiso University,Missouri Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0316,2678,741,Virginia Military Institute,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0317,2681,748,Wagner College,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0318,2692,758,Weber State University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0374,2697,11740,University of West Florida,Atlantic Sun Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0372,2698,766,University of West Georgia,United Athletic Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0319,2710,771,Western Illinois University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0320,2711,774,Western Michigan University,Mid-American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0321,2717,769,Western Carolina University,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0322,2724,782,Wichita State University,American Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0323,2729,786,William & Mary,Coastal Athletic Association,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0324,2737,792,Winthrop University,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0325,2739,794,University of Wisconsin-Green Bay,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0326,2747,2915,Wofford College,Southern Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0327,2750,810,Wright State University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0328,2751,811,University of Wyoming,Mountain West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0329,2752,812,Xavier University,BIG EAST Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0330,2754,817,Youngstown State University,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0331,2755,261,Grambling State University,Southwestern Athletic Conf.,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0357,2771,410,Merrimack College,Metro Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0348,2803,81,Bryant University,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0368,2815,30136,Lindenwood University,Ohio Valley Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0369,2837,199,East Texas A&M University,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0356,2856,30135,California Baptist University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0332,2870,308,Purdue University Fort Wayne,Horizon League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0337,2885,471,New Jersey Institute of Technology,America East Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0363,2900,620,University of St. Thomas (Minnesota),The Summit League,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0341,2908,10411,University of South Carolina Upstate,Big South Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0354,2916,2743,University of the Incarnate Word,Southland Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0342,2934,94,"California State University, Bakersfield",Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation verified_alias
+2027,T0333,3084,30024,Utah Valley University,Big West Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0361,3101,30095,Utah Tech University,Big Sky Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name
+2027,T0334,112358,361,Long Island University,Northeast Conference,MEMBER,ncaa_directory,memberList academicYear 2027 retrieved 2026-10-05T22:17:03.483406+00:00; reconciliation exact_name

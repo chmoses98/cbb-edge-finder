@@ -116,6 +116,8 @@ def pregame(recs: list[dict[str, Any]]) -> pd.DataFrame:
             "gs_away": int(f.get("away_games_seen", 0)), "margin": float(p["margin"]),
             "total": float(p["total"]), "home_wp": float(p["home_win_prob"]),
             "margin_sd": p.get("margin_sd"), "path": r["_path"], "sha256": r["_sha256"],
+            "as_of_raw": str(pr.get("as_of")),
+            "truth_files_sha256": ro.get("truth_files_sha256"),
             "code_version": pr.get("code_version"), "code_sha": pr.get("code_sha"),
             "model_sha256": pr.get("model_sha256"),
             "home_adj_off": (r.get("ratings") or {}).get("home", {}).get("adj_off"),
@@ -210,7 +212,7 @@ def paired_games(pre: pd.DataFrame, res: pd.DataFrame, mkt: pd.DataFrame | None 
                     f"{k}_sq": e * e, f"{k}_wp": x["home_wp"], f"{k}_as_of": x["as_of"],
                     f"{k}_age_h": (b["tip"] - x["as_of"]).total_seconds() / 3600,
                     f"{k}_path": x["path"], f"{k}_sha256": x["sha256"],
-                    f"{k}_code_sha": x["code_sha"]}  # fmt: skip
+                    f"{k}_code_sha": x["code_sha"], f"{k}_as_of_raw": x["as_of_raw"]}  # fmt: skip
             if committed is not None:
                 c = committed.get(x["path"])
                 row[f"{k}_committed_at"] = c
@@ -237,6 +239,7 @@ def paired_games(pre: pd.DataFrame, res: pd.DataFrame, mkt: pd.DataFrame | None 
         )
         row["same_run"] = bool(ro["as_of"] == b["as_of"])
         row["truth_snapshot"] = ro["truth_snapshot"]
+        row["truth_files_sha256"] = ro["truth_files_sha256"]
         row["truth_archive_commit"] = ro["truth_archive_commit"]
         row["spec_sha256"] = ro["spec_sha256"]
         tf = evidence_files(roster_archive, ro["truth_snapshot"]) if roster_archive else {}
@@ -692,14 +695,41 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
           games: pd.DataFrame | None = None, season: int = 2027,
           d1_teams: set[str] | None = None,
           committed: dict[str, pd.Timestamp] | None = None,
-          committed_roster: dict[str, pd.Timestamp] | None = None) -> tuple[dict, dict]:  # fmt: skip
+          committed_roster: dict[str, pd.Timestamp] | None = None,
+          projections_root: Path | None = None, expected: pd.DataFrame | None = None,
+          enforce_gate: bool = True) -> tuple[dict, dict]:  # fmt: skip
     """``games``: espn_game_id, home_team_id, away_team_id, tip (the season schedule; for
     each team's first five games). ``box``: espn_game_id, team_id, player_id, minutes,
-    starter (played and DNP rows)."""
+    starter (played and DNP rows). ``expected``: the D-I games (espn_game_id) that tipped
+    before this run; settled ones without a VALID pair are reported, never dropped.
+
+    ``enforce_gate`` (always on in production): only games that pass the pre-tip
+    evidence gate (``pretip_gate``) enter any metric; ``False`` only for unit tests of
+    the arithmetic."""
+    from cbb_edge.rosters import pretip_gate
+
     pre = pregame(recs)
-    pg = paired_games(pre, res, mkt, roster_archive, committed, committed_roster)
-    tg = team_games(pg, roster_archive, d1_teams)
-    frames: dict[str, pd.DataFrame] = {"paired_games": pg, "team_games": tg}
+    pg_all = paired_games(pre, res, mkt, roster_archive, committed, committed_roster)
+    tg_all = team_games(pg_all, roster_archive, d1_teams)
+    gate = pretip_gate.classify(
+        pre, pg_all, res, expected, tg_all, roster_archive=roster_archive,
+        manifests=pretip_gate.manifest_index(projections_root), committed=committed,
+        committed_roster=committed_roster,
+        mutated=pretip_gate.git_mutated_paths(projections_root),
+        mutated_roster=pretip_gate.git_mutated_paths(roster_archive),
+        dups=pretip_gate.duplicates(recs),
+    )  # fmt: skip
+    if len(pg_all):
+        gi = gate.set_index("espn_game_id")
+        pg_all["gate_status"] = pg_all["espn_game_id"].map(gi["status"])
+        pg_all["gate_reasons"] = pg_all["espn_game_id"].map(gi["reasons"])
+    if enforce_gate and len(pg_all):
+        pg = pg_all[pg_all["gate_status"] == pretip_gate.VALID].reset_index(drop=True)
+    else:
+        pg = pg_all
+    tg = tg_all[tg_all["espn_game_id"].isin(set(pg["espn_game_id"]))] if len(tg_all) else tg_all
+    frames: dict[str, pd.DataFrame] = {"paired_games": pg_all, "team_games": tg_all,
+                                       "integrity_gate": gate}  # fmt: skip
     fi_real = fi_est = None
     if games is not None and len(games) and roster_archive is not None:
         from cbb_edge.rosters import scorecard
@@ -731,4 +761,11 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
             "home_first_d1", "home_tr_prev", "away_truth_cont",
             "away_expected_returning_share", "away_first_d1", "away_tr_prev",
             "home_roster_confidence", "away_roster_confidence"]]  # fmt: skip
-    return frames, summarize(pg, tg, fi_real, fi_est, frames.get("rotation_scorecard"))
+    s = summarize(pg, tg, fi_real, fi_est, frames.get("rotation_scorecard"))
+    s["gate"] = {
+        "enforced": bool(enforce_gate),
+        "counts": gate["status"].value_counts().to_dict() if len(gate) else {},
+        "reasons": pd.Series([x for r in gate["reasons"] for x in r.split(";") if x])
+        .value_counts().to_dict() if len(gate) else {},
+    }  # fmt: skip
+    return frames, s
