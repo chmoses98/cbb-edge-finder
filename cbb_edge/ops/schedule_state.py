@@ -98,22 +98,29 @@ def parse_scoreboard(js: dict[str, Any], observed_at: str) -> list[dict[str, Any
     return out
 
 
-def fetch_scoreboard(dates: list[str], stamp: str) -> tuple[list[dict[str, Any]], list[str]]:
-    """Live ESPN scoreboard for each ET date (YYYYMMDD), through the chokepoint
-    (``espn_public``, 1 req/s). Returns (observations, failed dates). A failed date
-    yields NO observation: callers treat its games as unprotected (fail closed)."""
+def fetch_scoreboard_raw(dates: list[str], stamp: str) -> tuple[list[tuple[dict, str]], list[str]]:
+    """Live ESPN scoreboard payloads for each ET date (YYYYMMDD), through the chokepoint
+    (``espn_public``, 1 req/s): ([(payload, retrieved_at)], failed dates)."""
     from cbb_edge.data.http import fetch
 
-    obs, failed = [], []
+    out, failed = [], []
     for d in dates:
         try:
             r = fetch("espn_public", f"{SITE}/scoreboard",
                       {"dates": d, "groups": "50", "limit": "500"},
                       dest=f"schedule_state/{stamp}/{d}.json", use_cache=False, timeout=30,
                       max_attempts=2)  # fmt: skip
-            obs += parse_scoreboard(json.loads(r.path.read_text()), r.meta["retrieved_at"])
+            out.append((json.loads(r.path.read_text()), r.meta["retrieved_at"]))
         except Exception:  # noqa: BLE001  any failure -> no evidence for that date
             failed.append(d)
+    return out, failed
+
+
+def fetch_scoreboard(dates: list[str], stamp: str) -> tuple[list[dict[str, Any]], list[str]]:
+    """Game-state observations for each ET date. A failed date yields NO observation:
+    callers treat its games as unprotected (fail closed)."""
+    raw, failed = fetch_scoreboard_raw(dates, stamp)
+    obs = [o for js, at in raw for o in parse_scoreboard(js, at)]
     return obs, failed
 
 
@@ -312,7 +319,15 @@ def main() -> None:
     now = pd.Timestamp(datetime.now(UTC))
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     prior = load_obs(a.archive)
-    obs, failed = fetch_scoreboard(window_dates(now, a.hours, a.back_days), stamp)
+    raw, failed = fetch_scoreboard_raw(window_dates(now, a.hours, a.back_days), stamp)
+    obs = [o for js, at in raw for o in parse_scoreboard(js, at)]
+    # Wave 11: the same payloads in SDV's schedule schema (ESPN fallback source), archived
+    # append-only with every change, so any fallback row is reproducible from the archive
+    from cbb_edge.ops import schedule_completion as sc
+
+    rows = [r for js, at in raw for r in sc.espn_rows(js, at)]
+    rows_kept = sc.thin_rows(rows, sc.load_rows(a.archive))
+    sc.write_rows(a.archive, rows_kept, stamp)
     if a.full_out is not None and obs:
         f = a.full_out / "schedule_obs" / f"{stamp}.jsonl"
         f.parent.mkdir(parents=True, exist_ok=True)
@@ -327,6 +342,7 @@ def main() -> None:
         except Exception as e:  # noqa: BLE001 -- the scoreboard observations above are still committed
             sdv_error = f"{type(e).__name__}: {e}"
     print(json.dumps({"stamp": stamp, "scoreboard_obs": len(obs), "scoreboard_archived": len(kept),
+                      "schedule_rows": len(rows), "schedule_rows_archived": len(rows_kept),
                       "failed_dates": failed, "sdv_obs": n_sdv,
                       "sdv_archived": n_sdv_kept, "sdv_error": sdv_error}))  # fmt: skip
 

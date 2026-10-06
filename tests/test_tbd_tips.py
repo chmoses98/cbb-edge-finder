@@ -292,9 +292,11 @@ def test_observe_cli_archives_scoreboard_even_if_sdv_fails(tmp_path, monkeypatch
     import json
 
     from cbb_edge.data.bronze import sportsdataverse as sdv
+    from tests.espn_fixtures import event, payload
 
+    js = payload(event(1, "2026-11-03T05:00Z", 11, 12, tv=False, detail="TBD"))
     monkeypatch.setattr(
-        S, "fetch_scoreboard", lambda dates, stamp: ([obs(1, "2026-11-03T14:11Z")], [])
+        S, "fetch_scoreboard_raw", lambda dates, stamp: ([(js, "2026-11-03T14:11:00+00:00")], [])
     )
 
     def boom(*a, **k):
@@ -307,6 +309,9 @@ def test_observe_cli_archives_scoreboard_even_if_sdv_fails(tmp_path, monkeypatch
     out = json.loads(capsys.readouterr().out)
     assert out["scoreboard_archived"] == 1 and out["sdv_error"].startswith("FileNotFoundError")
     assert len(S.load_obs(tmp_path / "sa")) == 1 and len(S.load_obs(tmp_path / "run")) == 1
+    from cbb_edge.ops import schedule_completion as sc
+
+    assert out["schedule_rows_archived"] == 1 and len(sc.load_rows(tmp_path / "sa")) == 1
 
 
 def test_tip_moved_later_and_postponed_to_another_date(tmp_path):

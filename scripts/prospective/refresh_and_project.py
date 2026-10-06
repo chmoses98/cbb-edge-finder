@@ -85,6 +85,7 @@ def project_all(
     roster_commit: str | None,
     only: set[tuple[str, int]] | None = None,
     live: list[dict] | None = None,
+    sources: dict[int, dict] | None = None,
 ) -> tuple[dict, dict]:
     """Project every active version for games tipping in (now, now + horizon_h] and
     append them to ``out_dir`` (the production step; also driven by the Wave 9 dry run
@@ -94,7 +95,10 @@ def project_all(
     observations, fetched AFTER ``now`` (Wave 10): games shown started / postponed /
     cancelled are never projected; TBD-time games whose listed placeholder has passed
     are projected only while positively "pre" (``schedule_state.live_window``). None
-    keeps the frozen window rule exactly."""
+    keeps the frozen window rule exactly. ``sources`` (Wave 11): per ESPN game id, the
+    schedule source of its silver row (``SDV`` / ``ESPN_FALLBACK``, with the ESPN
+    observation time and row for a fallback game), stamped on each record; the fallback
+    rows behind this run's records are archived with them (``schedule_rows/``)."""
     from contextlib import nullcontext
 
     from cbb_edge.app.prospective import window_override
@@ -113,13 +117,19 @@ def project_all(
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text("".join(json.dumps(o, sort_keys=True, default=str) + "\n" for o in live))
     lv = {o["espn_game_id"]: o for o in (live or [])}
+    used_rows: dict[int, dict] = {}
 
     def stamp_schedule(rs: list[dict]) -> list[dict]:
         """Provenance only: what the schedule said when this record was made."""
         for r in rs:
             gid = int(r["game"]["espn_game_id"])
             o = lv.get(gid)
+            src = (sources or {}).get(gid) or {}
+            if src.get("schedule_source") == "ESPN_FALLBACK" and src.get("row"):
+                used_rows[gid] = src["row"]
             r["schedule"] = {
+                "source": src.get("schedule_source", "SDV" if sources is not None else None),
+                "source_observed_at": src.get("source_observed_at"),
                 "listed_start": r["game"]["start_time_utc"],
                 "window": "tbd_extra" if win and gid in win["extra"] else "listed",
                 "live": None if o is None else {k: o[k] for k in (
@@ -188,6 +198,14 @@ def project_all(
         failed_or_note = {"tbd_extra": sorted(win["extra"]), "live_excluded": sorted(win["exclude"]),
                           "unprotected_no_live_evidence": sorted(win["unprotected"])}  # fmt: skip
         out["_schedule_window"] = {k: len(v) for k, v in failed_or_note.items()}
+    if used_rows:  # the exact ESPN rows behind this run's fallback records
+        stamp = now.strftime("%Y%m%dT%H%M%SZ")
+        p = out_dir / "schedule_rows" / f"{stamp}.jsonl"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("".join(json.dumps(r, sort_keys=True, default=str) + "\n"
+                             for _, r in sorted(used_rows.items())))  # fmt: skip
+    if sources is not None:
+        out["_schedule_sources"] = {"records_from_espn_fallback_games": len(used_rows)}
     write_manifest(out_dir, now, code_sha, roster_commit)
     return out, failed
 
@@ -213,6 +231,8 @@ def main() -> None:
         default=None,
         help="catch-up mode: JSON list of 'version|espn_game_id' pairs (cbb_edge.ops.cadence)",
     )
+    ap.add_argument("--schedule-archive", default=None,
+                    help="schedule-archive checkout (Wave 11: archived ESPN fallback rows)")  # fmt: skip
     a = ap.parse_args()
     now = pd.Timestamp(datetime.now(UTC))
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
@@ -227,6 +247,18 @@ def main() -> None:
     for ds in NCAA:
         sdv.download(ds, list(range(a.season - 5, a.season)))
         sdv.download_live(ds, a.season, stamp)
+    # Wave 11: complete the current season's schedule with ESPN-fallback rows for games
+    # SDV does not list yet (SDV first; archived + freshly fetched ESPN rows)
+    from cbb_edge.ops import schedule_completion, schedule_state
+
+    raw, raw_failed = schedule_state.fetch_scoreboard_raw(
+        schedule_state.window_dates(now, a.horizon_h, back_days=8), stamp
+    )
+    fresh = [r for js, at in raw for r in schedule_completion.espn_rows(js, at)]
+    sched_full, completion = schedule_completion.completed_schedule(
+        a.season, stamp, [Path(a.schedule_archive)] if a.schedule_archive else None, fresh
+    )
+    sources = schedule_completion.source_map(sched_full)
     build_silver(seasons, update_registry=False)
     games = pd.read_parquet(data_dir() / "silver" / "games.parquet")
     pg = pd.read_parquet(
@@ -249,14 +281,18 @@ def main() -> None:
         only = {(p.split("|")[0], int(p.split("|")[1])) for p in pairs}
     # Wave 10: live game state, fetched now (after as_of): no projection for a game that
     # may have started; TBD-time games stay projectable while positively "pre"
-    from cbb_edge.ops import schedule_state
-
     live, failed_dates = schedule_state.fetch_scoreboard(
         schedule_state.window_dates(now, a.horizon_h), stamp
     )
     out, failed = project_all(a.season, now, a.horizon_h, Path(a.out), a.roster_dir,
-                              a.availability_dir, code_sha, roster_commit, only, live)  # fmt: skip
+                              a.availability_dir, code_sha, roster_commit, only, live,
+                              sources)  # fmt: skip
     out["_live_scoreboard"] = {"observations": len(live), "failed_dates": failed_dates}
+    out["_schedule_completion"] = {k: completion.get(k) for k in (
+        "sdv_games", "fallback_games", "shared_games")} | {
+        "excluded": len(completion.get("excluded", [])),
+        "material_disagreements": len(completion.get("material_disagreements", [])),
+        "row_fetch_failed_dates": raw_failed}  # fmt: skip
     print(
         json.dumps(
             {"as_of": now.isoformat(), "inputs_stamp": stamp, "models": out, "failed": failed}

@@ -42,6 +42,21 @@ def _bronze(dataset: str, season: int) -> Path:
 
 def load_schedule(season: int) -> pd.DataFrame:
     s = pd.read_parquet(_bronze("schedules", season))
+    # Wave 11: games SDV does not list yet, written by this prospective run from ESPN's
+    # archived scoreboard rows in SDV's own schema (cbb_edge.ops.schedule_completion).
+    # Current season only (never historical); an SDV game is never replaced.
+    from cbb_edge.ops.schedule_completion import fallback_rows_for_silver
+
+    fb = fallback_rows_for_silver(season)
+    if fb is not None and len(fb):
+        fb = fb[~fb["game_id"].astype("int64").isin(set(s["game_id"].astype("int64")))]
+        s = pd.concat([s, fb[[c for c in fb.columns if c in s.columns]]], ignore_index=True)
+    return schedule_rows_to_silver(s, season)
+
+
+def schedule_rows_to_silver(s: pd.DataFrame, season: int) -> pd.DataFrame:
+    """SDV-schema schedule rows -> the silver games columns (one transform for SDV rows
+    and ESPN-fallback rows alike)."""
     out = pd.DataFrame(
         {
             "game_id": s["game_id"].astype("int64"),

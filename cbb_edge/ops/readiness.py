@@ -554,7 +554,8 @@ def main() -> None:
     ap.add_argument("--schedule-archive", type=Path, nargs="*", default=[])
     a = ap.parse_args()
     now = _ts(a.now) if a.now else pd.Timestamp(datetime.now(UTC))
-    sched = cadence.schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"))
+    sched = cadence.schedule_frame(a.season, now.strftime("%Y%m%dT%H%M%SZ"),
+                                   [*a.schedule_archive, a.projections])  # fmt: skip
     obs = ss.load_obs(*a.schedule_archive, a.projections)
     # before the season opener the report previews opening week, from the first tip in
     # EITHER source (Wave 10: SDV can lag the live scoreboard)
