@@ -32,8 +32,6 @@ SITE = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-ba
 
 def _raw(source: str, url: str, key: str) -> dict:
     """One request; keeps status, headers and body head also when the answer is an error."""
-    import requests
-
     from cbb_edge.data.http import RedirectNotAuthorized, fetch
     from cbb_edge.rosters import robots
 
@@ -51,17 +49,17 @@ def _raw(source: str, url: str, key: str) -> dict:
                 "sha256": r.meta.get("sha256")}  # fmt: skip
     except RedirectNotAuthorized as e:
         return {"url": url, "result": "redirect_unregistered", "to": e.target}
-    except requests.HTTPError as e:
-        resp = e.response
+    except Exception as e:  # noqa: BLE001  an HTTP error keeps its answer as evidence
+        resp = getattr(e, "response", None)
+        if resp is None:
+            return {"url": url, "result": f"error:{type(e).__name__}:{str(e)[:200]}"}
         body = resp.content[:65536] if resp is not None else b""
         (OUT / f"{key}.error.gz").write_bytes(gzip.compress(body))
         hdr = {k: v for k, v in (resp.headers if resp is not None else {}).items()
                if k.lower() in ("server", "content-type", "x-cache", "x-served-by", "via",
-                                "cf-ray", "x-iinfo", "x-cdn", "location", "set-cookie")}  # fmt: skip
+                                "cf-ray", "x-iinfo", "x-cdn", "location")}  # fmt: skip
         return {"url": url, "result": "http_error", "status": getattr(resp, "status_code", None),
                 "headers": hdr, "body_head": body[:1500].decode(errors="replace")}  # fmt: skip
-    except Exception as e:  # noqa: BLE001
-        return {"url": url, "result": f"error:{type(e).__name__}:{str(e)[:200]}"}
 
 
 def espn() -> dict:
