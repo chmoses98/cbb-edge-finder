@@ -193,6 +193,8 @@ SDV may switch to ESPN's version when it rebuilds.
 
 ## 8. Full opening-window dry run (I, J)
 
+> **Superseded by §14.4** (pre-amendment run: SDV rows kept unchanged; no reconciliation scenarios).
+
 **Setup.** `scripts/prospective/dry_run_w11.py`, synthetic outcomes, sandbox archive,
 never evidence.
 
@@ -260,6 +262,8 @@ readiness. Each game in the games table carries `schedule_source` (`SDV`,
 
 ## 10. November 1–9 readiness (H)
 
+> **Superseded by §14.5** (pre-amendment run: UTC window, 356 games, SDV kept on disagreements).
+
 **Inputs.** `python -m cbb_edge.ops.readiness --from 2026-11-01 --days 9`, run 2026-10-06
 19:14 UTC on the real SDV file, the archived ESPN rows and roster snapshot
 `20261006T121950Z`. The universe is SDV ∪ ESPN.
@@ -320,7 +324,7 @@ zero silent drops.
 
 ## 12. Projection-archive heartbeat (N)
 
-Pending: a single `prospective-projections` dispatch from main after this PR is merged (owner approval). It must be a no-window run that writes a manifest-only heartbeat.
+Pending (unchanged by A1): a single `prospective-projections` dispatch from main after this PR is merged (owner approval). It must be a no-window run that writes a manifest-only heartbeat.
 
 ## 13. Market independence, cost, freeze
 
@@ -337,3 +341,198 @@ Pending: a single `prospective-projections` dispatch from main after this PR is 
   - Each projection run: 11 (rows) + 3 (live).
   - Odds API 0, CBBD 0, $0.
 - **Freeze.** After the last Wave 11 commit every hash in §1 is unchanged. `git diff 6165438..HEAD` is empty for `models/`, WAVE7–WAVE10 and `cbb_edge/rosters/{pretip_gate,identity,overlay,rotation,truth,scorecard}.py`.
+
+## 14. Amendment A1 results (owner amendment, 2026-10-06, before merge)
+
+Rules: `research/hypotheses/WAVE11.md` §5–§6. All numbers below supersede §8 and §10.
+
+### 14.1 Policy implemented
+
+- **Existence and identity stay SDV-first.** A game id SDV lists stays SDV-native
+  (`schedule_source = SDV`). A game id SDV lacks uses the ESPN fallback (S2, S3).
+- **Field-level reconciliation of shared games** (`schedule_completion.reconcile`). It is
+  not a generic overwrite. Named groups take ESPN's latest valid observation of the same
+  game id:
+
+| group | fields |
+|---|---|
+| teams | `home_id`, `away_id`, `home_location`, `away_location`, `home_conference_id`, `away_conference_id` |
+| tip | `date`, `start_date`, `time_valid`, `status_type_short_detail` |
+| neutral_site | `neutral_site` |
+| conference_competition | `conference_competition` |
+| tournament_id | `tournament_id`, `season_type` |
+| notes | `notes_headline` |
+| venue | `venue_id`, `venue_full_name`, `venue_address_city`, `venue_address_state` |
+
+- **Never reconciled:** `game_id`, `season`, status name/state/completed, scores, period.
+- **Provenance per row:**
+  - `schedule_source` (base source, `SDV`);
+  - `reconciled_fields` (the groups ESPN supplied);
+  - `reconciliation` (per field `{sdv, espn}`, plus `_teams` with its kind:
+    `orientation_swap`, `different_teams` or `team_metadata`);
+  - `source_observed_at` (the ESPN observation's timestamp).
+- Every projection record carries these under `schedule.*`. The ESPN rows behind each
+  record are archived in `schedule_rows/<stamp>.jsonl`.
+- **Fail closed:**
+  - ESPN observation not valid (required field missing, placeholder teams) → SDV row
+    kept, reported `unresolved_sdv_kept`;
+  - reconciled matchup colliding with another game (same teams, same ET date) → game
+    excluded, `ambiguous_excluded`, alerted.
+- Every disagreement stays in the completion report and in readiness with its
+  resolution.
+
+### 14.2 Historical invariance and rest days
+
+- **Historical.** Silver 2006–2027, built with the amended code and no completion file,
+  is byte-identical to main `6165438`:
+
+| table | rows |
+|---|---|
+| games | 123,520 |
+| team_games | 242,048 |
+| player_games | 3,563,942 |
+
+- The code path applies to season ≥ 2027 with a completion file only.
+- **Rest days (approved consequence C1).**
+  - `cbb_edge/features/context.py` has no diff against main.
+  - Rest-day inputs change for 639 of 1,629 SDV-native games (45 in Nov 1–9).
+  - Every change is attributed to a schedule event:
+    - 452 to a newly included fallback game before them;
+    - 187 to a reconciled tip (their own or the previous game's);
+    - **0 unexplained.**
+  - A schedule-input correction, not a methodology change.
+
+### 14.3 ESPN/SDV reconciliation of current-season shared games
+
+| measure | frozen snapshot (SDV `bddafb0c`, schedule-archive `ad1f26a`) | Actions overlap run 37528044729 (fresh fetch, 20:43 UTC) |
+|---|---|---|
+| shared games | 1,625 | 1,625 |
+| exact | 1,371 | 1,301 |
+| reconciled to ESPN | 254 | 324 |
+| — tip | 204 | 272 |
+| — notes | 37 | 48 |
+| — venue | 41 | 43 |
+| — teams (swap / different / metadata only) | 35 (12 / 4 / 19) | 35 (12 / 4 / 19) |
+| — conference game | 18 | 18 |
+| — tournament id | 8 | 8 |
+| — neutral site | 4 | 5 |
+| unresolved (SDV kept) | 0 | 0 |
+| ambiguous (excluded) | 0 | 0 |
+
+- All 47 material disagreements in the Actions run resolve `reconciled_to_espn`. One
+  changes the game's ET date. They stay listed in `overlap.json` with SDV and ESPN
+  values.
+- The completed 2025–26 season (1,391 games) still differs only in display and venue
+  names.
+
+### 14.4 Full dry run with A1 scenarios (synthetic, never evidence)
+
+`scripts/prospective/dry_run_w11.py`, 19 slots Oct 31 21:10 → Nov 9 21:10 UTC, exit 0.
+Silver and bronze were restored byte-identical afterwards.
+
+| stage | SDV-native | ESPN fallback | total |
+|---|---|---|---|
+| canonical known (ET) | 107 | 250 | **357** |
+| in the completed schedule | 107 | 250 | 357 |
+| base projection | 107 | 250 | 357 |
+| P-ROSTER-1 projection | 107 | 250 | 357 |
+| settled | 107 | 250 | 357 |
+| gate VALID | 106 | 250 | 356 |
+| scored pair | 106 | 250 | 356 |
+
+The one UNSCORABLE game is the designed scenario. No version failed.
+
+| scenario | game | records (matchup) | reconciled | gate |
+|---|---|---|---|---|
+| pure SDV, no disagreement | 401909694 | 3 × T0028 v T0027 | — | VALID |
+| fresher ESPN tip | 401902275 | 3 × T0180 v T0149 | tip | VALID |
+| home/away disagreement (real) | 401911532 | 3 × T0350 v T0307 (ESPN orientation) | teams, notes, venue | VALID |
+| opponent change (SDV stale) | 401909738 | 3 × T0007 v T0014 | teams | VALID |
+| neutral-site reconciliation | 401909750 | 3 | neutral_site | VALID |
+| conference reconciliation | 401909751 | 3 | conference_competition | VALID |
+| tournament reconciliation (real) | 401909532 | 3 | tournament_id, tip, notes | VALID |
+| ESPN fallback game | 401913099 | 3, source `ESPN_FALLBACK` | — | VALID |
+| fallback later appearing in SDV | 8 games | fallback records then SDV records | — | 8 VALID, one scored row each, 0 archive mutations, 19 `schedule_rows` files |
+| TBD game | 401902277 | 3 | tip | VALID |
+| matchup change before any projection | 401911305 | 3 × corrected matchup | teams | VALID |
+| matchup change after a projection snapshot | 401911335 | T0164 v T0004 ×2, then T0164 v T0143 | teams | VALID (latest pre-tip record matches) |
+| matchup change after the last pre-tip projection | 401911345 | 3 × T0352 v T0007; final T0352 v T0176 | — | **UNSCORABLE** `schedule_identity_changed` |
+| duplicate workflow execution | slot 2026-11-02T14:10 | 0 written, 628 skipped | — | — |
+
+- **TBD:** 235 TBD games, 64 never announced; **0 records made at or after an actual
+  tip.**
+- **Final reconciliation** (after the synthetic SDV catch-up): 5,694 shared, 469
+  reconciled, 0 unresolved, 0 ambiguous.
+
+### 14.5 Opening-window readiness on one frozen as-of snapshot
+
+**Inputs:**
+
+- `python -m cbb_edge.ops.readiness --sdv-file <SDV bddafb0c> --schedule-archive <ad1f26a> --now 2026-10-06T18:45:00Z --from-date 2026-11-01 --days 9`;
+- roster snapshot `20261006T121950Z`;
+- window 2026-11-01T04:00Z → 2026-11-10T05:00Z (ET dates).
+
+Per-game detail: `research/reports/WAVE11_nov1_9_games.csv` (357 rows).
+
+| measure | games |
+|---|---|
+| D-I vs D-I games (all opponents) | **357** (478) |
+| set-equal to `canonical_universe` | yes |
+| schedule source SDV / ESPN fallback | 107 / 250 |
+| reconciled SDV games in the window | 35 (tip 27, notes 7, venue 7, teams 2, tournament 1) |
+| absent from both sources | 0 |
+| excluded fail-closed in the window | 0 (season: 55, all `teams_not_determined`) |
+| announced / TBD | 122 / 235 |
+| baseline projection possible | 357 |
+| P-ROSTER-1 eligible | 357 |
+| both rosters CONFIRMED | 288 |
+| at risk | **0** |
+
+**Alerts: 0 CRITICAL, 16 WARNING.**
+
+- 12 are `SCHEDULE_ORIENTATION_RECONCILED` and 4 are `SCHEDULE_IDENTITY_RECONCILED`, all
+  resolved to ESPN.
+- The only one in the window is 401911532 (orientation, Nov 2).
+- Against the targets:
+  - zero silent drops;
+  - zero unexplained differences;
+  - zero matchup or orientation inputs knowingly stale: every disagreement is
+    reconciled to ESPN's latest observation.
+
+### 14.6 356 vs 357
+
+- **Game:** 401920686, UConn–Wagner, listed 2026-11-10T00:00Z = Nov 9, 7:00 PM EST.
+- **Why the counts differed:**
+  - The pre-amendment readiness window was `[Nov 1 00:00Z, Nov 10 00:00Z)` (UTC), which
+    excludes this game.
+  - The dry run counted ET dates, which include it.
+- **Fix:** both now use `ss.et_midnight` and `ss.et_window_end` (DST-aware) and the one
+  `canonical_universe`.
+- **Canonical Nov 1–9 universe: 357 D-I vs D-I games** (107 SDV + 250 ESPN-only).
+- **Regression tests:**
+  - `test_canonical_universe_uses_eastern_dates`;
+  - `test_readiness_window_equals_the_canonical_et_universe` (SDV + fallback ==
+    canonical).
+
+### 14.7 Matchup/orientation integrity gate (G1, kept)
+
+- The latest pre-tip record of a version is the scored one.
+- If its teams or orientation differ from the final resolved schedule, the game is
+  UNSCORABLE (`schedule_identity_changed`; PENDING until settled) and never paired.
+- A1 makes this rare, because records follow ESPN's current matchup. The dry run shows
+  both sides:
+  - a correction before the last pre-tip record → VALID;
+  - a correction after it → UNSCORABLE.
+
+### 14.8 Freeze audit (after A1)
+
+- Every §1 hash is unchanged.
+- `git diff 6165438..HEAD` is empty for:
+  - `models/`;
+  - WAVE7–WAVE10;
+  - `cbb_edge/rosters/{pretip_gate,identity,overlay,rotation,truth,scorecard}.py`;
+  - `cbb_edge/features/`, `cbb_edge/model/`, `cbb_edge/players/`.
+- `cbb_edge/rosters/prospective_score.py` adds only the G1 gate check
+  (`identity_changed`). The metrics are unchanged.
+- WAVE11.md is amended (A1, recorded in its §6) before merge and before any 2026–27
+  outcome.
