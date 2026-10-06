@@ -1,0 +1,24 @@
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0111", "player_key": "P4683682", "name": "Rylan Griffen"}
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0268", "player_key": "P5107807", "name": "Michael Eley"}
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0268", "player_key": "P5108054", "name": "Micah Bell"}
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0268", "player_key": "P5240355", "name": "Jaylen Wharton"}
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0268", "player_key": "P5240408", "name": "Jackson Fazande"}
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0268", "player_key": "P5240411", "name": "Anthony Gause"}
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0268", "player_key": "P5241303", "name": "Sebastian Tidor"}
+{"stamp": "20261006T183409Z", "event": "player_added", "team_id": "T0268", "player_key": "P5243188", "name": "Davian Williams"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P4703215", "name": "Tai'Reon Joseph"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P4705371", "name": "Joey Madimba"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P4904924", "name": "Corey Dunning"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P4904928", "name": "Cory Wells"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P4904931", "name": "Lance Williams"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5176727", "name": "Dontae Horne"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5176729", "name": "Ryan Bolton Jr."}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5177019", "name": "Marcel Bryant"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5177138", "name": "Doug Young"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5190922", "name": "Hassane Diallo"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5243098", "name": "Seryee Lewis"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5243361", "name": "Isaiah Foster"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5247621", "name": "Keeshawn Mason"}
+{"stamp": "20261006T183409Z", "event": "player_removed", "team_id": "T0268", "player_key": "P5314804", "name": "Jannoy Thomas"}
+{"stamp": "20261006T183409Z", "event": "source_freshness_changed", "team_id": "T0268", "source": "school_site", "fresh": true, "reason": "official_current:season_label_current", "previous_reason": "official_stale:season_label_2026"}
+{"stamp": "20261006T183409Z", "event": "confidence_changed", "team_id": "T0268", "confidence": "UNKNOWN", "previous": "LIKELY"}
