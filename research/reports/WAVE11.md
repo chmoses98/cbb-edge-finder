@@ -193,7 +193,51 @@ SDV may switch to ESPN's version when it rebuilds.
 
 ## 8. Full opening-window dry run (I, J)
 
-<<DRY>>
+**Setup.** `scripts/prospective/dry_run_w11.py`, synthetic outcomes, sandbox archive,
+never evidence.
+
+- The schedule universe is the real current one: the SDV file plus the archived ESPN rows
+  of 2026-10-06.
+- The production `project_all` runs at all **19 regular slots**, Oct 31 21:10 → Nov 9
+  21:10 UTC: every active version, P-ROSTER-1, the Wave 10 live window and Wave 11
+  provenance.
+- Live game states follow a simulated clock. Each TBD game gets a seeded actual tip; 70 %
+  are announced two days ahead, 30 % never.
+- At **T2 = Nov 4 12:00 UTC**, SDV "publishes" every fallback game tipping later.
+- Settlement runs through `score_proster.results_and_schedule` on the completed final
+  schedule. Scoring runs `prospective_score.score` with the gate.
+
+**Known D-I vs D-I games, Nov 1–9 (ET dates)**: 357, of which 107 were in SDV at the start
+and 250 were ESPN-only.
+
+| stage | SDV-native | ESPN fallback | total |
+|---|---|---|---|
+| known | 107 | 250 | 357 |
+| in the completed schedule | 107 | 250 | 357 |
+| base projection (pure-0.5.0) | 107 | 250 | 357 |
+| P-ROSTER-1 projection | 107 | 250 | 357 |
+| settled | 107 | 250 | 357 |
+| pre-tip gate VALID | 107 | 250 | 357 |
+| scored pair | 107 | 250 | 357 |
+
+- **Gate:** 357 VALID, 0 INVALID, 0 UNSCORABLE. The scorer's game-1 headline N = 357
+  (synthetic).
+- **Every run succeeded.** No version failed. Records from fallback games:
+  1 / 33 / 70 / 74 / 57 / 17 / 19 before T2, then 0, because SDV lists them all from T2.
+- **TBD:**
+  - 171 TBD games, 64 of them never announced.
+  - The live window added 6–63 placeholder-passed games per run while they were
+    positively "pre".
+  - Started games were excluded: 1 … 449, cumulative.
+  - **0 records were made at or after any game's actual tip.**
+- **SDV catch-up (J):**
+  - 8 games were projected first from the ESPN fallback, then from SDV after T2.
+  - Each has **exactly one** scored row, and their schedule source is SDV now.
+  - Their earlier records keep `ESPN_FALLBACK` provenance.
+  - **0 archived files were modified or deleted** (`git log --diff-filter=MD`).
+  - The fallback rows behind the records are archived (7 `schedule_rows` files).
+- **Local state.** The working silver and bronze copies the dry run uses were restored
+  byte-identical afterwards.
 
 ## 9. Alert coverage (K)
 
@@ -216,7 +260,54 @@ readiness. Each game in the games table carries `schedule_source` (`SDV`,
 
 ## 10. November 1–9 readiness (H)
 
-<<READY>>
+**Inputs.** `python -m cbb_edge.ops.readiness --from 2026-11-01 --days 9`, run 2026-10-06
+19:14 UTC on the real SDV file, the archived ESPN rows and roster snapshot
+`20261006T121950Z`. The universe is SDV ∪ ESPN.
+
+**Schedule completeness, season:**
+
+| measure | games |
+|---|---|
+| SDV rows | 1,629 |
+| ESPN-fallback rows | 4,158 |
+| excluded fail-closed (all `teams_not_determined`: bracket placeholders, not games yet) | 55 |
+| shared-game disagreements (SDV kept) | 46 |
+
+**Window, Nov 1–9 UTC:**
+
+| measure | games |
+|---|---|
+| D-I vs D-I games | **356** (473 including non-D-I opponents) |
+| schedule source SDV | 107 |
+| schedule source ESPN fallback | **249** |
+| absent from both sources | **0** |
+| announced tip | 94 |
+| TBD | 262 (no PLACEHOLDER / UNKNOWN listings observed) |
+| team mapping | every team resolves (no `TEAM_ID_UNRESOLVED`) |
+| baseline projection possible | 356 |
+| P-ROSTER-1 eligible | 356 |
+| both rosters CONFIRMED | 287 |
+| pre-tip capture | no snapshot yet (projections start Nov 1, 00:40 UTC catch-up / 14:10 slot) |
+| **at risk** | **0** |
+
+The dry run counts 357 because it windows on ET dates rather than UTC.
+
+**Alerts: 0 CRITICAL, 46 WARNING**, all shared-game disagreements (SDV kept):
+
+| kind | count |
+|---|---|
+| field | 30 |
+| orientation | 12 |
+| different opponent | 4 |
+
+Two of them are in the window:
+
+- 401909532 (Nov 7): ESPN has a tournament id; SDV has none.
+- 401911532 (Nov 2): home/away swapped. If SDV flips it before settlement, rule G1 makes
+  the game UNSCORABLE instead of mis-scored.
+
+**Target met:** no game is absent merely because SDV has not published it, and there are
+zero silent drops.
 
 ## 11. Rosters and T0333
 
@@ -229,7 +320,7 @@ readiness. Each game in the games table carries `schedule_source` (`SDV`,
 
 ## 12. Projection-archive heartbeat (N)
 
-<<HEARTBEAT>>
+Pending: a single `prospective-projections` dispatch from main after this PR is merged (owner approval). It must be a no-window run that writes a manifest-only heartbeat.
 
 ## 13. Market independence, cost, freeze
 
@@ -245,4 +336,4 @@ readiness. Each game in the games table carries `schedule_source` (`SDV`,
   - Daily full-season sweep: about 190.
   - Each projection run: 11 (rows) + 3 (live).
   - Odds API 0, CBBD 0, $0.
-- **Freeze.** <<FREEZE>>
+- **Freeze.** After the last Wave 11 commit every hash in §1 is unchanged. `git diff 6165438..HEAD` is empty for `models/`, WAVE7–WAVE10 and `cbb_edge/rosters/{pretip_gate,identity,overlay,rotation,truth,scorecard}.py`.

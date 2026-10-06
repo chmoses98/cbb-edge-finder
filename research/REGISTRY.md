@@ -190,3 +190,16 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Opening week Nov 1–9 | 356 D-I games (262 TBD); **249 missing from the SDV schedule** (SDV lag) | alerted; owner decision |
 | T0333 Utah Valley "Tanner Davis" | blocked by an NAIA namesake in the frozen identity pool (pool includes 38,169 never-D-I players) | documented; owner decision |
 | Model / P-ROSTER-1 / scoring change | none | by design |
+
+## Wave 11 outcomes (see research/reports/WAVE11.md; rules research/hypotheses/WAVE11.md)
+
+| Item | Result (2026-10-06, no 2026–27 game played) | Status |
+|---|---|---|
+| PR #10 merge (6165438) + freeze audit | all frozen hashes unchanged; CI, scores, ops-watch, roster-capture green on main | done |
+| ESPN-vs-SDV overlap (completed 2025–26, 1,391 games) | every pipeline field identical; only display / venue names differ | validated |
+| ESPN fallback (SDV first, ESPN only when absent) | 2026–27: 1,629 SDV + 4,158 fallback rows; 55 bracket placeholders excluded | deployed |
+| Historical safety | silver 2006–2027 byte-identical to main without fallback | proven |
+| Nov 1–9 readiness | 356 D-I games: 107 SDV + 249 fallback; 0 absent from both; 0 at risk | target met |
+| Full-window dry run (synthetic) | 357 / 357 projected, P-ROSTER-1, settled, VALID; catch-up 8 games, 0 mutations, 0 post-tip records | passed |
+| Gate rule G1 (tightening) | schedule identity changed → UNSCORABLE | adopted (pre-results) |
+| Model / P-ROSTER-1 / scoring change | none | by design |
