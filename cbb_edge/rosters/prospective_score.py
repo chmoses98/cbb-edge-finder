@@ -398,8 +398,44 @@ def table(x: pd.DataFrame, fi: pd.DataFrame | None = None) -> dict[str, Any]:
     return out
 
 
+CONF_ORDER = ["UNKNOWN", "STALE", "CONFLICTED", "LIKELY", "CONFIRMED"]
+
+
+def overlay_confidence(pg: pd.DataFrame) -> pd.Series:
+    """WAVE7.md 7: the roster confidence of the side(s) that triggered the overlay (the
+    lower one when both did); ``none`` when neither side's overlay applied."""
+    out = []
+    for g in pg.itertuples(index=False):
+        c = [getattr(g, f"{s}_roster_confidence") for s in ("home", "away")
+             if bool(getattr(g, f"{s}_overlay_applied"))]  # fmt: skip
+        c = [x if x in CONF_ORDER else "UNKNOWN" for x in c]
+        out.append(min(c, key=CONF_ORDER.index) if c else "none")
+    return pd.Series(out, index=pg.index)
+
+
+def rotation_summary(rs: pd.DataFrame | None, fi: pd.DataFrame | None) -> dict[str, Any]:
+    """WAVE7.md 7 intermediate metrics by snapshot offset (team means)."""
+    out: dict[str, Any] = {}
+    if rs is not None and len(rs):
+        cols = ["top5", "top8", "starters", "minutes_mae", "rotation_precision", "rotation_recall"]
+        for lab, x in rs.groupby("snapshot"):
+            out[lab] = {"teams": int(len(x)), **{c: float(x[c].mean()) for c in cols}}
+    if fi is not None and len(fi):
+        r = fi[fi["rotation"] == "ROSTER"]
+        for lab, x in r.groupby("snapshot"):
+            out.setdefault(lab, {})["false_inclusion_rate"] = float((x["false_players"] > 0).mean())
+            out[lab]["current_player_omission"] = float(x["omitted_minutes_share"].mean())
+        b = fi[fi["rotation"] == "BASE"]
+        if len(b):
+            out["BASE"] = {"teams": int(len(b)),
+                           "false_inclusion_rate": float((b["false_players"] > 0).mean()),
+                           "current_player_omission": float(b["omitted_minutes_share"].mean())}  # fmt: skip
+    return out
+
+
 def summarize(pg: pd.DataFrame, tg: pd.DataFrame, fi_real: pd.DataFrame | None = None,
-              fi_est: pd.DataFrame | None = None) -> dict[str, Any]:  # fmt: skip
+              fi_est: pd.DataFrame | None = None,
+              rot: pd.DataFrame | None = None) -> dict[str, Any]:  # fmt: skip
     s: dict[str, Any] = {
         "protocol": "research/hypotheses/WAVE7.md section 7 (locked); Wave 8 diagnostics in "
         "research/hypotheses/WAVE8.md",
@@ -411,6 +447,14 @@ def summarize(pg: pd.DataFrame, tg: pd.DataFrame, fi_real: pd.DataFrame | None =
         return s
     s["primary"] = {k: table(pg[pg["min_gs"].between(lo, hi)])
                     for k, (lo, hi) in PRIMARY_SLICES.items()}  # fmt: skip
+    oc = overlay_confidence(pg)
+    s["primary_by_overlay_confidence"] = {
+        f"{k} / {c}": table(pg[pg["min_gs"].between(lo, hi) & (oc == c)])
+        for k, (lo, hi) in PRIMARY_SLICES.items() for c in ["none", *CONF_ORDER[::-1]]
+        if (pg["min_gs"].between(lo, hi) & (oc == c)).any()
+    }  # fmt: skip
+    if rot is not None or fi_real is not None:
+        s["intermediate_rotation"] = rotation_summary(rot, fi_real)
     diag: dict[str, Any] = {}
     for n in TEAM_GAME_NUMBERS:
         ids = tg.loc[tg["team_game_number"] == n, "espn_game_id"].unique()
@@ -489,7 +533,8 @@ def estimated_false_inclusion(roster_archive: Path, history: pd.DataFrame, seaso
             on = r[r["status"].isin(["CONFIRMED", "LIKELY"])]
             cache[f.name] = set(zip(on["player_id"], on["team_id"], strict=True))
         b = last[last["role_team"] == g.team_id]
-        gone = b[[(p, g.team_id) not in cache[f.name] for p in b["player_id"]]]
+        keep = np.array([(p, g.team_id) not in cache[f.name] for p in b["player_id"]], dtype=bool)
+        gone = b.loc[keep]
         rows.append({"team_id": g.team_id, "espn_game_id": g.espn_game_id,
                      "truth_snapshot": f.name.split("_")[0], "false_players": int(len(gone)),
                      "false_minutes": float(40 * gone["min_share"].sum())})  # fmt: skip
@@ -577,6 +622,20 @@ def dashboard(s: dict[str, Any], stamp: str) -> str:
         return out + [""]
 
     L += rows("PRIMARY (preregistered): game 1 = min(games seen) 0; games 2–3 = 1–2", s["primary"])
+    if s.get("primary_by_overlay_confidence"):
+        L += rows("PRIMARY by confidence of the side(s) that triggered the overlay",
+                  s["primary_by_overlay_confidence"])  # fmt: skip
+    if s.get("intermediate_rotation"):
+        L += ["## Intermediate (each team's first game, by archived snapshot)", "",
+              "| snapshot | teams | top-5 | top-8 | starters | minutes MAE | precision | "
+              "recall | false-inclusion rate | omission |", "|---|---|---|---|---|---|---|---|---|---|"]  # fmt: skip
+        for k, v in s["intermediate_rotation"].items():
+            L.append(f"| {k} | {v.get('teams', '')} | " + " | ".join(
+                _fmt(v.get(c)) for c in ("top5", "top8", "starters", "minutes_mae",
+                                         "rotation_precision", "rotation_recall",
+                                         "false_inclusion_rate", "current_player_omission")
+            ) + " |")  # fmt: skip
+        L.append("")
     L += rows("Diagnostic: team game number (not pooled)", s["diagnostic_team_game_number"])
     L += rows(
         "Diagnostic: game-1 |continuity adjustment| buckets", s["diagnostic_game1_adj_b_buckets"]
@@ -662,4 +721,4 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
             "home_first_d1", "home_tr_prev", "away_truth_cont",
             "away_expected_returning_share", "away_first_d1", "away_tr_prev",
             "home_roster_confidence", "away_roster_confidence"]]  # fmt: skip
-    return frames, summarize(pg, tg, fi_real, fi_est)
+    return frames, summarize(pg, tg, fi_real, fi_est, frames.get("rotation_scorecard"))

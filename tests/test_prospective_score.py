@@ -234,3 +234,28 @@ def test_dashboard_excludes_non_members_from_confidence():
     assert sc["confidence"]["STALE"] == 0 and sc["not_d1_this_season"] == ["T0293"]
     assert "T0293" not in sc["unresolved_teams"]
     assert "Not D-I this season" in dashboard.markdown(sc, "s")
+
+
+def test_full_path_with_box_scores_and_overlay_confidence(tmp_path):
+    arch = _archive(tmp_path / "ra")
+    tip = "2026-11-03T00:00:00+00:00"
+    recs = [_rec(ps.BASE, 1, "2026-11-02T21:00:00+00:00", 2.0, tip=tip),
+            _rec(ps.ROSTER, 1, "2026-11-02T21:00:00+00:00", 3.0, tip=tip,
+                 roster=_roster(2.0, 0.5, 0.5))]  # fmt: skip
+    for i, r in enumerate(recs):
+        r["_path"], r["_sha256"] = f"r{i}.json", f"h{i}"
+    res = pd.DataFrame({"espn_game_id": [1], "result_margin": [5.0], "result_total": [140.0]})
+    games = pd.DataFrame({"espn_game_id": [1], "home_team_id": ["T1"], "away_team_id": ["T2"],
+                          "tip": [pd.Timestamp(tip)]})  # fmt: skip
+    box = pd.DataFrame({"espn_game_id": 1, "team_id": "T1",
+                        "player_id": [f"P{i}" for i in range(8)] + ["X1"],
+                        "minutes": [30, 30, 30, 30, 30, 20, 15, 15.0, 0.0],
+                        "starter": [True] * 5 + [False] * 4})  # fmt: skip
+    frames, s = ps.score(recs, res, roster_archive=arch, box=box, games=games, d1_teams={"T1"})
+    assert len(frames["false_inclusion_realized"]) and len(frames["rotation_validation"])
+    rv = frames["rotation_validation"].iloc[0]
+    assert np.isclose(rv["predicted_minutes_on_non_players"], 16.0)  # P8, P9 never played
+    assert "game_1 / CONFIRMED" in s["primary_by_overlay_confidence"]
+    assert "latest" in s["intermediate_rotation"] and "BASE" in s["intermediate_rotation"]
+    assert not frames["team_games"].set_index("side").loc["home", "opponent_d1"]  # T2 not D-I
+    assert "Intermediate" in ps.dashboard(s, "x")
