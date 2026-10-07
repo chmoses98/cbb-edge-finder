@@ -372,8 +372,12 @@ def test_leaders_digest_matches_the_published_rankings(season):
     lead = json.loads((_app(out) / "health.json").read_text())["extensions"]["cbb"]["leaders"]
     assert "returning_minutes_share" in lead and "adj_off" in lead
     for slug, d in lead.items():
-        rk = json.loads((_app(out) / "explorer" / "rankings" / f"{d['ranking_id']}.json").read_text())
+        rk = json.loads(
+            (_app(out) / "explorer" / "rankings" / f"{d['ranking_id']}.json").read_text()
+        )
         top = [e["entity_id"] for e in rk["entries"][: len(d["top"])]]
         assert [e["entity_id"] for e in d["top"]] == top, slug
-        assert [e["value"] for e in d["top"]] == [e["value"] for e in rk["entries"][: len(d["top"])]]
+        assert [e["value"] for e in d["top"]] == [
+            e["value"] for e in rk["entries"][: len(d["top"])]
+        ]
         assert d["bottom"][0]["entity_id"] == rk["entries"][-1]["entity_id"]
