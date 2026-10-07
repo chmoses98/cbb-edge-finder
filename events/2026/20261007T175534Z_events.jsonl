@@ -1,0 +1,22 @@
+{"stamp": "20261007T175534Z", "event": "player_added", "team_id": "T0240", "player_key": "N:T0240:aj abrams", "name": "AJ Abrams"}
+{"stamp": "20261007T175534Z", "event": "player_added", "team_id": "T0308", "player_key": "N:T0308:sayed sayed", "name": "Sayed Sayed"}
+{"stamp": "20261007T175534Z", "event": "player_added", "team_id": "T0308", "player_key": "P5104196", "name": "Karris Bilal"}
+{"stamp": "20261007T175534Z", "event": "player_added", "team_id": "T0086", "player_key": "P5107321", "name": "Amarri Monroe"}
+{"stamp": "20261007T175534Z", "event": "player_added", "team_id": "T0308", "player_key": "P5239712", "name": "Xander Wedlow"}
+{"stamp": "20261007T175534Z", "event": "player_added", "team_id": "T0032", "player_key": "P5241690", "name": "Josh Omojafo"}
+{"stamp": "20261007T175534Z", "event": "player_added", "team_id": "T0308", "player_key": "P5312967", "name": "Jason Kimbrough"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "N:T0221:devin hutcherson", "name": "Devin Hutcherson"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "N:T0221:jaylen alexander", "name": "Jaylen Alexander"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "N:T0221:nash stark", "name": "Nash Stark"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0240", "player_key": "N:T0240:avian abrams", "name": "Avian Abrams"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P4712846", "name": "Jaden Schutt"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5061598", "name": "JT Rock"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5093403", "name": "Isaiah Abraham"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5101794", "name": "Montana Wheeler"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5103590", "name": "Brandon Rechsteiner"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5152658", "name": "Pape N'Diaye"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5175357", "name": "Brock Vice"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0098", "player_key": "P5241733", "name": "Alex Massung"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5311511", "name": "Matt Gilhool"}
+{"stamp": "20261007T175534Z", "event": "player_removed", "team_id": "T0221", "player_key": "P5311923", "name": "Andrej Kostic"}
+{"stamp": "20261007T175534Z", "event": "confidence_changed", "team_id": "T0221", "confidence": "STALE", "previous": "CONFIRMED"}
