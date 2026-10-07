@@ -810,7 +810,7 @@ def build(w: World) -> Built:
     docs.append(_search(teams, events_all, ev_research_ids, rankings, run_id, gen, w))
 
     # ---- v1 bundle
-    health = _health(w, run_id, gen, g, sel, markets)
+    health = _health(w, run_id, gen, g, sel, markets, rankings)
     v1: dict[str, dict] = {}
     v1["events"] = C.collection("events", SPORT, run_id, gen, events)
     v1["markets"] = C.collection("markets", SPORT, run_id, gen, markets)
@@ -1465,6 +1465,7 @@ def _health(
     g: pd.DataFrame,
     sel: dict[int, S.Selection],
     markets: list[dict],
+    rankings: dict[str, dict] | None = None,
 ) -> dict:
     now = w.now
     last_manifest = w.manifests[-1] if w.manifests else None
@@ -1534,7 +1535,8 @@ def _health(
         thresholds={"model": MODEL_THRESHOLDS}, extra_components=comp, now=now, generated_at=gen,
         warnings=([] if markets else ["Market research is not published for CBB yet: no Kalshi game "
                                       "contract maps to a published game."]),
-        extensions={"cbb": _status_ext(w, g, sel, markets, first, in_window, season_live, counts)},
+        extensions={"cbb": {**_status_ext(w, g, sel, markets, first, in_window, season_live, counts),
+                            "leaders": leaders(rankings or {})}},
     )  # fmt: skip
     health["components"]["market_data"]["detail"] = (
         f"{len(markets)} Kalshi game contracts mapped (read-only capture {w.kalshi.captured_at})"
@@ -1547,6 +1549,30 @@ def _health(
         )
     validate(health, "health")
     return health
+
+
+LEADERS_N = 5
+
+
+def leaders(rankings: dict[str, dict]) -> dict[str, Any]:
+    """Presentation-only digest of the rankings this publication already contains: the top and
+    bottom ``LEADERS_N`` entries of each, so the sport home can show the national picture without
+    downloading every ranking. Same values, same ranks, same order as the ranking documents."""
+    out = {}
+    for m in METRICS:
+        rk = rankings.get(m.slug)
+        if rk is None:
+            continue
+        slim = [{k: e[k] for k in ("rank", "entity_id", "display_name", "short_name", "value", "percentile")}
+                for e in rk["entries"]]  # fmt: skip
+        out[m.slug] = {
+            "metric_id": rk["metric_id"], "ranking_id": rk["ranking_id"], "name": m.name,
+            "short_name": m.short, "unit": m.unit, "group": m.source, "adjusted": m.adjusted,
+            "higher_is_better": rk["higher_is_better"], "universe_size": rk["universe"]["size"],
+            "window": rk["window"]["label"], "mean": rk["summary"]["mean"],
+            "top": slim[:LEADERS_N], "bottom": slim[-LEADERS_N:][::-1],
+        }  # fmt: skip
+    return out
 
 
 def _status_ext(

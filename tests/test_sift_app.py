@@ -364,3 +364,16 @@ def test_team_rating_observations_carry_their_own_archive_time(season):
     adj = next(o for o in rk["metrics"] if o["metric_id"] == "met_cbb.adj_off")
     assert adj["as_of"] == rk["extensions"]["cbb"]["ratings"]["as_of"]
     assert adj["as_of"] < "2026-11-02T18:00:00Z"
+
+
+def test_leaders_digest_matches_the_published_rankings(season):
+    """Presentation-only: the home's national picture is the ranking documents' own top/bottom rows."""
+    out = season[0]
+    lead = json.loads((_app(out) / "health.json").read_text())["extensions"]["cbb"]["leaders"]
+    assert "returning_minutes_share" in lead and "adj_off" in lead
+    for slug, d in lead.items():
+        rk = json.loads((_app(out) / "explorer" / "rankings" / f"{d['ranking_id']}.json").read_text())
+        top = [e["entity_id"] for e in rk["entries"][: len(d["top"])]]
+        assert [e["entity_id"] for e in d["top"]] == top, slug
+        assert [e["value"] for e in d["top"]] == [e["value"] for e in rk["entries"][: len(d["top"])]]
+        assert d["bottom"][0]["entity_id"] == rk["entries"][-1]["entity_id"]

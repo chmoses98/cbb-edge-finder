@@ -215,9 +215,14 @@ def write_truth(root: Path, stamp: str, *, variant: str = "a") -> None:
                 dict(p, minutes=round(p["minutes"] * 0.5, 1)) if i == 0 else p
                 for i, p in enumerate(rot)
             ]
-        prs.append({"team_id": t, "as_of": stamp, "roster_confidence": conf, "truth_cont": 0.41,
-                    "tr_prev": 1.2, "first_d1": 3.0, "proj_min_returning": 92.0,
-                    "proj_min_transfer": 71.0, "proj_min_unseen": 37.0, "expected_rotation": rot})  # fmt: skip
+        k = int(t[1:])  # synthetic, deterministic per-team variety (test data only)
+        ret = round(0.15 + (k * 37 % 63) / 100, 3)
+        r_min = round(200 * min(0.85, ret * 0.95), 1)
+        f_min = round((200 - r_min) * (0.15 + (k * 13 % 40) / 100), 1)
+        prs.append({"team_id": t, "as_of": stamp, "roster_confidence": conf, "truth_cont": ret,
+                    "tr_prev": round(0.4 + (k % 7) * 0.3, 2), "first_d1": float(k % 6),
+                    "proj_min_returning": r_min, "proj_min_transfer": round(200 - r_min - f_min, 1),
+                    "proj_min_unseen": f_min, "expected_rotation": rot})  # fmt: skip
         san.append({"team_id": t, "minutes_total": 200.0, "n_players": 10, "n_rotation_10min": 7,
                     "starters": 5, "ok": conf != "STALE"})  # fmt: skip
         for i, p in enumerate(rot):
