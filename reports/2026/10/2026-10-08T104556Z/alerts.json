@@ -1,0 +1,120 @@
+[
+ {
+  "code": "UNRESOLVED_IDENTITY_MATERIAL",
+  "severity": "WARNING",
+  "team_id": "T0333",
+  "minutes_at_stake": 25.2
+ },
+ {
+  "code": "SCHEDULE_IDENTITY_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911048,
+  "sdv": "2084 vs 2754",
+  "espn": "2084 vs 2870"
+ },
+ {
+  "code": "SCHEDULE_IDENTITY_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911257,
+  "sdv": "139 vs 2545",
+  "espn": "139 vs 2546"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401909506,
+  "sdv": "305 vs 221",
+  "espn": "221 vs 305"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401906807,
+  "sdv": "201 vs 2509",
+  "espn": "2509 vs 201"
+ },
+ {
+  "code": "SCHEDULE_IDENTITY_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911028,
+  "sdv": "111 vs 113",
+  "espn": "275 vs 111"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911458,
+  "sdv": "2440 vs 2541",
+  "espn": "2541 vs 2440"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401906853,
+  "sdv": "2633 vs 120",
+  "espn": "120 vs 2633"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401909505,
+  "sdv": "305 vs 2509",
+  "espn": "2509 vs 305"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401906806,
+  "sdv": "201 vs 221",
+  "espn": "221 vs 201"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911457,
+  "sdv": "2440 vs 2539",
+  "espn": "2539 vs 2440"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911200,
+  "sdv": "301 vs 2230",
+  "espn": "2230 vs 301"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401909567,
+  "sdv": "150 vs 265",
+  "espn": "265 vs 150"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401906773,
+  "sdv": "57 vs 87",
+  "espn": "87 vs 57"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401909787,
+  "sdv": "2305 vs 2439",
+  "espn": "2439 vs 2305"
+ },
+ {
+  "code": "SCHEDULE_IDENTITY_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911454,
+  "sdv": "131652 vs 2440",
+  "espn": "2540 vs 2440"
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401911532,
+  "sdv": "2638 vs 94",
+  "espn": "94 vs 2638"
+ }
+]
