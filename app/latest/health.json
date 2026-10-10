@@ -1,0 +1,658 @@
+{
+  "bet_authority": "RESEARCH_ONLY",
+  "commit_sha": "794714472c238f7f6ebf973da7ebfa02a948469f",
+  "components": {
+    "export": {
+      "age_seconds": 0.0,
+      "as_of": "2026-10-10T21:58:00Z",
+      "detail": null,
+      "status": "OK"
+    },
+    "market_data": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": "UNAVAILABLE: no Kalshi game contract maps to a published game (futures and season-win markets are not game markets)",
+      "status": "NOT_APPLICABLE"
+    },
+    "model": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": "WAITING_FOR_WINDOW: no game has entered the 30-hour prospective capture window",
+      "status": "NOT_APPLICABLE"
+    },
+    "projection_archive": {
+      "age_seconds": 347852.7,
+      "as_of": "2026-10-06T21:20:27Z",
+      "detail": "0 archived records; append-only; commit efcdc9fd08e62206fe4f782d2de653a618da1669",
+      "status": "OK"
+    },
+    "prospective_pipeline": {
+      "age_seconds": null,
+      "as_of": "2026-10-06T21:20:27Z",
+      "detail": "HEALTHY: last prospective run 2026-10-06T21:20:27.268903+00:00 (0 records); scheduled runs start in November",
+      "status": "NOT_APPLICABLE"
+    },
+    "prospective_scorer": {
+      "age_seconds": 347908.0,
+      "as_of": "2026-10-06T21:19:32Z",
+      "detail": "NO_DATA: game-1 N = 0",
+      "status": "STALE"
+    },
+    "roster_archive": {
+      "age_seconds": 28393.0,
+      "as_of": "2026-10-10T14:04:47Z",
+      "detail": "commit c223a5eaacf61bc91167049b050a5b7e6eb91d3a",
+      "status": "OK"
+    },
+    "roster_truth": {
+      "age_seconds": 28393.0,
+      "as_of": "2026-10-10T14:04:47Z",
+      "detail": "HEALTHY: CONFIRMED 335, CONFLICTED 15, STALE 11, UNKNOWN 5",
+      "status": "OK"
+    },
+    "router": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": null,
+      "status": "NOT_APPLICABLE"
+    },
+    "schedule": {
+      "age_seconds": 57288.0,
+      "as_of": "2026-10-10T06:03:12Z",
+      "detail": "HEALTHY: 5448 D-I games (1629 SDV-native, 4407 ESPN fallback, 725 field-reconciled)",
+      "status": "OK"
+    },
+    "schedule_archive": {
+      "age_seconds": 57288.0,
+      "as_of": "2026-10-10T06:03:12Z",
+      "detail": "commit f7203fb5721193894f618c748ff0f7434ae9248d",
+      "status": "OK"
+    },
+    "settlement": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": null,
+      "status": "NOT_APPLICABLE"
+    },
+    "upcoming_projection": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": "WAITING_FOR_WINDOW: no D-I game tips in the next 30 h; first game 2026-11-01T14:30:00Z",
+      "status": "NOT_APPLICABLE"
+    }
+  },
+  "data_age_seconds": null,
+  "errors": [],
+  "extensions": {
+    "cbb": {
+      "capabilities": {
+        "bets": "UNAVAILABLE",
+        "expected_rotation": "AVAILABLE_WHERE_VALID",
+        "game_scripting": "UNAVAILABLE",
+        "live_kalshi_quotes": "UNAVAILABLE",
+        "margin_projection": "AVAILABLE",
+        "opponent_adjusted_ratings": "WAITING_FOR_WINDOW",
+        "player_props": "UNAVAILABLE",
+        "prospective_evaluation": "AVAILABLE",
+        "recommendations": "UNAVAILABLE",
+        "roster_truth": "AVAILABLE",
+        "schedule": "AVAILABLE",
+        "score_projection": "AVAILABLE",
+        "team_projections": "WAITING_FOR_WINDOW",
+        "total_projection": "AVAILABLE",
+        "win_probability": "AVAILABLE"
+      },
+      "first_game_utc": "2026-11-01T14:30:00Z",
+      "games_in_capture_window": 0,
+      "leaders": {
+        "expected_first_d1_minutes": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Colgate Raiders",
+              "entity_id": "prt_e3331191b740cbbccdab",
+              "percentile": 0.86,
+              "rank": 348,
+              "short_name": "COLG",
+              "value": 0.0
+            },
+            {
+              "display_name": "Charleston Cougars",
+              "entity_id": "prt_4b44cf7d21d66e387988",
+              "percentile": 0.86,
+              "rank": 348,
+              "short_name": "COFC",
+              "value": 0.0
+            },
+            {
+              "display_name": "UC San Diego Tritons",
+              "entity_id": "prt_32545d6f4103660b06e9",
+              "percentile": 0.86,
+              "rank": 348,
+              "short_name": "UCSD",
+              "value": 0.0
+            },
+            {
+              "display_name": "Arkansas-Pine Bluff Golden Lions",
+              "entity_id": "prt_53df5af3a89fd22de101",
+              "percentile": 1.14,
+              "rank": 347,
+              "short_name": "UAPB",
+              "value": 1.3179
+            },
+            {
+              "display_name": "Grand Canyon Lopes",
+              "entity_id": "prt_42e0aa35b4a9c713b6f9",
+              "percentile": 1.43,
+              "rank": 346,
+              "short_name": "GCU",
+              "value": 1.336
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 24.366977,
+          "metric_id": "met_cbb.expected_first_d1_minutes",
+          "name": "Expected minutes to first-D-I players",
+          "ranking_id": "rnk_4c18fa3a84698075d432",
+          "short_name": "First D-I",
+          "top": [
+            {
+              "display_name": "Mississippi Valley State Delta Devils",
+              "entity_id": "prt_2d600f5d9e59703b837b",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "MVSU",
+              "value": 160.0
+            },
+            {
+              "display_name": "Louisiana Tech Bulldogs",
+              "entity_id": "prt_c10673f40b4ea669f073",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "LT",
+              "value": 160.0
+            },
+            {
+              "display_name": "Idaho State Bengals",
+              "entity_id": "prt_cb7bf2acdbb1704a1ba5",
+              "percentile": 99.43,
+              "rank": 3,
+              "short_name": "IDST",
+              "value": 130.81
+            },
+            {
+              "display_name": "Eastern Illinois Panthers",
+              "entity_id": "prt_2ffb8785f7b05d194ce0",
+              "percentile": 99.14,
+              "rank": 4,
+              "short_name": "EIU",
+              "value": 124.3267
+            },
+            {
+              "display_name": "South Alabama Jaguars",
+              "entity_id": "prt_0697ec417ba5a1e446d2",
+              "percentile": 98.86,
+              "rank": 5,
+              "short_name": "USA",
+              "value": 120.0258
+            }
+          ],
+          "unit": "min/200",
+          "universe_size": 350,
+          "window": "PRESEASON_ROSTER"
+        },
+        "expected_returning_minutes": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Alcorn State Braves",
+              "entity_id": "prt_ff1d7d303f6a111ecbb3",
+              "percentile": 5.14,
+              "rank": 333,
+              "short_name": "ALCN",
+              "value": 0.0
+            },
+            {
+              "display_name": "Jacksonville State Gamecocks",
+              "entity_id": "prt_f8a1518f950716bf4055",
+              "percentile": 5.14,
+              "rank": 333,
+              "short_name": "JXST",
+              "value": 0.0
+            },
+            {
+              "display_name": "Fresno State Bulldogs",
+              "entity_id": "prt_ee920801f26004708d00",
+              "percentile": 5.14,
+              "rank": 333,
+              "short_name": "FRES",
+              "value": 0.0
+            },
+            {
+              "display_name": "Northern Illinois Huskies",
+              "entity_id": "prt_ee194128e01e65cdeb49",
+              "percentile": 5.14,
+              "rank": 333,
+              "short_name": "NIU",
+              "value": 0.0
+            },
+            {
+              "display_name": "Kansas City Roos",
+              "entity_id": "prt_ec2046bb1b3659d33a2b",
+              "percentile": 5.14,
+              "rank": 333,
+              "short_name": "KC",
+              "value": 0.0
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 76.628775,
+          "metric_id": "met_cbb.expected_returning_minutes",
+          "name": "Expected minutes to returning players",
+          "ranking_id": "rnk_c4ed1ffd0c16d73173d4",
+          "short_name": "Ret. exp",
+          "top": [
+            {
+              "display_name": "Colgate Raiders",
+              "entity_id": "prt_e3331191b740cbbccdab",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "COLG",
+              "value": 200.0
+            },
+            {
+              "display_name": "Arkansas-Pine Bluff Golden Lions",
+              "entity_id": "prt_53df5af3a89fd22de101",
+              "percentile": 99.71,
+              "rank": 2,
+              "short_name": "UAPB",
+              "value": 198.6821
+            },
+            {
+              "display_name": "American University Eagles",
+              "entity_id": "prt_0adb0fb532dc432ef03e",
+              "percentile": 99.43,
+              "rank": 3,
+              "short_name": "AMER",
+              "value": 196.4793
+            },
+            {
+              "display_name": "Air Force Falcons",
+              "entity_id": "prt_82670e288f1ad459c519",
+              "percentile": 99.14,
+              "rank": 4,
+              "short_name": "AF",
+              "value": 195.1262
+            },
+            {
+              "display_name": "Princeton Tigers",
+              "entity_id": "prt_2792a9b0c3660478fcfa",
+              "percentile": 98.86,
+              "rank": 5,
+              "short_name": "PRIN",
+              "value": 194.7494
+            }
+          ],
+          "unit": "min/200",
+          "universe_size": 350,
+          "window": "PRESEASON_ROSTER"
+        },
+        "expected_transfer_minutes": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Yale Bulldogs",
+              "entity_id": "prt_fa72d4de124ded76c2bd",
+              "percentile": 6.0,
+              "rank": 330,
+              "short_name": "YALE",
+              "value": 0.0
+            },
+            {
+              "display_name": "Navy Midshipmen",
+              "entity_id": "prt_f9d69ebb167b3c4f42d8",
+              "percentile": 6.0,
+              "rank": 330,
+              "short_name": "NAVY",
+              "value": 0.0
+            },
+            {
+              "display_name": "Colgate Raiders",
+              "entity_id": "prt_e3331191b740cbbccdab",
+              "percentile": 6.0,
+              "rank": 330,
+              "short_name": "COLG",
+              "value": 0.0
+            },
+            {
+              "display_name": "Cornell Big Red",
+              "entity_id": "prt_dfa25939b3dd2a9547f8",
+              "percentile": 6.0,
+              "rank": 330,
+              "short_name": "COR",
+              "value": 0.0
+            },
+            {
+              "display_name": "Missouri State Bears",
+              "entity_id": "prt_c32458ceea344d3427e6",
+              "percentile": 6.0,
+              "rank": 330,
+              "short_name": "MOST",
+              "value": 0.0
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 99.00425,
+          "metric_id": "met_cbb.expected_transfer_minutes",
+          "name": "Expected minutes to incoming transfers",
+          "ranking_id": "rnk_93ec16d3fd9800fd13e8",
+          "short_name": "Transfer",
+          "top": [
+            {
+              "display_name": "Boston College Eagles",
+              "entity_id": "prt_3c531f3a75018c8fcb5f",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "BC",
+              "value": 196.9626
+            },
+            {
+              "display_name": "Cincinnati Bearcats",
+              "entity_id": "prt_d6fe2f16cf95c3112cc9",
+              "percentile": 99.71,
+              "rank": 2,
+              "short_name": "CIN",
+              "value": 196.8188
+            },
+            {
+              "display_name": "Washington State Cougars",
+              "entity_id": "prt_4237dd331cb6bf918985",
+              "percentile": 99.43,
+              "rank": 3,
+              "short_name": "WSU",
+              "value": 187.371
+            },
+            {
+              "display_name": "Western Michigan Broncos",
+              "entity_id": "prt_d0d724a8880073a09298",
+              "percentile": 99.14,
+              "rank": 4,
+              "short_name": "WMU",
+              "value": 184.4232
+            },
+            {
+              "display_name": "SE Louisiana Lions",
+              "entity_id": "prt_1e0a5ddf70475dee5084",
+              "percentile": 98.86,
+              "rank": 5,
+              "short_name": "SELA",
+              "value": 182.2555
+            }
+          ],
+          "unit": "min/200",
+          "universe_size": 350,
+          "window": "PRESEASON_ROSTER"
+        },
+        "returning_minutes_share": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Alcorn State Braves",
+              "entity_id": "prt_ff1d7d303f6a111ecbb3",
+              "percentile": 4.87,
+              "rank": 333,
+              "short_name": "ALCN",
+              "value": 0.0
+            },
+            {
+              "display_name": "Jacksonville State Gamecocks",
+              "entity_id": "prt_f8a1518f950716bf4055",
+              "percentile": 4.87,
+              "rank": 333,
+              "short_name": "JXST",
+              "value": 0.0
+            },
+            {
+              "display_name": "Fresno State Bulldogs",
+              "entity_id": "prt_ee920801f26004708d00",
+              "percentile": 4.87,
+              "rank": 333,
+              "short_name": "FRES",
+              "value": 0.0
+            },
+            {
+              "display_name": "Northern Illinois Huskies",
+              "entity_id": "prt_ee194128e01e65cdeb49",
+              "percentile": 4.87,
+              "rank": 333,
+              "short_name": "NIU",
+              "value": 0.0
+            },
+            {
+              "display_name": "Kansas City Roos",
+              "entity_id": "prt_ec2046bb1b3659d33a2b",
+              "percentile": 4.87,
+              "rank": 333,
+              "short_name": "KC",
+              "value": 0.0
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 0.260716,
+          "metric_id": "met_cbb.returning_minutes_share",
+          "name": "Returning minutes share",
+          "ranking_id": "rnk_902ea9d649eef1999773",
+          "short_name": "Ret. min",
+          "top": [
+            {
+              "display_name": "Princeton Tigers",
+              "entity_id": "prt_2792a9b0c3660478fcfa",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "PRIN",
+              "value": 0.9998
+            },
+            {
+              "display_name": "Air Force Falcons",
+              "entity_id": "prt_82670e288f1ad459c519",
+              "percentile": 99.71,
+              "rank": 2,
+              "short_name": "AF",
+              "value": 0.9828
+            },
+            {
+              "display_name": "Brown Bears",
+              "entity_id": "prt_ac76a06fafa970e2ffe9",
+              "percentile": 99.43,
+              "rank": 3,
+              "short_name": "BRWN",
+              "value": 0.8747
+            },
+            {
+              "display_name": "American University Eagles",
+              "entity_id": "prt_0adb0fb532dc432ef03e",
+              "percentile": 99.14,
+              "rank": 4,
+              "short_name": "AMER",
+              "value": 0.848
+            },
+            {
+              "display_name": "Harvard Crimson",
+              "entity_id": "prt_4965a75d7c8c3a4e775f",
+              "percentile": 98.85,
+              "rank": 5,
+              "short_name": "HARV",
+              "value": 0.8329
+            }
+          ],
+          "unit": "share",
+          "universe_size": 349,
+          "window": "PRESEASON_ROSTER"
+        }
+      },
+      "markets": {
+        "captured_at": "2026-10-10T21:49:15.188120+00:00",
+        "note": "Market research is not published for CBB yet.",
+        "published": 0
+      },
+      "model_note": "pure-0.2.0 is the production incumbent. Challengers run in shadow; P-ROSTER-1 is a prospective roster overlay on pure-0.5.0. No model is called better before the preregistered evaluation (after the 2027 national championship game).",
+      "models": [
+        {
+          "role": "incumbent",
+          "role_label": "Incumbent",
+          "version": "pure-0.2.0"
+        },
+        {
+          "role": "shadow",
+          "role_label": "Shadow research",
+          "version": "pure-0.3.0"
+        },
+        {
+          "role": "shadow",
+          "role_label": "Shadow research",
+          "version": "pure-0.4.0"
+        },
+        {
+          "role": "shadow",
+          "role_label": "Shadow research",
+          "version": "pure-0.5.0"
+        },
+        {
+          "role": "roster_overlay",
+          "role_label": "Prospective roster overlay",
+          "version": "pure-0.5.0+roster"
+        }
+      ],
+      "projection_states": {
+        "PENDING_WINDOW": 5448
+      },
+      "prospective": {
+        "game_1": {
+          "N": 0,
+          "ci90": null
+        },
+        "game_2": {
+          "N": 0,
+          "ci90": null
+        },
+        "game_3": {
+          "N": 0,
+          "ci90": null
+        },
+        "gate": {},
+        "inference_allowed": false,
+        "min_days_for_inference": 10,
+        "min_n_for_inference": 20,
+        "note": "no settled game with both base and P-ROSTER-1 pregame records yet",
+        "protocol": "research/hypotheses/WAVE7.md section 7 (locked); Wave 8 diagnostics in research/hypotheses/WAVE8.md",
+        "scoreboard_path": "scores/2026/10/2026-10-06T211932Z",
+        "scoreboard_stamp": "2026-10-06T211932Z",
+        "versions": {
+          "base": "pure-0.5.0",
+          "incumbent": "pure-0.2.0",
+          "roster": "pure-0.5.0+roster"
+        }
+      },
+      "provenance": {
+        "code_sha": "794714472c238f7f6ebf973da7ebfa02a948469f",
+        "kalshi_archive": "c503d1d183e885c2707052dffc9d7e17d854a14c",
+        "last_prospective_run": {
+          "as_of": "2026-10-06T21:20:27.268903+00:00",
+          "code_sha": "ebe89a7b2e85ea81bd21bb93be289612a6baf8aa",
+          "records": 0,
+          "roster_archive_commit": "f20c13b5e2d5a560734b4cf5a34b3be91f8a805d",
+          "stamp": "20261006T212027Z"
+        },
+        "projections_archive": "efcdc9fd08e62206fe4f782d2de653a618da1669",
+        "roster_archive": "c223a5eaacf61bc91167049b050a5b7e6eb91d3a",
+        "schedule_archive": "f7203fb5721193894f618c748ff0f7434ae9248d",
+        "scores_archive": "fa7b076affdc0a7678b5823cd9c66f6952dcca19"
+      },
+      "research_status": "PRESEASON",
+      "roster_readiness": {
+        "continuity_audit": {
+          "abs_max": 8.39141382554014,
+          "abs_p90": 4.53097350766257,
+          "abs_p95": 5.337297431442496,
+          "confirmed_teams": 334,
+          "mean": -0.6089379864690577,
+          "median": -0.3459056644804166,
+          "n_abs_gt_2": 150,
+          "n_abs_gt_3": 87,
+          "n_abs_gt_4": 47
+        },
+        "counts": {
+          "CONFIRMED": 335,
+          "CONFLICTED": 15,
+          "STALE": 11,
+          "UNKNOWN": 5
+        },
+        "snapshot": "20261010T140447Z",
+        "snapshot_at": "2026-10-10T14:04:47+00:00"
+      },
+      "schedule": {
+        "d1_games": 5448,
+        "excluded": 60,
+        "fallback_games": 4407,
+        "observed_at": "2026-10-10T06:03:12+00:00",
+        "reconciled_games": 725,
+        "sdv_games": 1629
+      },
+      "season": "2026-27"
+    }
+  },
+  "freshness_status": "UNKNOWN",
+  "generated_at": "2026-10-10T21:58:00Z",
+  "kind": "health",
+  "last_export_attempt": "2026-10-10T21:58:00Z",
+  "last_market_capture": null,
+  "last_model_generated": null,
+  "last_successful_run": "2026-10-10T21:58:00Z",
+  "market_data_status": "NOT_APPLICABLE",
+  "model_status": "NOT_APPLICABLE",
+  "next_scheduled_run": null,
+  "overall_status": "RESEARCH_ONLY",
+  "payload_run_id": "run_9c721255e219946040ad",
+  "router_status": "NOT_APPLICABLE",
+  "run_id": "run_9c721255e219946040ad",
+  "schema_version": "edge_finder.app.v1",
+  "settlement_status": "NOT_APPLICABLE",
+  "sport": "CBB",
+  "thresholds": {
+    "export": {
+      "fresh_after_seconds": 1800,
+      "stale_after_seconds": 10800
+    },
+    "market_data": {
+      "fresh_after_seconds": 900,
+      "stale_after_seconds": 3600
+    },
+    "model": {
+      "fresh_after_seconds": 50400,
+      "stale_after_seconds": 108000
+    },
+    "recommendations": {
+      "fresh_after_seconds": 3600,
+      "stale_after_seconds": 21600
+    },
+    "router": {
+      "fresh_after_seconds": 1800,
+      "stale_after_seconds": 14400
+    },
+    "schedule": {
+      "fresh_after_seconds": 86400,
+      "stale_after_seconds": 259200
+    },
+    "settlement": {
+      "fresh_after_seconds": 86400,
+      "stale_after_seconds": 259200
+    }
+  },
+  "warnings": [
+    "Market research is not published for CBB yet: no Kalshi game contract maps to a published game."
+  ]
+}
