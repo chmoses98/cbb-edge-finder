@@ -1,0 +1,366 @@
+team_id,next_game,next_tip,opponent,first_game_of_season,games_in_window,next_tip_tbd,roster_confidence,valid_expected_rotation,identity_sufficient,identity_coverage,baseline_projection_possible,proster_input_substitution,proster_continuity_correction,currently_unscorable,why
+T0001,401920798,2026-11-04T05:00:00+00:00,T0282,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0003,401919014,2026-11-02T22:00:00+00:00,T0234,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0004,401911003,2026-11-02T05:00:00+00:00,T0090,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0005,401929372,2026-11-03T05:00:00+00:00,T0170,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0006,401921731,2026-11-02T05:00:00+00:00,T0200,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0007,401909738,2026-11-03T03:00:00+00:00,T0014,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0008,401920122,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0009,401920348,2026-11-03T03:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0010,401920155,2026-11-03T05:00:00+00:00,T0209,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0011,401911469,2026-11-02T20:00:00+00:00,T0306,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0012,401920716,2026-11-02T05:00:00+00:00,T0154,True,2,True,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0013,401918051,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0014,401909738,2026-11-03T03:00:00+00:00,T0007,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0015,401926776,2026-11-03T03:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0016,401926771,2026-11-02T05:00:00+00:00,T0127,True,1,True,CONFLICTED,True,False,0.9285714286000001,True,True,False,False,
+T0017,401925878,2026-11-02T05:00:00+00:00,T0067,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0018,401909759,2026-11-02T05:00:00+00:00,T0351,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0019,401911390,2026-11-03T02:00:00+00:00,T0210,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0021,401924743,2026-11-03T00:00:00+00:00,T0025,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0022,401912207,2026-11-02T05:00:00+00:00,T0189,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0023,401911208,2026-11-03T00:00:00+00:00,T0244,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0024,401921264,2026-11-02T23:30:00+00:00,T0231,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0025,401924743,2026-11-03T00:00:00+00:00,T0021,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0026,401920902,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0027,401909694,2026-11-03T01:30:00+00:00,T0028,True,2,False,CONFIRMED,True,True,0.8666666667,True,True,True,False,
+T0028,401909694,2026-11-03T01:30:00+00:00,T0027,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0029,401926739,2026-11-03T00:30:00+00:00,,True,2,False,CONFLICTED,True,False,0.9333333333,True,True,False,True,next game vs non-D-I opponent (outside the experiment)
+T0030,401918073,2026-11-02T05:00:00+00:00,T0103,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0031,401906769,2026-11-02T23:00:00+00:00,T0238,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0032,401911374,2026-11-02T05:00:00+00:00,T0187,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0033,401920304,2026-11-03T05:00:00+00:00,T0214,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0034,401906779,2026-11-03T00:30:00+00:00,T0339,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0035,401917506,2026-11-03T04:59:00+00:00,T0346,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0036,401909771,2026-11-02T05:00:00+00:00,T0106,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0037,401929171,2026-11-04T05:00:00+00:00,,True,1,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0038,401922260,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0039,401927360,2026-11-03T01:00:00+00:00,,True,2,False,CONFLICTED,True,False,0.9333333333,True,True,False,True,next game vs non-D-I opponent (outside the experiment)
+T0040,401920732,2026-11-02T05:00:00+00:00,T0177,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0041,401920951,2026-11-03T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0042,401928858,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0043,401916286,2026-11-03T00:00:00+00:00,T0201,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0044,401921173,2026-11-02T16:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0045,401920982,2026-11-01T14:30:00+00:00,T0100,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0046,401911707,2026-11-02T16:30:00+00:00,T0304,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0047,401921801,2026-11-03T05:00:00+00:00,T0232,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0048,401918947,2026-11-03T02:00:00+00:00,T0107,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0049,401920959,2026-11-02T05:00:00+00:00,T0242,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0050,401921808,2026-11-03T05:00:00+00:00,T0251,True,2,True,CONFIRMED,True,True,0.9,True,True,True,False,
+T0051,401925953,2026-11-02T23:00:00+00:00,T0053,True,4,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0052,401920746,2026-11-02T05:00:00+00:00,T0055,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0053,401925953,2026-11-02T23:00:00+00:00,T0051,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0054,401920354,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0055,401920746,2026-11-02T05:00:00+00:00,T0052,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0056,401911001,2026-11-02T05:00:00+00:00,T0312,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0057,401909541,2026-11-03T00:00:00+00:00,T0329,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0058,401917509,2026-11-02T05:00:00+00:00,T0280,True,2,True,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0059,401916296,2026-11-03T00:00:00+00:00,T0178,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0060,401924856,2026-11-02T05:00:00+00:00,T0271,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0061,401925733,2026-11-02T23:00:00+00:00,T0263,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0062,401916303,2026-11-02T05:00:00+00:00,T0343,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0063,401911248,2026-11-02T05:00:00+00:00,T0225,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0064,401909490,2026-11-03T01:00:00+00:00,T0074,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0065,401921165,2026-11-03T05:00:00+00:00,T0151,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0066,401925683,2026-11-02T05:00:00+00:00,T0168,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0067,401925878,2026-11-02T05:00:00+00:00,T0017,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0068,401922029,2026-11-03T03:00:00+00:00,T0264,True,2,False,CONFIRMED,True,True,0.8,True,True,True,False,
+T0069,401909562,2026-11-02T23:30:00+00:00,T0159,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0070,401918976,2026-11-03T00:00:00+00:00,T0341,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0071,401918955,2026-11-02T05:00:00+00:00,T0181,True,2,True,CONFIRMED,True,True,0.9285714286000001,True,True,True,False,
+T0072,401913099,2026-11-03T00:00:00+00:00,T0321,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0073,401909725,2026-11-02T05:00:00+00:00,T0236,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0074,401909490,2026-11-03T01:00:00+00:00,T0064,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0075,401919780,2026-11-03T00:30:00+00:00,T0370,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0076,401920231,2026-11-03T00:00:00+00:00,T0233,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0077,401911304,2026-11-03T00:00:00+00:00,T0101,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0078,401913525,2026-11-03T01:00:00+00:00,T0161,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0079,401924732,2026-11-02T21:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0080,401926135,2026-11-07T00:00:00+00:00,T0373,True,1,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0081,401928787,2026-11-04T01:30:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0082,401924894,2026-11-03T02:00:00+00:00,T0361,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0083,401921139,2026-11-03T00:00:00+00:00,T0204,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0084,401924717,2026-11-02T23:00:00+00:00,T0265,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0085,401911261,2026-11-02T05:00:00+00:00,T0330,True,2,True,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0086,401909716,2026-11-02T05:00:00+00:00,T0373,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0087,401910994,2026-11-03T00:00:00+00:00,T0212,True,1,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0088,401911002,2026-11-03T00:00:00+00:00,T0119,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0089,401916313,2026-11-02T05:00:00+00:00,T0116,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0090,401911003,2026-11-02T05:00:00+00:00,T0004,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0091,401919039,2026-11-02T05:00:00+00:00,T0354,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0092,401917913,2026-11-03T01:30:00+00:00,T0335,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0093,401906801,2026-11-02T05:00:00+00:00,T0369,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0094,401925862,2026-11-02T05:00:00+00:00,,True,4,True,CONFIRMED,True,True,0.8666666667,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0095,401925947,2026-11-02T05:00:00+00:00,T0318,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0096,401917173,2026-11-02T05:00:00+00:00,T0182,True,2,True,UNKNOWN,True,False,0.7857142857,True,False,False,False,
+T0097,401925857,2026-11-02T05:00:00+00:00,T0184,True,1,True,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0098,401913526,2026-11-06T01:30:00+00:00,T0161,True,1,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0099,401909705,2026-11-02T05:00:00+00:00,T0273,True,2,True,CONFIRMED,True,True,0.875,True,True,True,False,
+T0100,401920982,2026-11-01T14:30:00+00:00,T0045,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0101,401911304,2026-11-03T00:00:00+00:00,T0077,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0102,401920061,2026-11-04T00:00:00+00:00,T0053,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0103,401918073,2026-11-02T05:00:00+00:00,T0030,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0104,401921424,2026-11-03T01:00:00+00:00,T0176,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0105,401926813,2026-11-06T05:00:00+00:00,,True,1,True,CONFIRMED,True,True,0.8666666667,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0106,401909771,2026-11-02T05:00:00+00:00,T0036,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0107,401918947,2026-11-03T02:00:00+00:00,T0048,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0108,401921104,2026-11-02T05:00:00+00:00,T0359,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0109,401909750,2026-11-03T02:30:00+00:00,T0262,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0110,401921093,2026-11-02T23:30:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0111,401920806,2026-11-03T05:00:00+00:00,T0167,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0112,401925811,2026-11-02T05:00:00+00:00,T0224,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0113,401925826,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0114,401929355,2026-11-03T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0115,401906863,2026-11-03T02:00:00+00:00,T0188,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0116,401916313,2026-11-02T05:00:00+00:00,T0089,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0117,401925921,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0118,401921697,2026-11-03T02:00:00+00:00,T0139,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0119,401911002,2026-11-03T00:00:00+00:00,T0088,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0120,401911237,2026-11-02T05:00:00+00:00,T0245,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0121,401920422,2026-11-04T00:30:00+00:00,T0198,True,2,False,CONFIRMED,True,True,0.8333333333,True,True,True,False,
+T0122,401920376,2026-11-04T00:00:00+00:00,T0191,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0123,401920690,2026-11-03T00:00:00+00:00,T0147,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0124,401920769,2026-11-02T05:00:00+00:00,T0190,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0125,401925771,2026-11-02T05:00:00+00:00,T0192,True,2,True,CONFIRMED,True,True,0.875,True,True,True,False,
+T0126,401909522,2026-11-03T00:30:00+00:00,T0371,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0127,401926771,2026-11-02T05:00:00+00:00,T0016,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0128,401920893,2026-11-02T05:00:00+00:00,T0195,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0129,401910995,2026-11-03T00:00:00+00:00,T0179,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0130,401921766,2026-11-02T05:00:00+00:00,T0148,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0131,401929179,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,0.9285714286000001,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0132,401917511,2026-11-03T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0133,401925818,2026-11-02T05:00:00+00:00,T0246,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0134,401920701,2026-11-02T05:00:00+00:00,T0283,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0135,401911004,2026-11-03T00:00:00+00:00,T0174,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0136,401925105,2026-11-03T01:30:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0137,401920876,2026-11-02T05:00:00+00:00,,True,2,True,STALE,True,False,,True,False,False,True,next game vs non-D-I opponent (outside the experiment)
+T0138,401910997,2026-11-03T00:00:00+00:00,T0320,True,3,False,UNKNOWN,True,False,0.6470588235,True,False,False,False,
+T0139,401921697,2026-11-03T02:00:00+00:00,T0118,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0140,401929624,2026-11-04T03:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0141,401917508,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0142,401911517,2026-11-02T05:00:00+00:00,T0355,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0143,401922020,2026-11-03T02:30:00+00:00,T0153,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0144,401909500,2026-11-03T01:00:00+00:00,T0372,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0145,401910993,2026-11-03T01:00:00+00:00,T0165,True,2,False,CONFLICTED,True,False,0.9375,True,True,False,False,
+T0146,401909531,2026-11-03T00:00:00+00:00,T0269,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0147,401920690,2026-11-03T00:00:00+00:00,T0123,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0148,401921766,2026-11-02T05:00:00+00:00,T0130,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0149,401902275,2026-11-03T00:00:00+00:00,T0180,True,3,False,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0150,401910998,2026-11-03T00:00:00+00:00,T0203,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0151,401921165,2026-11-03T05:00:00+00:00,T0065,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0152,401925096,2026-11-02T05:00:00+00:00,T0162,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0153,401922020,2026-11-03T02:30:00+00:00,T0143,True,2,False,CONFIRMED,True,True,0.8666666667,True,True,True,False,
+T0154,401920716,2026-11-02T05:00:00+00:00,T0012,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0155,401906757,2026-11-03T05:00:00+00:00,T0276,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0156,401926787,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0157,401927368,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0158,401906791,2026-11-02T05:00:00+00:00,T0305,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0159,401909562,2026-11-02T23:30:00+00:00,T0069,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0160,401926862,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0161,401913525,2026-11-03T01:00:00+00:00,T0078,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0162,401925096,2026-11-02T05:00:00+00:00,T0152,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0163,401923317,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,0.8666666667,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0164,401911333,2026-11-03T00:00:00+00:00,T0327,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0165,401910993,2026-11-03T01:00:00+00:00,T0145,True,1,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0166,401925640,2026-11-03T00:30:00+00:00,,True,2,False,CONFIRMED,True,True,0.8125,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0167,401920806,2026-11-03T05:00:00+00:00,T0111,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0168,401925683,2026-11-02T05:00:00+00:00,T0066,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0169,401921422,2026-11-02T11:00:00+00:00,T0357,True,2,False,CONFIRMED,True,True,0.9444444444000001,True,True,True,False,
+T0170,401929372,2026-11-03T05:00:00+00:00,T0005,True,2,True,CONFLICTED,True,False,,True,True,False,False,
+T0171,401920201,2026-11-03T00:00:00+00:00,T0314,True,2,False,STALE,False,False,,True,False,False,False,
+T0172,401910999,2026-11-02T05:00:00+00:00,T0311,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0173,401917948,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0174,401911004,2026-11-03T00:00:00+00:00,T0135,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0175,401920758,2026-11-03T00:30:00+00:00,T0365,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0176,401921424,2026-11-03T01:00:00+00:00,T0104,True,3,False,CONFLICTED,True,False,0.9333333333,True,True,False,False,
+T0177,401920732,2026-11-02T05:00:00+00:00,T0040,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0178,401916296,2026-11-03T00:00:00+00:00,T0059,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0179,401910995,2026-11-03T00:00:00+00:00,T0129,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0180,401902275,2026-11-03T00:00:00+00:00,T0149,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0181,401918955,2026-11-02T05:00:00+00:00,T0071,True,1,True,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0182,401917173,2026-11-02T05:00:00+00:00,T0096,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0184,401925857,2026-11-02T05:00:00+00:00,T0097,True,2,True,STALE,False,False,,True,False,False,False,
+T0185,401921753,2026-11-02T05:00:00+00:00,T0338,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0186,401910996,2026-11-03T00:30:00+00:00,T0248,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0187,401911374,2026-11-02T05:00:00+00:00,T0032,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0188,401906863,2026-11-03T02:00:00+00:00,T0115,True,2,False,STALE,False,False,,True,False,False,False,
+T0189,401912207,2026-11-02T05:00:00+00:00,T0022,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0190,401920769,2026-11-02T05:00:00+00:00,T0124,True,2,True,CONFLICTED,True,False,,True,True,False,False,
+T0191,401920376,2026-11-04T00:00:00+00:00,T0122,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0192,401925771,2026-11-02T05:00:00+00:00,T0125,True,2,True,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0193,401911185,2026-11-03T00:00:00+00:00,T0337,True,2,False,CONFIRMED,True,True,0.9411764706,True,True,True,False,
+T0194,401927341,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0195,401920893,2026-11-02T05:00:00+00:00,T0128,True,2,True,CONFIRMED,True,True,0.8571428571,True,True,True,False,
+T0196,401909523,2026-11-07T01:00:00+00:00,T0126,True,1,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0197,401927361,2026-11-04T05:00:00+00:00,,True,1,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0198,401920422,2026-11-04T00:30:00+00:00,T0121,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0199,401925779,2026-11-03T05:00:00+00:00,T0332,True,2,True,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0200,401921731,2026-11-02T05:00:00+00:00,T0006,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0201,401916286,2026-11-03T00:00:00+00:00,T0043,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0202,401929383,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0203,401910998,2026-11-03T00:00:00+00:00,T0150,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0204,401921139,2026-11-03T00:00:00+00:00,T0083,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0205,401920691,2026-11-06T00:00:00+00:00,T0123,True,1,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0206,401919803,2026-11-03T00:00:00+00:00,T0334,True,2,False,CONFLICTED,True,False,1.0,True,True,False,False,
+T0207,401928357,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0208,401909784,2026-11-02T05:00:00+00:00,T0220,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0209,401920155,2026-11-03T05:00:00+00:00,T0010,True,2,True,STALE,True,False,,True,False,False,False,
+T0210,401911390,2026-11-03T02:00:00+00:00,T0019,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0211,401920071,2026-11-02T21:00:00+00:00,T0235,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0212,401910994,2026-11-03T00:00:00+00:00,T0087,True,3,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0213,401921704,2026-11-03T00:30:00+00:00,T0270,True,2,False,CONFIRMED,True,True,0.8666666667,True,True,True,False,
+T0214,401920304,2026-11-03T05:00:00+00:00,T0033,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0215,401920409,2026-11-02T04:59:00+00:00,T0226,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0216,401926830,2026-11-02T16:30:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0217,401917507,2026-11-03T03:00:00+00:00,T0296,True,2,False,CONFIRMED,True,True,0.9285714286000001,True,True,True,False,
+T0218,401920702,2026-11-04T01:00:00+00:00,T0134,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0219,401921036,2026-11-02T05:00:00+00:00,T0309,True,2,True,CONFIRMED,True,True,0.9411764706,True,True,True,False,
+T0220,401909784,2026-11-02T05:00:00+00:00,T0208,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0221,401909796,2026-11-03T05:00:00+00:00,T0288,True,2,True,CONFIRMED,True,True,0.8571428571,True,True,True,False,
+T0222,401911000,2026-11-03T00:30:00+00:00,T0228,True,2,False,CONFIRMED,True,True,0.875,True,True,True,False,
+T0223,401925010,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0224,401925811,2026-11-02T05:00:00+00:00,T0112,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0225,401911248,2026-11-02T05:00:00+00:00,T0063,True,2,True,STALE,True,False,,True,False,False,False,
+T0226,401920409,2026-11-02T04:59:00+00:00,T0215,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0227,401922043,2026-11-03T00:30:00+00:00,,True,3,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0228,401911000,2026-11-03T00:30:00+00:00,T0222,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0229,401911228,2026-11-02T05:00:00+00:00,T0310,True,2,True,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0230,401917514,2026-11-05T03:00:00+00:00,T0367,True,2,False,CONFLICTED,True,False,1.0,True,True,False,False,
+T0231,401921264,2026-11-02T23:30:00+00:00,T0024,True,2,False,CONFIRMED,True,True,0.875,True,True,True,False,
+T0232,401921801,2026-11-03T05:00:00+00:00,T0047,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0233,401920231,2026-11-03T00:00:00+00:00,T0076,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0234,401919014,2026-11-02T22:00:00+00:00,T0003,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0235,401920071,2026-11-02T21:00:00+00:00,T0211,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0236,401909725,2026-11-02T05:00:00+00:00,T0073,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0237,401929384,2026-11-02T16:00:00+00:00,,True,3,False,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0238,401906769,2026-11-02T23:00:00+00:00,T0031,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0239,401928619,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,0.9285714286000001,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0240,401906802,2026-11-06T05:00:00+00:00,T0093,True,1,True,CONFIRMED,True,True,0.9166666667000001,True,True,True,False,
+T0241,401920679,2026-11-02T23:30:00+00:00,T0294,True,2,False,CONFIRMED,True,True,0.9411764706,True,True,True,False,
+T0242,401920959,2026-11-02T05:00:00+00:00,T0049,True,3,True,CONFIRMED,True,True,0.9285714286000001,True,True,True,False,
+T0243,401928852,2026-11-02T05:00:00+00:00,,True,3,True,CONFIRMED,True,True,0.9285714286000001,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0244,401911208,2026-11-03T00:00:00+00:00,T0023,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0245,401911237,2026-11-02T05:00:00+00:00,T0120,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0246,401925818,2026-11-02T05:00:00+00:00,T0133,True,2,True,CONFIRMED,True,True,0.8333333333,True,True,True,False,
+T0247,401926180,2026-11-03T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0248,401910996,2026-11-03T00:30:00+00:00,T0186,True,2,False,CONFIRMED,True,True,0.8666666667,True,True,True,False,
+T0249,401924911,2026-11-03T05:00:00+00:00,T0261,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0250,401911452,2026-11-02T05:00:00+00:00,T0274,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0251,401921808,2026-11-03T05:00:00+00:00,T0050,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0252,401925062,2026-11-02T17:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0253,401921153,2026-11-04T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0254,401929391,2026-11-03T01:00:00+00:00,,True,3,False,CONFIRMED,True,True,0.9375,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0255,401925892,2026-11-03T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,0.8461538462,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0256,401920343,2026-11-04T03:00:00+00:00,T0356,True,2,False,CONFIRMED,True,True,0.8571428571,True,True,True,False,
+T0257,401925887,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0258,401920912,2026-11-02T08:00:00+00:00,T0331,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0259,401927385,2026-11-03T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0260,401919028,2026-11-05T01:00:00+00:00,T0322,True,2,False,STALE,False,False,,True,False,False,False,
+T0261,401924911,2026-11-03T05:00:00+00:00,T0249,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0262,401909750,2026-11-03T02:30:00+00:00,T0109,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0263,401925733,2026-11-02T23:00:00+00:00,T0061,True,3,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0264,401922029,2026-11-03T03:00:00+00:00,T0068,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0265,401924717,2026-11-02T23:00:00+00:00,T0084,True,3,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0266,401917510,2026-11-03T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0267,401925914,2026-11-04T03:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0268,401926077,2026-11-02T23:00:00+00:00,,True,3,False,UNKNOWN,True,False,0.5714285714,True,False,False,True,next game vs non-D-I opponent (outside the experiment)
+T0269,401909531,2026-11-03T00:00:00+00:00,T0146,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0270,401921704,2026-11-03T00:30:00+00:00,T0213,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0271,401924856,2026-11-02T05:00:00+00:00,T0060,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0272,401921060,2026-11-02T05:00:00+00:00,T0278,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0273,401909705,2026-11-02T05:00:00+00:00,T0099,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0274,401911452,2026-11-02T05:00:00+00:00,T0250,True,2,True,CONFLICTED,True,False,1.0,True,True,False,False,
+T0275,401924875,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0276,401906757,2026-11-03T05:00:00+00:00,T0155,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0277,401926116,2026-11-02T23:30:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0278,401921060,2026-11-02T05:00:00+00:00,T0272,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0279,401928351,2026-11-03T02:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0280,401917509,2026-11-02T05:00:00+00:00,T0058,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0282,401920798,2026-11-04T05:00:00+00:00,T0001,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0283,401920701,2026-11-02T05:00:00+00:00,T0134,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0284,401920886,2026-11-03T00:30:00+00:00,T0297,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0285,401923269,2026-11-02T05:00:00+00:00,T0348,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0286,401918967,2026-11-02T05:00:00+00:00,T0291,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0287,401925925,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0288,401909796,2026-11-03T05:00:00+00:00,T0221,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0289,401929441,2026-11-03T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0290,401921819,2026-11-03T05:00:00+00:00,T0030,True,1,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0291,401918967,2026-11-02T05:00:00+00:00,T0286,True,2,True,CONFLICTED,True,False,0.9333333333,True,True,False,False,
+T0294,401920679,2026-11-02T23:30:00+00:00,T0241,True,1,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0295,401920191,2026-11-05T00:00:00+00:00,T0227,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0296,401917507,2026-11-03T03:00:00+00:00,T0217,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0297,401920886,2026-11-03T00:30:00+00:00,T0284,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0298,401925088,2026-11-03T00:30:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0299,401926833,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0300,401928621,2026-11-04T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0301,401919047,2026-11-02T05:00:00+00:00,T0368,True,2,True,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0302,401919001,2026-11-03T01:00:00+00:00,T0313,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0303,401906848,2026-11-03T23:00:00+00:00,T0326,True,1,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0304,401911707,2026-11-02T16:30:00+00:00,T0046,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0305,401906791,2026-11-02T05:00:00+00:00,T0158,True,2,True,STALE,True,False,,True,False,False,False,
+T0306,401911469,2026-11-02T20:00:00+00:00,T0011,True,2,False,UNKNOWN,True,False,0.6666666667000001,True,False,False,False,
+T0307,401911532,2026-11-02T19:00:00+00:00,T0350,True,1,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0308,401911389,2026-11-03T02:00:00+00:00,T0352,True,2,False,CONFIRMED,True,True,0.8571428571,True,True,True,False,
+T0309,401921036,2026-11-02T05:00:00+00:00,T0219,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0310,401911228,2026-11-02T05:00:00+00:00,T0229,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0311,401910999,2026-11-02T05:00:00+00:00,T0172,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0312,401911001,2026-11-02T05:00:00+00:00,T0056,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0313,401919001,2026-11-03T01:00:00+00:00,T0302,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0314,401920201,2026-11-03T00:00:00+00:00,T0171,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0315,401928995,2026-11-03T01:00:00+00:00,T0319,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0316,401926200,2026-11-02T23:00:00+00:00,,True,3,False,CONFIRMED,True,True,0.9411764706,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0317,401909551,2026-11-03T05:00:00+00:00,T0051,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0318,401925947,2026-11-02T05:00:00+00:00,T0095,True,2,True,CONFIRMED,True,True,0.9285714286000001,True,True,True,False,
+T0319,401928995,2026-11-03T01:00:00+00:00,T0315,True,2,False,UNKNOWN,False,False,0.3076923077,True,False,False,False,
+T0320,401910997,2026-11-03T00:00:00+00:00,T0138,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0321,401913099,2026-11-03T00:00:00+00:00,T0072,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0322,401919028,2026-11-05T01:00:00+00:00,T0260,True,1,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0323,401918312,2026-11-02T05:00:00+00:00,,True,1,True,CONFIRMED,True,True,0.8666666667,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0324,401921423,2026-11-02T14:00:00+00:00,T0367,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0325,401928806,2026-11-03T00:30:00+00:00,,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0326,401906848,2026-11-03T23:00:00+00:00,T0303,True,2,False,CONFLICTED,True,False,1.0,True,True,False,False,
+T0327,401911333,2026-11-03T00:00:00+00:00,T0164,True,2,False,CONFIRMED,True,True,0.9285714286000001,True,True,True,False,
+T0328,401924920,2026-11-03T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0329,401909541,2026-11-03T00:00:00+00:00,T0057,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0330,401911261,2026-11-02T05:00:00+00:00,T0085,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0331,401920912,2026-11-02T08:00:00+00:00,T0258,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0332,401925779,2026-11-03T05:00:00+00:00,T0199,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0333,401920434,2026-11-02T05:00:00+00:00,,True,2,True,CONFIRMED,True,True,0.9375,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0334,401919803,2026-11-03T00:00:00+00:00,T0206,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0335,401917913,2026-11-03T01:30:00+00:00,T0092,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0337,401911185,2026-11-03T00:00:00+00:00,T0193,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0338,401921753,2026-11-02T05:00:00+00:00,T0185,True,2,True,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0339,401906779,2026-11-03T00:30:00+00:00,T0034,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0340,401920842,2026-11-03T00:00:00+00:00,T0363,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,False,
+T0341,401918976,2026-11-03T00:00:00+00:00,T0070,True,2,False,CONFIRMED,True,True,0.8666666667,True,True,True,False,
+T0342,401920133,2026-11-06T02:30:00+00:00,,True,1,False,CONFLICTED,True,False,1.0,True,True,False,True,next game vs non-D-I opponent (outside the experiment)
+T0343,401916303,2026-11-02T05:00:00+00:00,T0062,True,2,True,CONFIRMED,True,True,0.9230769231,True,True,True,False,
+T0344,401929404,2026-11-02T05:00:00+00:00,,True,3,True,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0345,401924950,2026-11-04T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0346,401917506,2026-11-03T04:59:00+00:00,T0035,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0347,401926141,2026-11-03T00:00:00+00:00,,True,3,False,CONFIRMED,True,True,0.9333333333,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0348,401923269,2026-11-02T05:00:00+00:00,T0285,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0349,401929394,2026-11-03T01:00:00+00:00,,True,3,False,STALE,False,False,,True,False,False,True,next game vs non-D-I opponent (outside the experiment)
+T0350,401911532,2026-11-02T19:00:00+00:00,T0307,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0351,401909759,2026-11-02T05:00:00+00:00,T0018,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0352,401911389,2026-11-03T02:00:00+00:00,T0308,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0353,401923324,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,0.9166666667000001,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0354,401919039,2026-11-02T05:00:00+00:00,T0091,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0355,401911517,2026-11-02T05:00:00+00:00,T0142,True,2,True,CONFLICTED,True,False,1.0,True,True,False,False,
+T0356,401920343,2026-11-04T03:00:00+00:00,T0256,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0357,401921422,2026-11-02T11:00:00+00:00,T0169,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0358,401920370,2026-11-03T03:00:00+00:00,,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0359,401921104,2026-11-02T05:00:00+00:00,T0108,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0360,401929365,2026-11-03T01:00:00+00:00,,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0361,401924894,2026-11-03T02:00:00+00:00,T0082,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0363,401920842,2026-11-03T00:00:00+00:00,T0340,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0365,401920758,2026-11-03T00:30:00+00:00,T0175,True,3,False,CONFLICTED,True,False,0.9333333333,True,True,False,False,
+T0366,401919845,2026-11-03T00:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,True,True,next game vs non-D-I opponent (outside the experiment)
+T0367,401921423,2026-11-02T14:00:00+00:00,T0324,True,3,False,CONFIRMED,True,True,0.9444444444000001,True,True,True,False,
+T0368,401919047,2026-11-02T05:00:00+00:00,T0301,True,3,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0369,401906801,2026-11-02T05:00:00+00:00,T0093,True,2,True,STALE,False,False,,True,False,False,False,
+T0370,401919780,2026-11-03T00:30:00+00:00,T0075,True,2,False,CONFIRMED,True,True,0.9375,True,True,True,False,
+T0371,401909522,2026-11-03T00:30:00+00:00,T0126,True,3,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0372,401909500,2026-11-03T01:00:00+00:00,T0144,True,2,False,CONFIRMED,True,True,1.0,True,True,True,False,
+T0373,401909716,2026-11-02T05:00:00+00:00,T0086,True,2,True,CONFIRMED,True,True,1.0,True,True,True,False,
+T0374,401922247,2026-11-02T23:00:00+00:00,,True,2,False,CONFIRMED,True,True,1.0,True,True,False,True,next game vs non-D-I opponent (outside the experiment)
