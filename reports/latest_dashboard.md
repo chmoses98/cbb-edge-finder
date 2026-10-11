@@ -1,21 +1,21 @@
-# Roster confirmation scorecard — 20261010T140447Z
+# Roster confirmation scorecard — 20261011T160445Z
 
 | measure | value |
 |---|---|
 | D-I men's basketball teams (NCAA directory) | 365 |
 | official athletics domains verified | 365 (100.0%) |
 | official roster pages found | 358 (98.1%) |
-| official pages CURRENT | 345 (94.5%) |
-| official pages PROBABLY_CURRENT | 8 (2.2%) |
+| official pages CURRENT | 344 (94.2%) |
+| official pages PROBABLY_CURRENT | 9 (2.5%) |
 | teams CONFIRMED | 335 (91.8%) |
 | teams LIKELY | 0 (0.0%) |
 | teams CONFLICTED | 15 (4.1%) |
 | teams STALE | 10 (2.7%) |
 | teams UNKNOWN | 5 (1.4%) |
-| official players | 5448 |
-| player identity match rate | 97.2% |
-| unresolved players | 151 |
-| stale ESPN team sources | 481 |
+| official players | 5450 |
+| player identity match rate | 97.4% |
+| unresolved players | 140 |
+| stale ESPN team sources | 468 |
 
 ## Teams not yet confirmed or likely (30)
 
