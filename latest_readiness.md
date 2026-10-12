@@ -1,4 +1,4 @@
-# Prospective readiness / observability — 2026-10-12T02:52:16.510364+00:00
+# Prospective readiness / observability — 2026-10-12T11:05:37.913977+00:00
 
 Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational report: nothing here predicts or tunes anything.
 
