@@ -1,11 +1,5 @@
 [
  {
-  "code": "UNRESOLVED_IDENTITY_MATERIAL",
-  "severity": "WARNING",
-  "team_id": "T0010",
-  "minutes_at_stake": 28.7
- },
- {
   "code": "SCHEDULE_ORIENTATION_RECONCILED",
   "severity": "WARNING",
   "espn_game_id": 401906767,
