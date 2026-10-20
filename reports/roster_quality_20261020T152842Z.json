@@ -1,0 +1,142 @@
+{
+ "stamp": "20261020T152842Z",
+ "sources": {
+  "espn_core": {
+   "teams": 365,
+   "teams_current": 343,
+   "teams_stale": 22,
+   "stale_reasons": {
+    "lists_eligibility_exhausted_players": 21,
+    "copy_of_previous_season": 1
+   },
+   "players": 5514
+  },
+  "espn_site": {
+   "teams": 366,
+   "teams_current": 340,
+   "teams_stale": 26,
+   "stale_reasons": {
+    "lists_eligibility_exhausted_players": 22,
+    "season_label_2026": 4
+   },
+   "players": 5531
+  },
+  "school_site": {
+   "teams": 358,
+   "teams_current": 355,
+   "teams_stale": 3,
+   "stale_reasons": {
+    "official_stale:season_label_2026": 2,
+    "official_unknown:no_label_no_new_player_evidence": 1
+   },
+   "players": 5466
+  },
+  "sdv_rosters": {
+   "teams": 319,
+   "teams_current": 125,
+   "teams_stale": 194,
+   "stale_reasons": {
+    "copy_of_previous_season": 108,
+    "lists_eligibility_exhausted_players": 80,
+    "older_copy_of_stale_feed": 6
+   },
+   "players": 4800
+  }
+ },
+ "players_by_status": {
+  "CONFIRMED": 5402,
+  "STALE": 3245,
+  "LIKELY": 129,
+  "UNKNOWN": 18
+ },
+ "classification": {
+  "first_d1": 2218,
+  "transfer": 1712,
+  "returning": 1538,
+  "returning_after_gap": 63
+ },
+ "class_label_conflicts": 1040,
+ "conflicts": 88,
+ "conflicts_by_kind": {
+  "absent_from_official_roster": 70,
+  "unmatched_official_name": 18
+ },
+ "unresolved_transfers": 0,
+ "unresolved_identities": 18,
+ "teams_by_confidence": {
+  "CONFIRMED": 354,
+  "STALE": 8,
+  "LIKELY": 3,
+  "UNKNOWN": 1
+ },
+ "new_player_team_keys_since_last": 145,
+ "official": {
+  "teams": 365,
+  "roster_pages_found": 358,
+  "by_platform": {
+   "sidearm": 326,
+   "wmt": 29,
+   "presto": 3
+  },
+  "by_method": {
+   "known_url": 358
+  },
+  "requests": 365,
+  "page_status": {
+   "CURRENT": 347,
+   "PROBABLY_CURRENT": 8,
+   "STALE": 2,
+   "UNKNOWN": 1
+  },
+  "identity": {
+   "exact_same_team": 5295,
+   "no_d1_history": 87,
+   "exact_history": 58,
+   "unresolved": 18,
+   "conflicting_identity": 5,
+   "exact_espn_any_team": 3
+  }
+ },
+ "events": {
+  "player_added": 149,
+  "player_removed": 120,
+  "source_freshness_changed": 19,
+  "identity_resolved": 17,
+  "confidence_changed": 4
+ },
+ "scorecard": {
+  "total_d1_teams": 365,
+  "athletics_domains_verified": 365,
+  "roster_pages_found": 358,
+  "official_pages_current": 347,
+  "official_pages_probably_current": 8,
+  "official_pages_fresh": 355,
+  "confidence": {
+   "CONFIRMED": 354,
+   "LIKELY": 3,
+   "CONFLICTED": 0,
+   "STALE": 7,
+   "UNKNOWN": 1
+  },
+  "player_identity_match_rate": 0.9957921697768021,
+  "official_players": 5466,
+  "unresolved_players": 23,
+  "stale_espn_team_sources": 242,
+  "unresolved_teams": {
+   "T0137": "roster page: roster_not_found",
+   "T0170": "official page STALE: season_label_2026",
+   "T0171": "roster page: home_unreachable",
+   "T0184": "roster page: home_unreachable",
+   "T0188": "roster page: roster_not_found",
+   "T0190": "roster page: home_unreachable",
+   "T0209": "official page STALE: season_label_2026",
+   "T0225": "official page UNKNOWN: no_label_no_new_player_evidence",
+   "T0268": "confidence UNKNOWN: official_roster_unidentified",
+   "T0305": "roster page: home_unreachable",
+   "T0349": "roster page: home_unreachable"
+  },
+  "not_d1_this_season": [
+   "T0293"
+  ]
+ }
+}
