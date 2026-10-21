@@ -1,4 +1,4 @@
-# Prospective readiness / observability — 2026-10-21T10:19:16.600478+00:00
+# Prospective readiness / observability — 2026-10-21T15:23:04.589495+00:00
 
 Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational report: nothing here predicts or tunes anything.
 
@@ -70,11 +70,11 @@ Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational rep
 | question | answer |
 |---|---|
 | 1. teams with a game in the window | 365 |
-| 2. roster confidence | CONFIRMED 354, STALE 7, LIKELY 3, UNKNOWN 1 |
-| 3. valid expected rotation | 364 |
-| 4. identities sufficient (CONFIRMED / LIKELY) | 357 |
+| 2. roster confidence | CONFIRMED 356, STALE 5, LIKELY 3, UNKNOWN 1 |
+| 3. valid expected rotation | 365 |
+| 4. identities sufficient (CONFIRMED / LIKELY) | 359 |
 | 5. baseline projection possible | 365 |
-| 6. P-ROSTER-1 input substitution / continuity correction | 357 / 353 |
+| 6. P-ROSTER-1 input substitution / continuity correction | 359 / 355 |
 | 7. currently unscorable | 76 |
 | next game's tip time still TBD in ESPN (00:00 ET placeholder) | 125 |
 
@@ -195,7 +195,7 @@ Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational rep
 | valid pre-game snapshot available now | 0 |
 | baseline projection possible | 303 |
 | P-ROSTER-1 eligible (a side with input substitution) | 303 |
-| roster status (both sides CONFIRMED) | 284 |
+| roster status (both sides CONFIRMED) | 288 |
 | currently at risk of becoming unscorable | 0 |
 
 
@@ -371,7 +371,7 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-03T01:30 | 401925683 | T0066 | T0168 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-03T02:00 | 401911389 | T0352 | T0308 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-03T02:00 | 401911390 | T0019 | T0210 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
-| 2026-11-03T02:00 | 401906863 | T0115 | T0188 | yes | – | – | – | – | – | – | CONFIRMED/STALE | yes | – | no | no |
+| 2026-11-03T02:00 | 401906863 | T0115 | T0188 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-03T02:00 | 401928351 | T0279 | nan | no | – | – | – | – | – | – | CONFIRMED/None | yes | – | no | no |
 | 2026-11-03T02:00 | 401921697 | T0118 | T0139 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-03T02:00 | 401924894 | T0082 | T0361 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
@@ -400,7 +400,7 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-03T05:00 TBD | 401921165 | T0065 | T0151 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-03T05:00 TBD | 401926180 | T0247 | nan | no | – | – | – | – | – | – | CONFIRMED/None | yes | – | no | no |
 | 2026-11-03T05:00 TBD | 401920304 | T0033 | T0214 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
-| 2026-11-03T05:00 TBD | 401920155 | T0010 | T0209 | yes | – | – | – | – | – | – | CONFIRMED/STALE | yes | – | no | no |
+| 2026-11-03T05:00 TBD | 401920155 | T0010 | T0209 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-03T05:00 TBD | 401929372 | T0005 | T0170 | yes | – | – | – | – | – | – | CONFIRMED/LIKELY | yes | – | no | no |
 | 2026-11-03T23:00 | 401906848 | T0303 | T0326 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-04T00:00 | 401909551 | T0051 | T0317 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
@@ -458,7 +458,7 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-05T05:00 TBD | 401925031 | T0113 | T0234 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-05T05:00 TBD | 401919823 | T0045 | T0371 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-05T05:00 TBD | 401925922 | T0117 | nan | no | – | – | – | – | – | – | CONFIRMED/None | yes | – | no | no |
-| 2026-11-05T05:00 TBD | 401919732 | T0354 | T0188 | yes | – | – | – | – | – | – | CONFIRMED/STALE | yes | – | no | no |
+| 2026-11-05T05:00 TBD | 401919732 | T0354 | T0188 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-05T05:00 TBD | 401921133 | T0309 | T0176 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
 | 2026-11-05T05:00 TBD | 401924948 | T0149 | nan | no | – | – | – | – | – | – | CONFIRMED/None | yes | – | no | no |
 | 2026-11-05T05:00 TBD | 401921679 | T0357 | T0353 | yes | – | – | – | – | – | – | CONFIRMED/CONFIRMED | yes | – | no | no |
