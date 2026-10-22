@@ -1,0 +1,321 @@
+{
+ "teams": 365,
+ "roster_pages_found": 353,
+ "by_platform": {
+  "sidearm": 321,
+  "wmt": 29,
+  "presto": 3
+ },
+ "by_method": {
+  "known_url": 346,
+  "platform_route": 5,
+  "home_link": 2
+ },
+ "requests": 376,
+ "not_found": [
+  {
+   "team_id": "T0171",
+   "base_url": "https://lrtrojans.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://lrtrojans.com",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mens-basketball/roster",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mbkb/2026-27/roster",
+     "result": "robots_disallowed"
+    }
+   ]
+  },
+  {
+   "team_id": "T0187",
+   "base_url": "https://csusports.com/",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://csusports.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://csusports.com/",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://csusports.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://csusports.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    }
+   ]
+  },
+  {
+   "team_id": "T0184",
+   "base_url": "https://www.ccsubluedevils.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.ccsubluedevils.com",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    },
+    {
+     "url": "https://www.ccsubluedevils.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    },
+    {
+     "url": "https://www.ccsubluedevils.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    }
+   ]
+  },
+  {
+   "team_id": "T0190",
+   "base_url": "https://gocolgateraiders.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://gocolgateraiders.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    }
+   ]
+  },
+  {
+   "team_id": "T0208",
+   "base_url": "https://www.fordhamsports.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://fordhamsports.com/sports/mens-basketball/roster",
+     "result": "error:ConnectionError:HTTPSConnectionPool(host='fordhamsports.com', port=443): Read timed out."
+    },
+    {
+     "url": "https://www.fordhamsports.com",
+     "result": "robots_unavailable:fetch_failed:ReadTimeout:HTTPSConnectionPool(host='www.fordhamsports.com', port=443): Read timed out. (re"
+    },
+    {
+     "url": "https://www.fordhamsports.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ReadTimeout:HTTPSConnectionPool(host='www.fordhamsports.com', port=443): Read timed out. (re"
+    },
+    {
+     "url": "https://www.fordhamsports.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ReadTimeout:HTTPSConnectionPool(host='www.fordhamsports.com', port=443): Read timed out. (re"
+    }
+   ]
+  },
+  {
+   "team_id": "T0137",
+   "base_url": "https://www.judolphins.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.judolphins.com",
+     "result": "ok",
+     "final_url": "https://judolphins.com/splash.aspx?id=splash_47"
+    },
+    {
+     "url": "https://www.judolphins.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://judolphins.com/sports/mens-basketball/roster",
+     "players": 0
+    },
+    {
+     "url": "https://www.judolphins.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    }
+   ]
+  },
+  {
+   "team_id": "T0233",
+   "base_url": "https://goredfoxes.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://goredfoxes.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ReadTimeout:HTTPSConnectionPool(host='goredfoxes.com', port=443): Read timed out. (read time"
+    },
+    {
+     "url": "https://goredfoxes.com",
+     "result": "robots_unavailable:fetch_failed:ReadTimeout:HTTPSConnectionPool(host='goredfoxes.com', port=443): Read timed out. (read time"
+    },
+    {
+     "url": "https://goredfoxes.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ReadTimeout:HTTPSConnectionPool(host='goredfoxes.com', port=443): Read timed out. (read time"
+    },
+    {
+     "url": "https://goredfoxes.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ReadTimeout:HTTPSConnectionPool(host='goredfoxes.com', port=443): Read timed out. (read time"
+    }
+   ]
+  },
+  {
+   "team_id": "T0241",
+   "base_url": "https://www.monmouthhawks.com",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://monmouthhawks.com/sports/mens-basketball/roster",
+     "result": "error:ReadTimeout:HTTPSConnectionPool(host='monmouthhawks.com', port=443): Read timed out. (read timeout=30)"
+    },
+    {
+     "url": "https://www.monmouthhawks.com",
+     "result": "ok",
+     "final_url": "https://monmouthhawks.com/"
+    },
+    {
+     "url": "https://www.monmouthhawks.com/sports/mens-basketball/roster",
+     "result": "error:ReadTimeout:HTTPSConnectionPool(host='monmouthhawks.com', port=443): Read timed out. (read timeout=30)"
+    },
+    {
+     "url": "https://www.monmouthhawks.com/sports/mbkb/2026-27/roster",
+     "result": "404"
+    },
+    {
+     "url": "https://www.monmouthhawks.com/sports/mens-basketball",
+     "result": "ok",
+     "final_url": "https://monmouthhawks.com/sports/mens-basketball"
+    },
+    {
+     "url": "https://www.monmouthhawks.com/sports/mens-basketball/schedule",
+     "result": "ok",
+     "final_url": "https://monmouthhawks.com/sports/mens-basketball/schedule"
+    }
+   ]
+  },
+  {
+   "team_id": "T0349",
+   "base_url": "https://www.omavs.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.omavs.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    }
+   ]
+  },
+  {
+   "team_id": "T0016",
+   "base_url": "https://usctrojans.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://usctrojans.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://usctrojans.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://usctrojans.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://usctrojans.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    }
+   ]
+  },
+  {
+   "team_id": "T0305",
+   "base_url": "https://www.TTUsports.com/",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.TTUsports.com/",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    },
+    {
+     "url": "https://www.TTUsports.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    },
+    {
+     "url": "https://www.TTUsports.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    }
+   ]
+  },
+  {
+   "team_id": "T0325",
+   "base_url": "https://greenbayphoenix.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://greenbayphoenix.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://greenbayphoenix.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://greenbayphoenix.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://greenbayphoenix.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    }
+   ]
+  }
+ ],
+ "redirects": {},
+ "linked": {}
+}
