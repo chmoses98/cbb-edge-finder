@@ -1,0 +1,26 @@
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0011", "player_key": "N:T0011:moses dau", "name": "Moses Dau"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "N:T0137:evan roberts", "name": "Evan Roberts"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "N:T0137:lj katz", "name": "LJ Katz"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "N:T0137:lyndell buckingham", "name": "Lyndell Buckingham Jr."}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "N:T0137:maddox palmer", "name": "Maddox Palmer"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "N:T0137:sam mbingazo", "name": "Sam Mbingazo"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "P5105532", "name": "Jaden Newell"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0322", "player_key": "P5107508", "name": "Kenyon Giles"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0291", "player_key": "P5108073", "name": "Cam Amboree"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "P5179094", "name": "James Morrow"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "P5239776", "name": "Nehemiah Turner"}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "P5240016", "name": "Jamie Phillips Jr."}
+{"stamp": "20261024T122045Z", "event": "player_added", "team_id": "T0137", "player_key": "P5314618", "name": "Rex Stirling"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5108085", "name": "Jason Thirdkill Jr."}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5122260", "name": "Jaylen Jordon"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5176296", "name": "Allen Udemadu"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5243205", "name": "Anakin Brown"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5243206", "name": "Lamont Jackson"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5243207", "name": "Simon Wheeler"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5243210", "name": "Enrico Borio"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5313675", "name": "Michael Harper Jr."}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0137", "player_key": "P5313677", "name": "Charles Caporaso"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0011", "player_key": "P5461290", "name": "Moses Dau Nyangol"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0371", "player_key": "P5461362", "name": "Shuto Sakihama"}
+{"stamp": "20261024T122045Z", "event": "player_removed", "team_id": "T0319", "player_key": "P5462468", "name": "Tayelor Moore"}
+{"stamp": "20261024T122045Z", "event": "confidence_changed", "team_id": "T0137", "confidence": "CONFIRMED", "previous": "LIKELY"}
