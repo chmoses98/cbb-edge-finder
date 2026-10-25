@@ -1,4 +1,4 @@
-# Prospective readiness / observability — 2026-10-25T11:52:55.235430+00:00
+# Prospective readiness / observability — 2026-10-25T16:49:49.294559+00:00
 
 Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational report: nothing here predicts or tunes anything.
 
@@ -36,7 +36,7 @@ Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational rep
 * `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401911249, sdv=139 vs 142, espn=142 vs 139
 * `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401909738, sdv=12 vs 26, espn=26 vs 12
 * `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401911532, sdv=2638 vs 94, espn=94 vs 2638
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925953, last_listed=2026-10-06T05:09:07.649611+00:00, latest_fetch_of_date=2026-10-25T11:52:51.083823+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925953, last_listed=2026-10-06T05:09:07.649611+00:00, latest_fetch_of_date=2026-10-25T16:49:45.936739+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401920376, last_listed=2026-10-06T05:09:08.644907+00:00, latest_fetch_of_date=2026-10-24T06:20:49.348911+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401917511, last_listed=2026-10-06T05:09:08.644907+00:00, latest_fetch_of_date=2026-10-24T06:20:49.348911+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401920343, last_listed=2026-10-06T05:09:08.644907+00:00, latest_fetch_of_date=2026-10-24T06:20:49.348911+00:00
