@@ -232,91 +232,14 @@
   "severity": "WARNING",
   "espn_game_id": 401925953,
   "last_listed": "2026-10-06T05:09:07.649611+00:00",
-  "latest_fetch_of_date": "2026-10-27T01:36:09.637543+00:00"
+  "latest_fetch_of_date": "2026-10-27T05:51:20.251692+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401926005,
   "last_listed": "2026-10-06T05:09:08.644907+00:00",
-  "latest_fetch_of_date": "2026-10-27T01:36:10.607252+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401922290,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401925893,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401920232,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401917514,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401920410,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401919028,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401920191,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401926142,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401917977,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401926214,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401923391,
-  "last_listed": "2026-10-06T05:09:09.605157+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
+  "latest_fetch_of_date": "2026-10-27T05:51:20.480039+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
@@ -13946,34 +13869,6 @@
   "espn_game_id": 401927745,
   "last_listed": "2026-10-06T18:41:27.087907+00:00",
   "latest_fetch_of_date": "2026-10-09T06:23:35.728799+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401917512,
-  "last_listed": "2026-10-09T06:21:32.717765+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401925939,
-  "last_listed": "2026-10-09T06:21:32.717765+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401929450,
-  "last_listed": "2026-10-09T06:21:32.717765+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
-  "espn_game_id": 401929438,
-  "last_listed": "2026-10-09T06:21:32.717765+00:00",
-  "latest_fetch_of_date": "2026-10-24T06:20:50.323337+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
