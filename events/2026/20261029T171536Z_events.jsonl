@@ -1,0 +1,7 @@
+{"stamp": "20261029T171536Z", "event": "player_added", "team_id": "T0006", "player_key": "P5178211", "name": "Jonathan Griman"}
+{"stamp": "20261029T171536Z", "event": "player_added", "team_id": "T0209", "player_key": "P5180837", "name": "Joshua Ward"}
+{"stamp": "20261029T171536Z", "event": "player_added", "team_id": "T0331", "player_key": "P5243369", "name": "AJ Barnes"}
+{"stamp": "20261029T171536Z", "event": "player_added", "team_id": "T0182", "player_key": "P5468197", "name": "Channing Francis"}
+{"stamp": "20261029T171536Z", "event": "player_removed", "team_id": "T0182", "player_key": "N:T0182:channing francis", "name": "Channing Francis"}
+{"stamp": "20261029T171536Z", "event": "player_removed", "team_id": "T0069", "player_key": "P5341547", "name": "Brock Davis"}
+{"stamp": "20261029T171536Z", "event": "player_removed", "team_id": "T0233", "player_key": "P5455034", "name": "Josh Williams"}
