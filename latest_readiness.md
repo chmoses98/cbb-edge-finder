@@ -1,4 +1,4 @@
-# Prospective readiness / observability — 2026-10-29T13:20:54.671282+00:00
+# Prospective readiness / observability — 2026-10-29T19:19:25.729116+00:00
 
 Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational report: nothing here predicts or tunes anything.
 
@@ -36,9 +36,9 @@ Window: 2026-11-01T04:00:00+00:00 → 2026-11-08T05:00:00+00:00. Operational rep
 * `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401911249, sdv=139 vs 142, espn=142 vs 139
 * `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401909738, sdv=12 vs 26, espn=26 vs 12
 * `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401911532, sdv=2638 vs 94, espn=94 vs 2638
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925953, last_listed=2026-10-06T05:09:07.649611+00:00, latest_fetch_of_date=2026-10-29T13:20:47.408480+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926005, last_listed=2026-10-06T05:09:08.644907+00:00, latest_fetch_of_date=2026-10-29T13:20:48.375853+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925954, last_listed=2026-10-06T05:09:10.609019+00:00, latest_fetch_of_date=2026-10-29T13:20:50.374006+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925953, last_listed=2026-10-06T05:09:07.649611+00:00, latest_fetch_of_date=2026-10-29T19:19:18.429276+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926005, last_listed=2026-10-06T05:09:08.644907+00:00, latest_fetch_of_date=2026-10-29T19:19:19.420191+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925954, last_listed=2026-10-06T05:09:10.609019+00:00, latest_fetch_of_date=2026-10-29T19:19:21.438396+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925106, last_listed=2026-10-06T05:09:12.634285+00:00, latest_fetch_of_date=2026-10-29T06:17:43.983486+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401920411, last_listed=2026-10-06T05:09:12.634285+00:00, latest_fetch_of_date=2026-10-29T06:17:43.983486+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401918977, last_listed=2026-10-06T05:09:12.634285+00:00, latest_fetch_of_date=2026-10-29T06:17:43.983486+00:00
