@@ -1,0 +1,127 @@
+{
+ "teams": 365,
+ "roster_pages_found": 360,
+ "by_platform": {
+  "sidearm": 328,
+  "wmt": 29,
+  "presto": 3
+ },
+ "by_method": {
+  "known_url": 360
+ },
+ "requests": 360,
+ "not_found": [
+  {
+   "team_id": "T0171",
+   "base_url": "https://lrtrojans.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://lrtrojans.com",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mens-basketball/roster",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mbkb/2026-27/roster",
+     "result": "robots_disallowed"
+    }
+   ]
+  },
+  {
+   "team_id": "T0184",
+   "base_url": "https://www.ccsubluedevils.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.ccsubluedevils.com",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    },
+    {
+     "url": "https://www.ccsubluedevils.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    },
+    {
+     "url": "https://www.ccsubluedevils.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ccsubluedevils.com/robots.txt"
+    }
+   ]
+  },
+  {
+   "team_id": "T0190",
+   "base_url": "https://gocolgateraiders.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://gocolgateraiders.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    }
+   ]
+  },
+  {
+   "team_id": "T0349",
+   "base_url": "https://www.omavs.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.omavs.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    }
+   ]
+  },
+  {
+   "team_id": "T0305",
+   "base_url": "https://www.TTUsports.com/",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.TTUsports.com/",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    },
+    {
+     "url": "https://www.TTUsports.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    },
+    {
+     "url": "https://www.TTUsports.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:HTTPError:405 Client Error: Not Allowed for url: https://www.ttusports.com/robots.txt"
+    }
+   ]
+  }
+ ],
+ "redirects": {},
+ "linked": {}
+}
