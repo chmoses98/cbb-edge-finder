@@ -1,4 +1,4 @@
-# Roster confirmation scorecard — 20261031T142356Z
+# Roster confirmation scorecard — 20261101T154635Z
 
 | measure | value |
 |---|---|
@@ -8,14 +8,14 @@
 | official pages CURRENT | 352 (96.4%) |
 | official pages PROBABLY_CURRENT | 7 (1.9%) |
 | teams CONFIRMED | 359 (98.4%) |
-| teams LIKELY | 1 (0.3%) |
+| teams LIKELY | 6 (1.6%) |
 | teams CONFLICTED | 0 (0.0%) |
-| teams STALE | 5 (1.4%) |
+| teams STALE | 0 (0.0%) |
 | teams UNKNOWN | 0 (0.0%) |
-| official players | 5505 |
+| official players | 5506 |
 | player identity match rate | 99.8% |
-| unresolved players | 11 |
-| stale ESPN team sources | 236 |
+| unresolved players | 13 |
+| stale ESPN team sources | 61 |
 
 ## Teams not yet confirmed or likely (6)
 
@@ -28,4 +28,6 @@
 
 ## Not D-I this season (season-aware membership; not counted)
 
+* `T0183`
 * `T0293`
+* `T0336`
