@@ -7,7 +7,10 @@ name: kalshi-capture
 
 on:
   schedule:
-    - cron: "*/30 * * 1-4,11,12 *"   # season (Nov-Apr): every 30 minutes
+    # Four of the 48 intended half-hour ticks actually produced a snapshot on 2026-11-02.
+    # Avoid GitHub's heavily loaded :00/:30 scheduler boundary and sample every 15m
+    # during the season. With concurrency serialization there are no overlapping captures.
+    - cron: "11,26,41,56 * * 1-4,11,12 *"  # season (Nov-Apr): staggered 15-minute cadence
     - cron: "23 */6 * 5-10 *"        # offseason: every 6 hours (futures markets)
   workflow_dispatch:
   pull_request:
