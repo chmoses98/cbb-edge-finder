@@ -13,6 +13,12 @@ on:
     - cron: "11,26,41,56 * * 1-4,11,12 *"  # season (Nov-Apr): staggered 15-minute cadence
     - cron: "23 */6 * 5-10 *"        # offseason: every 6 hours (futures markets)
   workflow_dispatch:
+  # Run one real production capture as soon as this collector's workflow is changed on main.
+  # This gives us a push-driven kickoff when GitHub scheduled cron ticks are delayed/dropped.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/kalshi-capture.yml"
   pull_request:
     paths:
       - "cbb_edge/kalshi/**"
