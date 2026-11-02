@@ -30,6 +30,8 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from requests import RequestException
+
 from cbb_edge.data.http import fetch
 from cbb_edge.kalshi.mapping import event_date
 from cbb_edge.kalshi.taxonomy import classify_market, is_cbb_series
@@ -122,7 +124,7 @@ def enrich_event_metadata(records: dict[str, dict[str, Any]], lookback: int) -> 
                 cursor = response.get("cursor")
                 if not cursor:
                     break
-        except Exception:
+        except (OSError, ValueError, RequestException):
             # Record incomplete enrichment explicitly. A public API failure must
             # not destroy the immutable price capture or invent an event mapping.
             errors += 1
