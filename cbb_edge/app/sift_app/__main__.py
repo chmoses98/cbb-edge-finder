@@ -13,10 +13,10 @@ rewritten to say the latest attempt failed.
 from __future__ import annotations
 
 import argparse
-from collections import Counter
 import json
 import os
 import sys
+from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path
 
