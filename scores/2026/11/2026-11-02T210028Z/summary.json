@@ -1,0 +1,534 @@
+{
+ "diagnostic_game1_adj_b_buckets": {
+  "2-4": {
+   "N": 0
+  },
+  "4-6": {
+   "N": 1,
+   "base": {
+    "MAE": 8.646940009652852,
+    "RMSE": 8.646940009652852,
+    "bias": 8.646940009652852,
+    "log_loss": 0.3045086021955618
+   },
+   "component_split": {
+    "mean_abs_change_from_a": -0.7870677757753555,
+    "mean_abs_change_from_b": -5.6103645369218675
+   },
+   "delta_MAE": -6.397432312697223,
+   "delta_RMSE": -6.397432312697223,
+   "incumbent": {
+    "MAE": 9.472638180740109,
+    "RMSE": 9.472638180740109,
+    "bias": 9.472638180740109,
+    "log_loss": 0.3472096658997707
+   },
+   "mean_paired_abs_change": -6.397432312697223,
+   "mean_paired_sq_change": -69.70928665187265,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 1.0,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 2.2495076969556287,
+    "RMSE": 2.2495076969556287,
+    "bias": 2.2495076969556287,
+    "log_loss": 0.1193687364449343
+   }
+  },
+  "<2": {
+   "N": 2,
+   "base": {
+    "MAE": 5.768584849600597,
+    "RMSE": 8.0980098347219,
+    "bias": -5.683413773095452,
+    "log_loss": 1.1378638712977145
+   },
+   "component_split": {
+    "mean_abs_change_from_a": 0.527235653558427,
+    "mean_abs_change_from_b": 0.40081617577226014
+   },
+   "delta_MAE": 0.9280518293306868,
+   "delta_RMSE": 0.38409658700673965,
+   "incumbent": {
+    "MAE": 6.9219772405991025,
+    "RMSE": 8.573236783682743,
+    "bias": -6.9219772405991025,
+    "log_loss": 1.0978928601316793
+   },
+   "mean_paired_abs_change": 0.9280518293306872,
+   "mean_paired_sq_change": 6.368366066277604,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.0,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 6.6966366789312834,
+    "RMSE": 8.48210642172864,
+    "bias": -5.205879996688592,
+    "log_loss": 1.2189119032093865
+   }
+  },
+  ">=6": {
+   "N": 0
+  }
+ },
+ "diagnostic_team_game1_by_confidence": {
+  "CONFIRMED": {
+   "N": 3,
+   "N_market": 3,
+   "base": {
+    "MAE": 6.728036569618015,
+    "RMSE": 8.285028627933652,
+    "bias": -0.9066291788460177,
+    "log_loss": 0.8600787815969969
+   },
+   "component_split": {
+    "mean_abs_change_from_a": 0.08913451044716621,
+    "mean_abs_change_from_b": -1.6029107284591158
+   },
+   "delta_MAE": -1.5137762180119498,
+   "delta_RMSE": -1.2386928525649372,
+   "incumbent": {
+    "MAE": 7.772197553979439,
+    "RMSE": 8.883161074028338,
+    "bias": -1.457105433486032,
+    "log_loss": 0.8476651287210432
+   },
+   "market_gap": {
+    "base": -0.9660974296516258,
+    "roster": -2.204790282216563
+   },
+   "mean_paired_abs_change": -1.5137762180119496,
+   "mean_paired_sq_change": -18.990851506439146,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.3333333333333333,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 5.2142603516060655,
+    "RMSE": 7.046335775368715,
+    "bias": -2.7207507654738516,
+    "log_loss": 0.8523975142879024
+   }
+  }
+ },
+ "diagnostic_team_game1_newcomer_quartiles": {
+  "q1 (6-6 newcomers)": {
+   "N": 2,
+   "base": {
+    "MAE": 10.04946931617445,
+    "RMSE": 10.14686759509474,
+    "bias": -1.4025293065215987,
+    "log_loss": 1.0164912193046776
+   },
+   "component_split": {
+    "mean_abs_change_from_a": -0.37802002481363406,
+    "mean_abs_change_from_b": -2.5954371050730645
+   },
+   "delta_MAE": -2.9734571298866985,
+   "delta_RMSE": -1.5815249839649361,
+   "incumbent": {
+    "MAE": 10.72646864019341,
+    "RMSE": 10.799500928751547,
+    "bias": -1.253830459453301,
+    "log_loss": 1.056009918098968
+   },
+   "mean_paired_abs_change": -2.9734571298866985,
+   "mean_paired_sq_change": -29.593827946347815,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.5,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 7.076012186287752,
+    "RMSE": 8.565342611129804,
+    "bias": -4.826504489332123,
+    "log_loss": 0.9540061246288907
+   }
+  },
+  "q2 (7-7 newcomers)": {
+   "N": 1,
+   "base": {
+    "MAE": 0.08517107650514344,
+    "RMSE": 0.08517107650514344,
+    "bias": 0.08517107650514344,
+    "log_loss": 0.5472539061816354
+   },
+   "component_split": {
+    "mean_abs_change_from_a": 1.0234435809687668,
+    "mean_abs_change_from_b": 0.3821420247687817
+   },
+   "delta_MAE": 1.4055856057375484,
+   "delta_RMSE": 1.4055856057375484,
+   "incumbent": {
+    "MAE": 1.863655381551494,
+    "RMSE": 1.863655381551494,
+    "bias": -1.863655381551494,
+    "log_loss": 0.4309755499651933
+   },
+   "mean_paired_abs_change": 1.4055856057375484,
+   "mean_paired_sq_change": 2.215101373378193,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.0,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 1.4907566822426919,
+    "RMSE": 1.4907566822426919,
+    "bias": 1.4907566822426919,
+    "log_loss": 0.6491802936059259
+   }
+  },
+  "q3 (7-8 newcomers)": {
+   "N": 2,
+   "base": {
+    "MAE": 10.04946931617445,
+    "RMSE": 10.14686759509474,
+    "bias": -1.4025293065215987,
+    "log_loss": 1.0164912193046776
+   },
+   "component_split": {
+    "mean_abs_change_from_a": -0.37802002481363406,
+    "mean_abs_change_from_b": -2.5954371050730645
+   },
+   "delta_MAE": -2.9734571298866985,
+   "delta_RMSE": -1.5815249839649361,
+   "incumbent": {
+    "MAE": 10.72646864019341,
+    "RMSE": 10.799500928751547,
+    "bias": -1.253830459453301,
+    "log_loss": 1.056009918098968
+   },
+   "mean_paired_abs_change": -2.9734571298866985,
+   "mean_paired_sq_change": -29.593827946347815,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.5,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 7.076012186287752,
+    "RMSE": 8.565342611129804,
+    "bias": -4.826504489332123,
+    "log_loss": 0.9540061246288907
+   }
+  }
+ },
+ "diagnostic_team_game_number": {
+  "team_game_1": {
+   "N": 3,
+   "N_market": 3,
+   "base": {
+    "MAE": 6.728036569618015,
+    "RMSE": 8.285028627933652,
+    "bias": -0.9066291788460177,
+    "log_loss": 0.8600787815969969
+   },
+   "component_split": {
+    "mean_abs_change_from_a": 0.08913451044716621,
+    "mean_abs_change_from_b": -1.6029107284591158
+   },
+   "delta_MAE": -1.5137762180119498,
+   "delta_RMSE": -1.2386928525649372,
+   "incumbent": {
+    "MAE": 7.772197553979439,
+    "RMSE": 8.883161074028338,
+    "bias": -1.457105433486032,
+    "log_loss": 0.8476651287210432
+   },
+   "market_gap": {
+    "base": -0.9660974296516258,
+    "roster": -2.204790282216563
+   },
+   "mean_paired_abs_change": -1.5137762180119496,
+   "mean_paired_sq_change": -18.990851506439146,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.3333333333333333,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 5.2142603516060655,
+    "RMSE": 7.046335775368715,
+    "bias": -2.7207507654738516,
+    "log_loss": 0.8523975142879024
+   }
+  },
+  "team_game_2": {
+   "N": 0
+  },
+  "team_game_3": {
+   "N": 0
+  }
+ },
+ "false_inclusion_estimate_vs_realized": {
+  "corr": 1.0,
+  "mean_est_minus_real": 0.0,
+  "teams": 6
+ },
+ "false_inclusion_estimated_pretip": {
+  "base_false_minutes_mean": 146.26034093868358,
+  "base_false_players_mean": 9.493188010899182,
+  "teams": 367
+ },
+ "false_inclusion_realized": {
+  "BASE@-": {
+   "false_minutes_mean": 163.8941195514301,
+   "false_players_mean": 11.0,
+   "omitted_minutes_share_mean": 0.7949999999999999,
+   "teams": 6
+  },
+  "ROSTER@T-24h": {
+   "false_minutes_mean": 0.0,
+   "false_players_mean": 0.0,
+   "omitted_minutes_share_mean": 0.0075,
+   "teams": 6
+  },
+  "ROSTER@T-6h": {
+   "false_minutes_mean": 0.0,
+   "false_players_mean": 0.0,
+   "omitted_minutes_share_mean": 0.0075,
+   "teams": 6
+  },
+  "ROSTER@T-72h": {
+   "false_minutes_mean": 0.0,
+   "false_players_mean": 0.0,
+   "omitted_minutes_share_mean": 0.0075,
+   "teams": 6
+  },
+  "ROSTER@T-7d": {
+   "false_minutes_mean": 0.0,
+   "false_players_mean": 0.0,
+   "omitted_minutes_share_mean": 0.0075,
+   "teams": 6
+  },
+  "ROSTER@latest": {
+   "false_minutes_mean": 0.0,
+   "false_players_mean": 0.0,
+   "omitted_minutes_share_mean": 0.0075,
+   "teams": 6
+  }
+ },
+ "gate": {
+  "counts": {
+   "PENDING": 6,
+   "VALID": 3
+  },
+  "enforced": true,
+  "reasons": {}
+ },
+ "headline": {
+  "game_1": {
+   "N": 3,
+   "N_market": 3,
+   "base": {
+    "MAE": 6.728036569618015,
+    "RMSE": 8.285028627933652,
+    "bias": -0.9066291788460177,
+    "log_loss": 0.8600787815969969
+   },
+   "component_split": {
+    "mean_abs_change_from_a": 0.08913451044716621,
+    "mean_abs_change_from_b": -1.6029107284591158
+   },
+   "delta_MAE": -1.5137762180119498,
+   "delta_RMSE": -1.2386928525649372,
+   "false_inclusion": {
+    "base_false_minutes": 163.8941195514301,
+    "roster_false_minutes": 0.0,
+    "teams": 6
+   },
+   "incumbent": {
+    "MAE": 7.772197553979439,
+    "RMSE": 8.883161074028338,
+    "bias": -1.457105433486032,
+    "log_loss": 0.8476651287210432
+   },
+   "market_gap": {
+    "base": -0.9660974296516258,
+    "roster": -2.204790282216563
+   },
+   "mean_paired_abs_change": -1.5137762180119496,
+   "mean_paired_sq_change": -18.990851506439146,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.3333333333333333,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 5.2142603516060655,
+    "RMSE": 7.046335775368715,
+    "bias": -2.7207507654738516,
+    "log_loss": 0.8523975142879024
+   }
+  },
+  "game_2": {
+   "N": 0
+  },
+  "game_3": {
+   "N": 0
+  }
+ },
+ "integrity": {
+  "base_and_roster_same_run": 3,
+  "base_commit_unknown": 0,
+  "base_committed_before_tip": 3,
+  "games_scored": 3,
+  "margin_base_consistent": 3,
+  "roster_commit_unknown": 0,
+  "roster_committed_before_tip": 3,
+  "roster_records_with_code_sha": 3,
+  "truth_commit_unknown": 0,
+  "truth_committed_before_tip": 3,
+  "truth_evidence_complete": 3,
+  "truth_snapshot_before_as_of": 3
+ },
+ "intermediate_rotation": {
+  "BASE": {
+   "current_player_omission": 0.7949999999999999,
+   "false_inclusion_rate": 1.0,
+   "teams": 6
+  },
+  "T-24h": {
+   "current_player_omission": 0.0075,
+   "false_inclusion_rate": 0.0,
+   "minutes_mae": 10.467538258636788,
+   "rotation_precision": 0.5817460317460317,
+   "rotation_recall": 0.6173941798941799,
+   "starters": 0.49999999999999994,
+   "teams": 6,
+   "top5": 0.4666666666666666,
+   "top8": 0.5625
+  },
+  "T-6h": {
+   "current_player_omission": 0.0075,
+   "false_inclusion_rate": 0.0,
+   "minutes_mae": 10.467538258636788,
+   "rotation_precision": 0.5817460317460317,
+   "rotation_recall": 0.6173941798941799,
+   "starters": 0.49999999999999994,
+   "teams": 6,
+   "top5": 0.4666666666666666,
+   "top8": 0.5625
+  },
+  "T-72h": {
+   "current_player_omission": 0.0075,
+   "false_inclusion_rate": 0.0,
+   "minutes_mae": 10.467538258636788,
+   "rotation_precision": 0.5817460317460317,
+   "rotation_recall": 0.6173941798941799,
+   "starters": 0.49999999999999994,
+   "teams": 6,
+   "top5": 0.4666666666666666,
+   "top8": 0.5625
+  },
+  "T-7d": {
+   "current_player_omission": 0.0075,
+   "false_inclusion_rate": 0.0,
+   "minutes_mae": 10.241093814192345,
+   "rotation_precision": 0.5936507936507935,
+   "rotation_recall": 0.6173941798941799,
+   "starters": 0.5333333333333333,
+   "teams": 6,
+   "top5": 0.4666666666666666,
+   "top8": 0.5833333333333334
+  },
+  "latest": {
+   "current_player_omission": 0.0075,
+   "false_inclusion_rate": 0.0,
+   "minutes_mae": 10.467538258636788,
+   "rotation_precision": 0.5817460317460317,
+   "rotation_recall": 0.6173941798941799,
+   "starters": 0.49999999999999994,
+   "teams": 6,
+   "top5": 0.4666666666666666,
+   "top8": 0.5625
+  }
+ },
+ "primary": {
+  "game_1": {
+   "N": 3,
+   "N_market": 3,
+   "base": {
+    "MAE": 6.728036569618015,
+    "RMSE": 8.285028627933652,
+    "bias": -0.9066291788460177,
+    "log_loss": 0.8600787815969969
+   },
+   "component_split": {
+    "mean_abs_change_from_a": 0.08913451044716621,
+    "mean_abs_change_from_b": -1.6029107284591158
+   },
+   "delta_MAE": -1.5137762180119498,
+   "delta_RMSE": -1.2386928525649372,
+   "incumbent": {
+    "MAE": 7.772197553979439,
+    "RMSE": 8.883161074028338,
+    "bias": -1.457105433486032,
+    "log_loss": 0.8476651287210432
+   },
+   "market_gap": {
+    "base": -0.9660974296516258,
+    "roster": -2.204790282216563
+   },
+   "mean_paired_abs_change": -1.5137762180119496,
+   "mean_paired_sq_change": -18.990851506439146,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.3333333333333333,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 5.2142603516060655,
+    "RMSE": 7.046335775368715,
+    "bias": -2.7207507654738516,
+    "log_loss": 0.8523975142879024
+   }
+  },
+  "games_2_3": {
+   "N": 0
+  }
+ },
+ "primary_by_overlay_confidence": {
+  "game_1 / CONFIRMED": {
+   "N": 3,
+   "N_market": 3,
+   "base": {
+    "MAE": 6.728036569618015,
+    "RMSE": 8.285028627933652,
+    "bias": -0.9066291788460177,
+    "log_loss": 0.8600787815969969
+   },
+   "component_split": {
+    "mean_abs_change_from_a": 0.08913451044716621,
+    "mean_abs_change_from_b": -1.6029107284591158
+   },
+   "delta_MAE": -1.5137762180119498,
+   "delta_RMSE": -1.2386928525649372,
+   "incumbent": {
+    "MAE": 7.772197553979439,
+    "RMSE": 8.883161074028338,
+    "bias": -1.457105433486032,
+    "log_loss": 0.8476651287210432
+   },
+   "market_gap": {
+    "base": -0.9660974296516258,
+    "roster": -2.204790282216563
+   },
+   "mean_paired_abs_change": -1.5137762180119496,
+   "mean_paired_sq_change": -18.990851506439146,
+   "paired_abs_change_ci90_day_bootstrap": null,
+   "pct_games_improved": 0.3333333333333333,
+   "pct_games_tied": 0.0,
+   "roster": {
+    "MAE": 5.2142603516060655,
+    "RMSE": 7.046335775368715,
+    "bias": -2.7207507654738516,
+    "log_loss": 0.8523975142879024
+   }
+  }
+ },
+ "protocol": "research/hypotheses/WAVE7.md section 7 (locked); Wave 8 diagnostics in research/hypotheses/WAVE8.md",
+ "run": {
+  "box_rows": 93,
+  "completed_games_in_schedule": 3,
+  "d1_members": 365,
+  "records_read": 1150,
+  "settled_from_espn_fallback": 0,
+  "stamp": "20261102T210011Z"
+ },
+ "settled_paired_games": 3,
+ "versions": {
+  "base": "pure-0.5.0",
+  "incumbent": "pure-0.2.0",
+  "roster": "pure-0.5.0+roster"
+ }
+}
