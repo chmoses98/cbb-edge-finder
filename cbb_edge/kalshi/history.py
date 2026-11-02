@@ -53,8 +53,8 @@ def _projections(
             "as_of": choice.as_of.isoformat(),
             "archive_path": choice.record.get("_path"),
             "sha256": choice.record.get("_sha256"),
-            "home_points": p.get("home_points"),
-            "away_points": p.get("away_points"),
+            "home_points": p.get("home_score"),
+            "away_points": p.get("away_score"),
             "margin": p.get("margin"),
             "margin_sd": p.get("margin_sd"),
             "total": p.get("total"),
@@ -220,11 +220,39 @@ def main() -> None:
     ap.add_argument("--kalshi", required=True)
     ap.add_argument("--code-sha", default=None)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--all-missing", action="store_true")
+    ap.add_argument("--max-partitions", type=int, default=12)
     args = ap.parse_args()
     from cbb_edge.app.sift_app.__main__ import load_world
 
     w = load_world(args, S.ts(datetime.now(UTC)))
-    print(json.dumps(build_panel(w, Path(args.out)), sort_keys=True))
+    out = Path(args.out)
+    if not args.all_missing:
+        print(json.dumps(build_panel(w, out), sort_keys=True))
+        return
+    root = Path(args.kalshi)
+    files = sorted(root.glob("snapshots/**/kalshi_cbb_*.jsonl.gz"))
+    created = []
+    for f in files:
+        name = f.name.replace(".jsonl.gz", "")
+        stamp = f.name.split("_")[-1].split(".")[0]
+        at = S.ts(pd.Timestamp(stamp))
+        dest = out / "panels" / at.strftime("%Y/%m/%d") / f"{name}.panel.jsonl.gz"
+        if dest.exists():
+            continue
+        summary_path = f.with_name(f.name.replace(".jsonl.gz", ".summary.json"))
+        summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+        with gzip.open(f, "rt", encoding="utf-8") as fh:
+            rows = [json.loads(line) for line in fh if line.strip()]
+        captured = summary.get("captured_at") or (
+            rows[0].get("captured_at") if rows else at.isoformat()
+        )
+        w.kalshi = I.KalshiCapture(captured, str(f.relative_to(root)), rows, summary)
+        created.append(build_panel(w, out))
+        if len(created) >= args.max_partitions:
+            break
+    print(json.dumps({"created": created, "remaining": max(0, len(files) - len(created))},
+                     sort_keys=True))
 
 
 if __name__ == "__main__":
