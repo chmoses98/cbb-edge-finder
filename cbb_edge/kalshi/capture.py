@@ -31,6 +31,7 @@ from pathlib import Path
 from typing import Any
 
 from cbb_edge.data.http import fetch
+from cbb_edge.kalshi.mapping import event_date
 from cbb_edge.kalshi.taxonomy import classify_market, is_cbb_series
 
 SOURCE = "kalshi_public"
@@ -84,6 +85,62 @@ def iter_markets(
             return
 
 
+def enrich_event_metadata(records: dict[str, dict[str, Any]], lookback: int) -> dict[str, int]:
+    """Page public event metadata for dated game contracts, not season/futures markets.
+
+    Event titles identify both opponents; individual spread/total contracts often do not.
+    Failures are counted, never guessed. Every raw market is still archived unchanged.
+    """
+    grouped: dict[str, set[str]] = {}
+    for rec in records.values():
+        m = rec["market"]
+        event_ticker = str(m.get("event_ticker") or "")
+        if event_date(event_ticker) is None:
+            continue
+        if classify_market(rec["series"], m).startswith("FUTURES_"):
+            continue
+        grouped.setdefault(str(rec["series"]["ticker"]), set()).add(event_ticker)
+
+    found: dict[str, dict[str, Any]] = {}
+    errors = 0
+    for series, wanted in sorted(grouped.items()):
+        cursor = None
+        try:
+            while True:
+                params: dict[str, Any] = {
+                    "series_ticker": series,
+                    "limit": 200,
+                    "min_close_ts": lookback,
+                }
+                if cursor:
+                    params["cursor"] = cursor
+                response = _get("/events", params)
+                for event in response.get("events") or []:
+                    ticker = str(event.get("event_ticker") or "")
+                    if ticker in wanted:
+                        found[ticker] = event
+                cursor = response.get("cursor")
+                if not cursor:
+                    break
+        except Exception:
+            # Record incomplete enrichment explicitly. A public API failure must
+            # not destroy the immutable price capture or invent an event mapping.
+            errors += 1
+
+    enriched = 0
+    for rec in records.values():
+        event = found.get(str(rec["market"].get("event_ticker") or ""))
+        if event is not None:
+            rec["event"] = event
+            enriched += 1
+    return {
+        "events_targeted": len(set().union(*grouped.values())) if grouped else 0,
+        "events_enriched": len(found),
+        "markets_enriched": enriched,
+        "event_lookup_errors": errors,
+    }
+
+
 def capture(
     out_dir: Path,
     *,
@@ -107,6 +164,7 @@ def capture(
             records.setdefault(
                 m["ticker"], {"series": s, "market": m, "status_query": "recent_close"}
             )
+    enrichment = enrich_event_metadata(records, lookback)
     books = 0
     if orderbook_within_h > 0:
         horizon = captured_at + timedelta(hours=orderbook_within_h)
@@ -144,6 +202,7 @@ def capture(
                         "family": family,
                         "status_query": rec["status_query"],
                         "market": m,
+                        "event": rec.get("event"),
                         "orderbook": rec.get("orderbook"),
                     },
                     sort_keys=True,
@@ -162,6 +221,7 @@ def capture(
         "by_family": dict(fam),
         "by_status": dict(stat),
         "orderbooks": books,
+        **enrichment,
     }
     path.with_name(path.name.replace(".jsonl.gz", ".summary.json")).write_text(
         json.dumps(summary, indent=1, sort_keys=True)
