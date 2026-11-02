@@ -22,18 +22,10 @@ import pandas as pd
 from cbb_edge.app.sift_app import inputs as I
 from cbb_edge.app.sift_app import selection as S
 from cbb_edge.app.sift_app.build import World, clock_of, games_frame
-from cbb_edge.kalshi.mapping import map_market
+from cbb_edge.kalshi.mapping import map_raw
+from cbb_edge.kalshi.semantics import parse_contract, probability
 
-GAME_FAMILIES = {
-    "GAME_WINNER",
-    "SPREAD",
-    "TOTAL",
-    "TEAM_TOTAL",
-    "HALF",
-    "PLAYER_PROP",
-    "OTHER",
-}
-SCHEMA = "cbb-kalshi-model-panel-v1"
+SCHEMA = "cbb-kalshi-model-panel-v2"
 
 
 def _projections(
@@ -111,24 +103,21 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
     reasons: Counter[str] = Counter()
     phases: Counter[str] = Counter()
     linked_with_projection = 0
+    priced = 0
+    series_counts: Counter[str] = Counter()
+    mapped_series: Counter[str] = Counter()
+    parse_status: Counter[str] = Counter()
     pretip_with_projection = 0
     partition.parent.mkdir(parents=True, exist_ok=True)
     with gzip.open(partition, "wt", encoding="utf-8") as fh:
         for raw in cap.markets:
             market = raw.get("market") or {}
             event = raw.get("event") or {}
-            title = str(event.get("title") or event.get("sub_title") or "")
-            key = (
-                str(market.get("event_ticker") or ""),
-                title or str(market.get("title") or ""),
-            )
-            if raw.get("family") not in GAME_FAMILIES:
-                gid, reason = None, "not_game_family"
-            else:
-                if key not in matchup_cache:
-                    matchup_cache[key] = map_market(market, frame, event)
-                gid, reason = matchup_cache[key]
+            gid, reason = map_raw(raw, frame, matchup_cache)
             reasons[reason] += 1
+            series_counts[str(raw.get("series_ticker"))] += 1
+            if reason == "ok":
+                mapped_series[str(raw.get("series_ticker"))] += 1
             game = game_by_id.get(gid) if gid is not None else None
             if game is None or gid is None:
                 phase = "UNMAPPED"
@@ -150,6 +139,23 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
                     if phase == "PRETIP":
                         pretip_with_projection += 1
             phases[phase] += 1
+            parsed: dict[str, Any] | None = None
+            probs: dict[str, Any] | None = None
+            if game is not None and gid is not None:
+                parsed = parse_contract(
+                    str(raw.get("series_ticker") or ""),
+                    market,
+                    game.get("home"),
+                    game.get("away"),
+                )
+                probs = {}
+                if projection is not None:
+                    for version, proj in projection["versions"].items():
+                        p, method = probability(parsed, proj)
+                        probs[version] = {"probability": p, "method_or_gap": method}
+                        if p is not None:
+                            priced += 1
+                    parse_status[str(parsed["status"])] += 1
             row = {
                 "schema_version": SCHEMA,
                 "captured_at": cap.captured_at,
@@ -182,7 +188,8 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
                 "game_start_utc": S.ts(game["start"]).isoformat() if game else None,
                 "market_phase": phase,
                 "models_as_of_capture": projection,
-                "market_specific_model_probability": None,
+                "contract_semantics": parsed,
+                "market_specific_model_probability": probs,
             }
             fh.write(json.dumps(row, sort_keys=True, default=str) + "\n")
 
@@ -196,10 +203,14 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
         "linked_with_projection": linked_with_projection,
         "pretip_with_projection": pretip_with_projection,
         "by_mapping_reason": dict(reasons),
+        "by_series": dict(series_counts),
+        "mapped_by_series": dict(mapped_series),
+        "contract_parse_status": dict(parse_status),
+        "contracts_with_model_probability": priced,
         "by_market_phase": dict(phases),
         "distinct_mapped_games": len(model_cache),
         "projection_rule": "only archived prospective records with as_of <= capture and provably pre-tip",
-        "market_probability_rule": "null until each contract's payoff and strike can be evaluated",
+        "market_probability_rule": "per-version probability only for validated payoff parsers (full-game winner/spread/total) using the frozen model's own distribution; else null with explicit gap",
     }
     summary_path.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
     return summary

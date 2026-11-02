@@ -23,6 +23,7 @@ from typing import Any
 import pandas as pd
 
 from cbb_edge.data.ids import teams
+from cbb_edge.kalshi.semantics import SERIES, resolve_team, rules_matchup
 
 MONTHS = {
     m: i
@@ -30,7 +31,7 @@ MONTHS = {
         ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"], 1
     )
 }
-EVENT_RE = re.compile(r"^[A-Z0-9]+-(\d{2})([A-Z]{3})(\d{2})([A-Z0-9]*)$")
+EVENT_RE = re.compile(r"^[A-Z0-9]+-(\d{2})([A-Z]{3})(\d{2})([A-Z0-9]*?)(?:-[A-Z0-9]+)?$")
 TITLE_RE = re.compile(
     r"^\s*(?P<a>.+?)\s+(?:at|@|vs\.?|v\.?)\s+(?P<b>.+?)(?:\s+winner\??|\?|:.*)?\s*$", re.I
 )
@@ -98,18 +99,31 @@ def map_market(
 
     source = event or {}
     title_found = False
-    for title in (
-        source.get("title"),
-        source.get("sub_title"),
-        market.get("title"),
-    ):
-        pair = title_teams(str(title or ""))
-        if pair is None:
-            continue
+    resolved_pair_without_game = False
+    one_side_resolved = False
+    # Kalshi's own settlement rules name both teams ("... in the A vs B men's college
+    # basketball game originally scheduled for ..."), even for old captures without event
+    # metadata and for contracts whose title names a single side.
+    rules = rules_matchup(market)
+    candidates: list[tuple[str, str]] = []
+    for title in (source.get("title"), source.get("sub_title")):
+        pair_t = title_teams(str(title or ""))
+        if pair_t is not None:
+            candidates.append(pair_t)
+    if rules:
+        candidates.append(rules)  # already split on " vs "; never re-split on "at"
+    pair_m = title_teams(str(market.get("title") or ""))
+    if pair_m is not None:
+        candidates.append(pair_m)
+    resolved = [(resolve_team(p0), resolve_team(p1)) for p0, p1 in candidates]
+    distinct = {frozenset(r) for r in resolved if None not in r and r[0] != r[1]}
+    if len(distinct) > 1:
+        teams.log_unresolved("game", ev, "kalshi", "identity_sources_disagree", date=str(d))
+        return None, "identity_sources_disagree"
+    for a, b in resolved:
         title_found = True
-        a = teams.resolve(pair[0], "kalshi", log=False)
-        b = teams.resolve(pair[1], "kalshi", log=False)
         if a is None or b is None or a == b:
+            one_side_resolved = (a is None) != (b is None)
             continue
         rows = nearby[
             ((nearby["home_team_id"] == a) & (nearby["away_team_id"] == b))
@@ -117,6 +131,7 @@ def map_market(
         ]
         if len(rows):
             return _unique_game(rows)
+        resolved_pair_without_game = True
 
     match = EVENT_RE.match(ev.upper())
     suffix = match.group(4) if match else ""
@@ -133,6 +148,73 @@ def map_market(
         if len(matches) > 1:
             return None, "ambiguous_game"
 
-    reason = "unresolved_team" if title_found else "unresolved_event_identity"
+    if resolved_pair_without_game:
+        # Both teams are canonical but no D-I game between them is scheduled nearby
+        # (typically an exhibition or a non-D-I opponent that the schedule excludes).
+        reason = "teams_resolved_no_scheduled_game"
+    else:
+        # exactly one canonical D-I team + one unknown name is typically an exhibition
+        reason = (
+            "one_team_unresolved"
+            if one_side_resolved
+            else "teams_unresolved"
+            if title_found
+            else "unresolved_event_identity"
+        )
     teams.log_unresolved("game", ev, "kalshi", reason, date=str(d))
     return None, reason
+
+
+# Families whose contracts may be per-game; a dated event ticker is also required.
+GAME_FAMILIES = frozenset(
+    {"GAME_WINNER", "SPREAD", "TOTAL", "TEAM_TOTAL", "HALF", "PLAYER_PROP", "OTHER"}
+)
+
+
+def market_scope(raw: dict[str, Any]) -> str:
+    """GAME (known per-game series), GAME_CANDIDATE (new dated series) or NON_GAME.
+
+    Season-long awards, stat leaders, polls, win totals and tournament futures are
+    NON_GAME even when the family label or a date-like ticker token looks game-like
+    (e.g. ``KXNCAAMBAPRANK-26DEC07R2`` is a poll date, not a game). They are retained
+    in the archive and counted, but never associated with a game.
+    """
+    if str(raw.get("series_ticker") or "") in SERIES:
+        return "GAME"
+    market = raw.get("market") or {}
+    if raw.get("family") in GAME_FAMILIES and event_date(str(market.get("event_ticker", ""))):
+        return "GAME_CANDIDATE" if not _is_poll_or_season(raw) else "NON_GAME"
+    return "NON_GAME"
+
+
+def _is_poll_or_season(raw: dict[str, Any]) -> bool:
+    return bool(
+        re.search(r"(RANK|WINS|UNDEFEATED|AWARD|LEADER)", str(raw.get("series_ticker", "")))
+    )
+
+
+def map_raw(
+    raw: dict[str, Any],
+    games: pd.DataFrame,
+    cache: dict[tuple[str, str], tuple[int | None, str]],
+) -> tuple[int | None, str]:
+    """Resolve one archived market record; always returns an explicit reason."""
+    if market_scope(raw) == "NON_GAME":
+        return None, "non_game_market"
+    market = raw.get("market") or {}
+    event = raw.get("event") or {}
+    rules = rules_matchup(market)
+    key = (
+        str(market.get("event_ticker") or ""),
+        str(event.get("title") or event.get("sub_title") or "")
+        + "|"
+        + "/".join(rules or ())
+        + (
+            ""
+            if (event.get("title") or event.get("sub_title") or rules)
+            else str(market.get("title"))
+        ),
+    )
+    if key not in cache:
+        cache[key] = map_market(market, games, event)
+    return cache[key]

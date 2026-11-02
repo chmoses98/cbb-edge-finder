@@ -27,7 +27,6 @@ from . import inputs as I
 from .selection import ts
 
 ACTIVE = Path(__file__).resolve().parents[3] / "models" / "pure" / "active.json"
-GAME_FAMILIES = {"GAME_WINNER", "SPREAD", "TOTAL", "TEAM_TOTAL", "HALF", "PLAYER_PROP", "OTHER"}
 
 
 def active_models() -> dict:
@@ -48,25 +47,13 @@ def kalshi_games(
     """
     if cap is None or not len(games):
         return {}
-    from cbb_edge.kalshi.mapping import map_market
+    from cbb_edge.kalshi.mapping import map_raw
 
     out: dict[str, list[dict]] = {}
     counts: Counter[str] = Counter()
     cache: dict[tuple[str, str], tuple[int | None, str]] = {}
     for raw in cap.markets:
-        if raw.get("family") not in GAME_FAMILIES:
-            counts["not_game_family"] += 1
-            continue
-        market = raw.get("market") or {}
-        event = raw.get("event") or {}
-        event_title = str(event.get("title") or event.get("sub_title") or "")
-        key = (
-            str(market.get("event_ticker") or ""),
-            event_title or str(market.get("title") or ""),
-        )
-        if key not in cache:
-            cache[key] = map_market(market, games, event)
-        gid, why = cache[key]
+        gid, why = map_raw(raw, games, cache)
         counts[why] += 1
         if gid is not None and why == "ok":
             out.setdefault(f"G{int(gid)}", []).append(raw)

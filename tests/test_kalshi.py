@@ -154,7 +154,7 @@ def test_market_maps_to_unique_canonical_game():
     m = {"event_ticker": "KXNCAAMBGAME-26NOV04DUKEUNC", "title": "Duke at North Carolina Winner?"}
     assert mapping.map_market(m, games) == (1, "ok")
     bad = {"event_ticker": "KXNCAAMBGAME-26NOV04XXXYYY", "title": "Dook at Nort Carolina Winner?"}
-    assert mapping.map_market(bad, games) == (None, "unresolved_team")
+    assert mapping.map_market(bad, games) == (None, "teams_unresolved")
 
 
 def test_contract_title_can_be_a_single_team_when_event_identifies_matchup():

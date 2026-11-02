@@ -414,7 +414,16 @@ def test_kalshi_history_preserves_every_contract_and_only_asof_projections(seaso
     versions = game["models_as_of_capture"]["versions"]
     assert versions and "pure-0.2.0" in versions
     assert all(S.ts(v["as_of"]) <= S.ts(captured) for v in versions.values())
-    assert game["market_specific_model_probability"] is None
+    # No yes_sub_title in this fixture: the subject team cannot be verified, so no probability
+    # is invented and the gap is explicit for every as-of version.
+    assert game["contract_semantics"]["status"] == "subject_unresolved"
+    probs = game["market_specific_model_probability"]
+    assert set(probs) == set(versions)
+    assert all(v["probability"] is None for v in probs.values())
+    assert all(v["method_or_gap"] == "parse:subject_unresolved" for v in probs.values())
+    assert future["market_specific_model_probability"] is None
+    assert future["mapping_reason"] == "non_game_market"
+    assert result["by_mapping_reason"] == {"ok": 1, "non_game_market": 1}
     assert future["espn_game_id"] is None
     assert future["models_as_of_capture"] is None
     assert build_panel(world, tmp_path / "panel") == result
