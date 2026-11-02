@@ -1,0 +1,35 @@
+{
+ "pure-0.5.0+roster": {
+  "game_1": {
+   "roster": {
+    "n": 3,
+    "margin_rmse": 7.046335775368715,
+    "margin_mae": 5.2142603516060655,
+    "total_rmse": 25.322674274519752,
+    "log_loss": 0.8523975142879024,
+    "calibration_slope": 0.690429533069433,
+    "market_gap": -2.204790282216563,
+    "n_market": 3
+   },
+   "base": {
+    "n": 3,
+    "margin_rmse": 8.285028627933652,
+    "margin_mae": 6.728036569618015,
+    "total_rmse": 25.01498391717335,
+    "log_loss": 0.8600787815969969,
+    "calibration_slope": -0.2918773758204286,
+    "market_gap": -0.9660974296516258,
+    "n_market": 3
+   }
+  },
+  "games_2_3": {
+   "roster": {
+    "n": 0
+   },
+   "base": {
+    "n": 0
+   }
+  },
+  "confidence_vs_abs_error_spearman": null
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "season": 2027,
+ "projection_records": 1815,
+ "line_rows": 528,
+ "completed_games": 3,
+ "kalshi_rows": 0,
+ "availability_rows": 0,
+ "monitor_versions": [
+  "pure-0.2.0",
+  "pure-0.3.0",
+  "pure-0.4.0",
+  "pure-0.5.0",
+  "pure-0.5.0+roster"
+ ],
+ "rotation_scorecard_rows": 30,
+ "note": "MARKET_BENCHMARK only; PURE projections are read from the archive"
+}
