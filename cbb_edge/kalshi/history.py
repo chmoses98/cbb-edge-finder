@@ -78,9 +78,7 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
         raise ValueError("No archived Kalshi snapshot at this publication clock")
     stamp = S.ts(cap.captured_at)
     source_name = Path(cap.file).name.replace(".jsonl.gz", "")
-    partition = (
-        out / "panels" / stamp.strftime("%Y/%m/%d") / f"{source_name}.panel.jsonl.gz"
-    )
+    partition = out / "panels" / stamp.strftime("%Y/%m/%d") / f"{source_name}.panel.jsonl.gz"
     summary_path = partition.with_name(partition.name.replace(".jsonl.gz", ".summary.json"))
     if partition.exists():
         if not summary_path.exists():
@@ -98,10 +96,10 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
             }
         )
     else:
-        frame = pd.DataFrame(
-            columns=["game_id", "home_team_id", "away_team_id", "game_date_et"]
-        )
-    game_by_id = {int(r["espn_game_id"]): r for r in games.to_dict("records")}
+        frame = pd.DataFrame(columns=["game_id", "home_team_id", "away_team_id", "game_date_et"])
+    game_by_id: dict[int, dict[str, Any]] = {
+        int(r["espn_game_id"]): {str(k): v for k, v in r.items()} for r in games.to_dict("records")
+    }
     records_by_id: dict[int, list[dict[str, Any]]] = {}
     for rec in w.records:
         gid = (rec.get("game") or {}).get("espn_game_id")
@@ -132,7 +130,7 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
                 gid, reason = matchup_cache[key]
             reasons[reason] += 1
             game = game_by_id.get(gid) if gid is not None else None
-            if game is None:
+            if game is None or gid is None:
                 phase = "UNMAPPED"
                 projection = None
             else:
@@ -145,9 +143,7 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
                     else "TIP_UNVERIFIED"
                 )
                 if gid not in model_cache:
-                    model_cache[gid] = _projections(
-                        game, records_by_id.get(gid, []), w, stamp
-                    )
+                    model_cache[gid] = _projections(game, records_by_id.get(gid, []), w, stamp)
                 projection = model_cache[gid]
                 if projection["versions"]:
                     linked_with_projection += 1
@@ -251,8 +247,11 @@ def main() -> None:
         created.append(build_panel(w, out))
         if len(created) >= args.max_partitions:
             break
-    print(json.dumps({"created": created, "remaining": max(0, len(files) - len(created))},
-                     sort_keys=True))
+    print(
+        json.dumps(
+            {"created": created, "remaining": max(0, len(files) - len(created))}, sort_keys=True
+        )
+    )
 
 
 if __name__ == "__main__":

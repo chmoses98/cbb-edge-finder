@@ -92,8 +92,10 @@ def test_capture_writes_immutable_snapshot(tmp_path):
         if path == "/series":
             return series
         if path == "/events":
-            return {"events": [{"event_ticker": mk["event_ticker"],
-                                "title": "Duke at North Carolina"}], "cursor": ""}
+            return {
+                "events": [{"event_ticker": mk["event_ticker"], "title": "Duke at North Carolina"}],
+                "cursor": "",
+            }
         if path == "/markets":
             if params.get("status") == "open":
                 return {"markets": [mk], "cursor": ""}
@@ -165,25 +167,28 @@ def test_contract_title_can_be_a_single_team_when_event_identifies_matchup():
 
     duke = teams.resolve("Duke", "espn")
     unc = teams.resolve("North Carolina", "espn")
-    games = pd.DataFrame({
-        "game_id": [11],
-        "game_date_et": [date(2026, 11, 4)],
-        "home_team_id": [unc],
-        "away_team_id": [duke],
-    })
+    games = pd.DataFrame(
+        {
+            "game_id": [11],
+            "game_date_et": [date(2026, 11, 4)],
+            "home_team_id": [unc],
+            "away_team_id": [duke],
+        }
+    )
     market = {
         "event_ticker": "KXNCAAMBGAME-26NOV04DUKEUNC",
         "title": "Will Duke win?",
     }
-    assert mapping.map_market(
-        market, games, {"title": "Duke at North Carolina"}
-    ) == (11, "ok")
+    assert mapping.map_market(market, games, {"title": "Duke at North Carolina"}) == (11, "ok")
     # The old snapshot has no event object, but an exact code pair still resolves.
     assert mapping.map_market(market, games) == (11, "ok")
-    assert mapping.map_market(
-        {"event_ticker": "KXNCAAMBGAME-26NOV04XXXYYY", "title": "Will X win?"},
-        games,
-    )[0] is None
+    assert (
+        mapping.map_market(
+            {"event_ticker": "KXNCAAMBGAME-26NOV04XXXYYY", "title": "Will X win?"},
+            games,
+        )[0]
+        is None
+    )
     assert mapping.event_date("KXNCAAMBGAME-26NOV44DUKEUNC") is None
 
 
@@ -197,16 +202,19 @@ def test_same_teams_two_games_same_date_is_never_guessed():
 
     duke = teams.resolve("Duke", "espn")
     unc = teams.resolve("North Carolina", "espn")
-    games = pd.DataFrame({
-        "game_id": [11, 12],
-        "game_date_et": [date(2026, 11, 4)] * 2,
-        "home_team_id": [unc, unc],
-        "away_team_id": [duke, duke],
-    })
+    games = pd.DataFrame(
+        {
+            "game_id": [11, 12],
+            "game_date_et": [date(2026, 11, 4)] * 2,
+            "home_team_id": [unc, unc],
+            "away_team_id": [duke, duke],
+        }
+    )
     market = {
         "event_ticker": "KXNCAAMBGAME-26NOV04DUKEUNC",
         "title": "Will Duke win?",
     }
-    assert mapping.map_market(
-        market, games, {"title": "Duke at North Carolina"}
-    ) == (None, "ambiguous_game")
+    assert mapping.map_market(market, games, {"title": "Duke at North Carolina"}) == (
+        None,
+        "ambiguous_game",
+    )

@@ -346,7 +346,6 @@ def test_kalshi_game_contracts_map_exactly_and_are_never_priced(season, tmp_path
     assert PUB.verify_published(_app(tmp_path)) == [] and R.verify_explorer(_app(tmp_path)) == []
 
 
-
 def test_kalshi_history_preserves_every_contract_and_only_asof_projections(season, tmp_path):
     from argparse import Namespace
 
@@ -419,6 +418,7 @@ def test_kalshi_history_preserves_every_contract_and_only_asof_projections(seaso
     assert future["espn_game_id"] is None
     assert future["models_as_of_capture"] is None
     assert build_panel(world, tmp_path / "panel") == result
+
 
 def test_packet_notes_carry_the_projection_rows_as_evidence(season):
     notes = _research(season[0], "G900000005")["context"]["notes"]
