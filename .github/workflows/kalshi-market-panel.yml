@@ -76,11 +76,32 @@ jobs:
             --scores arch/prospective-scores --schedule-archive arch/schedule-archive \
             --kalshi arch/kalshi-archive --out market_panel_out \
             --all-missing --max-partitions 12 | tee market_panel_summary.json
+      - name: Audit archive cadence, panel coverage and settlement parsers
+        continue-on-error: true  # reporting only; must never block archive append
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          python -m cbb_edge.kalshi.evaluate --season 2027 \
+            --projections arch/projections-archive --rosters arch/roster-archive \
+            --scores arch/prospective-scores --schedule-archive arch/schedule-archive \
+            --kalshi arch/kalshi-archive --panel market_panel_out \
+            --out market_panel_audit.json > /dev/null
+          python - <<'PY'
+          import json
+          r = json.load(open("market_panel_audit.json"))
+          a = r["archive"]
+          print(f"snapshots={a['snapshots']} gaps>{a['gap_threshold_minutes']}min={len(a['gaps_over_threshold'])} "
+                f"max_gap_min={a['max_gap_minutes']} without_panel={len(a['snapshots_without_panel_partition'])}")
+          sv = r.get("settlement_validation") or {}
+          print("settlement parser checked=%s agree=%s disagree=%s" % (sv.get("checked"), sv.get("agree"), sv.get("disagree")))
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cbb-market-panel-${{ github.run_id }}
-          path: market_panel_summary.json
+          path: |
+            market_panel_summary.json
+            market_panel_audit.json
           retention-days: 30
       - name: Append partitions (never rewrite archived evidence)
         env:

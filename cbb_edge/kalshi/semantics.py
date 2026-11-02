@@ -80,7 +80,11 @@ def rules_matchup(market: dict[str, Any]) -> tuple[str, str] | None:
 
 # Exact Kalshi display names that differ from every registered alias (checked by hand
 # against the schedule; extend only with verified one-to-one identities).
-KALSHI_NAME_OVERRIDES = {"University at Albany": "Albany"}
+KALSHI_NAME_OVERRIDES = {
+    "University at Albany": "Albany",
+    "Central Connecticut St.": "Central Connecticut",
+    "Southern University": "Southern",  # Southern Jaguars (not Southern Miss/Illinois/Utah)
+}
 
 
 def resolve_team(name: str | None) -> str | None:
@@ -161,6 +165,13 @@ def parse_contract(
             out["status"] = "unsupported_strike_type"
             return out
         out["direction"], out["strike"] = "greater", strike
+
+    if spec.market_type == "WINNER" and (subject_name or "").strip().lower() == "tie":
+        # three-way half markets (home / away / Tie): YES only if the half ends level
+        out["subject_side"] = "tie"
+        out["status"] = "parsed"
+        out["yes_condition"] = f"tied_{spec.period}"
+        return out
 
     if spec.subject == "team":
         tid = resolve_team(subject_name)

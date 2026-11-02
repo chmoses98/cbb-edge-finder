@@ -65,9 +65,28 @@ pre-tip model remain present with an explicit null; no hindsight filling.
 * Workflow: `.github/workflows/kalshi-market-panel.yml` after a successful
   Kalshi capture, hourly catch-up and manual dispatch; processes 12 missing
   snapshots at a time to recover skipped triggers. Never overwrites a panel.
-* `market_specific_model_probability` remains null until a payoff/side/strike
-  parser is verified per Kalshi contract family. A raw margin or total estimate
-  is **not** automatically a calibrated probability for every derivative market.
+* Schema `cbb-kalshi-model-panel-v2`. Each mapped row carries `contract_semantics`
+  (market type, period, overtime treatment, subject side, exact strike, YES condition;
+  parsed from the series spec and cross-checked against Kalshi's structured strike)
+  and `market_specific_model_probability`: per prospective model version,
+  `{probability, method_or_gap}`.
+  * Probability is produced ONLY for full-game winner (`home_win_prob`), spread and
+    total (the frozen model's own `Phi((margin-line)/margin_sd)` / total analogue).
+    Team totals, halves (incl. ties), overtime and race markets stay `null` with an
+    explicit gap (`no_half_distribution_in_frozen_model`, ...). A projected mean is
+    never treated as a probability; non-game markets get no projection at all.
+  * Scope: known per-game series (see `cbb_edge/kalshi/semantics.py::SERIES`) map to games;
+    season awards, stat leaders, polls (`KXNCAAMBAPRANK-26DEC07R2` is a poll date), win
+    totals and tournament futures are `non_game_market`: archived and counted, never joined.
+  * Identity: event title, Kalshi `rules_primary` matchup text and exact ticker code pairs.
+    Two sources that resolve to different matchups fail closed (`identity_sources_disagree`).
+    Unmatched reasons: `one_team_unresolved` (usually a non-D-I exhibition opponent),
+    `teams_unresolved`, `teams_resolved_no_scheduled_game`, `no_game_on_date`,
+    `ambiguous_game`, `unparsed_event_ticker`, `unresolved_event_identity`.
+* `python -m cbb_edge.kalshi.evaluate` audits snapshot cadence/gaps, snapshots lacking a
+  panel partition, and validates the settlement parsers against Kalshi's own settled
+  `result` using archived final scores (`--calibration` adds Brier/log loss for settled,
+  last-pretip, priced contracts; it is a report, not an edge claim).
 * PRETIP observations may be used for calibration; IN_PLAY_OR_POSTTIP and
   TIP_UNVERIFIED observations are explicitly separated. Do not score them
   against a static pregame forecast.

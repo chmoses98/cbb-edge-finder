@@ -168,6 +168,7 @@ def main() -> None:
     ap.add_argument("--panel", required=True)
     ap.add_argument("--code-sha", default=None)
     ap.add_argument("--out", default=None)
+    ap.add_argument("--calibration", action="store_true", help="scan every partition (slow)")
     args = ap.parse_args()
     from cbb_edge.app.sift_app import selection as S
     from cbb_edge.app.sift_app.__main__ import load_world
@@ -187,7 +188,8 @@ def main() -> None:
             for r in latest
             if r.get("result") in ("yes", "no")
         }
-        report["calibration_settled_pretip"] = calibration((_rows(p) for p in parts), settled)
+        if args.calibration:
+            report["calibration_settled_pretip"] = calibration((_rows(p) for p in parts), settled)
     text = json.dumps(report, indent=2, sort_keys=True, default=str)
     if args.out:
         Path(args.out).write_text(text + "\n")

@@ -199,3 +199,16 @@ def test_conflicting_identity_sources_fail_closed():
     assert mapping.map_raw(raw, _games(), {}) == (None, "identity_sources_disagree")
     raw["event"] = {"title": "Duke at North Carolina"}
     assert mapping.map_raw(raw, _games(), {}) == (5, "ok")
+
+
+def test_tie_outcome_and_verified_name_overrides():
+    t = S.parse_contract("KXNCAAMB1H", {"yes_sub_title": "Tie", "title": "Tie 1st half"}, UNC, DUKE)
+    assert t["status"] == "parsed" and t["subject_side"] == "tie"
+    assert S.probability(t, {"home_win_prob": 0.5}) == (
+        None,
+        "no_half_distribution_in_frozen_model",
+    )
+    assert S.settle(t, 30, 30) == (None, "needs_half_scores")
+    assert S.resolve_team("Central Connecticut St.") == teams.resolve("Central Connecticut", "espn")
+    assert S.resolve_team("Southern University") == teams.resolve("Southern Jaguars", "espn")
+    assert S.resolve_team("Kansas St.") == teams.resolve("Kansas State", "espn")

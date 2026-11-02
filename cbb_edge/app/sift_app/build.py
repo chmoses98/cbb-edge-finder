@@ -31,6 +31,7 @@ from edge_finder_contract.freshness import Thresholds
 from edge_finder_contract.validate import validate
 from scipy.stats import norm
 
+from cbb_edge.kalshi.semantics import parse_contract
 from cbb_edge.ops.schedule_state import ANNOUNCED, ET, time_state
 
 from . import APP_BRANCH, REPO, SPORT
@@ -935,6 +936,24 @@ def _market(
                                    str(p["metadata"].get("location") or "").lower()):  # fmt: skip
             pid = p["participant_id"]
             side = "HOME" if pid == home else "AWAY" if pid == away else None
+    # Exact payoff semantics (subject team, period, strike) from the series spec and the
+    # contract's own structured fields; only used when every cross-check passed.
+    pid_to_tid = {tm["pid"]: t for t, tm in teams.items()}
+    sem = parse_contract(
+        str(raw.get("series_ticker") or ""), m, pid_to_tid.get(home), pid_to_tid.get(away)
+    )
+    market_type, period, threshold = None, None, None
+    if sem["status"] == "parsed":
+        market_type = sem["market_type"]
+        period = {"FULL": "FULL_GAME", "1H": "FIRST_HALF", "2H": "SECOND_HALF"}.get(sem["period"])
+        if sem["subject_side"] in ("home", "away"):
+            side = sem["subject_side"].upper()
+            pid = home if side == "HOME" else away
+        elif sem["subject_side"] == "tie":
+            side, pid = "TIE", None
+        elif sem["market_type"] == "TOTAL":
+            side, pid = "OVER", None  # YES iff total points exceed the strike
+        threshold = sem["strike"]
     status = {"active": "OPEN", "closed": "CLOSED", "settled": "SETTLED", "finalized": "SETTLED",
               "initialized": "UNOPENED", "inactive": "UNOPENED"}.get(str(m.get("status")), "UNKNOWN")  # fmt: skip
     try:
@@ -943,7 +962,7 @@ def _market(
             yes_description=m.get("title") or f"YES on {tk}", source="kalshi-archive (read-only capture)",
             event_id=ev["event_id"], kalshi_event_ticker=m.get("event_ticker"),
             kalshi_series_ticker=raw.get("series_ticker"), participant_id=pid, side=side,
-            line=m.get("floor_strike"), yes_bid=m.get("yes_bid_dollars"), yes_ask=m.get("yes_ask_dollars"),
+            market_type=market_type, period=period, threshold=threshold, line=m.get("floor_strike"), yes_bid=m.get("yes_bid_dollars"), yes_ask=m.get("yes_ask_dollars"),
             no_bid=m.get("no_bid_dollars"), no_ask=m.get("no_ask_dollars"),
             last_price=m.get("last_price_dollars"), volume=m.get("volume_fp"),
             open_interest=m.get("open_interest_fp"), market_status=status,
