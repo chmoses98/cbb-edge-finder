@@ -13,6 +13,7 @@ rewritten to say the latest attempt failed.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import os
 import sys
@@ -26,7 +27,7 @@ from . import inputs as I
 from .selection import ts
 
 ACTIVE = Path(__file__).resolve().parents[3] / "models" / "pure" / "active.json"
-GAME_FAMILIES = {"GAME_WINNER", "SPREAD", "TOTAL", "TEAM_TOTAL", "HALF"}
+GAME_FAMILIES = {"GAME_WINNER", "SPREAD", "TOTAL", "TEAM_TOTAL", "HALF", "PLAYER_PROP", "OTHER"}
 
 
 def active_models() -> dict:
@@ -35,20 +36,42 @@ def active_models() -> dict:
     return json.loads(ACTIVE.read_text())
 
 
-def kalshi_games(cap: I.KalshiCapture | None, games: pd.DataFrame) -> dict[str, list[dict]]:
-    """CBB game id -> the raw captured game-level markets that map to it EXACTLY
-    (``cbb_edge.kalshi.mapping``: ticker date + resolved teams + a unique scheduled game)."""
+def kalshi_games(
+    cap: I.KalshiCapture | None,
+    games: pd.DataFrame,
+    audit: dict[str, int] | None = None,
+) -> dict[str, list[dict]]:
+    """CBB game id -> exact-matched contracts, with explicit mapping coverage.
+
+    The full futures/game board remains in the immutable Kalshi archive. Only a
+    contract tied to a unique scheduled game enters the SIFT game market feed.
+    """
     if cap is None or not len(games):
         return {}
     from cbb_edge.kalshi.mapping import map_market
 
     out: dict[str, list[dict]] = {}
+    counts: Counter[str] = Counter()
+    cache: dict[tuple[str, str], tuple[int | None, str]] = {}
     for raw in cap.markets:
         if raw.get("family") not in GAME_FAMILIES:
+            counts["not_game_family"] += 1
             continue
-        gid, why = map_market(raw.get("market") or {}, games)
+        market = raw.get("market") or {}
+        event = raw.get("event") or {}
+        event_title = str(event.get("title") or event.get("sub_title") or "")
+        key = (
+            str(market.get("event_ticker") or ""),
+            event_title or str(market.get("title") or ""),
+        )
+        if key not in cache:
+            cache[key] = map_market(market, games, event)
+        gid, why = cache[key]
+        counts[why] += 1
         if gid is not None and why == "ok":
             out.setdefault(f"G{int(gid)}", []).append(raw)
+    if audit is not None:
+        audit.update(counts)
     return out
 
 
@@ -91,7 +114,7 @@ def load_world(a: argparse.Namespace, now: pd.Timestamp):  # noqa: ANN201
             frame = pd.DataFrame({
                 "game_id": g["espn_game_id"], "home_team_id": g["home"], "away_team_id": g["away"],
                 "game_date_et": pd.to_datetime(g["date_et"]).dt.date})  # fmt: skip
-            w.kalshi_games = kalshi_games(w.kalshi, frame)
+            w.kalshi_games = kalshi_games(w.kalshi, frame, w.kalshi_mapping_counts)
     return w
 
 
