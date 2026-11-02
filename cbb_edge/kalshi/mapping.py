@@ -16,7 +16,7 @@ Anything ambiguous returns ``None`` with a reason and is logged for manual mappi
 from __future__ import annotations
 
 import re
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from functools import lru_cache
 from typing import Any
 
