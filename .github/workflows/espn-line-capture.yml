@@ -10,6 +10,12 @@ on:
   schedule:
     - cron: "7,37 * * 1-4,11,12 *"   # season (Nov-Apr): every 30 minutes
   workflow_dispatch:
+  # Run one real production capture as soon as this collector's workflow is changed on main.
+  # This gives us a push-driven kickoff when GitHub scheduled cron ticks are delayed/dropped.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/espn-line-capture.yml"
   pull_request:
     paths:
       - "cbb_edge/market/espn_capture.py"
