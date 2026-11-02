@@ -3,6 +3,8 @@ name: kalshi-capture
 # Prospective, read-only capture of every Kalshi men's college basketball market.
 # Kalshi public market data is free; GitHub Actions minutes are free for public repos.
 # Scheduled/dispatched runs append immutable snapshots to the `kalshi-archive` branch.
+# Price/size fields are public; full-depth orderbooks may require authentication and
+# cannot be allowed to abort the otherwise complete anonymous market capture.
 # Pull-request runs only validate the capture and upload an artifact (no branch writes).
 
 on:
@@ -46,7 +48,7 @@ jobs:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
           set -o pipefail
-          python -m cbb_edge.kalshi.capture --out kalshi_out --orderbook-within-h 6 \
+          python -m cbb_edge.kalshi.capture --out kalshi_out \
             | tee capture_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
