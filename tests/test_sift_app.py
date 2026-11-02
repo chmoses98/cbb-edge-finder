@@ -346,6 +346,80 @@ def test_kalshi_game_contracts_map_exactly_and_are_never_priced(season, tmp_path
     assert PUB.verify_published(_app(tmp_path)) == [] and R.verify_explorer(_app(tmp_path)) == []
 
 
+
+def test_kalshi_history_preserves_every_contract_and_only_asof_projections(season, tmp_path):
+    from argparse import Namespace
+
+    from cbb_edge.app.sift_app.__main__ import load_world
+    from cbb_edge.kalshi.history import build_panel
+
+    _out, a, _before = season
+    root = tmp_path / "kalshi"
+    snap = root / "snapshots" / "2026" / "11" / "02"
+    snap.mkdir(parents=True)
+    captured = "2026-11-02T17:30:00+00:00"
+    rows = [
+        {
+            "captured_at": captured,
+            "family": "GAME_WINNER",
+            "series_ticker": "KXNCAAMBGAME",
+            "event": {"title": "Duke at Kansas"},
+            "market": {
+                "ticker": "KXNCAAMBGAME-26NOV02DUKEKU-KU",
+                "event_ticker": "KXNCAAMBGAME-26NOV02DUKEKU",
+                "title": "Will Kansas win?",
+                "status": "active",
+                "yes_bid_dollars": "0.6100",
+                "yes_ask_dollars": "0.6300",
+            },
+        },
+        {
+            "captured_at": captured,
+            "family": "FUTURES_OTHER",
+            "series_ticker": "KXNCAAMBWINS",
+            "market": {
+                "ticker": "KXNCAAMBWINS-26KU-T25",
+                "event_ticker": "KXNCAAMBWINS-26KU",
+                "title": "Kansas season wins",
+                "status": "active",
+            },
+        },
+    ]
+    file = snap / "kalshi_cbb_20261102T173000Z.jsonl.gz"
+    file.write_bytes(gzip.compress("".join(json.dumps(r) + "\n" for r in rows).encode()))
+    file.with_name("kalshi_cbb_20261102T173000Z.summary.json").write_text(
+        json.dumps({"captured_at": captured})
+    )
+    args = Namespace(
+        season=2027,
+        projections=str(a["projections"]),
+        rosters=str(a["rosters"]),
+        scores=str(a["scores"]),
+        schedule_archive=str(a["schedule_archive"]),
+        schedule_parquet=str(a["schedule_parquet"]),
+        kalshi=str(root),
+        code_sha=None,
+    )
+    world = load_world(args, S.ts("2026-11-02T18:00:00Z"))
+    result = build_panel(world, tmp_path / "panel")
+    assert result["market_contracts"] == 2
+    assert result["mapped_contracts"] == 1
+    assert result["pretip_with_projection"] == 1
+    with gzip.open(tmp_path / "panel" / result["file"], "rt") as fh:
+        panel = [json.loads(s) for s in fh]
+    assert len(panel) == 2
+    game = next(r for r in panel if r["mapping_reason"] == "ok")
+    future = next(r for r in panel if r["family"] == "FUTURES_OTHER")
+    assert game["espn_game_id"] == 900000005
+    assert game["market_phase"] == "PRETIP"
+    versions = game["models_as_of_capture"]["versions"]
+    assert versions and "pure-0.2.0" in versions
+    assert all(S.ts(v["as_of"]) <= S.ts(captured) for v in versions.values())
+    assert game["market_specific_model_probability"] is None
+    assert future["espn_game_id"] is None
+    assert future["models_as_of_capture"] is None
+    assert build_panel(world, tmp_path / "panel") == result
+
 def test_packet_notes_carry_the_projection_rows_as_evidence(season):
     notes = _research(season[0], "G900000005")["context"]["notes"]
     assert any(n.startswith("Incumbent pure-0.2.0 projection, archived pre-tip") for n in notes)
