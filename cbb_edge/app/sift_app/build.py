@@ -348,6 +348,7 @@ class World:
     commits: dict[str, str | None] = field(default_factory=dict)
     schedule_observed_at: str | None = None
     kalshi_games: dict[str, list[dict[str, Any]]] = field(default_factory=dict)  # gid -> raw
+    kalshi_mapping_counts: dict[str, int] = field(default_factory=dict)
 
 
 # ===================================================================== schedule -> games
@@ -1527,7 +1528,7 @@ def _health(
     model_required = season_live
     health = H.build_health(
         sport=SPORT, run_id=run_id, bet_authority="RESEARCH_ONLY",
-        last_market_capture=w.kalshi.captured_at if (w.kalshi and markets) else None,
+        last_market_capture=w.kalshi.captured_at if w.kalshi else None,
         last_model_generated=last_manifest["as_of"] if last_manifest and model_required else None,
         last_successful_run=now, payload_run_id=run_id, payload_available=True,
         commit_sha=w.code_sha, model_required=model_required, market_required=False,
@@ -1536,13 +1537,19 @@ def _health(
         warnings=([] if markets else ["Market research is not published for CBB yet: no Kalshi game "
                                       "contract maps to a published game."]),
         extensions={"cbb": {**_status_ext(w, g, sel, markets, first, in_window, season_live, counts),
-                            "leaders": leaders(rankings or {})}},
+                            "leaders": leaders(rankings or {}),
+                             "market_mapping": {"counts": w.kalshi_mapping_counts,
+                                                "captured_contracts": len(w.kalshi.markets)
+                                                if w.kalshi else 0,
+                                                "mapped_contracts": len(markets),
+                                                "capture_at": w.kalshi.captured_at
+                                                if w.kalshi else None}}},
     )  # fmt: skip
     health["components"]["market_data"]["detail"] = (
         f"{len(markets)} Kalshi game contracts mapped (read-only capture {w.kalshi.captured_at})"
         if markets and w.kalshi else
-        "UNAVAILABLE: no Kalshi game contract maps to a published game (futures and season-win "
-        "markets are not game markets)")  # fmt: skip
+        "UNAVAILABLE: Kalshi capture exists but no contracts match the scheduled games"
+        if w.kalshi else "UNAVAILABLE: no Kalshi market capture available")  # fmt: skip
     if not model_required:
         health["components"]["model"]["detail"] = (
             "WAITING_FOR_WINDOW: no game has entered the 30-hour prospective capture window"
