@@ -264,8 +264,10 @@ def main() -> None:
         with gzip.open(f, "rt", encoding="utf-8") as fh:
             rows = [json.loads(line) for line in fh if line.strip()]
         captured = summary.get("captured_at") or (
-            rows[0].get("captured_at") if rows else at.isoformat()
+            rows[0].get("captured_at") if rows else None
         )
+        if not captured:
+            raise ValueError(f"Missing capture timestamp for {f}")
         w.kalshi = I.KalshiCapture(captured, str(f.relative_to(root)), rows, summary)
         created.append(build_panel(w, out))
         if len(created) >= args.max_partitions:
