@@ -26,9 +26,13 @@ on:
       - "contract/**"
       - ".github/workflows/app-publish.yml"
 
+# Production runs (schedule / push / workflow_run / dispatch) share ONE serialized group and are
+# never cancelled. Pull-request validation runs get their own per-PR group so they cannot
+# occupy or displace the single pending slot of the production group (which silently
+# cancelled real captures), and superseded PR heads are cancelled instead of piling up.
 concurrency:
-  group: app-publish
-  cancel-in-progress: false
+  group: app-publish${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.pull_request.number) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   ALLOW_PAID_ODDS_API: "false"

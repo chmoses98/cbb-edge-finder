@@ -14,9 +14,11 @@ on:
       - "scripts/benchmark/**"
       - ".github/workflows/prospective-benchmark.yml"
 
+# Production runs stay serialized and are never cancelled; PR validation runs use a per-PR group
+# so they cannot displace the production group's pending slot.
 concurrency:
-  group: prospective-benchmark
-  cancel-in-progress: false
+  group: prospective-benchmark${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.pull_request.number) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   ALLOW_PAID_ODDS_API: "false"
