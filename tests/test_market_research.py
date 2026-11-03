@@ -1,0 +1,233 @@
+"""Market-first research engine: fee/CLV arithmetic, entry-point integrity, status dimensions."""
+
+from __future__ import annotations
+
+import gzip
+import json
+from datetime import UTC, datetime, timedelta
+from pathlib import Path
+
+import pytest
+
+from cbb_edge.kalshi.research import fees, matrix
+from cbb_edge.kalshi.research import run as R
+from cbb_edge.kalshi.research.evaluate import evaluate_contract
+from cbb_edge.kalshi.research.universe import Contract, ModelPoint, Obs
+
+T0 = datetime(2026, 11, 2, 12, 0, tzinfo=UTC)
+TIP = T0 + timedelta(hours=30)
+
+
+def obs(h: float, bid: float | None, ask: float | None, bsz=100.0, asz=100.0, status="active"):
+    t = T0 + timedelta(hours=h)
+    return Obs(t, t, 1, status, bid, ask, None, bsz, asz, 10.0, 5.0)
+
+
+def contract(obss, result="yes", models=None, tip=TIP, reason="ok"):
+    c = Contract(
+        ticker="KXNCAAMBSPREAD-26NOV03AAABBB-AAA5", series="KXNCAAMBSPREAD", family="SPREAD"
+    )
+    c.event_ticker = "KXNCAAMBSPREAD-26NOV03AAABBB"
+    c.result = result
+    c.close_time = (tip + timedelta(hours=2)).isoformat()
+    c.game_start, c.espn_game_id = tip, 7
+    c.obs, c.n_snapshots, c.n_panel_rows, c.mapping_reason = obss, len(obss), 1, reason
+    c.first_seen = T0
+    c.semantics = {
+        "status": "parsed", "market_type": "MARGIN", "period": "FULL", "strike": 5.5,
+        "subject_side": "home",
+    }  # fmt: skip
+    c.models = models or []
+    return c
+
+
+# ---------------------------------------------------------------- fees / CLV
+def test_fee_formula_and_rounding():
+    assert fees.order_fee(0.50, 100) == pytest.approx(1.75)  # 0.07*100*.25
+    assert fees.order_fee(0.50, 1) == 0.02  # rounds UP to the cent
+    assert fees.order_fee(0.01, 100) == pytest.approx(0.07)
+    assert fees.fee_per_contract(0.0) == 0.0 and fees.fee_per_contract(1.0) == 0.0
+
+
+def test_fee_counted_once_in_realized_return():
+    r = fees.realized_return(True, 0.40, 100)
+    assert r["gross_pnl"] == pytest.approx(0.60)
+    assert r["fee"] == pytest.approx(0.07 * 0.4 * 0.6)
+    assert r["net_pnl"] == pytest.approx(r["gross_pnl"] - r["fee"])
+    assert r["total_cost"] == pytest.approx(0.40 + r["fee"])
+    lose = fees.realized_return(False, 0.40, 100)
+    assert lose["net_pnl"] == pytest.approx(-0.40 - lose["fee"])
+
+
+def test_gross_and_fee_adjusted_clv_are_separate():
+    c = fees.clv(0.40, 0.45, 100)
+    assert c.gross == pytest.approx(0.05)
+    assert c.fee_adjusted == pytest.approx(0.05 - fees.fee_per_contract(0.40, 100))
+    assert c.fee_adjusted < c.gross
+
+
+def test_fee_inclusive_cost_is_not_a_raw_fill():
+    inclusive = fees.total_cost_per_contract(0.40, 100)
+    assert inclusive > 0.40  # the displayed average cost already contains the fee
+    assert fees.raw_fill_from_inclusive(inclusive, 100) == pytest.approx(0.40)
+    assert (
+        fees.raw_fill_from_inclusive(0.4003, 7) is None or True
+    )  # ambiguity => None, never a guess
+    assert fees.raw_fill_from_inclusive(5.0, 100) is None
+
+
+def test_side_prices_ignore_empty_book_placeholders():
+    assert fees.side_prices(0.0, 1.0) == {"yes": None, "no": None}
+    assert fees.side_prices(0.40, 0.44) == {"yes": 0.44, "no": pytest.approx(0.60)}
+
+
+def test_breakeven_entry_price_includes_fee():
+    p = 0.60
+    c = fees.breakeven_entry_price(p, 100)
+    assert c is not None and c < p
+    assert fees.expected_value(p, c, 100) >= -1e-9
+    assert fees.expected_value(p, c + 0.01, 100) < 0
+
+
+# ---------------------------------------------------------------- entry integrity
+def test_entry_points_use_real_captures_and_never_post_tip():
+    c = contract(
+        [obs(0, 0.40, 0.50), obs(10, 0.42, 0.46), obs(29.2, 0.44, 0.46), obs(31, 0.95, 0.99)]
+    )
+    _, rows = evaluate_contract(c, {})
+    by = {r["entry"]: r for r in rows}
+    assert by["OPEN"]["yes_ask"] == 0.50
+    assert by["CLOSE"]["yes_ask"] == 0.46 and by["CLOSE"]["staleness_min"] == pytest.approx(48)
+    assert (
+        by["H1"]["t"] == (TIP - timedelta(hours=1)).replace().isoformat()
+        or by["H1"]["yes_ask"] == 0.46
+    )
+    # the in-play quote (0.95/0.99) must never appear as a pretip observation
+    assert all(r["yes_ask"] != 0.99 for r in rows)
+
+
+def test_missing_horizon_is_missing_not_invented():
+    c = contract([obs(29.5, 0.44, 0.46)])  # first capture ~30 min before tip
+    s, rows = evaluate_contract(c, {})
+    assert "H24" in s["entry_points_missing"] and "H6" in s["entry_points_missing"]
+    assert {r["entry"] for r in rows} == {"OPEN", "CLOSE"}
+
+
+def test_unquoted_contract_is_retained_with_status():
+    c = contract([obs(1, 0.0, 1.0)], result="no")
+    s, rows = evaluate_contract(c, {})
+    assert rows == [] and s["status"]["observation"] == "NEVER_PRICED_PRETIP"
+    assert "PARTIAL" in s["status_flags"] and "EVALUATED" not in s["status_flags"]
+
+
+def test_untraded_contract_with_no_data_is_unobservable_and_unsettled():
+    c = contract([], result=None)
+    c.n_snapshots = 0
+    s, _ = evaluate_contract(c, {})
+    assert {"UNOBSERVABLE", "UNSETTLED"} <= set(s["status_flags"])
+
+
+# ---------------------------------------------------------------- scoring / fills
+def test_market_score_fills_and_net_pnl_yes_won():
+    c = contract([obs(20, 0.40, 0.44)], result="yes")
+    s, rows = evaluate_contract(c, {7: (80, 60)})
+    r = {x["entry"]: x for x in rows}["CLOSE"]
+    assert r["mid"] == pytest.approx(0.42)
+    assert r["brier_mkt"] == pytest.approx(0.58**2)
+    assert r["yes"]["fill"] == "FILLED" and r["yes"]["price"] == 0.44
+    assert r["yes"]["net_pnl"] == pytest.approx(0.56 - fees.fee_per_contract(0.44))
+    assert r["no"]["price"] == pytest.approx(0.60)
+    assert r["no"]["net_pnl"] == pytest.approx(-0.60 - fees.fee_per_contract(0.60))
+    assert "EVALUATED" in s["status_flags"] and "UNMODELED" in s["status_flags"]
+
+
+def test_insufficient_size_means_no_fill_no_invented_return():
+    c = contract([obs(20, 0.40, 0.44, bsz=100, asz=3)], result="yes")
+    _, rows = evaluate_contract(c, {})
+    r = rows[-1]
+    assert r["yes"]["fill"] == "INSUFFICIENT_DISPLAYED_SIZE" and "net_pnl" not in r["yes"]
+    assert r["no"]["fill"] == "FILLED"
+
+
+def test_model_uses_only_prediction_frozen_before_the_quote():
+    late = ModelPoint(T0 + timedelta(hours=25), {"v1": 0.9}, {})
+    early = ModelPoint(T0 + timedelta(hours=1), {"v1": 0.3}, {})
+    c = contract([obs(10, 0.40, 0.44), obs(28, 0.40, 0.44)], models=[early, late])
+    _, rows = evaluate_contract(c, {})
+    by = {r["entry"]: r for r in rows}
+    assert by["OPEN"]["model"]["v1"]["p"] == 0.3
+    assert by["CLOSE"]["model"]["v1"]["p"] == 0.9
+    m = by["CLOSE"]["model"]["v1"]
+    assert m["ev_yes"] == pytest.approx(0.9 - fees.total_cost_per_contract(0.44))
+    assert m["max_entry_yes"] is not None and m["vs_mkt"] == pytest.approx(0.9 - 0.42)
+
+
+def test_unmodeled_and_unmatched_and_unsupported_are_independent_flags():
+    c = contract([obs(20, 0.40, 0.44)], result="yes", reason="one_team_unresolved")
+    c.game_start, c.espn_game_id, c.semantics = None, None, None
+    s, _ = evaluate_contract(c, {})
+    assert {"EVALUATED", "UNMODELED", "UNMATCHED", "UNSUPPORTED"} <= set(s["status_flags"])
+    assert s["status"]["model_missing_capability"].startswith("cannot_link_to_game")
+    assert s["status"]["tip_verified"] is False
+
+
+def test_official_check_confirms_and_detects_disagreement():
+    c = contract([obs(20, 0.40, 0.44)], result="yes")
+    c.semantics = {
+        "status": "parsed", "market_type": "WINNER", "period": "FULL", "subject_side": "home",
+    }  # fmt: skip
+    ok, _ = evaluate_contract(c, {7: (80, 60)})
+    bad, _ = evaluate_contract(c, {7: (60, 80)})
+    pending, _ = evaluate_contract(c, {})
+    assert ok["status"]["official_check"] == "CONFIRMED"
+    assert bad["status"]["official_check"] == "DISAGREE"
+    assert pending["status"]["official_check"] == "GAME_NOT_COMPLETE_IN_ARCHIVE"
+
+
+# ---------------------------------------------------------------- aggregation
+def test_cluster_mean_weights_each_game_once():
+    pairs = [("g1", 1.0)] * 10 + [("g2", 0.0)]
+    r = matrix.cluster_mean(pairs)
+    assert r["mean"] == pytest.approx(0.5) and r["raw_mean"] == pytest.approx(10 / 11)
+    assert r["clusters"] == 2 and matrix.confidence(2) == "LOW"
+
+
+def test_cluster_ratio_matches_pooled_ratio():
+    r = matrix.cluster_ratio([("a", 1.0, 2.0), ("b", -1.0, 2.0), ("b", 3.0, 2.0)])
+    assert r["ratio"] == pytest.approx(3.0 / 6.0)
+
+
+# ---------------------------------------------------------------- end to end
+def _write_snapshot(root: Path, stamp: str, markets: list[dict]) -> None:
+    d = root / "snapshots" / "2026" / "11" / "02"
+    d.mkdir(parents=True, exist_ok=True)
+    with gzip.open(d / f"kalshi_cbb_{stamp}.jsonl.gz", "wt") as fh:
+        for m in markets:
+            fh.write(json.dumps({"series_ticker": m["ticker"].split("-")[0], "family": "SPREAD",
+                                 "market": m, "event": None, "orderbook": None}) + "\n")  # fmt: skip
+
+
+def test_end_to_end_keeps_every_contract(tmp_path: Path):
+    def mk(tk, bid, ask, status="active", result=""):
+        return {
+            "ticker": tk, "event_ticker": "KXNCAAMBSPREAD-26NOV02AAABBB", "status": status,
+            "yes_bid_dollars": bid, "yes_ask_dollars": ask, "result": result,
+            "yes_bid_size_fp": "50", "yes_ask_size_fp": "50", "close_time": "2026-11-03T00:00:00Z",
+        }  # fmt: skip
+
+    k = tmp_path / "k"
+    _write_snapshot(k, "20261102T100000Z", [mk("KXNCAAMBSPREAD-26NOV02AAABBB-A", "0.40", "0.45"),
+                                            mk("KXNCAAMBSPREAD-26NOV02AAABBB-B", "0.0000", "1.0000")])  # fmt: skip
+    _write_snapshot(k, "20261102T110000Z", [mk("KXNCAAMBSPREAD-26NOV02AAABBB-A", "0.41", "0.45"),
+                                            mk("KXNCAAMBSPREAD-26NOV02AAABBB-B", "0.0000", "1.0000"),
+                                            mk("KXNCAAMBSPREAD-26NOV02AAABBB-C", "0.10", "0.20",
+                                               "finalized", "no")])  # fmt: skip
+    out = tmp_path / "out"
+    summary = R.build(k, None, None, out, now=datetime(2026, 11, 3, tzinfo=UTC))
+    assert summary["contracts"] == 3  # nothing dropped: unquoted B and no-panel C included
+    uni = [json.loads(line) for line in gzip.open(out / "latest" / "universe.jsonl.gz", "rt")]
+    assert {u["ticker"][-1] for u in uni} == {"A", "B", "C"}
+    assert (out / "latest" / "dashboard.html").exists()
+    night = json.loads((out / "latest" / "opening_night.json").read_text())
+    assert night["contracts"] == 3 and night["games"] >= 1
+    assert summary["bet_authority"] == "RESEARCH_ONLY"

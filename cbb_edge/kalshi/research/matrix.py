@@ -1,0 +1,280 @@
+"""Market-family evaluation matrix (dataset 5 rollups).
+
+Every statistic reports contract count AND independent cluster count (one cluster = one game, or
+one event for non-game markets). Contracts from one game are strongly correlated (a spread ladder,
+a total ladder and a winner share one outcome), so headline means are CLUSTER-WEIGHTED (each
+cluster counts once) with a cluster bootstrap 90% interval; the raw contract-weighted mean is shown
+beside it, never instead of it.
+"""
+
+from __future__ import annotations
+
+import random
+from collections import Counter, defaultdict
+from collections.abc import Callable, Iterable
+from typing import Any
+
+from cbb_edge.kalshi.research.evaluate import ENTRY_POINTS
+
+BOOT = 400
+SEED = 20261102
+HEADLINE_ENTRY = "CLOSE"
+
+
+def confidence(clusters: int) -> str:
+    return "LOW" if clusters < 30 else "MEDIUM" if clusters < 100 else "HIGH"
+
+
+def cluster_mean(pairs: list[tuple[str, float]]) -> dict[str, Any]:
+    """Cluster-weighted mean with a cluster-bootstrap 90% CI."""
+    if not pairs:
+        return {"n": 0, "clusters": 0, "mean": None, "raw_mean": None, "lo": None, "hi": None}
+    by: dict[str, list[float]] = defaultdict(list)
+    for k, v in pairs:
+        by[k].append(v)
+    means = [sum(v) / len(v) for v in by.values()]
+    est = sum(means) / len(means)
+    lo = hi = None
+    if len(means) >= 5:
+        rng = random.Random(SEED)
+        size = len(means)
+        draws = sorted(sum(rng.choices(means, k=size)) / size for _ in range(BOOT))
+        lo, hi = draws[int(0.05 * BOOT)], draws[int(0.95 * BOOT) - 1]
+    return {
+        "n": len(pairs), "clusters": len(by), "mean": est,
+        "raw_mean": sum(v for _, v in pairs) / len(pairs), "lo": lo, "hi": hi,
+    }  # fmt: skip
+
+
+def cluster_ratio(items: list[tuple[str, float, float]]) -> dict[str, Any]:
+    """sum(num)/sum(den) (e.g. net P&L / total cost) with cluster bootstrap 90% CI."""
+    if not items:
+        return {"n": 0, "clusters": 0, "ratio": None, "lo": None, "hi": None}
+    by: dict[str, list[float]] = defaultdict(lambda: [0.0, 0.0])
+    for k, a, b in items:
+        by[k][0] += a
+        by[k][1] += b
+    vals = list(by.values())
+    den = sum(b for _, b in vals)
+    est = sum(a for a, _ in vals) / den if den else None
+    lo = hi = None
+    if len(vals) >= 5 and den:
+        rng = random.Random(SEED)
+        draws = []
+        for _ in range(BOOT):
+            s = rng.choices(vals, k=len(vals))
+            d = sum(b for _, b in s)
+            if d:
+                draws.append(sum(a for a, _ in s) / d)
+        draws.sort()
+        if len(draws) > 20:
+            lo, hi = draws[int(0.05 * len(draws))], draws[int(0.95 * len(draws)) - 1]
+    return {"n": len(items), "clusters": len(vals), "ratio": est, "lo": lo, "hi": hi}
+
+
+def _scored(rows: Iterable[dict[str, Any]], entry: str) -> list[dict[str, Any]]:
+    return [
+        r
+        for r in rows
+        if r["entry"] == entry
+        and r["y"] is not None
+        and r.get("mid") is not None
+        and (r["tip_verified"] or r["ref_kind"] == "close_time" and r["family"].startswith("FUT"))
+    ]
+
+
+def calibration_buckets(pairs: list[tuple[float, int]], width: float = 0.1) -> list[dict[str, Any]]:
+    nb = round(1 / width)
+    acc: list[list[float]] = [[0, 0.0, 0.0] for _ in range(nb)]
+    for p, y in pairs:
+        i = min(int(p / width), nb - 1)
+        acc[i][0] += 1
+        acc[i][1] += p
+        acc[i][2] += y
+    return [
+        {"lo": i * width, "hi": (i + 1) * width, "n": int(n),
+         "mean_pred": s / n, "freq": h / n}
+        for i, (n, s, h) in enumerate(acc)
+        if n
+    ]  # fmt: skip
+
+
+def _roi(rows: list[dict[str, Any]], side: str) -> dict[str, Any]:
+    items = [
+        (r["cluster"], r[side]["net_pnl"], r[side]["total_cost"])
+        for r in rows
+        if r["y"] is not None and r[side].get("fill") == "FILLED" and "net_pnl" in r[side]
+    ]
+    out = cluster_ratio(items)
+    out["gross_pnl_per_contract"] = (
+        sum(
+            r[side]["gross_pnl"]
+            for r in rows
+            if r[side].get("fill") == "FILLED" and "gross_pnl" in r[side]
+        )
+        / len(items)
+        if items
+        else None
+    )
+    out["fills"] = len(items)
+    out["attempts"] = len(rows)
+    return out
+
+
+def _model_rule_roi(rows: list[dict[str, Any]], ver: str) -> dict[str, Any]:
+    """Diagnostic only: buy the side with positive model EV at the displayed price."""
+    items = []
+    for r in rows:
+        m = r["model"].get(ver)
+        if not m or r["y"] is None:
+            continue
+        evs = [(m[f"ev_{s}"], s) for s in ("yes", "no") if f"ev_{s}" in m]
+        if not evs:
+            continue
+        ev, s = max(evs)
+        f = r[s]
+        if ev > 0 and f.get("fill") == "FILLED" and "net_pnl" in f:
+            items.append((r["cluster"], f["net_pnl"], f["total_cost"]))
+    return cluster_ratio(items)
+
+
+def _clv(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
+    pairs = [(r["cluster"], r[s][key]) for r in rows for s in ("yes", "no") if key in r[s]]
+    return cluster_mean(pairs)
+
+
+def block(contracts: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """The full metric block for one slice of the universe (a family, a series, a day, ...)."""
+    st = Counter(c["status"]["outcome"].split(":")[0] for c in contracts)
+    flags: Counter[str] = Counter(f for c in contracts for f in c["status_flags"])
+    n = len(contracts)
+    snaps = sum(c["n_snapshots"] for c in contracts)
+    missing_entries = sum(len(c["entry_points_missing"]) for c in contracts)
+    modeled = sum(1 for c in contracts if c["status"]["model"] == "MODELED")
+    gaps = Counter(
+        c["status"]["model_missing_capability"]
+        for c in contracts
+        if c["status"]["model"] == "UNMODELED"
+    )
+    close = _scored(rows, HEADLINE_ENTRY)
+    mkt_b = cluster_mean([(r["cluster"], r["brier_mkt"]) for r in close])
+    mkt_l = cluster_mean([(r["cluster"], r["logloss_mkt"]) for r in close])
+    models: dict[str, Any] = {}
+    versions = sorted({v for r in close for v in r["model"]})
+    for v in versions:
+        paired = [r for r in close if v in r["model"] and "brier" in r["model"][v]]
+        models[v] = {
+            "brier": cluster_mean([(r["cluster"], r["model"][v]["brier"]) for r in paired]),
+            "logloss": cluster_mean([(r["cluster"], r["model"][v]["logloss"]) for r in paired]),
+            "market_brier_same_contracts": cluster_mean(
+                [(r["cluster"], r["brier_mkt"]) for r in paired]
+            ),
+            # negative => model beat the market on the SAME contracts at the same quote
+            "brier_diff_model_minus_market": cluster_mean(
+                [(r["cluster"], r["model"][v]["brier"] - r["brier_mkt"]) for r in paired]
+            ),
+            "logloss_diff_model_minus_market": cluster_mean(
+                [(r["cluster"], r["model"][v]["logloss"] - r_ll(r)) for r in paired]
+            ),
+            "calibration": calibration_buckets([(r["model"][v]["p"], r["y"]) for r in paired]),
+        }
+    by_entry: dict[str, Any] = {}
+    for name, _ in ENTRY_POINTS:
+        er = [
+            r
+            for r in rows
+            if r["entry"] == name
+            and (
+                r["tip_verified"] or r["family"].startswith("FUT") or r["ref_kind"] == "close_time"
+            )
+        ]
+        sc = _scored(rows, name)
+        by_entry[name] = {
+            "rows": len(er),
+            "brier": cluster_mean([(r["cluster"], r["brier_mkt"]) for r in sc]),
+            "logloss": cluster_mean([(r["cluster"], r["logloss_mkt"]) for r in sc]),
+            "mean_spread": cluster_mean(
+                [(r["cluster"], r["spread"]) for r in er if r["spread"] is not None]
+            ),
+            "yes_buy": _roi(er, "yes"),
+            "no_buy": _roi(er, "no"),
+            "clv_gross": _clv(er, "clv_gross"),
+            "clv_fee_adjusted": _clv(er, "clv_net"),
+            "model_positive_ev_rule": {v: _model_rule_roi(er, v) for v in versions},
+        }
+    return {
+        "discovered_contracts": n,
+        "events": len({c["event"] for c in contracts}),
+        "clusters": len({c["cluster"] for c in contracts}),
+        "captured_snapshots": snaps,
+        "snapshots_per_contract": snaps / n if n else None,
+        "priced_pretip_contracts": sum(
+            1 for c in contracts if c["status"]["observation"] == "PRICED"
+        ),
+        "model_coverage": {
+            "modeled": modeled,
+            "unmodeled": n - modeled,
+            "share": modeled / n if n else None,
+            "unmodeled_reasons": dict(gaps),
+        },  # fmt: skip
+        "outcome_coverage": {
+            "settled": st.get("SETTLED", 0),
+            "unsettled": st.get("UNSETTLED", 0),
+            "other": {k: v for k, v in st.items() if k not in ("SETTLED", "UNSETTLED")},
+        },  # fmt: skip
+        "official_check": dict(Counter(c["status"]["official_check"] for c in contracts)),
+        "status_flags": dict(flags),
+        "scored_contracts_close": len(close),
+        "market_brier_close": mkt_b,
+        "market_logloss_close": mkt_l,
+        "market_calibration_close": calibration_buckets([(r["mid"], r["y"]) for r in close]),
+        "models": models,
+        "by_entry": by_entry,
+        "completeness": {
+            "missing_entry_points": missing_entries,
+            "contracts_without_any_entry": sum(
+                1 for c in contracts if not c["entry_points_present"]
+            ),
+            "tier_counts_close": dict(Counter(r["tier"] for r in rows if r["entry"] == "CLOSE")),
+        },  # fmt: skip
+        "confidence": confidence(mkt_b["clusters"]),
+    }
+
+
+def r_ll(r: dict[str, Any]) -> float:
+    return float(r["logloss_mkt"])
+
+
+def build_matrix(summaries: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[str, Any]:
+    by_fam: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for c in summaries:
+        by_fam[c["family"]].append(c)
+    rows_by_fam: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    rows_by_series: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for r in rows:
+        rows_by_fam[r["family"]].append(r)
+        rows_by_series[r["series"]].append(r)
+    families: dict[str, Any] = {}
+    for fam in sorted(by_fam):
+        b = block(by_fam[fam], rows_by_fam[fam])
+        series: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for c in by_fam[fam]:
+            series[c["series"]].append(c)
+        b["series"] = {
+            s: block(cs, [r for r in rows_by_series[s] if r["family"] == fam])
+            for s, cs in sorted(series.items())
+        }
+        families[fam] = b
+    return {
+        "overall": block(summaries, rows),
+        "families": families,
+        "fill_assumption": __import__(
+            "cbb_edge.kalshi.research.evaluate", fromlist=["FILL_ASSUMPTION"]
+        ).FILL_ASSUMPTION,
+    }
+
+
+def apply_filter(
+    rows: list[dict[str, Any]], pred: Callable[[dict[str, Any]], bool]
+) -> list[dict[str, Any]]:
+    return [r for r in rows if pred(r)]

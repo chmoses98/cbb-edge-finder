@@ -1,0 +1,107 @@
+name: market-research
+
+# Market-first CBB evaluation engine. Reads ONLY immutable archives (kalshi-archive raw captures,
+# kalshi-panel-archive frozen as-of model joins, schedule-archive official scores) and rebuilds the
+# derived research datasets: universe inventory, per-entry evaluations, family matrix, opening-night
+# audit, health monitor and dashboard. Fully independent of the recommendation/app publisher.
+# RESEARCH_ONLY: no orders, no authentication, no model or strategy changes.
+on:
+  workflow_run:
+    workflows: [kalshi-market-panel]
+    types: [completed]
+    branches: [main]
+  schedule:
+    - cron: "47 * * * *"  # catch skipped workflow_run triggers; settlement reconciliation
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "cbb_edge/kalshi/research/**"
+      - ".github/workflows/market-research.yml"
+
+concurrency:
+  group: market-research${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.pull_request.number) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  research:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Fetch immutable input archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for b in kalshi-archive kalshi-panel-archive schedule-archive; do
+            mkdir -p "arch/$b"
+            git -C "arch/$b" init -q
+            git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            git -C "arch/$b" fetch -q --depth=1 origin "$b"
+            git -C "arch/$b" checkout -q FETCH_HEAD
+          done
+      - name: Carry forward dated summaries
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p research_out
+          git -C research_out init -q
+          git -C research_out remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git -C research_out fetch -q --depth=1 origin market-research; then
+            git -C research_out checkout -q FETCH_HEAD -- daily 2>/dev/null || true
+          fi
+      - name: Build market-wide datasets, matrix, audit and dashboard
+        run: |
+          set -o pipefail
+          python -m cbb_edge.kalshi.research.run \
+            --kalshi arch/kalshi-archive --panel arch/kalshi-panel-archive \
+            --schedule arch/schedule-archive --out research_out | tee research_summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: market-research-${{ github.run_id }}
+          path: |
+            research_summary.json
+            research_out/latest/matrix.json
+            research_out/latest/health.json
+            research_out/latest/opening_night.*
+            research_out/latest/dashboard.html
+          retention-days: 14
+      - name: Publish (latest replaced; dated summaries only ever added)
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cd research_out
+          printf '# CBB market research (derived)\n\nRebuilt from immutable archives by .github/workflows/market-research.yml.\nSee docs/MARKET_RESEARCH.md. RESEARCH_ONLY.\n' > README.md
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # one-commit history keeps the branch small; daily/ is carried forward unchanged
+          git checkout -q --orphan publish
+          git add -A
+          git commit -q -m "market research $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q --force origin publish:market-research && exit 0
+            sleep $((2 ** i))
+          done
+          exit 1
