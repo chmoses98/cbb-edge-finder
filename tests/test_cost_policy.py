@@ -176,3 +176,47 @@ def test_no_network_attempts_reached_paid_hosts():
 
     for _, addr in ATTEMPTS:
         assert "the-odds-api" not in str(addr)
+
+
+@pytest.mark.parametrize("fault", [requests.ConnectionError, requests.Timeout])
+def test_free_espn_fetch_retries_transient_transport_failure(tmp_path, monkeypatch, fault):
+    """A connection reset or timeout during an opening-night capture must not lose the run."""
+    monkeypatch.setattr(http, "data_dir", lambda: tmp_path)
+    ok = mock.Mock()
+    ok.status_code = 200
+    ok.headers = {"Content-Type": "application/json"}
+    ok.url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
+    ok.iter_content.return_value = [b'{"events":[]}']
+    with (
+        mock.patch.object(http, "_get_following", side_effect=[fault("transient"), ok]) as get,
+        mock.patch.object(http.time, "sleep") as sleep,
+    ):
+        result = http.fetch("espn_public", ok.url, use_cache=False, max_attempts=3)
+    assert result is not None
+    assert result.json() == {"events": []}
+    assert get.call_count == 2
+    sleep.assert_called_once_with(2.0)
+
+
+def test_free_espn_fetch_transport_retry_is_bounded(tmp_path, monkeypatch):
+    monkeypatch.setattr(http, "data_dir", lambda: tmp_path)
+    url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
+    with (
+        mock.patch.object(http, "_get_following", side_effect=requests.ConnectionError("reset")) as get,
+        mock.patch.object(http.time, "sleep") as sleep,
+        pytest.raises(requests.ConnectionError):
+        http.fetch("espn_public", url, use_cache=False, max_attempts=3)
+    assert get.call_count == 3
+    assert sleep.call_count == 2
+
+
+def test_certificate_failure_not_retried(tmp_path, monkeypatch):
+    monkeypatch.setattr(http, "data_dir", lambda: tmp_path)
+    url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
+    with (
+        mock.patch.object(http, "_get_following", side_effect=requests.exceptions.SSLError("bad cert")) as get,
+        mock.patch.object(http.time, "sleep") as sleep,
+        pytest.raises(requests.exceptions.SSLError):
+        http.fetch("espn_public", url, use_cache=False, max_attempts=4)
+    get.assert_called_once()
+    sleep.assert_not_called()
