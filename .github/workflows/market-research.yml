@@ -30,6 +30,7 @@ env:
 
 permissions:
   contents: write
+  actions: write  # only to re-dispatch a stale kalshi-capture (recovery step)
 
 jobs:
   research:
@@ -105,3 +106,19 @@ jobs:
             sleep $((2 ** i))
           done
           exit 1
+      - name: Recover stale capture (monitor -> dispatch)
+        # GitHub drops most scheduled ticks under load (3 of ~60 expected on 2026-11-03). When the
+        # monitor sees the newest snapshot older than its threshold, request one capture. The
+        # capture workflow's serialized concurrency group prevents overlap; a gap already missed
+        # stays a gap (never backfilled with invented quotes).
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          stale=$(python -c "import json;print(json.load(open('research_out/latest/health.json'))['findings']['latest_snapshot_stale'])")
+          echo "latest_snapshot_stale=$stale"
+          if [ "$stale" = "True" ]; then
+            gh workflow run kalshi-capture.yml --ref main
+            echo "dispatched kalshi-capture"
+          fi
