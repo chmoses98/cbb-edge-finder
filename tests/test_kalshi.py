@@ -218,3 +218,31 @@ def test_same_teams_two_games_same_date_is_never_guessed():
         None,
         "ambiguous_game",
     )
+
+
+def test_panel_backfill_prioritizes_current_prices_and_preserves_old_backlog(tmp_path):
+    """Current odds must be joined first even with a month of old captures waiting."""
+    from cbb_edge.kalshi.history import pending_snapshots
+
+    root = tmp_path / "archive"
+    out = tmp_path / "panel"
+    directory = root / "snapshots" / "2026" / "11" / "02"
+    directory.mkdir(parents=True)
+    stamps = ("001000", "121000", "225000")
+    for stamp in stamps:
+        (directory / f"kalshi_cbb_20261102T{stamp}Z.jsonl.gz").touch()
+
+    remaining = pending_snapshots(root, out)
+    assert [p.name for p in remaining] == [
+        "kalshi_cbb_20261102T225000Z.jsonl.gz",
+        "kalshi_cbb_20261102T121000Z.jsonl.gz",
+        "kalshi_cbb_20261102T001000Z.jsonl.gz",
+    ]
+    newest = out / "panels" / "2026" / "11" / "02"
+    newest.mkdir(parents=True)
+    (newest / "kalshi_cbb_20261102T225000Z.panel.jsonl.gz").touch()
+    assert [p.name for p in pending_snapshots(root, out)] == [
+        "kalshi_cbb_20261102T121000Z.jsonl.gz",
+        "kalshi_cbb_20261102T001000Z.jsonl.gz",
+    ]
+    assert len(pending_snapshots(root, out)[:1]) == 1
