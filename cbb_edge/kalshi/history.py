@@ -216,6 +216,24 @@ def build_panel(w: World, out: Path) -> dict[str, Any]:
     return summary
 
 
+def pending_snapshots(root: Path, out: Path) -> list[Path]:
+    """Newest missing source snapshots first, keeping old ones in the backfill queue.
+
+    Production must join the opening-night prices before spending many runs on the
+    historical backlog. Existing immutable partitions are never rebuilt or overwritten.
+    """
+    files = sorted(root.glob("snapshots/**/kalshi_cbb_*.jsonl.gz"), reverse=True)
+    pending: list[Path] = []
+    for f in files:
+        name = f.name.replace(".jsonl.gz", "")
+        stamp = f.name.split("_")[-1].split(".")[0]
+        at = S.ts(pd.Timestamp(stamp))
+        dest = out / "panels" / at.strftime("%Y/%m/%d") / f"{name}.panel.jsonl.gz"
+        if not dest.exists():
+            pending.append(f)
+    return pending
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--season", type=int, default=2027)
@@ -238,15 +256,9 @@ def main() -> None:
         print(json.dumps(build_panel(w, out), sort_keys=True))
         return
     root = Path(args.kalshi)
-    files = sorted(root.glob("snapshots/**/kalshi_cbb_*.jsonl.gz"))
+    pending = pending_snapshots(root, out)
     created = []
-    for f in files:
-        name = f.name.replace(".jsonl.gz", "")
-        stamp = f.name.split("_")[-1].split(".")[0]
-        at = S.ts(pd.Timestamp(stamp))
-        dest = out / "panels" / at.strftime("%Y/%m/%d") / f"{name}.panel.jsonl.gz"
-        if dest.exists():
-            continue
+    for f in pending[: args.max_partitions]:
         summary_path = f.with_name(f.name.replace(".jsonl.gz", ".summary.json"))
         summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
         with gzip.open(f, "rt", encoding="utf-8") as fh:
@@ -260,7 +272,7 @@ def main() -> None:
             break
     print(
         json.dumps(
-            {"created": created, "remaining": max(0, len(files) - len(created))}, sort_keys=True
+            {"created": created, "remaining": max(0, len(pending) - len(created))}, sort_keys=True
         )
     )
 
