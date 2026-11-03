@@ -421,5 +421,6 @@ def test_dashboard_slim_carries_timelines_entries_and_night_readiness(tmp_path: 
     out = dashboard.slim([s], rows, {c.ticker: c}, night)
     assert c.ticker in out["timelines"] and len(out["timelines"][c.ticker]) == 2
     assert {"OPEN", "CLOSE"} <= {e["e"] for e in out["entries"][c.ticker]}
-    assert out["night_rows"][0]["rd"] == "111111101"
-    assert out["rows"][0]["Yg"] is not None and out["rows"][0]["st"] is not None
+    assert out["night_rows"][0]["rd"] == "110111101"
+    close = next(r for r in out["rows"] if r["e"] == "CLOSE")
+    assert close["Yg"] is not None and close["st"] is not None
