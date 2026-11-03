@@ -63,6 +63,8 @@ evaluations, matrix, opening-night audit, health monitor, dashboard and publishe
 gaps, snapshots lacking panel partitions, stale capture and overdue settlements, each with the job
 that repairs it (gaps themselves are irrecoverable and stay gaps).
 
+Recovery: if `health.json` reports the newest snapshot older than 120 min, the workflow dispatches `kalshi-capture` once per run (scheduled ticks are frequently dropped by GitHub under load).
+
 ## Run locally
 
 ```sh
