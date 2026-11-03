@@ -263,9 +263,7 @@ def main() -> None:
         summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
         with gzip.open(f, "rt", encoding="utf-8") as fh:
             rows = [json.loads(line) for line in fh if line.strip()]
-        captured = summary.get("captured_at") or (
-            rows[0].get("captured_at") if rows else None
-        )
+        captured = summary.get("captured_at") or (rows[0].get("captured_at") if rows else None)
         if not captured:
             raise ValueError(f"Missing capture timestamp for {f}")
         w.kalshi = I.KalshiCapture(captured, str(f.relative_to(root)), rows, summary)
