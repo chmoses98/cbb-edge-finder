@@ -105,7 +105,10 @@ def build(
         "bet_authority": "RESEARCH_ONLY",
     }  # fmt: skip
     (latest / "dashboard.html").write_text(
-        dashboard.render(mx, dashboard.slim(summaries, rows), meta), encoding="utf-8"
+        dashboard.render(
+            mx, dashboard.slim(summaries, rows, contracts, night), {**meta, "health": health}
+        ),
+        encoding="utf-8",
     )
     summary = {
         **meta,

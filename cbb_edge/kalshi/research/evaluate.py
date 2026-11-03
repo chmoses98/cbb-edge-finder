@@ -205,6 +205,8 @@ def pretip_gap_reason(c: Contract, tm: Resolved) -> str | None:
     a live line that did not exist pregame is NOT a capture gap and is never 'recovered'."""
     if any(usable(o, tm.cutoff) for o in c.obs):
         return None
+    if c.mapping_reason == "non_game_market":
+        return "non_game_market_never_quoted"
     if c.game_start is None:
         return "no_verified_tip"
     opened = parse_ts(c.open_time)
@@ -327,6 +329,7 @@ def evaluate_contract(
         "ticker": c.ticker, "series": c.series, "family": c.family, "event": c.event_ticker,
         "cluster": f"G{c.espn_game_id}" if c.espn_game_id else f"E:{c.event_ticker}",
         "espn_game_id": c.espn_game_id, "title": c.title, "yes_sub_title": c.yes_sub_title,
+        "rules": str(c.raw_last.get("rules_primary") or ""),
         "strike_type": c.strike_type, "floor_strike": c.floor_strike, "cap_strike": c.cap_strike,
         "side_semantics": (c.semantics or {}).get("yes_condition"),
         "open_time": c.open_time, "close_time": c.close_time, "settlement_ts": c.settlement_ts,
