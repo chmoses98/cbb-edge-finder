@@ -31,6 +31,7 @@ from edge_finder_contract.freshness import Thresholds
 from edge_finder_contract.validate import validate
 from scipy.stats import norm
 
+from cbb_edge.app.sift_app.quotes import classify_quote
 from cbb_edge.kalshi.semantics import parse_contract
 from cbb_edge.ops.schedule_state import ANNOUNCED, ET, time_state
 
@@ -778,7 +779,7 @@ def build(w: World) -> Built:
             if ev is None:
                 continue
             for raw in raws:
-                m = _market(raw, ev, teams, w.kalshi)
+                m = _market(raw, ev, teams, w.kalshi, w.now)
                 if m is not None:
                     markets.append(m)
     mk_by_event: dict[str, list[dict]] = {}
@@ -922,7 +923,11 @@ def _integrity(gid: int, s_: S.Selection, w: World, completed: bool) -> dict[str
 
 
 def _market(
-    raw: dict[str, Any], ev: dict, teams: dict[str, dict], cap: KalshiCapture
+    raw: dict[str, Any],
+    ev: dict,
+    teams: dict[str, dict],
+    cap: KalshiCapture,
+    now: pd.Timestamp | None = None,
 ) -> dict | None:
     m = raw.get("market") or {}
     tk = m.get("ticker")
@@ -956,8 +961,14 @@ def _market(
         threshold = sem["strike"]
     status = {"active": "OPEN", "closed": "CLOSED", "settled": "SETTLED", "finalized": "SETTLED",
               "initialized": "UNOPENED", "inactive": "UNOPENED"}.get(str(m.get("status")), "UNKNOWN")  # fmt: skip
+    quote = None
+    if now is not None:
+        quote = classify_quote(
+            status, m.get("yes_bid_dollars"), m.get("yes_ask_dollars"),
+            S.ts(cap.captured_at).to_pydatetime(), S.ts(now).to_pydatetime(),
+        )  # fmt: skip
     try:
-        return C.market(
+        out = C.market(
             sport=SPORT, kalshi_ticker=tk, market_family=raw.get("family") or "unknown",
             yes_description=m.get("title") or f"YES on {tk}", source="kalshi-archive (read-only capture)",
             event_id=ev["event_id"], kalshi_event_ticker=m.get("event_ticker"),
@@ -968,9 +979,13 @@ def _market(
             open_interest=m.get("open_interest_fp"), market_status=status,
             close_time_utc=m.get("close_time"), captured_at=cap.captured_at,
             raw_market_reference=f"kalshi-archive/{cap.file}",
+            extensions={"cbb_quote": quote} if quote else None,
         )  # fmt: skip
     except (ValueError, TypeError):
         return None
+    if quote is not None and not quote["live_probability_ok"]:
+        out["market_probability"] = None  # never present a stale/settled/empty book as live
+    return out
 
 
 def _matchup(

@@ -60,6 +60,16 @@ Game states: `PROJECTED`, `PENDING_WINDOW` (not yet in the 30 h capture window),
 | Kalshi capture | `markets.json`, event `markets` | 0 (no game contract maps; futures/season wins are not games) | read-only quotes, never priced by a model |
 | recommendations, wagers, model prices, settlements | empty collections | 0 | research system |
 
+## Quote freshness (stale quotes are never live)
+
+Each published market carries `extensions.cbb_quote` = `{state, age_minutes, stale_after_minutes,
+live_probability_ok, captured_at, note}` computed against the publication clock
+(`cbb_edge/app/sift_app/quotes.py`). `state` is `LIVE` (OPEN, two-sided book, captured within 45 min),
+`STALE`, `EMPTY_BOOK` (bid 0 / ask 1 placeholder), `SETTLED`, `CLOSED`, `UNOPENED`, `UNKNOWN_STATUS` or
+`NO_CAPTURE_TIME`. `market_probability` is published ONLY for `LIVE`; otherwise it is `null` while the last
+bid/ask stay as evidence with their `captured_at`. A settled or empty book therefore never shows the
+placeholder midpoint of 0.5, and a quote hours old is never shown as current.
+
 ## Freeze
 
 The package imports no projection, rating, roster-overlay or scoring module (AST-tested), writes into no
