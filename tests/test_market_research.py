@@ -390,3 +390,37 @@ def test_panel_audit_detects_leakage_missing_and_stays_idempotent(tmp_path: Path
     assert a["backlog_snapshots"] == ["kalshi_cbb_20261102T110000Z"] and a["backlog_count"] == 1
     assert a["totals"]["future_projection_rows"] == 1 and not a["ok"]
     assert audit_panels(k, p) == a  # read-only and idempotent
+
+
+def test_headline_close_scoring_excludes_stale_closing_quotes():
+    def row(cluster, stale):
+        return {
+            "cluster": cluster, "entry": "CLOSE", "y": 1, "mid": 0.5, "brier_mkt": 0.25,
+            "staleness_min": stale, "tip_verified": True, "ref_kind": "tip", "family": "SPREAD",
+        }  # fmt: skip
+
+    kept = matrix._scored([row("g1", 30.0), row("g2", 500.0), row("g3", 120.0)], "CLOSE")
+    assert [r["cluster"] for r in kept] == ["g1", "g3"]  # 500 min old is not a closing price
+    assert len(matrix._scored([row("g2", 500.0)], "H1")) == 0  # other entries are not capped
+    st = matrix._stale_stats([row("g1", 30.0), row("g2", 500.0)])
+    assert st["n"] == 2 and st["share_le_120"] == 0.5 and st["cap_minutes"] == 120.0
+
+
+def test_dashboard_slim_carries_timelines_entries_and_night_readiness(tmp_path: Path):
+    from cbb_edge.kalshi.research import dashboard
+
+    c = contract([obs(1, 0.4, 0.45), obs(20, 0.42, 0.46)], result="yes")
+    s, rows = evaluate_contract(c, {7: (80, 60)})
+    night = {"table": [{
+        "ticker": c.ticker, "family": "SPREAD", "game": "G7", "issues": "", "pretip_gap_reason": None,
+        "captured": True, "valid_pretip_quote": True, "frozen_pretip_model_prediction": False,
+        "closing_quote_captured": True, "official_result_available": True,
+        "official_agrees_with_kalshi": True, "market_accuracy_evaluable": True,
+        "model_accuracy_evaluable": False, "after_fee_profitability_evaluable": True,
+    }]}  # fmt: skip
+    out = dashboard.slim([s], rows, {c.ticker: c}, night)
+    assert c.ticker in out["timelines"] and len(out["timelines"][c.ticker]) == 2
+    assert {"OPEN", "CLOSE"} <= {e["e"] for e in out["entries"][c.ticker]}
+    assert out["night_rows"][0]["rd"] == "110111101"
+    close = next(r for r in out["rows"] if r["e"] == "CLOSE")
+    assert close["Yg"] is not None and close["st"] is not None

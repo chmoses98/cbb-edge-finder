@@ -19,6 +19,7 @@ from cbb_edge.kalshi.research.evaluate import ENTRY_POINTS
 BOOT = 400
 SEED = 20261102
 HEADLINE_ENTRY = "CLOSE"
+MAX_CLOSE_STALENESS_MIN = 120.0  # a "closing" quote older than this is not a closing price
 
 
 def confidence(clusters: int) -> str:
@@ -77,6 +78,7 @@ def _scored(rows: Iterable[dict[str, Any]], entry: str) -> list[dict[str, Any]]:
         r
         for r in rows
         if r["entry"] == entry
+        and (entry != "CLOSE" or (r["staleness_min"] or 0.0) <= MAX_CLOSE_STALENESS_MIN)
         and r["y"] is not None
         and r.get("mid") is not None
         and (r["tip_verified"] or r["ref_kind"] == "close_time" and r["family"].startswith("FUT"))
@@ -245,11 +247,26 @@ def block(contracts: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[s
             "contracts_without_any_entry": sum(
                 1 for c in contracts if not c["entry_points_present"]
             ),
+            "close_staleness_min": _stale_stats(rows),
             "tier_counts_close": dict(Counter(r["tier"] for r in rows if r["entry"] == "CLOSE")),
             "fee_basis_rows": dict(Counter(r["fee_basis"] for r in rows)),
         },  # fmt: skip
         "confidence": confidence(mkt_b["clusters"]),
     }
+
+
+def _stale_stats(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    st = sorted(
+        r["staleness_min"] for r in rows if r["entry"] == "CLOSE" and r["staleness_min"] is not None
+    )
+    if not st:
+        return {"n": 0}
+    return {
+        "n": len(st), "median": st[len(st) // 2],
+        "share_le_60": sum(1 for x in st if x <= 60) / len(st),
+        "share_le_120": sum(1 for x in st if x <= MAX_CLOSE_STALENESS_MIN) / len(st),
+        "cap_minutes": MAX_CLOSE_STALENESS_MIN,
+    }  # fmt: skip
 
 
 def r_ll(r: dict[str, Any]) -> float:
