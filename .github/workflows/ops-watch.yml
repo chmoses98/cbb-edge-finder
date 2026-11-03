@@ -24,9 +24,11 @@ on:
       - "cbb_edge/ops/**"
       - ".github/workflows/ops-watch.yml"
 
+# Production runs stay serialized and are never cancelled; PR validation runs use a per-PR group
+# so they cannot displace the production group's pending slot.
 concurrency:
-  group: ops-watch
-  cancel-in-progress: false
+  group: ops-watch${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.pull_request.number) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   ALLOW_PAID_ODDS_API: "false"

@@ -25,9 +25,11 @@ on:
       - "scripts/prospective/score_proster.py"
       - ".github/workflows/prospective-scores.yml"
 
+# Production runs stay serialized and are never cancelled; PR validation runs use a per-PR group
+# so they cannot displace the production group's pending slot.
 concurrency:
-  group: prospective-scores
-  cancel-in-progress: false
+  group: prospective-scores${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.pull_request.number) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   ALLOW_PAID_ODDS_API: "false"
