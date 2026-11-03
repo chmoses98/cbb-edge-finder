@@ -70,12 +70,18 @@ jobs:
           if git -C research_out fetch -q --depth=1 origin market-research; then
             git -C research_out checkout -q FETCH_HEAD -- daily 2>/dev/null || true
           fi
+      - name: Collect recent workflow runs (pipeline monitor input)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh run list --limit 300 --json workflowName,conclusion,status,event,createdAt > runs.json || echo '[]' > runs.json
       - name: Build market-wide datasets, matrix, audit and dashboard
         run: |
           set -o pipefail
           python -m cbb_edge.kalshi.research.run \
             --kalshi arch/kalshi-archive --panel arch/kalshi-panel-archive \
-            --schedule arch/schedule-archive --out research_out | tee research_summary.json
+            --schedule arch/schedule-archive --runs runs.json --out research_out | tee research_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

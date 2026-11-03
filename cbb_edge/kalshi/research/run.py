@@ -22,7 +22,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from cbb_edge.kalshi.research import audit, dashboard, fees, matrix
+from cbb_edge.kalshi.research import audit, dashboard, fees, matrix, monitor, panel_audit
 from cbb_edge.kalshi.research.evaluate import FILL_ASSUMPTION, evaluate_all
 from cbb_edge.kalshi.research.universe import attach_panel, load_scores, load_universe
 
@@ -58,7 +58,12 @@ def _opening_md(a: dict[str, Any]) -> str:
 
 
 def build(
-    kalshi: Path, panel: Path | None, schedule: Path | None, out: Path, now: datetime | None = None
+    kalshi: Path,
+    panel: Path | None,
+    schedule: Path | None,
+    out: Path,
+    now: datetime | None = None,
+    runs: Path | None = None,
 ) -> dict[str, Any]:
     now = now or datetime.now(UTC)
     contracts, ledger = load_universe(kalshi)
@@ -68,12 +73,25 @@ def build(
     mx = matrix.build_matrix(summaries, rows)
     night = audit.opening_night(summaries, rows)
     health = audit.archive_health(ledger, panel_info, summaries, now)
+    pa = panel_audit.audit_panels(kalshi, panel)
+    health["panel_integrity"] = {k: v for k, v in pa.items() if k != "problems"} | {
+        "problems": pa["problems"][:50]
+    }
+    health["findings"]["panel_backlog"] = pa["backlog_count"]
+    health["findings"]["panel_integrity_ok"] = pa["ok"]
+    if runs is not None and runs.exists():
+        health["pipelines"] = monitor.pipeline_health(json.loads(runs.read_text()), now)
+        health["findings"]["pipeline_findings"] = len(health["pipelines"]["findings"])
+    health["healthy"] = bool(
+        health["healthy"] and pa["ok"] and not health.get("pipelines", {}).get("findings")
+    )
     latest = out / "latest"
     latest.mkdir(parents=True, exist_ok=True)
     _jsonl_gz(latest / "universe.jsonl.gz", summaries)
     _jsonl_gz(latest / "evaluations.jsonl.gz", rows)
     (latest / "snapshot_ledger.json").write_text(json.dumps(ledger, indent=1))
     mx["fee_schedule"] = fees.FEE_SCHEDULE_VERSION
+    mx["fee_basis_rows"] = mx["overall"]["completeness"]["fee_basis_rows"]
     (latest / "matrix.json").write_text(json.dumps(mx, indent=1, default=str))
     (latest / "health.json").write_text(json.dumps(health, indent=1, default=str))
     (latest / "opening_night.json").write_text(
@@ -98,6 +116,7 @@ def build(
         "panel_rows_joined": panel_info["rows"],
         "scores_loaded": len(scores),
         "health": health["findings"],
+        "healthy": health["healthy"],
         "opening_night": {k: v for k, v in night.items() if k in (
             "contracts", "games", "fully_clean_contracts", "contracts_with_issue")},
     }  # fmt: skip
@@ -113,8 +132,13 @@ def main() -> None:
     ap.add_argument("--panel", type=Path)
     ap.add_argument("--schedule", type=Path)
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--runs", type=Path, help="gh run list --json output for the pipeline monitor")
     a = ap.parse_args()
-    print(json.dumps(build(a.kalshi, a.panel, a.schedule, a.out), indent=1, sort_keys=True))
+    print(
+        json.dumps(
+            build(a.kalshi, a.panel, a.schedule, a.out, runs=a.runs), indent=1, sort_keys=True
+        )
+    )
 
 
 if __name__ == "__main__":
