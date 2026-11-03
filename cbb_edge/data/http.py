@@ -163,7 +163,17 @@ def fetch(
         attempt += 1
         # Authorize EVERY attempt (retries also consume paid quota).
         cost_policy.authorize(source, url)
-        resp = _get_following(sess, source, spec, url, params, hdrs, timeout)
+        try:
+            resp = _get_following(sess, source, spec, url, params, hdrs, timeout)
+        except (requests.ConnectionError, requests.Timeout) as exc:
+            # Temporary CDN/ESPN TCP resets and read timeouts are not HTTP responses:
+            # the status-code retry below would never see them. Reauthorize each retry,
+            # preserve the source's spacing/redirect rules, and never retry TLS
+            # certificate errors (which cannot be fixed by another attempt).
+            if isinstance(exc, requests.exceptions.SSLError) or attempt >= max_attempts:
+                raise
+            time.sleep(min(2.0**attempt, 60.0))
+            continue
         if resp.status_code == 404 and not_found_ok:
             miss_path.parent.mkdir(parents=True, exist_ok=True)
             miss_path.write_text(
