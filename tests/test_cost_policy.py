@@ -202,9 +202,12 @@ def test_free_espn_fetch_transport_retry_is_bounded(tmp_path, monkeypatch):
     monkeypatch.setattr(http, "data_dir", lambda: tmp_path)
     url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
     with (
-        mock.patch.object(http, "_get_following", side_effect=requests.ConnectionError("reset")) as get,
+        mock.patch.object(
+            http, "_get_following", side_effect=requests.ConnectionError("reset")
+        ) as get,
         mock.patch.object(http.time, "sleep") as sleep,
-        pytest.raises(requests.ConnectionError):
+        pytest.raises(requests.ConnectionError),
+    ):
         http.fetch("espn_public", url, use_cache=False, max_attempts=3)
     assert get.call_count == 3
     assert sleep.call_count == 2
@@ -214,9 +217,12 @@ def test_certificate_failure_not_retried(tmp_path, monkeypatch):
     monkeypatch.setattr(http, "data_dir", lambda: tmp_path)
     url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
     with (
-        mock.patch.object(http, "_get_following", side_effect=requests.exceptions.SSLError("bad cert")) as get,
+        mock.patch.object(
+            http, "_get_following", side_effect=requests.exceptions.SSLError("bad cert")
+        ) as get,
         mock.patch.object(http.time, "sleep") as sleep,
-        pytest.raises(requests.exceptions.SSLError):
+        pytest.raises(requests.exceptions.SSLError),
+    ):
         http.fetch("espn_public", url, use_cache=False, max_attempts=4)
     get.assert_called_once()
     sleep.assert_not_called()
