@@ -231,3 +231,162 @@ def test_end_to_end_keeps_every_contract(tmp_path: Path):
     night = json.loads((out / "latest" / "opening_night.json").read_text())
     assert night["contracts"] == 3 and night["games"] >= 1
     assert summary["bet_authority"] == "RESEARCH_ONLY"
+
+
+# ---------------------------------------------------------------- versioned fee schedule / accounting
+def test_rule_for_series_api_overrides_default_and_flat_is_unsupported():
+    from datetime import date
+
+    d = date(2026, 11, 2)
+    base = fees.rule_for(None, d)
+    assert base.basis == "assumed_default" and base.taker_rate == fees.TAKER_RATE
+    half = fees.rule_for({"fee_type": "quadratic", "fee_multiplier": 0.5}, d)
+    assert half.basis == "series_api" and half.taker_rate == pytest.approx(0.035)
+    assert fees.fee_per_contract(0.5, 100, half.taker_rate) == pytest.approx(0.0088)
+    assert half.per_contract(0.5, 100) == pytest.approx(0.0088)
+    flat = fees.rule_for({"fee_type": "flat", "fee_multiplier": 1}, d)
+    assert flat.supported is False  # never guess an unknown fee
+
+
+def test_rule_selection_is_effective_date_aware():
+    from datetime import date
+
+    old = fees.FeeRule("old", date(2020, 1, 1), date(2026, 6, 30), 0.05, 0.0125, "assumed_default")
+    new = fees.FeeRule("new", date(2026, 7, 1), None, 0.07, 0.0175, "assumed_default")
+    assert old.covers(date(2026, 6, 30)) and not old.covers(date(2026, 7, 1))
+    assert new.covers(date(2026, 11, 2)) and not new.covers(date(2026, 6, 30))
+
+
+def test_fee_inclusive_average_cost_is_not_double_counted():
+    rule = fees.rule_for(None, __import__("datetime").date(2026, 11, 2))
+    ex = fees.hypothetical_execution(0.40, 100, rule)
+    shown = ex.fee_inclusive_avg_cost  # what Kalshi displays as average cost
+    assert shown == pytest.approx(0.40 + 0.07 * 0.4 * 0.6)
+    got = fees.execution_from_inclusive_display(shown, 100, rule)
+    assert got is not None and got.kind == "actual_fill"
+    assert got.fill_price == pytest.approx(0.40)  # raw fill recovered, not 0.4168
+    assert got.total_cash == pytest.approx(shown * 100)  # fee counted exactly once
+    naive_total = (shown + fees.fee_per_contract(shown, 100)) * 100
+    assert naive_total > got.total_cash  # the double-count bug would overstate cash
+    win, lose = got.settle(True), got.settle(False)
+    assert win["net_pnl"] == pytest.approx(100 - got.total_cash)
+    assert win["gross_pnl"] == pytest.approx(60.0) and lose["gross_pnl"] == pytest.approx(-40.0)
+    assert lose["net_roi"] == pytest.approx(-1.0) and win["gross_roi"] == pytest.approx(1.5)
+    assert fees.execution_from_inclusive_display(7.0, 100, rule) is None  # impossible cost
+
+
+def test_evaluation_records_kind_basis_and_gross_vs_net_roi():
+    c = contract([obs(20, 0.40, 0.44)], result="yes")
+    c.series_meta = {"fee_type": "quadratic", "fee_multiplier": 1.0}
+    _, rows = evaluate_contract(c, {7: (80, 60)})
+    y = [r for r in rows if r["entry"] == "CLOSE"][0]["yes"]
+    assert y["kind"] == "hypothetical_quote"
+    assert y["gross_roi"] > y["net_roi"]
+    assert y["net_pnl"] == pytest.approx(y["gross_pnl"] - y["fee"])
+    assert [r for r in rows if r["entry"] == "CLOSE"][0]["fee_basis"] == "series_api"
+    c.series_meta = {"fee_type": "flat", "fee_multiplier": 1}
+    _, rows2 = evaluate_contract(c, {7: (80, 60)})
+    assert [r for r in rows2 if r["entry"] == "CLOSE"][0]["yes"]["fill"] == "FEE_UNSUPPORTED"
+
+
+def test_capture_records_series_fee_metadata_and_survives_fee_changes_failure(monkeypatch):
+    from cbb_edge.kalshi import capture as K
+
+    meta = K.series_meta({"ticker": "KX", "fee_type": "quadratic", "fee_multiplier": 1, "junk": 1})
+    assert meta == {"ticker": "KX", "fee_type": "quadratic", "fee_multiplier": 1}
+
+    def boom(*a, **k):
+        raise OSError("network down")
+
+    monkeypatch.setattr(K, "_get", boom)
+    fc = K.fetch_fee_changes()
+    assert fc["status"] == "error" and "network down" in fc["error"]
+
+
+# ---------------------------------------------------------------- pretip gap causes, monitor, panel audit
+def test_pretip_gap_reasons_are_exclusive_and_not_recoverable_fiction():
+    from cbb_edge.kalshi.research.evaluate import pretip_gap_reason, timing
+
+    live = contract([obs(31, 0.40, 0.44)])  # first captured after tip
+    live.open_time = (TIP + timedelta(minutes=30)).isoformat()
+    assert (
+        pretip_gap_reason(live, timing(live))
+        == "listed_after_tip_live_line_no_pregame_quote_exists"
+    )
+    gap = contract([obs(31, 0.40, 0.44)])
+    gap.open_time = T0.isoformat()
+    gap.first_seen = TIP + timedelta(hours=1)
+    assert pretip_gap_reason(gap, timing(gap)) == "capture_gap_first_captured_after_tip"
+    empty = contract([obs(5, 0.0, 1.0)])
+    empty.open_time = T0.isoformat()
+    assert pretip_gap_reason(empty, timing(empty)).startswith("captured_pretip_but_book_empty")
+    ok = contract([obs(5, 0.40, 0.44)])
+    assert pretip_gap_reason(ok, timing(ok)) is None
+
+
+def test_pipeline_monitor_flags_failures_and_scheduler_starvation():
+    from cbb_edge.kalshi.research.monitor import pipeline_health
+
+    now = datetime(2026, 11, 3, 12, tzinfo=UTC)
+    iso = lambda h: (now - timedelta(hours=h)).isoformat().replace("+00:00", "Z")  # noqa: E731
+    runs = [
+        {
+            "workflowName": "kalshi-capture",
+            "event": "schedule",
+            "conclusion": "success",
+            "createdAt": iso(2),
+        },
+        {
+            "workflowName": "kalshi-capture",
+            "event": "schedule",
+            "conclusion": "cancelled",
+            "createdAt": iso(5),
+        },
+        {
+            "workflowName": "kalshi-capture",
+            "event": "pull_request",
+            "conclusion": "failure",
+            "createdAt": iso(1),
+        },
+        {
+            "workflowName": "kalshi-capture",
+            "event": "schedule",
+            "conclusion": "success",
+            "createdAt": iso(60),
+        },
+    ]
+    h = pipeline_health(runs, now)
+    cap = h["pipelines"]["kalshi-capture"]
+    assert cap["scheduled_runs"] == 2 and cap["scheduled_yield"] < 0.05  # 2 of 96 expected
+    assert any("failed/cancelled" in f for f in h["findings"])  # PR failure is not counted
+    assert sum("cancelled" in f and "1 failed" in f for f in h["findings"]) == 1
+
+
+def test_panel_audit_detects_leakage_missing_and_stays_idempotent(tmp_path: Path):
+    from cbb_edge.kalshi.research.panel_audit import audit_panels
+
+    k, p = tmp_path / "k", tmp_path / "p"
+    d = k / "snapshots/2026/11/02"
+    d.mkdir(parents=True)
+    at = "2026-11-02T10:00:00+00:00"
+    rows = [{"captured_at": at, "market": {"ticker": t}} for t in ("A", "B")]
+    for name in ("kalshi_cbb_20261102T100000Z", "kalshi_cbb_20261102T110000Z"):
+        with gzip.open(d / f"{name}.jsonl.gz", "wt") as fh:
+            fh.writelines(json.dumps(r) + "\n" for r in rows)
+    pd_ = p / "panels/2026/11/02"
+    pd_.mkdir(parents=True)
+
+    def prow(t, as_of):
+        return {
+            "kalshi_ticker": t, "captured_at": at, "espn_game_id": 1, "market_phase": "PRETIP",
+            "game_start_utc": "2026-11-02T20:00:00+00:00",
+            "models_as_of_capture": {"versions": {"v": {"as_of": as_of}}},
+        }  # fmt: skip
+
+    with gzip.open(pd_ / "kalshi_cbb_20261102T100000Z.panel.jsonl.gz", "wt") as fh:
+        fh.write(json.dumps(prow("A", "2026-11-02T09:00:00+00:00")) + "\n")
+        fh.write(json.dumps(prow("B", "2026-11-02T10:30:00+00:00")) + "\n")  # future leak
+    a = audit_panels(k, p)
+    assert a["backlog_snapshots"] == ["kalshi_cbb_20261102T110000Z"] and a["backlog_count"] == 1
+    assert a["totals"]["future_projection_rows"] == 1 and not a["ok"]
+    assert audit_panels(k, p) == a  # read-only and idempotent

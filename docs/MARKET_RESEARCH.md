@@ -34,9 +34,18 @@ capture before `min(tip, close_time)`, with `staleness_min`). A horizon with no 
 ## Fees, fills, CLV (`fees.py`)
 
 * Quote, raw fill, fee, total cost, close price and payout are separate fields.
-* Fee = `ceil_to_cent(0.07 * C * P * (1-P))` (taker). This schedule is an **assumption**
-  (`FEE_SCHEDULE_VERSION`, stored on every row); verify against Kalshi's current schedule before
-  treating ROI as final.
+* Fee = `ceil_to_cent(multiplier * 0.07 * C * P * (1-P))` (taker; maker uses 0.0175 and only on
+  series Kalshi lists with maker fees). Rules are versioned and effective-dated (`FeeRule`,
+  `rule_for`). **Verification status:** kalshi.com and the API host are unreachable from the
+  development sandbox, so the general formula is corroborated only by third-party summaries. The
+  capture workflow now stores each series' `fee_type`/`fee_multiplier` from the Kalshi API in every
+  snapshot row (`series_meta`) and the raw `/series/fee_changes` response in the snapshot summary.
+  When a contract's series carries them the evaluation uses them (`fee_basis = series_api`);
+  otherwise it falls back to the default and says so (`fee_basis = assumed_default`). `flat`/unknown
+  fee types are `FEE_UNSUPPORTED` (no ROI is computed). Every row stores `fee_rule` and `fee_basis`.
+* `Execution` keeps `quote`, raw `fill`, `fee_total`, `total_cash`, Kalshi's fee-inclusive average
+  cost, `gross_roi`, `net_roi` and a `kind` (`actual_fill` vs `hypothetical_quote`).
+  `execution_from_inclusive_display` recovers a raw fill from the fee-inclusive display or refuses.
 * Hypothetical fill: taker order of 25 contracts at the best displayed price, filled only if the
   displayed top-of-book size covers it; BUY YES at `yes_ask` (size `yes_ask_size`), BUY NO at
   `1 - yes_bid` (size `yes_bid_size`). No partial fills, queue or impact. Anything else is
@@ -75,6 +84,17 @@ python -m cbb_edge.kalshi.research.run --kalshi arch/kalshi-archive \
 Outputs: `latest/{universe,evaluations}.jsonl.gz`, `matrix.json`, `opening_night.{json,csv,md}`,
 `health.json`, `dashboard.html` (filters: family, entry point/time before tip, game date, price
 range, model version, quality tier; click a family for contract drill-down).
+
+## Pretip gaps, panel integrity, pipeline monitor
+
+* Every contract with no usable pre-tip quote gets one exclusive cause: `listed_after_tip_live_line_
+  no_pregame_quote_exists` (not a capture problem and never reconstructed), `capture_gap_first_
+  captured_after_tip`, `captured_pretip_but_book_empty_or_non_live_status`, `no_verified_tip`.
+* `panel_audit.py` verifies, read-only, that every raw snapshot has a panel partition, row sets are
+  identical, capture times match, and no projection version has `as_of` after the capture or (for
+  PRETIP rows) after the tip. Results land in `health.json -> panel_integrity`.
+* `monitor.py` turns `gh run list` into failed/cancelled-run findings and scheduler yield per
+  pipeline (`health.json -> pipelines`).
 
 ## Known limits
 

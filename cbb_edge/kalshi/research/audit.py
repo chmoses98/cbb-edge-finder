@@ -19,7 +19,7 @@ def contract_issues(c: dict[str, Any], rows: list[dict[str, Any]]) -> list[str]:
     st = c["status"]
     out: list[str] = []
     if not c["entry_points_present"]:
-        out.append("NO_PRETIP_QUOTE_CAPTURED")
+        out.append(f"NO_PRETIP_QUOTE:{c.get('pretip_gap_reason')}")
     elif "CLOSE" not in c["entry_points_present"]:
         out.append("NO_CLOSING_QUOTE")
     if c["open_observed_late_minutes"] is not None and c["open_observed_late_minutes"] > 60:
@@ -56,6 +56,12 @@ def opening_night(
         o, cl = e.get("OPEN"), e.get("CLOSE")
         models = (cl or {}).get("model", {})
         issues = contract_issues(c, list(e.values()))
+        close_row = cl or {}
+        has_model = bool(close_row.get("model"))
+        mkt_ok = bool(cl and cl.get("mid") is not None and c["result"] in ("yes", "no"))
+        fill_ok = bool(
+            cl and any(cl[s].get("net_pnl") is not None for s in ("yes", "no") if s in cl)
+        ) or any(r[s].get("net_pnl") is not None for r in e.values() for s in ("yes", "no"))
         table.append(
             {
                 "ticker": c["ticker"], "family": c["family"], "series": c["series"],
@@ -74,6 +80,19 @@ def opening_night(
                 "official_check": c["status"]["official_check"],
                 "mapping": c["status"]["mapping"], "support": c["status"]["support"],
                 "model": c["status"]["model"], "outcome": c["status"]["outcome"],
+                "captured": c["n_snapshots"] > 0,
+                "valid_pretip_quote": bool(c["entry_points_present"]),
+                "pretip_gap_reason": c.get("pretip_gap_reason"),
+                "frozen_pretip_model_prediction": has_model,
+                "closing_quote_captured": "CLOSE" in c["entry_points_present"],
+                "official_result_available": c["status"]["official_check"]
+                in ("CONFIRMED", "DISAGREE"),
+                "official_agrees_with_kalshi": {"CONFIRMED": True, "DISAGREE": False}.get(
+                    c["status"]["official_check"]
+                ),
+                "market_accuracy_evaluable": mkt_ok,
+                "model_accuracy_evaluable": mkt_ok and has_model,
+                "after_fee_profitability_evaluable": mkt_ok and fill_ok,
                 "flags": "|".join(c["status_flags"]), "issues": "|".join(issues),
             }
         )  # fmt: skip
@@ -82,6 +101,8 @@ def opening_night(
     for t in table:
         for i in filter(None, t["issues"].split("|")):
             issue_counts[i.split(":")[0] if i.startswith(("MODEL", "OUTCOME")) else i] += 1
+            if i.startswith("MODEL:"):
+                issue_counts[i] += 1
     clean = [t for t in table if not t["issues"]]
     return {
         "night": night.isoformat(),
@@ -93,6 +114,23 @@ def opening_night(
         "contracts_with_issue": len(table) - len(clean),
         "issue_counts": dict(issue_counts.most_common()),
         "official_check": dict(Counter(c["status"]["official_check"] for c in sel)),
+        "pretip_gap_reasons": dict(
+            Counter(c.get("pretip_gap_reason") for c in sel if c.get("pretip_gap_reason"))
+        ),
+        "readiness": {
+            k: sum(1 for t in table if t[k])
+            for k in (
+                "captured",
+                "valid_pretip_quote",
+                "frozen_pretip_model_prediction",
+                "closing_quote_captured",
+                "official_result_available",
+                "official_agrees_with_kalshi",
+                "market_accuracy_evaluable",
+                "model_accuracy_evaluable",
+                "after_fee_profitability_evaluable",
+            )
+        },  # fmt: skip
         "official_disagreements": [t["ticker"] for t in table if t["official_check"] == "DISAGREE"],
         "unmatched": [t["ticker"] for t in table if t["mapping"] != "MATCHED"],
         "unsettled": [t["ticker"] for t in table if t["outcome"] != "SETTLED"],

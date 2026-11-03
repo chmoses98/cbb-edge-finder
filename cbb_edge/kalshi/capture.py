@@ -141,6 +141,25 @@ def enrich_event_metadata(records: dict[str, dict[str, Any]], lookback: int) -> 
     }
 
 
+SERIES_META_KEYS = (
+    "ticker", "title", "category", "frequency", "tags", "fee_type", "fee_multiplier",
+    "contract_url", "settlement_sources",
+)  # fmt: skip
+
+
+def series_meta(series: dict[str, Any]) -> dict[str, Any]:
+    """Series fields kept in every snapshot row (fee_type/fee_multiplier drive fee accounting)."""
+    return {k: series[k] for k in SERIES_META_KEYS if k in series}
+
+
+def fetch_fee_changes() -> dict[str, Any]:
+    """Best-effort raw ``/series/fee_changes`` (scheduled fee changes). Never fails a capture."""
+    try:
+        return {"status": "ok", "response": _get("/series/fee_changes")}
+    except (OSError, ValueError, AssertionError) as exc:
+        return {"status": "error", "error": f"{type(exc).__name__}: {exc}"[:300]}
+
+
 def capture(
     out_dir: Path,
     *,
@@ -199,6 +218,7 @@ def capture(
                         "schema_version": SCHEMA_VERSION,
                         "captured_at": captured_at.isoformat(),
                         "series_ticker": rec["series"].get("ticker"),
+                        "series_meta": series_meta(rec["series"]),
                         "family": family,
                         "status_query": rec["status_query"],
                         "market": m,
@@ -209,10 +229,15 @@ def capture(
                 )
                 + "\n"
             )
+    fee_changes = fetch_fee_changes()
     summary = {
         "schema_version": SCHEMA_VERSION,
         "captured_at": captured_at.isoformat(),
         "base_url": base_url(),
+        "fee_changes": fee_changes,
+        "series_fee_types": dict(
+            Counter(str(s.get("fee_type")) for s in series if "fee_type" in s)
+        ),
         "file": str(path),
         "n_series": len(series),
         "series": sorted(s["ticker"] for s in series),

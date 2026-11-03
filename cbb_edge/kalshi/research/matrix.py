@@ -116,6 +116,16 @@ def _roi(rows: list[dict[str, Any]], side: str) -> dict[str, Any]:
         if items
         else None
     )
+    gross = cluster_ratio(
+        [
+            (r["cluster"], r[side]["gross_pnl"], r[side]["price"])
+            for r in rows
+            if r["y"] is not None and r[side].get("fill") == "FILLED" and "gross_pnl" in r[side]
+        ]
+    )
+    out["gross_roi"] = gross["ratio"]
+    out["gross_roi_lo"], out["gross_roi_hi"] = gross["lo"], gross["hi"]
+    out["fee_basis"] = dict(Counter(r["fee_basis"] for r in rows))
     out["fills"] = len(items)
     out["attempts"] = len(rows)
     return out
@@ -236,6 +246,7 @@ def block(contracts: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[s
                 1 for c in contracts if not c["entry_points_present"]
             ),
             "tier_counts_close": dict(Counter(r["tier"] for r in rows if r["entry"] == "CLOSE")),
+            "fee_basis_rows": dict(Counter(r["fee_basis"] for r in rows)),
         },  # fmt: skip
         "confidence": confidence(mkt_b["clusters"]),
     }

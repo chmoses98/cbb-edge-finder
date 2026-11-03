@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from cbb_edge.kalshi.research import fees
@@ -200,10 +200,26 @@ def status_dimensions(c: Contract, scores: dict[int, tuple[int, int]]) -> dict[s
     }
 
 
+def pretip_gap_reason(c: Contract, tm: Resolved) -> str | None:
+    """Why a contract has no usable pre-tip quote (None when it has one). Causes are exclusive:
+    a live line that did not exist pregame is NOT a capture gap and is never 'recovered'."""
+    if any(usable(o, tm.cutoff) for o in c.obs):
+        return None
+    if c.game_start is None:
+        return "no_verified_tip"
+    opened = parse_ts(c.open_time)
+    if opened is not None and opened >= c.game_start:
+        return "listed_after_tip_live_line_no_pregame_quote_exists"
+    if c.first_seen is not None and c.first_seen >= c.game_start:
+        return "capture_gap_first_captured_after_tip"
+    return "captured_pretip_but_book_empty_or_non_live_status"
+
+
 def evaluate_contract(
     c: Contract, scores: dict[int, tuple[int, int]]
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     dims = status_dimensions(c, scores)
+    rule = fees.rule_for(c.series_meta, (c.first_seen or datetime.now(UTC)).date())
     tm = timing(c)
     y = 1 if c.result == "yes" else 0 if c.result == "no" else None
     entries = pick_entries(c, tm)
@@ -230,7 +246,7 @@ def evaluate_contract(
             "bid_sz": o.bid_sz, "ask_sz": o.ask_sz, "volume": o.volume,
             "staleness_min": stale, "tier": _tier(spread if mid is not None else None,
                                                   o.ask_sz, stale),
-            "y": y, "model": {}, "fee_schedule": fees.FEE_SCHEDULE_VERSION,
+            "y": y, "model": {}, "fee_rule": rule.version, "fee_basis": rule.basis,
         }  # fmt: skip
         if mid is not None and y is not None:
             row["brier_mkt"], row["logloss_mkt"] = brier(mid, y), logloss(mid, y)
@@ -244,16 +260,27 @@ def evaluate_contract(
             elif (sz := sizes[side]) is None or sz < ORDER_CONTRACTS:
                 fill["fill"] = "INSUFFICIENT_DISPLAYED_SIZE"
             else:
-                fill["fill"] = "FILLED"
-                fill["fee"] = fees.fee_per_contract(p, ORDER_CONTRACTS)
-                fill["total_cost"] = p + fill["fee"]
-                if close_mid is not None and name != "CLOSE":
-                    close_side = close_mid if side == "yes" else 1.0 - close_mid
-                    cl = fees.clv(p, close_side, ORDER_CONTRACTS)
-                    fill["clv_gross"], fill["clv_net"] = cl.gross, cl.fee_adjusted
-                if y is not None:
-                    won = (y == 1) == (side == "yes")
-                    fill.update(fees.realized_return(won, p, ORDER_CONTRACTS))
+                if not rule.supported:
+                    fill["fill"] = "FEE_UNSUPPORTED"
+                else:
+                    ex = fees.hypothetical_execution(p, ORDER_CONTRACTS, rule)
+                    fill["fill"] = "FILLED"
+                    fill["kind"] = ex.kind
+                    fill["fee"] = ex.fee_per_contract
+                    fill["total_cost"] = ex.fee_inclusive_avg_cost
+                    if close_mid is not None and name != "CLOSE":
+                        close_side = close_mid if side == "yes" else 1.0 - close_mid
+                        cl = fees.clv(p, close_side, ORDER_CONTRACTS, rule.taker_rate)
+                        fill["clv_gross"], fill["clv_net"] = cl.gross, cl.fee_adjusted
+                    if y is not None:
+                        won = (y == 1) == (side == "yes")
+                        st = ex.settle(won)
+                        fill.update(
+                            gross_pnl=st["gross_pnl"] / ORDER_CONTRACTS,
+                            net_pnl=st["net_pnl"] / ORDER_CONTRACTS,
+                            gross_roi=st["gross_roi"],
+                            net_roi=st["net_roi"],
+                        )
             row[side] = fill
         for ver, pm in probs.items():
             m: dict[str, Any] = {"p": pm}
@@ -264,8 +291,12 @@ def evaluate_contract(
             for side, ps in (("yes", pm), ("no", 1.0 - pm)):
                 side_px = px[side]
                 if side_px is not None:
-                    m[f"ev_{side}"] = fees.expected_value(ps, side_px, ORDER_CONTRACTS)
-                m[f"max_entry_{side}"] = fees.breakeven_entry_price(ps, ORDER_CONTRACTS)
+                    m[f"ev_{side}"] = fees.expected_value(
+                        ps, side_px, ORDER_CONTRACTS, rule.taker_rate
+                    )
+                m[f"max_entry_{side}"] = fees.breakeven_entry_price(
+                    ps, ORDER_CONTRACTS, rule.taker_rate
+                )
             row["model"][ver] = m
         row["model_gaps"] = gaps
         rows.append(row)
@@ -307,6 +338,7 @@ def evaluate_contract(
         "n_snapshots": c.n_snapshots, "n_panel_rows": c.n_panel_rows,
         "n_with_orderbook": c.n_with_orderbook, "n_with_event_meta": c.n_with_event,
         "open_observed_late_minutes": open_late,
+        "pretip_gap_reason": pretip_gap_reason(c, tm),
         "entry_points_present": [r["entry"] for r in rows],
         "entry_points_missing": [n for n, _ in ENTRY_POINTS if entries[n] is None],
         "models_with_probability": sorted({v for mp in c.models for v in mp.probs}),
