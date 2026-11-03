@@ -91,6 +91,11 @@ def test_capture_writes_immutable_snapshot(tmp_path):
     def fake_get(path, params=None):
         if path == "/series":
             return series
+        if path == "/events":
+            return {
+                "events": [{"event_ticker": mk["event_ticker"], "title": "Duke at North Carolina"}],
+                "cursor": "",
+            }
         if path == "/markets":
             if params.get("status") == "open":
                 return {"markets": [mk], "cursor": ""}
@@ -104,6 +109,9 @@ def test_capture_writes_immutable_snapshot(tmp_path):
     rows = [json.loads(x) for x in gzip.open(summary["file"], "rt")]
     assert rows[0]["market"]["ticker"] == mk["ticker"]
     assert rows[0]["schema_version"] == capture.SCHEMA_VERSION
+    assert rows[0]["event"]["title"] == "Duke at North Carolina"
+    assert summary["events_enriched"] == 1
+    assert summary["markets_enriched"] == 1
 
 
 def test_capture_goes_through_cost_policy():
@@ -146,4 +154,67 @@ def test_market_maps_to_unique_canonical_game():
     m = {"event_ticker": "KXNCAAMBGAME-26NOV04DUKEUNC", "title": "Duke at North Carolina Winner?"}
     assert mapping.map_market(m, games) == (1, "ok")
     bad = {"event_ticker": "KXNCAAMBGAME-26NOV04XXXYYY", "title": "Dook at Nort Carolina Winner?"}
-    assert mapping.map_market(bad, games) == (None, "unresolved_team")
+    assert mapping.map_market(bad, games) == (None, "teams_unresolved")
+
+
+def test_contract_title_can_be_a_single_team_when_event_identifies_matchup():
+    from datetime import date
+
+    import pandas as pd
+
+    from cbb_edge.data.ids import teams
+    from cbb_edge.kalshi import mapping
+
+    duke = teams.resolve("Duke", "espn")
+    unc = teams.resolve("North Carolina", "espn")
+    games = pd.DataFrame(
+        {
+            "game_id": [11],
+            "game_date_et": [date(2026, 11, 4)],
+            "home_team_id": [unc],
+            "away_team_id": [duke],
+        }
+    )
+    market = {
+        "event_ticker": "KXNCAAMBGAME-26NOV04DUKEUNC",
+        "title": "Will Duke win?",
+    }
+    assert mapping.map_market(market, games, {"title": "Duke at North Carolina"}) == (11, "ok")
+    # The old snapshot has no event object, but an exact code pair still resolves.
+    assert mapping.map_market(market, games) == (11, "ok")
+    assert (
+        mapping.map_market(
+            {"event_ticker": "KXNCAAMBGAME-26NOV04XXXYYY", "title": "Will X win?"},
+            games,
+        )[0]
+        is None
+    )
+    assert mapping.event_date("KXNCAAMBGAME-26NOV44DUKEUNC") is None
+
+
+def test_same_teams_two_games_same_date_is_never_guessed():
+    from datetime import date
+
+    import pandas as pd
+
+    from cbb_edge.data.ids import teams
+    from cbb_edge.kalshi import mapping
+
+    duke = teams.resolve("Duke", "espn")
+    unc = teams.resolve("North Carolina", "espn")
+    games = pd.DataFrame(
+        {
+            "game_id": [11, 12],
+            "game_date_et": [date(2026, 11, 4)] * 2,
+            "home_team_id": [unc, unc],
+            "away_team_id": [duke, duke],
+        }
+    )
+    market = {
+        "event_ticker": "KXNCAAMBGAME-26NOV04DUKEUNC",
+        "title": "Will Duke win?",
+    }
+    assert mapping.map_market(market, games, {"title": "Duke at North Carolina"}) == (
+        None,
+        "ambiguous_game",
+    )

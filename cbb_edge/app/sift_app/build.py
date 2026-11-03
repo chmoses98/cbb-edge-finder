@@ -31,6 +31,7 @@ from edge_finder_contract.freshness import Thresholds
 from edge_finder_contract.validate import validate
 from scipy.stats import norm
 
+from cbb_edge.kalshi.semantics import parse_contract
 from cbb_edge.ops.schedule_state import ANNOUNCED, ET, time_state
 
 from . import APP_BRANCH, REPO, SPORT
@@ -348,6 +349,7 @@ class World:
     commits: dict[str, str | None] = field(default_factory=dict)
     schedule_observed_at: str | None = None
     kalshi_games: dict[str, list[dict[str, Any]]] = field(default_factory=dict)  # gid -> raw
+    kalshi_mapping_counts: dict[str, int] = field(default_factory=dict)
 
 
 # ===================================================================== schedule -> games
@@ -934,6 +936,24 @@ def _market(
                                    str(p["metadata"].get("location") or "").lower()):  # fmt: skip
             pid = p["participant_id"]
             side = "HOME" if pid == home else "AWAY" if pid == away else None
+    # Exact payoff semantics (subject team, period, strike) from the series spec and the
+    # contract's own structured fields; only used when every cross-check passed.
+    pid_to_tid = {tm["pid"]: t for t, tm in teams.items()}
+    sem = parse_contract(
+        str(raw.get("series_ticker") or ""), m, pid_to_tid.get(home), pid_to_tid.get(away)
+    )
+    market_type, period, threshold = None, None, None
+    if sem["status"] == "parsed":
+        market_type = sem["market_type"]
+        period = {"FULL": "FULL_GAME", "1H": "FIRST_HALF", "2H": "SECOND_HALF"}.get(sem["period"])
+        if sem["subject_side"] in ("home", "away"):
+            side = sem["subject_side"].upper()
+            pid = home if side == "HOME" else away
+        elif sem["subject_side"] == "tie":
+            side, pid = "TIE", None
+        elif sem["market_type"] == "TOTAL":
+            side, pid = "OVER", None  # YES iff total points exceed the strike
+        threshold = sem["strike"]
     status = {"active": "OPEN", "closed": "CLOSED", "settled": "SETTLED", "finalized": "SETTLED",
               "initialized": "UNOPENED", "inactive": "UNOPENED"}.get(str(m.get("status")), "UNKNOWN")  # fmt: skip
     try:
@@ -942,7 +962,7 @@ def _market(
             yes_description=m.get("title") or f"YES on {tk}", source="kalshi-archive (read-only capture)",
             event_id=ev["event_id"], kalshi_event_ticker=m.get("event_ticker"),
             kalshi_series_ticker=raw.get("series_ticker"), participant_id=pid, side=side,
-            line=m.get("floor_strike"), yes_bid=m.get("yes_bid_dollars"), yes_ask=m.get("yes_ask_dollars"),
+            market_type=market_type, period=period, threshold=threshold, line=m.get("floor_strike"), yes_bid=m.get("yes_bid_dollars"), yes_ask=m.get("yes_ask_dollars"),
             no_bid=m.get("no_bid_dollars"), no_ask=m.get("no_ask_dollars"),
             last_price=m.get("last_price_dollars"), volume=m.get("volume_fp"),
             open_interest=m.get("open_interest_fp"), market_status=status,
@@ -1527,7 +1547,7 @@ def _health(
     model_required = season_live
     health = H.build_health(
         sport=SPORT, run_id=run_id, bet_authority="RESEARCH_ONLY",
-        last_market_capture=w.kalshi.captured_at if (w.kalshi and markets) else None,
+        last_market_capture=w.kalshi.captured_at if w.kalshi else None,
         last_model_generated=last_manifest["as_of"] if last_manifest and model_required else None,
         last_successful_run=now, payload_run_id=run_id, payload_available=True,
         commit_sha=w.code_sha, model_required=model_required, market_required=False,
@@ -1536,13 +1556,19 @@ def _health(
         warnings=([] if markets else ["Market research is not published for CBB yet: no Kalshi game "
                                       "contract maps to a published game."]),
         extensions={"cbb": {**_status_ext(w, g, sel, markets, first, in_window, season_live, counts),
-                            "leaders": leaders(rankings or {})}},
+                            "leaders": leaders(rankings or {}),
+                             "market_mapping": {"counts": w.kalshi_mapping_counts,
+                                                "captured_contracts": len(w.kalshi.markets)
+                                                if w.kalshi else 0,
+                                                "mapped_contracts": len(markets),
+                                                "capture_at": w.kalshi.captured_at
+                                                if w.kalshi else None}}},
     )  # fmt: skip
     health["components"]["market_data"]["detail"] = (
         f"{len(markets)} Kalshi game contracts mapped (read-only capture {w.kalshi.captured_at})"
         if markets and w.kalshi else
-        "UNAVAILABLE: no Kalshi game contract maps to a published game (futures and season-win "
-        "markets are not game markets)")  # fmt: skip
+        "UNAVAILABLE: Kalshi capture exists but no contracts match the scheduled games"
+        if w.kalshi else "UNAVAILABLE: no Kalshi market capture available")  # fmt: skip
     if not model_required:
         health["components"]["model"]["detail"] = (
             "WAITING_FOR_WINDOW: no game has entered the 30-hour prospective capture window"

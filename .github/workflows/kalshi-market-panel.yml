@@ -1,0 +1,118 @@
+name: kalshi-market-panel
+
+# Join every immutable Kalshi CBB snapshot with only the model records archived
+# by its actual capture time. Read-only inputs; append-only output; no orders.
+on:
+  workflow_run:
+    workflows: [kalshi-capture]
+    types: [completed]
+    branches: [main]
+  schedule:
+    - cron: "17 * * * *"  # catch skipped workflow_run triggers and backfill gaps
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kalshi-market-panel
+  cancel-in-progress: false
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+jobs:
+  panel:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Fetch immutable input archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for b in projections-archive roster-archive prospective-scores schedule-archive kalshi-archive; do
+            mkdir -p "arch/$b"
+            git -C "arch/$b" init -q
+            git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            git -C "arch/$b" fetch -q --depth=1 origin "$b"
+            git -C "arch/$b" checkout -q FETCH_HEAD
+          done
+      - name: Open append-only panel archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p market_panel_out
+          git -C market_panel_out init -q
+          git -C market_panel_out config user.name "cbb-edge-finder-bot"
+          git -C market_panel_out config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C market_panel_out remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git -C market_panel_out fetch -q --depth=1 origin kalshi-panel-archive; then
+            git -C market_panel_out checkout -q -b kalshi-panel-archive FETCH_HEAD
+          else
+            git -C market_panel_out checkout -q --orphan kalshi-panel-archive
+            printf '# Immutable CBB market/projection joins\n\nDerived from kalshi-archive and frozen projections-archive. See docs/KALSHI_CAPTURE.md.\n' > market_panel_out/README.md
+          fi
+      - name: Join missing snapshots with historical as-of projection truth
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          set -euo pipefail
+          python -m cbb_edge.kalshi.history --season 2027 \
+            --projections arch/projections-archive --rosters arch/roster-archive \
+            --scores arch/prospective-scores --schedule-archive arch/schedule-archive \
+            --kalshi arch/kalshi-archive --out market_panel_out \
+            --all-missing --max-partitions 12 | tee market_panel_summary.json
+      - name: Audit archive cadence, panel coverage and settlement parsers
+        continue-on-error: true  # reporting only; must never block archive append
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+        run: |
+          python -m cbb_edge.kalshi.evaluate --season 2027 \
+            --projections arch/projections-archive --rosters arch/roster-archive \
+            --scores arch/prospective-scores --schedule-archive arch/schedule-archive \
+            --kalshi arch/kalshi-archive --panel market_panel_out \
+            --out market_panel_audit.json > /dev/null
+          python - <<'PY'
+          import json
+          r = json.load(open("market_panel_audit.json"))
+          a = r["archive"]
+          print(f"snapshots={a['snapshots']} gaps>{a['gap_threshold_minutes']}min={len(a['gaps_over_threshold'])} "
+                f"max_gap_min={a['max_gap_minutes']} without_panel={len(a['snapshots_without_panel_partition'])}")
+          sv = r.get("settlement_validation") or {}
+          print("settlement parser checked=%s agree=%s disagree=%s" % (sv.get("checked"), sv.get("agree"), sv.get("disagree")))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cbb-market-panel-${{ github.run_id }}
+          path: |
+            market_panel_summary.json
+            market_panel_audit.json
+          retention-days: 30
+      - name: Append partitions (never rewrite archived evidence)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cd market_panel_out
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No new snapshot partitions"
+            exit 0
+          fi
+          git commit -q -m "CBB Kalshi as-of model panel $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push -q origin kalshi-panel-archive
