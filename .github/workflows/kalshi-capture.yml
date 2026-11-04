@@ -103,9 +103,11 @@ jobs:
         # GitHub drops most scheduled ticks under load (about 5% of expected in 24h). After each
         # production capture (also after a failed one, so a transient API error cannot end the
         # chain) wait, then ask cbb_edge.ops.chain whether to dispatch the next run. It SKIPS when
-        # the run listing fails (never assumes "nothing is running"), in the offseason, when a
-        # capture is already waiting, and after 3 consecutive failures (circuit breaker; the
-        # schedule tick, push kickoff, research-side stale check or a manual dispatch restart it).
+        # the run listing fails (never assumes "nothing is running"), in the offseason, and after
+        # 3 consecutive failures. It DOES dispatch when another capture is pending: a scheduled
+        # run can fail before any job starts, which otherwise strands the chain. The existing
+        # serialized Actions concurrency group coalesces the pending slot without overlapping
+        # production jobs. Scheduler and research recovery remain independent fallbacks.
         if: ${{ !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
         env:
           GH_TOKEN: ${{ github.token }}
