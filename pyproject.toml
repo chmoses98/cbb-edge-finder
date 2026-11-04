@@ -44,7 +44,7 @@ ignore = ["E501", "SIM102", "SIM108", "SIM401"]
 python_version = "3.11"
 ignore_missing_imports = true
 follow_imports = "silent"
-files = ["cbb_edge/data/cost_policy.py", "cbb_edge/data/http.py", "cbb_edge/kalshi", "cbb_edge/app/sift.py", "cbb_edge/market/odds_api.py"]
+files = ["cbb_edge/data/cost_policy.py", "cbb_edge/data/http.py", "cbb_edge/kalshi", "cbb_edge/app/sift.py", "cbb_edge/market/odds_api.py", "cbb_edge/market/period_scores.py"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -259,3 +259,76 @@ def settle(
     if t == "TEAM_TOTAL":
         return ("yes" if mine > parsed["strike"] else "no"), "final_score"
     return None, "no_settlement_method"
+
+
+def _period_lists(periods: dict[str, Any] | None) -> tuple[list[int], list[int]] | None:
+    """Per-period (home, away) points from a verified period-score record, else None.
+
+    Periods 1-2 are the regulation halves; 3+ are overtimes. Anything unverified, ragged,
+    non-integer or shorter than two periods is rejected here (never repaired or inferred).
+    """
+    if not periods or periods.get("verified") is not True:
+        return None
+    if periods.get("superseded_by_conflict"):
+        return None
+    h, a = periods.get("home_periods"), periods.get("away_periods")
+    if not isinstance(h, list) or not isinstance(a, list) or len(h) != len(a) or len(h) < 2:
+        return None
+    for v in (*h, *a):
+        if isinstance(v, bool) or not isinstance(v, int) or v < 0:
+            return None
+    return h, a
+
+
+def settle_period(parsed: dict[str, Any], periods: dict[str, Any] | None) -> tuple[str | None, str]:
+    """Expected YES/NO for any period market from OFFICIAL per-period scores.
+
+    ``periods`` is a record from ``cbb_edge.market.period_scores`` (``home_periods`` /
+    ``away_periods`` lists; index 0 = 1H, 1 = 2H regulation, 2+ = overtime). Rules:
+
+    * 1H = period 1 only (overtime excluded); 2H = period 2 PLUS all overtime periods
+      (the series spec says "including overtime"); FULL = every period.
+    * Spread/total/team-total use strict ``>`` against the strike (whole-number lines that land
+      exactly on the strike therefore resolve No, mirroring ``settle``).
+    * A tie in a two-way winner market is undetermined -> (None, ...); the three-way "Tie"
+      contract is Yes iff the period ends level.
+    * OVERTIME market: Yes iff any overtime period was played.
+    * RACE needs play-by-play. Missing/unverified periods -> (None, "no_verified_period_scores").
+    """
+    if parsed.get("status") != "parsed":
+        return None, f"parse:{parsed.get('status')}"
+    t = parsed["market_type"]
+    if t == "RACE":
+        return None, "needs_play_by_play"
+    pl = _period_lists(periods)
+    if pl is None:
+        return None, "no_verified_period_scores"
+    h, a = pl
+    if t == "OVERTIME":
+        return ("yes" if len(h) > 2 else "no"), "period_scores"
+    per = parsed.get("period")
+    if per == "1H":
+        home, away = h[0], a[0]
+    elif per == "2H":
+        home, away = sum(h[1:]), sum(a[1:])
+    elif per == "FULL":
+        home, away = sum(h), sum(a)
+    else:
+        return None, "unsupported_period"
+    if parsed.get("subject_side") == "tie":
+        return ("yes" if home == away else "no"), "period_scores"
+    side = parsed.get("subject_side")
+    if side not in ("home", "away") and t != "TOTAL":
+        return None, "no_subject_side"
+    mine, other = (home, away) if side == "home" else (away, home)
+    if t == "WINNER":
+        if mine == other:
+            return None, "tied_period_two_way_market"
+        return ("yes" if mine > other else "no"), "period_scores"
+    if t == "MARGIN":
+        return ("yes" if mine - other > parsed["strike"] else "no"), "period_scores"
+    if t == "TOTAL":
+        return ("yes" if home + away > parsed["strike"] else "no"), "period_scores"
+    if t == "TEAM_TOTAL":
+        return ("yes" if mine > parsed["strike"] else "no"), "period_scores"
+    return None, "no_settlement_method"

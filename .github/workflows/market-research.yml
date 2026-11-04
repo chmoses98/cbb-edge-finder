@@ -58,6 +58,15 @@ jobs:
             git -C "arch/$b" fetch -q --depth=1 origin "$b"
             git -C "arch/$b" checkout -q FETCH_HEAD
           done
+          # optional: official per-period scores (absent until the first period-scores run)
+          mkdir -p arch/period-scores-archive
+          git -C arch/period-scores-archive init -q
+          git -C arch/period-scores-archive remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git -C arch/period-scores-archive fetch -q --depth=1 origin period-scores-archive; then
+            git -C arch/period-scores-archive checkout -q FETCH_HEAD
+          else
+            echo "period-scores-archive not present; half/overtime markets stay NOT_CHECKABLE"
+          fi
       - name: Carry forward dated summaries
         if: github.event_name != 'pull_request'
         env:
@@ -81,7 +90,8 @@ jobs:
           set -o pipefail
           python -m cbb_edge.kalshi.research.run \
             --kalshi arch/kalshi-archive --panel arch/kalshi-panel-archive \
-            --schedule arch/schedule-archive --runs runs.json --out research_out | tee research_summary.json
+            --schedule arch/schedule-archive --periods arch/period-scores-archive \
+            --runs runs.json --out research_out | tee research_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
