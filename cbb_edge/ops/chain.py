@@ -5,7 +5,8 @@ The capture workflow waits after each production capture, lists recent capture r
 
 1. the run listing failed -> SKIP (fail closed: never assume "zero active runs");
 2. offseason (May-Oct) -> SKIP (the 6-hourly schedule tick is the intended cadence);
-3. another capture is queued/running -> SKIP (the serialized concurrency group would cancel it);
+3. any other queued capture is reported but does NOT suppress dispatch: GitHub has one pending
+   capture slot, and a scheduled run can fail before starting a job (stranding the chain);
 4. circuit breaker: this run plus the previous completed production runs failed
    ``max_consecutive_failures`` times in a row -> SKIP (no infinite resubmission loop; the
    schedule tick, push kickoff, research-side stale check or a manual dispatch restart it);
@@ -62,8 +63,10 @@ def decide(
         if int(r.get("databaseId") or 0) != run_id and r.get("event") != "pull_request"
     ]
     active = sum(1 for r in others if str(r.get("status")) in ACTIVE)
-    if active:
-        return Decision("SKIP", "capture_already_queued_or_running", other_active_runs=active)
+    # Do not hand liveness to a queued run: GitHub can fail a scheduled run before it gets
+    # any jobs. In that case, the current run has already skipped its successor and the
+    # chain dies. Dispatch one successor ourselves; the existing Actions concurrency group
+    # coalesces the pending slot and never cancels an in-progress production capture.
     streak = 1 if job_status in FAILED else 0
     if streak:
         done = sorted(
@@ -86,7 +89,8 @@ def decide(
                 f"circuit_open_after_{streak}_consecutive_failures",
                 consecutive_failures=streak,
             )
-    return Decision("DISPATCH", "ok" if not streak else "retry_after_failure", streak)
+    reason = "retry_after_failure" if streak else ("supersede_pending_capture" if active else "ok")
+    return Decision("DISPATCH", reason, streak, active)
 
 
 def main() -> None:
