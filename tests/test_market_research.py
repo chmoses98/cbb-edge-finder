@@ -444,6 +444,69 @@ def test_fee_basis_distinguishes_contemporaneous_from_observed_later():
     assert {r["fee_basis"] for r in rows} == {"assumed_default"}
 
 
+# ---------------------------------------------------------------- official fee evidence
+def test_fee_probe_parses_taker_and_maker_coefficients_from_official_text():
+    from cbb_edge.kalshi.research.fee_probe import build_evidence, parse_fee_text
+
+    text = (
+        "Trading Fees. The taker fee is calculated as: fees = round up(0.07 x contracts x price x (1 - price)).\n"
+        "Maker fees (applicable to select markets): round up(0.0175 × C × P × (1 − P)). Effective March 1, 2025."
+    )
+    p = parse_fee_text(text)
+    assert p["taker_coefficients"] == [0.07] and p["maker_coefficients"] == [0.0175]
+    assert p["rounding_up_mentioned"] and p["parse_status"] == "PARSED"
+    ev = build_evidence(
+        text, source_url="https://kalshi.com/docs/kalshi-fee-schedule.pdf", sha256="ab"
+    )
+    assert ev["verified_official"] and ev["status"] == "VERIFIED_OFFICIAL"
+
+
+def test_fee_probe_never_verifies_unofficial_hosts_or_missing_formulas():
+    from cbb_edge.kalshi.research.fee_probe import build_evidence
+
+    text = "fee = 0.07 x C x P x (1-P)"
+    blog = build_evidence(text, source_url="https://blog.example.com/kalshi-fees", sha256="x")
+    assert not blog["verified_official"] and blog["status"] == "UNVERIFIED"
+    nothing = build_evidence(
+        "Fees are low.", source_url="https://kalshi.com/fee-schedule", sha256="x"
+    )
+    assert nothing["status"] == "UNVERIFIED" and nothing["parse_status"].startswith("NO_QUADRATIC")
+    failed = build_evidence(
+        None, source_url="https://kalshi.com/fee-schedule", sha256=None, error="403"
+    )
+    assert failed["status"] == "FETCH_FAILED" and not failed["verified_official"]
+
+
+def test_assumption_comparison_reports_match_mismatch_and_unverified():
+    from cbb_edge.kalshi.research.fee_probe import compare_with_assumption
+
+    official = {
+        "verified_official": True,
+        "taker_coefficients": [0.07],
+        "maker_coefficients": [0.0175],
+    }
+    assert compare_with_assumption(official, 0.07, 0.0175)["status"] == "MATCH"
+    other = dict(official, taker_coefficients=[0.035])
+    assert compare_with_assumption(other, 0.07, 0.0175)["status"] == "MISMATCH"
+    assert compare_with_assumption(None, 0.07, 0.0175)["status"] == "UNVERIFIED"
+
+
+def test_official_coefficients_replace_the_assumption_in_fee_rules():
+    from datetime import date
+
+    d = date(2026, 11, 2)
+    base = fees.rule_for({"fee_type": "quadratic", "fee_multiplier": 1}, d)
+    official = fees.rule_for({"fee_type": "quadratic", "fee_multiplier": 1}, d, (0.035, 0.00875))
+    assert base.taker_rate == pytest.approx(0.07) and official.taker_rate == pytest.approx(0.035)
+    assert official.version.endswith(":coef=official") and "coef=official" not in base.version
+    assert fees.rule_for(None, d, (0.035, 0.00875)).taker_rate == pytest.approx(0.035)
+    c = contract([obs(20, 0.40, 0.44)], result="yes")
+    c.fee_coefficients = (0.035, 0.00875)
+    _, rows = evaluate_contract(c, {7: (80, 60)})
+    y = [r for r in rows if r["entry"] == "CLOSE"][0]["yes"]
+    assert y["fee"] == pytest.approx(fees.fee_per_contract(0.44, 25, 0.035))
+
+
 # ---------------------------------------------------------------- selection vs quoted-execution CLV
 def test_unchanged_market_has_zero_selection_clv_and_pooled_legs_equal_the_half_spread():
     # book 0.46/0.54 at open and at the close: nothing moved, the spread is 0.08

@@ -79,6 +79,18 @@ jobs:
           if git -C research_out fetch -q --depth=1 origin market-research; then
             git -C research_out checkout -q FETCH_HEAD -- daily 2>/dev/null || true
           fi
+      - name: Fetch archived official fee schedule evidence (optional)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p arch/fee-schedule-archive
+          git -C arch/fee-schedule-archive init -q
+          git -C arch/fee-schedule-archive remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git -C arch/fee-schedule-archive fetch -q --depth=1 origin fee-schedule-archive; then
+            git -C arch/fee-schedule-archive checkout -q FETCH_HEAD
+          else
+            echo "no fee-schedule-archive yet: coefficients stay UNVERIFIED"
+          fi
       - name: Collect recent workflow runs (pipeline monitor input)
         env:
           GH_TOKEN: ${{ github.token }}
@@ -91,7 +103,8 @@ jobs:
           python -m cbb_edge.kalshi.research.run \
             --kalshi arch/kalshi-archive --panel arch/kalshi-panel-archive \
             --schedule arch/schedule-archive --periods arch/period-scores-archive \
-            --runs runs.json --out research_out | tee research_summary.json
+            --runs runs.json --fee-evidence arch/fee-schedule-archive/latest.json \
+            --out research_out | tee research_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

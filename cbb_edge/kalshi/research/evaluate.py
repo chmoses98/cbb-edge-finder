@@ -242,7 +242,9 @@ def evaluate_contract(
     periods: dict[int, dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     dims = status_dimensions(c, scores, periods)
-    rule = fees.rule_for(c.series_meta, (c.first_seen or datetime.now(UTC)).date())
+    rule = fees.rule_for(
+        c.series_meta, (c.first_seen or datetime.now(UTC)).date(), c.fee_coefficients
+    )
     tm = timing(c)
     y = 1 if c.result == "yes" else 0 if c.result == "no" else None
     entries = pick_entries(c, tm)
