@@ -78,7 +78,11 @@ def _scored(rows: Iterable[dict[str, Any]], entry: str) -> list[dict[str, Any]]:
         r
         for r in rows
         if r["entry"] == entry
-        and (entry != "CLOSE" or (r["staleness_min"] or 0.0) <= MAX_CLOSE_STALENESS_MIN)
+        and (
+            entry != "CLOSE"
+            or not r["tip_verified"]  # the cap is about pregame closes; non-game markets are exempt
+            or (r["staleness_min"] or 0.0) <= MAX_CLOSE_STALENESS_MIN
+        )
         and r["y"] is not None
         and r.get("mid") is not None
         and (r["tip_verified"] or r["ref_kind"] == "close_time" and r["family"].startswith("FUT"))
@@ -256,8 +260,15 @@ def block(contracts: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[s
 
 
 def _stale_stats(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Closing-quote age for settled, tip-verified (pregame) contracts only: the population the
+    120-minute cap applies to. Months-away closes of futures are not a staleness measure."""
     st = sorted(
-        r["staleness_min"] for r in rows if r["entry"] == "CLOSE" and r["staleness_min"] is not None
+        r["staleness_min"]
+        for r in rows
+        if r["entry"] == "CLOSE"
+        and r["staleness_min"] is not None
+        and r["tip_verified"]
+        and r["y"] is not None
     )
     if not st:
         return {"n": 0}
@@ -266,6 +277,7 @@ def _stale_stats(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "share_le_60": sum(1 for x in st if x <= 60) / len(st),
         "share_le_120": sum(1 for x in st if x <= MAX_CLOSE_STALENESS_MIN) / len(st),
         "cap_minutes": MAX_CLOSE_STALENESS_MIN,
+        "population": "settled contracts with a verified tip",
     }  # fmt: skip
 
 

@@ -200,6 +200,15 @@ def status_dimensions(c: Contract, scores: dict[int, tuple[int, int]]) -> dict[s
     }
 
 
+def _fee_basis(rule: fees.FeeRule, c: Contract, t: datetime) -> str:
+    """``series_api`` only for quotes captured once the series' fee fields were on record; an
+    older quote priced with parameters observed later is labelled as such (no fee change was
+    reported at that observation, but the fee was not read at quote time)."""
+    if rule.basis == "series_api" and (c.series_meta_at is None or t < c.series_meta_at):
+        return "series_api_observed_later"
+    return rule.basis
+
+
 def pretip_gap_reason(c: Contract, tm: Resolved) -> str | None:
     """Why a contract has no usable pre-tip quote (None when it has one). Causes are exclusive:
     a live line that did not exist pregame is NOT a capture gap and is never 'recovered'."""
@@ -248,7 +257,8 @@ def evaluate_contract(
             "bid_sz": o.bid_sz, "ask_sz": o.ask_sz, "volume": o.volume,
             "staleness_min": stale, "tier": _tier(spread if mid is not None else None,
                                                   o.ask_sz, stale),
-            "y": y, "model": {}, "fee_rule": rule.version, "fee_basis": rule.basis,
+            "y": y, "model": {}, "fee_rule": rule.version,
+            "fee_basis": _fee_basis(rule, c, t),
         }  # fmt: skip
         if mid is not None and y is not None:
             row["brier_mkt"], row["logloss_mkt"] = brier(mid, y), logloss(mid, y)
