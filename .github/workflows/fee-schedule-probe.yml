@@ -30,10 +30,11 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       DOC_URL: https://kalshi.com/docs/kalshi-fee-schedule.pdf
       PAGE_URL: https://kalshi.com/fee-schedule
+      DOCS_INDEX: https://docs.kalshi.com/llms.txt
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -47,15 +48,29 @@ jobs:
         run: |
           mkdir -p obs && cd obs
           UA="cbb-edge-finder research (read-only; +https://github.com/${GITHUB_REPOSITORY})"
-          fetch() { # url outfile
+          fetch() { # url outfile ; polite back-off, honours rate limiting (HTTP 429), no evasion
             for i in 1 2 3; do
               if curl -fsSL -m 60 -A "$UA" -o "$2" "$1"; then return 0; fi
-              sleep $((i * 5))
+              sleep $((i * 15))
             done
             return 1
           }
-          fetch "$DOC_URL" fee.pdf && echo ok > pdf.status || echo "pdf download failed" > pdf.status
-          fetch "$PAGE_URL" fee_page.html && echo ok > page.status || echo "page download failed" > page.status
+          fetch "$DOC_URL" fee.pdf && echo ok > pdf.status || echo "pdf download failed (rate limited or blocked)" > pdf.status
+          fetch "$PAGE_URL" fee_page.html && echo ok > page.status || echo "page download failed (rate limited or blocked)" > page.status
+          # Kalshi's API documentation site publishes an index (llms.txt) and markdown pages; use the
+          # pages whose URL mentions fees as an additional OFFICIAL source.
+          if fetch "$DOCS_INDEX" docs_index.txt; then
+            grep -oE 'https://docs\.kalshi\.com/[^ )>"]*' docs_index.txt | grep -i fee | sort -u | head -8 > docs_fee_urls.txt || true
+            : > docs_fees.txt
+            while read -r u; do
+              [ -z "$u" ] && continue
+              sleep 3
+              { echo "=== SOURCE: $u"; curl -fsSL -m 60 -A "$UA" "$u" || echo "(fetch failed)"; echo; } >> docs_fees.txt
+            done < docs_fee_urls.txt
+            echo ok > docs.status
+          else
+            echo "docs index download failed" > docs.status
+          fi
           if [ -s fee.pdf ]; then
             python - <<'PY'
           from pypdf import PdfReader
@@ -79,7 +94,10 @@ jobs:
             --error "$( [ "$(cat pdf.status)" = ok ] && echo "" || cat pdf.status )" --out evidence_pdf.json || true
           python -m cbb_edge.kalshi.research.fee_probe --source-url "$PAGE_URL" --text fee_page.txt --raw fee_page.html \
             --error "$( [ "$(cat page.status)" = ok ] && echo "" || cat page.status )" --out evidence_page.json || true
-          cat evidence_pdf.json evidence_page.json | head -80
+          python -m cbb_edge.kalshi.research.fee_probe --source-url "$DOCS_INDEX" --text docs_fees.txt \
+            --error "$( [ "$(cat docs.status)" = ok ] && echo "" || cat docs.status )" --out evidence_docs.json || true
+          echo "--- docs fee pages fetched:"; cat docs_fee_urls.txt 2>/dev/null || true
+          cat evidence_pdf.json evidence_page.json evidence_docs.json | head -120
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -107,7 +125,21 @@ jobs:
           d="observations/$(date -u +%Y/%m/%d)/$stamp"
           mkdir -p "$d"
           cp ../obs/* "$d"/ 2>/dev/null || true
-          cp ../obs/evidence_pdf.json latest.json 2>/dev/null || cp ../obs/evidence_page.json latest.json || true
+          # latest.json = the best VERIFIED evidence from any official source, else the first available
+          python - <<'PY'
+          import json, os, shutil
+          best = None
+          for n in ("evidence_pdf.json", "evidence_page.json", "evidence_docs.json"):
+              p = os.path.join("..", "obs", n)
+              if not os.path.exists(p):
+                  continue
+              ev = json.load(open(p))
+              if ev.get("verified_official"):
+                  best = p; break
+              best = best or p
+          if best:
+              shutil.copy(best, "latest.json")
+          PY
           git add -A
           git commit -q -m "fee schedule observation $stamp"
           for i in 1 2 3 4; do
