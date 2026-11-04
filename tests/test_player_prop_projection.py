@@ -109,3 +109,13 @@ def test_corrupt_box_history_fails_closed():
     h.loc[0, "game_id"] = h.loc[1, "game_id"]
     with pytest.raises(ValueError, match="duplicate"):
         project(history=h)
+
+
+def test_dnp_without_minutes_does_not_poison_valid_prior_rates():
+    h = boxes()
+    dnp = h.iloc[[0]].copy()
+    dnp["game_id"] = 999
+    dnp["available_at"] = ASOF - timedelta(minutes=1)
+    dnp["min"] = None
+    dnp["pts"] = None
+    assert project(pd.concat([h, dnp], ignore_index=True)) == project(h)
