@@ -99,25 +99,43 @@ jobs:
             git fetch -q --depth=1 origin kalshi-archive && git rebase -q FETCH_HEAD || true
           done
           exit 1
-      - name: Chain the next capture (bounded; survives dropped schedule ticks)
-        # GitHub drops most scheduled ticks under load (4% of expected in 24h on 2026-11-04) and
-        # the research-side stale check only runs right after a capture, when the archive is fresh.
-        # After a SUCCESSFUL production capture, wait, then request one more. Never chains from PR
-        # runs or failed captures; skips when a capture is already queued/running (the serialized
-        # concurrency group would only cancel the extra), so duplicate chains cannot multiply.
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+      - name: Chain the next capture (bounded, fail-closed, circuit-broken)
+        # GitHub drops most scheduled ticks under load (about 5% of expected in 24h). After each
+        # production capture (also after a failed one, so a transient API error cannot end the
+        # chain) wait, then ask cbb_edge.ops.chain whether to dispatch the next run. It SKIPS when
+        # the run listing fails (never assumes "nothing is running"), in the offseason, when a
+        # capture is already waiting, and after 3 consecutive failures (circuit breaker; the
+        # schedule tick, push kickoff, research-side stale check or a manual dispatch restart it).
+        if: ${{ !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           CHAIN_WAIT_SECONDS: "720"
+          JOB_STATUS: ${{ job.status }}
         run: |
+          set -u
           sleep "$CHAIN_WAIT_SECONDS"
-          active=$(gh run list --workflow kalshi-capture.yml --limit 20 --json status,databaseId \
-            --jq "[.[] | select((.status==\"queued\" or .status==\"in_progress\" or .status==\"pending\") and .databaseId != ${GITHUB_RUN_ID})] | length" || echo 0)
-          echo "other kalshi-capture runs queued/in progress: $active"
-          if [ "$active" = "0" ]; then
-            gh workflow run kalshi-capture.yml --ref main
-            echo "chained next kalshi-capture"
-          else
-            echo "another capture is already waiting; not chaining"
+          listing_flag="--listing-failed"
+          for i in 1 2 3; do
+            if gh run list --workflow kalshi-capture.yml --limit 20 \
+                 --json status,conclusion,databaseId,event,createdAt > runs.json; then
+              listing_flag=""; break
+            fi
+            sleep $((i * 5))
+          done
+          python -m cbb_edge.ops.chain --runs runs.json $listing_flag \
+            --run-id "$GITHUB_RUN_ID" --job-status "$JOB_STATUS" | tee chain_decision.json
+          action=$(python -c "import json;print(json.load(open('chain_decision.json'))['action'])" 2>/dev/null || echo ERROR)
+          if [ "$action" = "ERROR" ]; then
+            echo "::error::chain decision tool failed; not chaining (restart via schedule/stale check)"; exit 1
           fi
+          if [ "$action" = "DISPATCH" ]; then
+            for i in 1 2 3; do
+              if gh workflow run kalshi-capture.yml --ref main; then
+                echo "chained next kalshi-capture"; exit 0
+              fi
+              sleep $((i * 10))
+            done
+            echo "::error::could not dispatch the next capture after 3 attempts"; exit 1
+          fi
+          echo "not chaining: $(cat chain_decision.json)"

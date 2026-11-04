@@ -70,6 +70,7 @@ def build(
     now: datetime | None = None,
     runs: Path | None = None,
     periods: Path | None = None,
+    thresholds: audit.HealthThresholds | None = None,
 ) -> dict[str, Any]:
     now = now or datetime.now(UTC)
     contracts, ledger = load_universe(kalshi)
@@ -89,9 +90,11 @@ def build(
     if runs is not None and runs.exists():
         health["pipelines"] = monitor.pipeline_health(json.loads(runs.read_text()), now)
         health["findings"]["pipeline_findings"] = len(health["pipelines"]["findings"])
-    health["healthy"] = bool(
-        health["healthy"] and pa["ok"] and not health.get("pipelines", {}).get("findings")
+    health["capture_intervals"] = audit.capture_intervals(ledger)
+    health["grade"] = audit.grade_health(
+        health, pa, pipelines=health.get("pipelines"), thresholds=thresholds
     )
+    health["healthy"] = health["grade"]["status"] == "HEALTHY"
     latest = out / "latest"
     latest.mkdir(parents=True, exist_ok=True)
     _jsonl_gz(latest / "universe.jsonl.gz", summaries)
@@ -128,6 +131,7 @@ def build(
         "period_scores_loaded": len(period_scores),
         "health": health["findings"],
         "healthy": health["healthy"],
+        "health_status": health["grade"]["status"],
         "opening_night": {k: v for k, v in night.items() if k in (
             "contracts", "games", "fully_clean_contracts", "contracts_with_issue")},
     }  # fmt: skip
