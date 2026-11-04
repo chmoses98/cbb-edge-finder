@@ -33,10 +33,15 @@ def test_listing_failure_fails_closed_never_assumes_zero_active():
     assert r.action == "SKIP" and "fail_closed" in r.reason
 
 
-def test_skips_when_another_capture_is_queued_or_running_but_ignores_itself():
+def test_pending_capture_cannot_strand_the_chain_if_it_fails_before_starting_a_job():
+    # Production 41818299869 skipped dispatch for a queued schedule run which then failed
+    # without any jobs (41819754338); there was no successor to run the chain step.
     assert d([run(100, status="in_progress", conclusion=None)]).action == "DISPATCH"
-    r = d([run(101, status="queued", conclusion=None)])
-    assert r.action == "SKIP" and r.other_active_runs == 1
+    for event in ("schedule", "workflow_dispatch"):
+        r = d([run(101, status="queued", conclusion=None, event=event)])
+        assert r.action == "DISPATCH"
+        assert r.reason == "supersede_pending_capture"
+        assert r.other_active_runs == 1
 
 
 def test_offseason_does_not_chain():
@@ -144,6 +149,7 @@ def test_pull_request_validation_runs_never_block_the_chain():
     prs = [run(200 + i, status="queued", conclusion=None, event="pull_request") for i in range(4)]
     r = d(prs + [run(99, age=15)])
     assert r.action == "DISPATCH" and r.other_active_runs == 0
-    # a real production run still blocks
+    # Real production pending runs must not strand the chain either; GitHub concurrency
+    # coalesces the pending slot instead of allowing overlapping capture jobs.
     r = d(prs + [run(300, status="queued", conclusion=None, event="schedule")])
-    assert r.action == "SKIP" and r.other_active_runs == 1
+    assert r.action == "DISPATCH" and r.other_active_runs == 1
