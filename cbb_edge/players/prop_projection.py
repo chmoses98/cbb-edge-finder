@@ -98,8 +98,10 @@ def player_stat_means(
     for stat in STATS:
         if stat in past:
             past[stat] = past[stat].map(_number)
-    groups = {key: g.sort_values("available_at").tail(RECENT_GAMES)
-              for key, g in past.groupby("player_id")}
+    groups = {
+        key: g.sort_values("available_at").tail(RECENT_GAMES)
+        for key, g in past.groupby("player_id")
+    }
 
     out: list[dict[str, Any]] = []
     for rr in rot.to_dict("records"):
