@@ -218,9 +218,13 @@ def test_candidate_report_includes_game_cluster_funnel_and_never_approves_early(
     )
     # Deliberately duplicate the first game's contract observations: neither the
     # funnel nor the formal sample can treat ten contracts as ten independent games.
-    report = C.evaluate([*bets, bets[0]], tips, reg, fee_verified=False)["candidates"][0]
+    report = C.evaluate(bets, tips, reg, fee_verified=False)["candidates"][0]
+    # The actual frozen rule needs two opposite contracts per game. Feed a
+    # repeated snapshot only into the diagnostic funnel, not into rule selection.
+    funnel = P.eligibility_funnel(
+        c, reg[0]["registered_at"], [*bets, bets[0]], tips, C.apply_rule(c, bets, tips)
+    )
     info = report["sample_progress"]
-    funnel = report["eligibility_funnel"]
     assert info["independent_games"] == 2
     assert info["formal_min_games"] == 4
     assert report["status"] == "SHADOW_VALIDATING"
