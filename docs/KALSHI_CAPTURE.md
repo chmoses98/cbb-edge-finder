@@ -21,6 +21,11 @@ and betting authorization are outside this capture pipeline.
 * Capture public bid/ask price, available sizes, volume, open interest, strike and
   status. **Full-depth orderbooks are not promised by the anonymous API**; the
   scheduled job does not request authenticated depth.
+* **Self-chaining.** GitHub drops most scheduled ticks under load (about 4% of expected in 24 h on
+  2026-11-04), so after each SUCCESSFUL production capture the job waits 12 minutes and dispatches the
+  next one (`Chain the next capture`). It never chains from pull-request runs or failed captures and
+  skips when another capture is queued or running, so duplicate chains cannot multiply. Scheduled
+  ticks, the push kickoff and the research-side stale check remain as additional starters.
 * The snapshot *timestamp* (not scheduled cron time) is the ground truth.
   A missing/skipped run is a coverage gap, not a fabricated quote.
 

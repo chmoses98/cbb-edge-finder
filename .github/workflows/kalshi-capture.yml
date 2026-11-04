@@ -42,11 +42,12 @@ env:
 
 permissions:
   contents: write
+  actions: write  # only to dispatch the next capture (self-chain step)
 
 jobs:
   capture:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25  # capture ~3 min + bounded wait before chaining the next run
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -98,3 +99,25 @@ jobs:
             git fetch -q --depth=1 origin kalshi-archive && git rebase -q FETCH_HEAD || true
           done
           exit 1
+      - name: Chain the next capture (bounded; survives dropped schedule ticks)
+        # GitHub drops most scheduled ticks under load (4% of expected in 24h on 2026-11-04) and
+        # the research-side stale check only runs right after a capture, when the archive is fresh.
+        # After a SUCCESSFUL production capture, wait, then request one more. Never chains from PR
+        # runs or failed captures; skips when a capture is already queued/running (the serialized
+        # concurrency group would only cancel the extra), so duplicate chains cannot multiply.
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          CHAIN_WAIT_SECONDS: "720"
+        run: |
+          sleep "$CHAIN_WAIT_SECONDS"
+          active=$(gh run list --workflow kalshi-capture.yml --limit 20 --json status,databaseId \
+            --jq "[.[] | select((.status==\"queued\" or .status==\"in_progress\" or .status==\"pending\") and .databaseId != ${GITHUB_RUN_ID})] | length" || echo 0)
+          echo "other kalshi-capture runs queued/in progress: $active"
+          if [ "$active" = "0" ]; then
+            gh workflow run kalshi-capture.yml --ref main
+            echo "chained next kalshi-capture"
+          else
+            echo "another capture is already waiting; not chaining"
+          fi
