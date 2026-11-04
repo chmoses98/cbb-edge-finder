@@ -144,11 +144,17 @@ def test_published_market_carries_the_research_block_next_to_the_quote_state():
 def test_frozen_team_total_mean_published_without_inventing_probability():
     from cbb_edge.kalshi.research.target_means import projected_target_mean
 
-    sem = {"status": "parsed", "market_type": "TEAM_TOTAL", "period": "FULL",
-           "subject_side": "away", "model_gap": "no_team_score_distribution_in_frozen_model"}
+    sem = {
+        "status": "parsed",
+        "market_type": "TEAM_TOTAL",
+        "period": "FULL",
+        "subject_side": "away",
+        "model_gap": "no_team_score_distribution_in_frozen_model",
+    }
     proj = {**PROJ, "home_score": 76.5, "away_score": 68.5}
-    b = research_block(sem, proj, "pure-0.2.0", "2026-11-04T15:00:00+00:00",
-                       live_quote(), 0.50, 0.55, None, D)
+    b = research_block(
+        sem, proj, "pure-0.2.0", "2026-11-04T15:00:00+00:00", live_quote(), 0.50, 0.55, None, D
+    )
     assert b["projected_target_mean"]["value"] == pytest.approx(68.5)
     assert b["projected_target_mean"]["status"] == "MEAN_ONLY"
     assert b["model_probability"] is None
@@ -162,8 +168,9 @@ def test_frozen_team_total_mean_published_without_inventing_probability():
 def test_game_projection_info_exposes_team_score_fields():
     from types import SimpleNamespace
 
-    record = {"projection": {"home_score": 82.25, "away_score": 75.25,
-                             "margin": 7.0, "total": 157.5}}
+    record = {
+        "projection": {"home_score": 82.25, "away_score": 75.25, "margin": 7.0, "total": 157.5}
+    }
     choice = SimpleNamespace(as_of=pd.Timestamp(NOW), record=record)
     selection = SimpleNamespace(chosen={"pure-0.2.0": choice}, identity_changed=[])
     world = SimpleNamespace(active={"incumbent": "pure-0.2.0"})
