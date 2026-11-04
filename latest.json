@@ -1,0 +1,11 @@
+{
+ "document_sha256": null,
+ "fetch_error": "pdf download failed (rate limited or blocked)",
+ "parse_status": "NO_TEXT",
+ "retrieved_at": "2026-11-04T06:07:42.384336+00:00",
+ "schema_version": "fee-evidence-v1",
+ "source_is_official_host": true,
+ "source_url": "https://kalshi.com/docs/kalshi-fee-schedule.pdf",
+ "status": "FETCH_FAILED",
+ "verified_official": false
+}

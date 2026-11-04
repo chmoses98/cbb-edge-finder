@@ -1,0 +1,17 @@
+{
+ "document_sha256": null,
+ "effective_date_text": [],
+ "excerpts": [],
+ "fetch_error": "",
+ "maker_coefficients": [],
+ "multiplier_mentions": [],
+ "parse_status": "NO_QUADRATIC_EXPRESSION_FOUND",
+ "retrieved_at": "2026-11-04T06:07:42.471748+00:00",
+ "rounding_up_mentioned": true,
+ "schema_version": "fee-evidence-v1",
+ "source_is_official_host": true,
+ "source_url": "https://docs.kalshi.com/llms.txt",
+ "status": "UNVERIFIED",
+ "taker_coefficients": [],
+ "verified_official": false
+}
