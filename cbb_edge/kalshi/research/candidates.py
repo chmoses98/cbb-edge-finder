@@ -136,7 +136,9 @@ def evaluate(
         ps, rs = study.summarize(prosp, rng), study.summarize(retro, rng)
         ps["clv"] = None  # CLV needs the closing quote per bet; reported by the matrix, not here
         status = _status(ps, cfg, len(registry), fee_verified)
-        milestone_progress = sample_progress.progress(ps["games"], cfg["success"]["min_games"], status)
+        milestone_progress = sample_progress.progress(
+            ps["games"], cfg["success"]["min_games"], status
+        )
         funnel = sample_progress.eligibility_funnel(cfg, reg_at, eval_rows, tips, prosp)
         out.append(
             {
