@@ -48,7 +48,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          mkdir research && cd research
+          mkdir universe_src && cd universe_src
           git init -q
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           if git fetch -q --depth=1 origin market-research && git checkout -q FETCH_HEAD -- latest/universe.jsonl.gz; then
@@ -73,18 +73,18 @@ jobs:
             git checkout -q --orphan kalshi-candles-archive
             printf '# Kalshi candlestick recovery archive\n\nImmutable records written by .github/workflows/kalshi-candles.yml.\nSchema: cbb_edge/kalshi/candles.py (kalshi-candles-v1).\n\nEvery record is `executable=false`, provenance `recovered_candle_not_top_of_book`:\naggregate OHLC candles, NOT top-of-book quotes. Never use as a fill price.\n' > README.md
           fi
-      - name: Recover candles (PR runs: select targets only, no requests)
+      - name: "Recover candles (PR runs: select targets only, no requests)"
         env:
           CBB_DATA_DIR: ${{ runner.temp }}/data
           DRY_RUN: ${{ github.event_name == 'pull_request' && '--dry-run' || '' }}
         run: |
           set -euo pipefail
-          if [ ! -f research/latest/universe.jsonl.gz ]; then
+          if [ ! -f universe_src/latest/universe.jsonl.gz ]; then
             echo '{"targets": 0, "note": "no universe available"}' | tee candles_summary.json
             exit 0
           fi
           python -m cbb_edge.kalshi.candles \
-            --universe research/latest/universe.jsonl.gz --archive archive \
+            --universe universe_src/latest/universe.jsonl.gz --archive archive \
             --max-targets 150 --sleep 0.5 $DRY_RUN | tee candles_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
