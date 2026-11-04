@@ -297,7 +297,7 @@ function rok(r,f){if(r.e!==f.ent||!cok(r,f))return false;
   if(!isNaN(f.h)&&(r.h==null||r.h>f.h))return false;if(f.tier&&r.q!==f.tier)return false;if(r.e==='CLOSE'&&!isNaN(f.stale)&&r.st!=null&&r.st>f.stale)return false;return true}
 let DRILL=null;
 function famTable(){
-  const f=FF;let h='<tr><th>Family</th><th>Contracts</th><th>Snapshots</th><th>Modeled</th><th>Settled</th><th>Mkt Brier</th><th>Mkt log loss</th><th>Model Brier</th><th>Δ Brier</th><th>YES gross / net ROI</th><th>NO gross / net ROI</th><th>Net CLV</th><th>Completeness</th><th>Confidence</th></tr>';
+  const f=FF;let h='<tr><th>Family</th><th>Contracts</th><th>Snapshots</th><th>Modeled</th><th>Settled</th><th>Mkt Brier</th><th>Mkt log loss</th><th>Model Brier</th><th>Δ Brier</th><th>YES gross / net ROI</th><th>NO gross / net ROI</th><th title="Closing mid minus entry ask, averaged over YES and NO legs: movement cancels, so this equals the entry half-spread plus fee. It measures the cost of crossing the spread, not selection skill.">Pooled-leg CLV (= spread cost)</th><th>Completeness</th><th>Confidence</th></tr>';
   for(const fam of[...new Set(D.contracts.map(c=>c.f))].sort()){
     if(f.fam&&f.fam!==fam)continue;const cs=D.contracts.filter(c=>c.f===fam&&cok(c,f));if(!cs.length)continue;
     const rs=D.rows.filter(r=>r.f===fam&&rok(r,f)&&r.m!=null&&(r.tv||fam.startsWith('FUT')));
