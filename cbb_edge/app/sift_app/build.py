@@ -258,6 +258,18 @@ METRICS: list[MetricDef] = [
 ]
 PROJ_METRICS = [
     MetricDef(
+        "proj_home_score", "Projected home team points", "Home pts",
+        "Frozen pre-tip expected home team points; a mean, not a team-total cover probability.",
+        "projection", "pts", "SCORE", None, "projection", "home_score",
+        entity="EVENT", adjusted=False,
+    ),
+    MetricDef(
+        "proj_away_score", "Projected away team points", "Away pts",
+        "Frozen pre-tip expected away team points; a mean, not a team-total cover probability.",
+        "projection", "pts", "SCORE", None, "projection", "away_score",
+        entity="EVENT", adjusted=False,
+    ),
+    MetricDef(
         "proj_margin",
         "Projected margin (home − away)",
         "Margin",
@@ -944,6 +956,7 @@ def _proj_info(selection: Any, w: World) -> dict[str, Any] | None:
         "projection": {
             "margin": p.get("margin"), "margin_sd": p.get("margin_sd"), "total": p.get("total"),
             "total_sd": p.get("total_sd"), "home_win_prob": p.get("home_win_prob"),
+            "home_score": p.get("home_score"), "away_score": p.get("away_score"),
         },
     }  # fmt: skip
 
@@ -1098,7 +1111,9 @@ def _event_research(
     for c, m in zip(sorted(s_.chosen.values(), key=lambda c: (ROLE_ORDER.index(c.role), c.version)),
                     models, strict=True):  # fmt: skip
         auth = AUTHORITY[c.role]
-        for slug, val, unit, fair in (("proj_margin", m["margin"], "pts (home − away)", None),
+        for slug, val, unit, fair in (("proj_home_score", m["home_score"], "pts", None),
+                                      ("proj_away_score", m["away_score"], "pts", None),
+                                      ("proj_margin", m["margin"], "pts (home − away)", None),
                                       ("proj_total", m["total"], "pts", None),
                                       ("proj_home_win_prob", m["home_win_prob"], "probability", m["home_win_prob"])):  # fmt: skip
             projections.append({"model_price_id": None, "market_id": None, "event_id": ev["event_id"],
