@@ -48,7 +48,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          mkdir research && cd research
+          mkdir universe_src && cd universe_src
           git init -q
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           if git fetch -q --depth=1 origin market-research && git checkout -q FETCH_HEAD -- latest/universe.jsonl.gz; then
@@ -79,12 +79,12 @@ jobs:
           DRY_RUN: ${{ github.event_name == 'pull_request' && '--dry-run' || '' }}
         run: |
           set -euo pipefail
-          if [ ! -f research/latest/universe.jsonl.gz ]; then
+          if [ ! -f universe_src/latest/universe.jsonl.gz ]; then
             echo '{"targets": 0, "note": "no universe available"}' | tee candles_summary.json
             exit 0
           fi
           python -m cbb_edge.kalshi.candles \
-            --universe research/latest/universe.jsonl.gz --archive archive \
+            --universe universe_src/latest/universe.jsonl.gz --archive archive \
             --max-targets 150 --sleep 0.5 $DRY_RUN | tee candles_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
