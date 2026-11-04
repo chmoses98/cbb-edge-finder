@@ -94,7 +94,8 @@ jobs:
           python -m cbb_edge.kalshi.research.run \
             --kalshi arch/kalshi-archive --panel arch/kalshi-panel-archive \
             --schedule arch/schedule-archive --runs runs.json \
-            --fee-evidence arch/fee-schedule-archive/latest.json --out research_out | tee research_summary.json
+            --fee-evidence arch/fee-schedule-archive/latest.json \
+            --candidates research/candidates --out research_out | tee research_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

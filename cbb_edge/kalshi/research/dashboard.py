@@ -133,6 +133,41 @@ def slim(
     }  # fmt: skip
 
 
+def study_summary(side_study: dict[str, Any]) -> dict[str, Any]:
+    """Compact, honest summary of the side study for the dashboard (full detail stays in the JSON)."""
+    fams: dict[str, Any] = {}
+    for name, b in side_study.get("families", {}).items():
+        sl = b["slices"]
+        top = sorted(
+            ((k, s) for k, s in sl.items() if s["net_roi"] is not None and s["games"] >= 15),
+            key=lambda kv: -kv[1]["net_roi"],
+        )[:8]
+        fams[name] = {
+            "games": b["games_total"], "discovery_games": b["discovery_games"],
+            "holdout_games": b["holdout_games"], "slices_tested": b["slices_tested"],
+            "holm_lt_010": sum(1 for s in sl.values() if s.get("holm_p", 1) < 0.10),
+            "top": [
+                {
+                    "slice": k, "games": s["games"], "net": s["net_roi"], "lo": s["net_lo"],
+                    "hi": s["net_hi"], "p": s["p_le_zero"], "holm": s.get("holm_p"),
+                    "disc": s["discovery"]["net_roi"], "hold": s["holdout"]["net_roi"],
+                    "hold_games": s["holdout"]["games"],
+                }
+                for k, s in top
+            ],
+            "calibration": b.get("market_calibration_h1", []),
+        }  # fmt: skip
+    gl = side_study.get("game_level", {})
+    strat = [
+        {"strategy": k, "games": s["games"], "net": s["net_roi"], "lo": s["net_lo"], "hi": s["net_hi"],
+         "holm": s.get("holm_p"), "disc": s["discovery"]["net_roi"], "hold": s["holdout"]["net_roi"],
+         "hold_games": s["holdout"]["games"]}
+        for k, s in gl.get("strategies", {}).items()
+    ]  # fmt: skip
+    return {"families": fams, "strategies": strat, "strategies_tested": gl.get("tested", 0),
+            "design": side_study.get("design")}  # fmt: skip
+
+
 def render(matrix: dict[str, Any], data: dict[str, Any], meta: dict[str, Any]) -> str:
     blob = base64.b64encode(
         gzip.compress(json.dumps({"matrix": matrix, "meta": meta, **data}, default=str).encode(), 9)
@@ -198,10 +233,10 @@ async function load(){
   tabs(); draw();
 }
 function tabs(){
-  $('tabs').innerHTML=['Overview','Families','Opening night','Contract'].map(t=>`<button role="tab" aria-selected="${UI.tab===t}" data-t="${t}">${t}</button>`).join('');
+  $('tabs').innerHTML=['Overview','Families','Signals','Opening night','Contract'].map(t=>`<button role="tab" aria-selected="${UI.tab===t}" data-t="${t}">${t}</button>`).join('');
   $('tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{UI.tab=b.dataset.t;tabs();draw()});
 }
-function draw(){({'Overview':overview,'Families':families,'Opening night':night,'Contract':contract})[UI.tab]()}
+function draw(){({'Overview':overview,'Families':families,'Signals':signals,'Opening night':night,'Contract':contract})[UI.tab]()}
 function pct(x,d=1){return x==null||isNaN(x)?'–':(x*100).toFixed(d)+'%'}
 function n4(x,d=4){return x==null||isNaN(x)?'–':Number(x).toFixed(d)}
 function cm(pairs){const by={};for(const[k,v]of pairs)(by[k]=by[k]||[]).push(v);
@@ -284,6 +319,21 @@ function famDrill(){const f=FF,fam=DRILL||f.fam;if(!fam){$('det').innerHTML='';$
   $('det').querySelectorAll('tr.click').forEach(tr=>tr.onclick=tr.onkeydown=e=>{if(e.type==='keydown'&&e.key!=='Enter')return;open(tr.dataset.k)})}
 function open(k){UI.ticker=k;UI.tab='Contract';tabs();draw()}
 
+const stCls=s=>s==='VALIDATED'?'ok':s==='REJECTED'?'bad':s==='SHADOW_VALIDATING'?'warn':'';
+const pc=(x,d=1)=>x==null?'–':(x*100>=0?'+':'')+(x*100).toFixed(d)+'%';
+function signals(){
+  const C=D.candidates||{candidates:[]},S=D.study||{families:{},strategies:[]};
+  let h=`<div class=note><b>Research only.</b> No signal here is an authorized bet. Retrospective results are exploratory: they can never validate a candidate. A candidate is VALIDATED only after a preregistered prospective sample (&ge; its minimum games), a positive 90% lower bound, a Bonferroni-adjusted p-value and a verified official fee schedule.</div>`;
+  h+='<h2>Preregistered candidates</h2>';
+  if(!C.candidates.length)h+='<div class=note>No candidates registered in this build.</div>';
+  else h+=`<div class=wrap><table><tr><th>Candidate</th><th>Status</th><th>Entry</th><th>Prospective games</th><th>Prospective net ROI [90%]</th><th>Discovery net ROI (retro)</th><th>Needs (games)</th><th>Registered</th><th>Config hash</th></tr>${C.candidates.map(c=>{const p=c.prospective,r=c.discovery_retrospective;return`<tr><td class=l title="${esc(c.hypothesis)}">${esc(c.id)}</td><td><span class="flag ${stCls(c.status)}">${c.status}</span></td><td>${c.entry}</td><td>${p.games}</td><td>${p.games?pc(p.net_roi)+' ['+pc(p.net_lo)+', '+pc(p.net_hi)+']':'–'}</td><td>${pc(r.net_roi)} (${r.games} g)</td><td>${c.success_criteria.min_games}</td><td>${esc((c.registered_at||'').slice(0,16))}</td><td>${esc(c.config_sha256.slice(0,10))}</td></tr>`}).join('')}</table></div><div class=sub>Registry violations: ${(C.registry_violations||[]).length}. Hypotheses are in each row's tooltip.</div>`;
+  h+='<h2>Side-aware study (exploratory)</h2>';
+  h+=`<div class=note>Unit = game. ${S.strategies_tested||0} one-bet-per-game strategies and ${Object.values(S.families).reduce((a,f)=>a+f.slices_tested,0)} price/spread/role slices were examined; <b>Holm-adjusted p &lt; 0.10: ${Object.values(S.families).reduce((a,f)=>a+f.holm_lt_010,0)}</b>. Discovery = earliest 60% of games by tip, holdout = latest 40%.</div>`;
+  h+=`<h3>One bet per game</h3><div class=wrap style="max-height:380px"><table><tr><th>Strategy</th><th>Games</th><th>Net ROI [90%]</th><th>Discovery</th><th>Holdout (games)</th><th>Holm p</th></tr>${[...S.strategies].sort((a,b)=>(b.net??-9)-(a.net??-9)).slice(0,24).map(x=>`<tr><td class=l>${esc(x.strategy)}</td><td>${x.games}</td><td>${pc(x.net)} [${pc(x.lo)}, ${pc(x.hi)}]</td><td>${pc(x.disc)}</td><td>${pc(x.hold)} (${x.hold_games})</td><td>${x.holm==null?'–':x.holm.toFixed(2)}</td></tr>`).join('')}</table></div>`;
+  for(const[n,f]of Object.entries(S.families)){
+    h+=`<h3>${n} · ${f.games} games · top slices by point estimate</h3><div class=wrap><table><tr><th>Slice</th><th>Games</th><th>Net ROI [90%]</th><th>Unadj. p</th><th>Holm p</th><th>Discovery</th><th>Holdout (games)</th></tr>${f.top.map(x=>`<tr><td class=l>${esc(x.slice)}</td><td>${x.games}</td><td>${pc(x.net)} [${pc(x.lo)}, ${pc(x.hi)}]</td><td>${x.p==null?'–':x.p.toFixed(2)}</td><td>${x.holm==null?'–':x.holm.toFixed(2)}</td><td>${pc(x.disc)}</td><td>${pc(x.hold)} (${x.hold_games})</td></tr>`).join('')}</table></div>`;
+    if(f.calibration.length)h+=`<div class=sub>Market calibration at 1h before tip: ${f.calibration.map(b=>`${b.bucket}: priced ${(b.mean_mid*100).toFixed(1)}% → happened ${(b.yes_frequency*100).toFixed(1)}% (${b.contracts} contracts)`).join(' · ')}</div>`}
+  $('view').innerHTML=h}
 const RD=['captured','valid pretip quote','frozen pretip model','closing quote','official result available','official agrees with Kalshi','market accuracy evaluable','model accuracy evaluable','after-fee profit evaluable'];
 let NF={fam:'',issue:'',only:true};
 function night(){

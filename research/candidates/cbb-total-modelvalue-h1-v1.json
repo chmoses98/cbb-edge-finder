@@ -1,0 +1,45 @@
+{
+ "config": {
+  "entry": "H1",
+  "exclusions": [
+   "tip not verified",
+   "no fill"
+  ],
+  "family": "TOTAL",
+  "fill": "displayed top-of-book size must cover",
+  "horizon": "settled by final score",
+  "hypothesis": "Frozen pure-0.5.0 total probabilities find executable value (expected negative).",
+  "id": "cbb-total-modelvalue-h1-v1",
+  "order_contracts": 25,
+  "rule": {
+   "min_edge": 0.02,
+   "model_version": "pure-0.5.0",
+   "type": "model_value"
+  },
+  "series": [
+   "KXNCAAMBTOTAL"
+  ],
+  "success": {
+   "alpha_family": 0.05,
+   "ci": 0.9,
+   "min_games": 300,
+   "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+  }
+ },
+ "config_sha256": "a95262c4d93f0ab05a5ea341d4d63838d817a52006224b0b2343937c921edfe3",
+ "discovery_at_registration": {
+  "contracts": 108,
+  "games": 108,
+  "gross_roi": -0.03794762159273115,
+  "hit_rate": 0.3333333333333333,
+  "mean_price": 0.3464814814814815,
+  "net_hi": 0.12808137880972706,
+  "net_lo": -0.2808268436517558,
+  "net_roi": -0.077556960857667,
+  "note": "discovery only: seen before registration; cannot validate",
+  "p_le_zero": 0.7305
+ },
+ "registered_at": "2026-11-04T05:05:42.784519+00:00",
+ "registration_sha256": "cab5972efb5e1bfedcaa6404e115dc326d6742f29ba8b8e6e368782102130fe6",
+ "schema_version": "cbb-candidate-v1"
+}

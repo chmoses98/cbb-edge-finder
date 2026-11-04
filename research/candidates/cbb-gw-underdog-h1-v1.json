@@ -1,0 +1,43 @@
+{
+ "config": {
+  "entry": "H1",
+  "exclusions": [
+   "tip not verified",
+   "no fill"
+  ],
+  "family": "GAME_WINNER",
+  "fill": "displayed top-of-book size must cover",
+  "horizon": "settled by final score",
+  "hypothesis": "Underdogs are underpriced on game-winner moneylines one hour before tip (favorite-longshot asymmetry); a one-bet-per-game underdog rule has positive net ROI.",
+  "id": "cbb-gw-underdog-h1-v1",
+  "order_contracts": 25,
+  "rule": {
+   "type": "baseline_underdog"
+  },
+  "series": [
+   "KXNCAAMBGAME"
+  ],
+  "success": {
+   "alpha_family": 0.05,
+   "ci": 0.9,
+   "min_games": 300,
+   "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+  }
+ },
+ "config_sha256": "6eba7838d8f6d5c19ebad051d6947822bcdb9aa09f83fb758c1098eb8b75e9bf",
+ "discovery_at_registration": {
+  "contracts": 110,
+  "games": 110,
+  "gross_roi": 0.22887864823348691,
+  "hit_rate": 0.21818181818181817,
+  "mean_price": 0.17754545454545456,
+  "net_hi": 0.4714228659113363,
+  "net_lo": -0.12131685314275673,
+  "net_roi": 0.17240166481036404,
+  "note": "discovery only: seen before registration; cannot validate",
+  "p_le_zero": 0.171
+ },
+ "registered_at": "2026-11-04T05:05:42.295382+00:00",
+ "registration_sha256": "eb3a3471cd6687406402c408a4e627c6188313ec5595e185873be89af0353a3d",
+ "schema_version": "cbb-candidate-v1"
+}
