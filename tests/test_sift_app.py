@@ -342,6 +342,12 @@ def test_kalshi_game_contracts_map_exactly_and_are_never_priced(season, tmp_path
     assert (
         mk[0]["side"] == "HOME" and mk[0]["event_id"] == _events(tmp_path)["G900000005"]["event_id"]
     )
+    rb = mk[0]["extensions"][
+        "cbb_research"
+    ]  # wiring: the game's frozen projection reaches the market
+    assert rb["model_version"] == "pure-0.2.0" and rb["model_gap"] is None
+    assert 0.0 < rb["model_probability"] < 1.0
+    assert rb["validation"]["authorized_bet"] is False
     assert json.loads((_app(tmp_path) / "model_prices.json").read_text())["count"] == 0
     assert PUB.verify_published(_app(tmp_path)) == [] and R.verify_explorer(_app(tmp_path)) == []
 

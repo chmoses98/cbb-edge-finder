@@ -780,7 +780,14 @@ def build(w: World) -> Built:
             if ev is None:
                 continue
             for raw in raws:
-                m = _market(raw, ev, teams, w.kalshi, w.now, _proj_info(sel.get(gid), w))
+                m = _market(
+                    raw,
+                    ev,
+                    teams,
+                    w.kalshi,
+                    w.now,
+                    _proj_info(sel.get(int(ev["extensions"]["cbb"]["espn_game_id"])), w),
+                )
                 if m is not None:
                     markets.append(m)
     mk_by_event: dict[str, list[dict]] = {}
