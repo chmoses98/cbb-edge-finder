@@ -7,7 +7,6 @@ import pytest
 
 from cbb_edge.players.prop_projection import player_stat_means
 
-
 ASOF = datetime(2026, 11, 4, 18, tzinfo=UTC)
 TIP = ASOF + timedelta(hours=3)
 
