@@ -84,9 +84,13 @@ def eligibility_funnel(
     model_version = cfg["rule"].get("model_version")
     reg = utc_time(registered_at)
     stage_names = (
-        "observed_series_entry_games", "tipped_after_registration",
-        "observed_valid_postregistration_pretip_quote", "verified_pretip_tip",
-        "independently_settled", "model_supported", "fillable_quote",
+        "observed_series_entry_games",
+        "tipped_after_registration",
+        "observed_valid_postregistration_pretip_quote",
+        "verified_pretip_tip",
+        "independently_settled",
+        "model_supported",
+        "fillable_quote",
     )
     stages: dict[str, set[str]] = {k: set() for k in stage_names}
     for r in evaluations:
