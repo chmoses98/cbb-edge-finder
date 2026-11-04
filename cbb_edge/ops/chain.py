@@ -54,7 +54,13 @@ def decide(
         return Decision("SKIP", "run_listing_failed_fail_closed")
     if now.month not in season_months:
         return Decision("SKIP", "offseason_slow_cadence_via_schedule")
-    others = [r for r in runs if int(r.get("databaseId") or 0) != run_id]
+    # Only PRODUCTION runs can occupy or displace the capture slot: pull-request validation runs have their
+    # own concurrency group and must never block the chain (4 queued PR runs once stopped it for ~47 min).
+    others = [
+        r
+        for r in runs
+        if int(r.get("databaseId") or 0) != run_id and r.get("event") != "pull_request"
+    ]
     active = sum(1 for r in others if str(r.get("status")) in ACTIVE)
     if active:
         return Decision("SKIP", "capture_already_queued_or_running", other_active_runs=active)
@@ -64,9 +70,7 @@ def decide(
             (
                 r
                 for r in others
-                if str(r.get("status")) == "completed"
-                and r.get("event") != "pull_request"
-                and r.get("conclusion") != "cancelled"
+                if str(r.get("status")) == "completed" and r.get("conclusion") != "cancelled"
             ),
             key=_created,
             reverse=True,
