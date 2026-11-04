@@ -201,7 +201,11 @@ def load_universe(kalshi_root: Path) -> tuple[dict[str, Contract], list[dict[str
     return contracts, ledger
 
 
-def attach_panel(contracts: dict[str, Contract], panel_root: Path | None) -> dict[str, Any]:
+def attach_panel(
+    contracts: dict[str, Contract],
+    panel_root: Path | None,
+    challenger: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Join frozen as-of model probabilities / identity from panel partitions (if any)."""
     info: dict[str, Any] = {"partitions": 0, "rows": 0, "snapshots_with_panel": []}
     if panel_root is None:
@@ -233,6 +237,25 @@ def attach_panel(contracts: dict[str, Contract], panel_root: Path | None) -> dic
                     probs[ver] = float(pr["probability"])
                 else:
                     gaps[ver] = str(pr.get("method_or_gap"))
+            if (
+                challenger
+            ):  # shadow challenger derived from the frozen projection, out of sample only
+                from cbb_edge.kalshi.research import challenger as ch
+
+                base = ((row.get("models_as_of_capture") or {}).get("versions") or {}).get(
+                    challenger["base_version"]
+                )
+                tip = row.get("game_start_utc") or ""
+                if base is None:
+                    gaps[challenger["version"]] = "no_base_projection"
+                elif not tip or tip <= challenger["fit_window_end"]:
+                    gaps[challenger["version"]] = "game_inside_fit_window_no_out_of_sample_value"
+                else:
+                    cp = ch.probability(row.get("contract_semantics") or {}, base, challenger)
+                    if cp is None:
+                        gaps[challenger["version"]] = "unsupported_contract_for_challenger"
+                    else:
+                        probs[challenger["version"]] = cp
             at = parse_ts(row.get("captured_at"))
             if at is None:
                 continue
