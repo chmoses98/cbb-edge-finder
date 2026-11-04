@@ -148,8 +148,8 @@ jobs:
         run: |
           stale=$(python -c "import json;print(json.load(open('research_out/latest/health.json'))['findings']['latest_snapshot_stale'])")
           echo "latest_snapshot_stale=$stale"
-          active=$(gh run list --workflow kalshi-capture.yml --limit 20 --json status \
-            --jq '[.[] | select(.status=="queued" or .status=="in_progress" or .status=="pending")] | length' || echo 0)
+          active=$(gh run list --workflow kalshi-capture.yml --limit 20 --json status,event \
+            --jq '[.[] | select(.event != "pull_request" and (.status=="queued" or .status=="in_progress" or .status=="pending"))] | length' || echo 0)
           echo "kalshi-capture runs already queued/in progress: $active"
           if [ "$stale" = "True" ] && [ "$active" = "0" ]; then
             gh workflow run kalshi-capture.yml --ref main

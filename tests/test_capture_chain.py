@@ -138,3 +138,12 @@ def test_capture_intervals_preserve_real_gaps():
     stamps = [NOW - timedelta(minutes=m) for m in (100, 85, 70, 10)]
     out = capture_intervals([{"captured_at": s.isoformat()} for s in stamps])
     assert out["recent_minutes"] == [15.0, 15.0, 60.0] and out["max_recent"] == 60.0
+
+
+def test_pull_request_validation_runs_never_block_the_chain():
+    prs = [run(200 + i, status="queued", conclusion=None, event="pull_request") for i in range(4)]
+    r = d(prs + [run(99, age=15)])
+    assert r.action == "DISPATCH" and r.other_active_runs == 0
+    # a real production run still blocks
+    r = d(prs + [run(300, status="queued", conclusion=None, event="schedule")])
+    assert r.action == "SKIP" and r.other_active_runs == 1
