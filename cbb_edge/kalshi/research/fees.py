@@ -107,22 +107,36 @@ DEFAULT_RULES: tuple[FeeRule, ...] = (
 )
 
 
-def rule_for(series_meta: dict[str, Any] | None, on: date) -> FeeRule:
-    """Fee rule for a series on a date. Series metadata from the API wins over the default."""
+def rule_for(
+    series_meta: dict[str, Any] | None,
+    on: date,
+    coefficients: tuple[float, float] | None = None,
+) -> FeeRule:
+    """Fee rule for a series on a date. Series metadata from the API wins over the default.
+
+    ``coefficients`` = (taker, maker) read from the archived OFFICIAL fee schedule; when given they
+    replace the assumed 0.07 / 0.0175 (the rule version then ends in ``:coef=official``).
+    """
+    taker_c, maker_c = coefficients if coefficients else (TAKER_RATE, MAKER_RATE)
+    tag = ":coef=official" if coefficients else ""
     if series_meta:
         ftype = str(series_meta.get("fee_type") or "").lower()
         mult = series_meta.get("fee_multiplier")
         if ftype in ("quadratic", "quadratic_with_maker_fees") and isinstance(mult, int | float):
             m = float(mult)
             return FeeRule(
-                f"series-api:{ftype}:x{m:g}", date(2020, 1, 1), None,
-                TAKER_RATE * m, MAKER_RATE * m, "series_api",
+                f"series-api:{ftype}:x{m:g}{tag}", date(2020, 1, 1), None,
+                taker_c * m, maker_c * m, "series_api",
             )  # fmt: skip
         if ftype:  # flat / unknown fee types: refuse to guess
             return FeeRule(f"series-api:{ftype}:unsupported", date(2020, 1, 1), None,
                            0.0, 0.0, "series_api", supported=False)  # fmt: skip
     for r in reversed(DEFAULT_RULES):
         if r.covers(on):
+            if coefficients:
+                return FeeRule(
+                    f"{r.version}{tag}", r.effective_from, r.effective_to, taker_c, maker_c, r.basis
+                )
             return r
     return DEFAULT_RULES[0]
 

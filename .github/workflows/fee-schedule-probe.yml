@@ -1,0 +1,118 @@
+name: fee-schedule-probe
+
+# The development sandbox cannot reach kalshi.com. GitHub-hosted runners can, so this job downloads
+# Kalshi's OFFICIAL public fee schedule (read-only, no credentials, no network-policy changes),
+# archives the raw bytes, extracted text and hash immutably on `fee-schedule-archive`, and records
+# what the text literally states (cbb_edge.kalshi.research.fee_probe). The research engine compares
+# the official coefficients with its assumption and reports VERIFIED/MISMATCH/UNVERIFIED.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 7 * * 1"  # weekly: catches schedule changes; safe to be dropped
+  pull_request:
+    paths:
+      - "cbb_edge/kalshi/research/fee_probe.py"
+      - ".github/workflows/fee-schedule-probe.yml"
+
+concurrency:
+  group: fee-schedule-probe${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.pull_request.number) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DOC_URL: https://kalshi.com/docs/kalshi-fee-schedule.pdf
+      PAGE_URL: https://kalshi.com/fee-schedule
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e . pypdf
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Download the official documents
+        run: |
+          mkdir -p obs && cd obs
+          UA="cbb-edge-finder research (read-only; +https://github.com/${GITHUB_REPOSITORY})"
+          fetch() { # url outfile
+            for i in 1 2 3; do
+              if curl -fsSL -m 60 -A "$UA" -o "$2" "$1"; then return 0; fi
+              sleep $((i * 5))
+            done
+            return 1
+          }
+          fetch "$DOC_URL" fee.pdf && echo ok > pdf.status || echo "pdf download failed" > pdf.status
+          fetch "$PAGE_URL" fee_page.html && echo ok > page.status || echo "page download failed" > page.status
+          if [ -s fee.pdf ]; then
+            python - <<'PY'
+          from pypdf import PdfReader
+          r = PdfReader("fee.pdf")
+          open("fee.txt", "w").write("\n".join((p.extract_text() or "") for p in r.pages))
+          PY
+          fi
+          if [ -s fee_page.html ]; then
+            python - <<'PY'
+          import re,html
+          s = open("fee_page.html", errors="replace").read()
+          s = re.sub(r"(?s)<(script|style).*?</\1>", " ", s)
+          open("fee_page.txt", "w").write(html.unescape(re.sub(r"<[^>]+>", " ", s)))
+          PY
+          fi
+          ls -la
+      - name: Parse what the official text states
+        run: |
+          cd obs
+          python -m cbb_edge.kalshi.research.fee_probe --source-url "$DOC_URL" --text fee.txt --raw fee.pdf \
+            --error "$( [ "$(cat pdf.status)" = ok ] && echo "" || cat pdf.status )" --out evidence_pdf.json || true
+          python -m cbb_edge.kalshi.research.fee_probe --source-url "$PAGE_URL" --text fee_page.txt --raw fee_page.html \
+            --error "$( [ "$(cat page.status)" = ok ] && echo "" || cat page.status )" --out evidence_page.json || true
+          cat evidence_pdf.json evidence_page.json | head -80
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fee-schedule-${{ github.run_id }}
+          path: obs
+          retention-days: 30
+      - name: Archive immutably (production only)
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir archive && cd archive
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin fee-schedule-archive; then
+            git checkout -q -b fee-schedule-archive FETCH_HEAD
+          else
+            git checkout -q --orphan fee-schedule-archive
+            printf '# Kalshi fee schedule observations\n\nImmutable downloads of the official fee schedule written by .github/workflows/fee-schedule-probe.yml.\n' > README.md
+          fi
+          stamp=$(date -u +%Y%m%dT%H%M%SZ)
+          d="observations/$(date -u +%Y/%m/%d)/$stamp"
+          mkdir -p "$d"
+          cp ../obs/* "$d"/ 2>/dev/null || true
+          cp ../obs/evidence_pdf.json latest.json 2>/dev/null || cp ../obs/evidence_page.json latest.json || true
+          git add -A
+          git commit -q -m "fee schedule observation $stamp"
+          for i in 1 2 3 4; do
+            git push -q origin fee-schedule-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin fee-schedule-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1

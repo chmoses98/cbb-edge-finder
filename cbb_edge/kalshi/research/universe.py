@@ -102,6 +102,7 @@ class Contract:
     n_with_event: int = 0
     n_with_orderbook: int = 0
     series_meta: dict[str, Any] | None = None
+    fee_coefficients: tuple[float, float] | None = None  # official (taker, maker), if verified
     series_meta_at: datetime | None = None  # first capture that carried the series fee fields
     obs: list[Obs] = field(default_factory=list)
     raw_last: dict[str, Any] = field(default_factory=dict)
