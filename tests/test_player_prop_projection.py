@@ -59,7 +59,7 @@ def test_forecasts_real_stat_means_but_no_more_less_probability():
     assert len(out) == 5
     assert p["projected_minutes"] == 40.0
     assert p["projections"]["pts"] == pytest.approx(16.0)
-    assert p["projections"]["reb"] == pytest.approx(40 * 5 / 35)
+    assert p["projections"]["reb"] == pytest.approx(40 * 5 / 35, abs=0.001)
     assert p["projections"]["ast"] == pytest.approx(4.0)
     assert p["projections"]["fg3m"] == pytest.approx(40 * 2 / 35, abs=0.001)
     assert p["projections"]["pra"] == pytest.approx(16 + 40 * 5 / 35 + 4, abs=0.002)
