@@ -442,3 +442,38 @@ def test_fee_basis_distinguishes_contemporaneous_from_observed_later():
     c.series_meta, c.series_meta_at = None, None
     _, rows = evaluate_contract(c, {7: (80, 60)})
     assert {r["fee_basis"] for r in rows} == {"assumed_default"}
+
+
+# ---------------------------------------------------------------- selection vs quoted-execution CLV
+def test_unchanged_market_has_zero_selection_clv_and_pooled_legs_equal_the_half_spread():
+    # book 0.46/0.54 at open and at the close: nothing moved, the spread is 0.08
+    c = contract([obs(0, 0.46, 0.54), obs(29.5, 0.46, 0.54)])
+    _, rows = evaluate_contract(c, {})
+    open_row = {r["entry"]: r for r in rows}["OPEN"]
+    assert open_row["yes"]["clv_selection"] == pytest.approx(0.0)
+    assert open_row["no"]["clv_selection"] == pytest.approx(0.0)
+    assert open_row["yes"]["clv_gross"] == pytest.approx(-0.04)       # mid 0.50 - ask 0.54
+    assert open_row["no"]["clv_gross"] == pytest.approx(-0.04)
+    # pooled over both legs the mean is the half-spread by construction: it carries no direction information
+    assert matrix._clv([open_row], "clv_gross")["mean"] == pytest.approx(-0.04)
+
+
+def test_genuine_move_is_visible_in_selection_clv_and_cancels_in_the_pooled_legs():
+    c = contract([obs(0, 0.46, 0.54), obs(29.5, 0.51, 0.59)])         # mid 0.50 -> 0.55
+    _, rows = evaluate_contract(c, {})
+    r = {x["entry"]: x for x in rows}["OPEN"]
+    assert r["yes"]["clv_selection"] == pytest.approx(0.05)
+    assert r["no"]["clv_selection"] == pytest.approx(-0.05)           # YES/NO mirror
+    assert matrix._clv([r], "clv_selection")["mean"] == pytest.approx(0.0)   # pooled legs cancel: not a selection metric
+    r["model"] = {"v1": {"ev_yes": 0.04, "ev_no": -0.04}}             # model prefers YES
+    assert matrix._model_side_clv([r], "v1")["mean"] == pytest.approx(0.05)
+    r["model"] = {"v1": {"ev_yes": -0.04, "ev_no": 0.04}}             # model prefers NO
+    assert matrix._model_side_clv([r], "v1")["mean"] == pytest.approx(-0.05)
+
+
+def test_close_row_and_one_sided_book_have_no_selection_clv():
+    c = contract([obs(0, None, 0.54), obs(29.5, 0.46, 0.54)])
+    _, rows = evaluate_contract(c, {})
+    by = {r["entry"]: r for r in rows}
+    assert "clv_selection" not in by["CLOSE"]["yes"]                  # the close is the benchmark, not an entry
+    assert "clv_selection" not in by["OPEN"]["yes"]                   # one-sided entry book: no midpoint, no CLV

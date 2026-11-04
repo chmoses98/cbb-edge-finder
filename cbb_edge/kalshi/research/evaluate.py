@@ -267,6 +267,11 @@ def evaluate_contract(
         for side in ("yes", "no"):
             p = px[side]
             fill: dict[str, Any] = {"price": p}
+            if close_mid is not None and mid is not None and name != "CLOSE":
+                # SELECTION CLV: close midpoint minus entry midpoint of THIS side. No spread, no fee. YES: +d; NO: -d.
+                fill["clv_selection"] = (
+                    (close_mid - mid) if side == "yes" else ((1.0 - close_mid) - (1.0 - mid))
+                )
             if p is None:
                 fill["fill"] = "NO_QUOTE"
             elif (sz := sizes[side]) is None or sz < ORDER_CONTRACTS:
