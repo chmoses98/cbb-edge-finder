@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import csv
+import os
 from collections import Counter
+from dataclasses import asdict, dataclass
 from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
@@ -148,13 +150,95 @@ def write_audit_csv(audit: dict[str, Any], path: Path) -> None:
         w.writerows(table)
 
 
+@dataclass(frozen=True)
+class HealthThresholds:
+    """Freshness/consistency thresholds (override via CBB_HEALTH_* environment variables)."""
+
+    capture_degraded_min: float = 30.0
+    capture_critical_min: float = 60.0
+    panel_missing_degraded: int = 2
+    research_degraded_min: float = 180.0
+    mismatch_critical_fraction: float = 0.001  # share of raw rows absent from the panel
+
+    @classmethod
+    def from_env(cls) -> HealthThresholds:
+        def f(name: str, default: float) -> float:
+            try:
+                return float(os.environ.get(f"CBB_HEALTH_{name}", default))
+            except ValueError:
+                return default
+
+        return cls(
+            f("CAPTURE_DEGRADED_MIN", cls.capture_degraded_min),
+            f("CAPTURE_CRITICAL_MIN", cls.capture_critical_min),
+            int(f("PANEL_MISSING_DEGRADED", cls.panel_missing_degraded)),
+            f("RESEARCH_DEGRADED_MIN", cls.research_degraded_min),
+            f("MISMATCH_CRITICAL_FRACTION", cls.mismatch_critical_fraction),
+        )
+
+
+def capture_intervals(ledger: list[dict[str, Any]], recent: int = 12) -> dict[str, Any]:
+    """Real consecutive-snapshot intervals in minutes (gaps are preserved, never smoothed)."""
+    stamps = [t for t in (parse_ts(s["captured_at"]) for s in ledger) if t is not None]
+    mins = [
+        round((b - a).total_seconds() / 60.0, 1) for a, b in zip(stamps, stamps[1:], strict=False)
+    ]
+    last = mins[-recent:]
+    srt = sorted(last)
+    return {
+        "recent_minutes": last,
+        "median": srt[len(srt) // 2] if srt else None,
+        "p90": srt[min(len(srt) - 1, int(0.9 * len(srt)))] if srt else None,
+        "max_recent": max(last) if last else None,
+    }
+
+
+def grade_health(
+    health: dict[str, Any],
+    panel: dict[str, Any],
+    thresholds: HealthThresholds | None = None,
+    pipelines: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Overall status HEALTHY | DEGRADED | CRITICAL with the reasons. Leakage or a material
+    archive-to-panel row mismatch is CRITICAL immediately."""
+    t = thresholds or HealthThresholds.from_env()
+    crit: list[str] = []
+    deg: list[str] = []
+    age = health["findings"].get("latest_snapshot_age_minutes")
+    if age is None:
+        crit.append("no_capture_snapshot")
+    elif age > t.capture_critical_min:
+        crit.append(f"capture_age_{age:.0f}min_over_{t.capture_critical_min:.0f}")
+    elif age > t.capture_degraded_min:
+        deg.append(f"capture_age_{age:.0f}min_over_{t.capture_degraded_min:.0f}")
+    totals = panel.get("totals", {})
+    if totals.get("future_projection_rows") or totals.get("posttip_projection_in_pretip_rows"):
+        crit.append("projection_leakage_detected")
+    raw_rows = max(int(totals.get("raw_rows", 0)), 1)
+    missing_rows = sum(
+        int(p.get("missing_in_panel", 0)) + int(p.get("extra_in_panel", 0))
+        for p in panel.get("problems", [])
+        if p.get("kind") == "row_set_mismatch"
+    )
+    if missing_rows / raw_rows > t.mismatch_critical_fraction:
+        crit.append(f"archive_panel_row_mismatch_{missing_rows}_rows")
+    elif panel.get("problems"):
+        deg.append("panel_integrity_problems")
+    if panel.get("backlog_count", 0) > t.panel_missing_degraded:
+        deg.append(f"panel_backlog_{panel['backlog_count']}_over_{t.panel_missing_degraded}")
+    if pipelines and pipelines.get("findings"):
+        deg.extend(f"pipeline:{f}" for f in pipelines["findings"])
+    status = "CRITICAL" if crit else "DEGRADED" if deg else "HEALTHY"
+    return {"status": status, "critical": crit, "degraded": deg, "thresholds": asdict(t)}
+
+
 def archive_health(
     ledger: list[dict[str, Any]],
     panel_info: dict[str, Any],
     summaries: list[dict[str, Any]],
     now: datetime | None = None,
     max_gap_minutes: int = 90,
-    stale_minutes: int = 120,
+    stale_minutes: float = 30.0,
 ) -> dict[str, Any]:
     """Missing-data monitor. ``recovery`` names the idempotent job that repairs each finding."""
     now = now or datetime.now(UTC)
