@@ -39,12 +39,20 @@ def test_joint_score_fit_and_shadow_probabilities():
     assert fit is not None and fit.games == 130
     assert fit.sd_home > 1 and fit.sd_away > 1
     home = shadow_probability(
-        fit, {"home_score": 78, "away_score": 65},
-        target="home_total", line=77.5, prediction_as_of=CUTOFF, tip=TIP
+        fit,
+        {"home_score": 78, "away_score": 65},
+        target="home_total",
+        line=77.5,
+        prediction_as_of=CUTOFF,
+        tip=TIP,
     )
     away = shadow_probability(
-        fit, {"home_score": 78, "away_score": 65},
-        target="away_total", line=69.5, prediction_as_of=CUTOFF, tip=TIP
+        fit,
+        {"home_score": 78, "away_score": 65},
+        target="away_total",
+        line=69.5,
+        prediction_as_of=CUTOFF,
+        tip=TIP,
     )
     assert home["model_probability"] > 0.5
     assert away["model_probability"] < 0.5
@@ -52,8 +60,12 @@ def test_joint_score_fit_and_shadow_probabilities():
     assert home["authorized_bet"] is False
     assert home["independent_training_games"] == 130
     total = shadow_probability(
-        fit, {"home_score": 78, "away_score": 65},
-        target="game_total", line=142.5, prediction_as_of=CUTOFF, tip=TIP
+        fit,
+        {"home_score": 78, "away_score": 65},
+        target="game_total",
+        line=142.5,
+        prediction_as_of=CUTOFF,
+        tip=TIP,
     )
     assert total["mean"] == 143 and total["sd"] > 0
 
@@ -81,15 +93,21 @@ def test_guard_against_reusing_future_calibration():
     assert fit is not None
     with pytest.raises(ValueError, match="chronology"):
         shadow_probability(
-            fit, {"home_score": 78, "away_score": 65},
-            target="home_total", line=77.5,
-            prediction_as_of=CUTOFF - timedelta(days=1), tip=TIP,
+            fit,
+            {"home_score": 78, "away_score": 65},
+            target="home_total",
+            line=77.5,
+            prediction_as_of=CUTOFF - timedelta(days=1),
+            tip=TIP,
         )
     with pytest.raises(ValueError, match="after tip"):
         shadow_probability(
-            fit, {"home_score": 78, "away_score": 65},
-            target="home_total", line=77.5,
-            prediction_as_of=TIP, tip=TIP,
+            fit,
+            {"home_score": 78, "away_score": 65},
+            target="home_total",
+            line=77.5,
+            prediction_as_of=TIP,
+            tip=TIP,
         )
 
 
@@ -97,7 +115,11 @@ def test_missing_means_do_not_imply_a_bet():
     fit = fit_joint_scores(make_records(), as_of=CUTOFF, frozen_model_version=MODEL)
     assert fit is not None
     result = shadow_probability(
-        fit, {"away_score": 65},
-        target="home_total", line=77.5, prediction_as_of=CUTOFF, tip=TIP,
+        fit,
+        {"away_score": 65},
+        target="home_total",
+        line=77.5,
+        prediction_as_of=CUTOFF,
+        tip=TIP,
     )
     assert result["model_probability"] is None and result["authorized_bet"] is False
