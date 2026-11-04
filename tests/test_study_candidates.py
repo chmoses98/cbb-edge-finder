@@ -168,3 +168,82 @@ def test_committed_registry_is_intact():
     assert C.verify_registry(Path("research/candidates")) == []
     ids = {r["config"]["id"] for r in C.load_registry(Path("research/candidates"))}
     assert "cbb-gw-underdog-h1-v1" in ids and len(ids) >= 5
+
+
+# ----------------------------------------------------- prospective progress reporting
+def test_progress_reports_early_checkpoints_without_changing_registered_gate():
+    from cbb_edge.kalshi.research import progress as P
+
+    expected = (
+        (0, "AWAITING_PROSPECTIVE_EVIDENCE", 25),
+        (24, "TOO_EARLY", 25),
+        (25, "INITIAL", 50),
+        (50, "EARLY", 100),
+        (99, "EARLY", 100),
+        (100, "PRELIMINARY", 300),
+        (299, "PRELIMINARY", 300),
+        (300, "FORMAL_SAMPLE_MINIMUM_REACHED", None),
+    )
+    for n, stage, next_n in expected:
+        info = P.progress(n, 300, "SHADOW_VALIDATING")
+        assert info["stage"] == stage and info["next_milestone_games"] == next_n
+        assert info["independent_games"] == n
+        assert info["remaining_games_to_formal_min"] == max(0, 300 - n)
+        assert info["not_authority"] is True
+        assert info["formal_candidate_status"] == "SHADOW_VALIDATING"
+
+
+def test_prospective_timestamp_normalization_and_no_post_tip_inclusion():
+    from cbb_edge.kalshi.research.progress import prospective_bet
+
+    reg = "2026-11-04T14:00:00+00:00"
+    bet = {"t": "2026-11-04T09:05:00-05:00", "tip": "2026-11-04T14:10:00Z"}
+    assert prospective_bet(bet, reg)
+    assert not prospective_bet({**bet, "t": "2026-11-04T09:11:00-05:00"}, reg)
+    assert not prospective_bet({**bet, "t": "2026-11-04T14:05:00"}, reg)
+    assert not prospective_bet({**bet, "tip": None}, reg)
+    assert not prospective_bet({**bet, "t": "2026-11-04T13:59:59Z"}, reg)
+
+
+def test_candidate_report_includes_game_cluster_funnel_and_never_approves_early(tmp_path: Path):
+    from cbb_edge.kalshi.research import progress as P
+
+    c = cfg()
+    C.register(c, {"games": 0}, now=__import__("datetime").datetime(
+        2026, 11, 4, 14, tzinfo=__import__("datetime").UTC
+    ), directory=tmp_path)
+    reg = C.load_registry(tmp_path)
+    bets, tips = games(
+        "N", 2, "2026-11-05T09:00:00Z", "2026-11-05T10:00:00+00:00", [True]
+    )
+    # Deliberately duplicate the first game's contract observations: neither the
+    # funnel nor the formal sample can treat ten contracts as ten independent games.
+    report = C.evaluate([*bets, bets[0]], tips, reg, fee_verified=False)["candidates"][0]
+    info = report["sample_progress"]
+    funnel = report["eligibility_funnel"]
+    assert info["independent_games"] == 2
+    assert info["formal_min_games"] == 4
+    assert report["status"] == "SHADOW_VALIDATING"
+    assert info["not_authority"] and report["authority"] == "RESEARCH_ONLY"
+    assert funnel["counts"]["observed_series_entry_games"] == 2
+    assert funnel["counts"]["selected_rule_games"] == 2
+    assert funnel["counts"]["independently_settled"] == 2
+    assert funnel["stage_dropoffs"]["fillable_quote_to_selected_rule_games"] == 0
+    assert P.progress(300, 300, "SHADOW_VALIDATING")["not_authority"]
+
+
+def test_funnel_exposes_missing_post_registration_quotes_without_invented_roi(tmp_path: Path):
+    from datetime import UTC, datetime
+
+    C.register(cfg(), {"games": 0}, now=datetime(2026, 11, 4, 14, tzinfo=UTC), directory=tmp_path)
+    reg = C.load_registry(tmp_path)
+    bets, tips = games("N", 2, "2026-11-04T13:00:00Z", "2026-11-05T10:00:00Z", [True])
+    report = C.evaluate(bets, tips, reg, fee_verified=True)["candidates"][0]
+    assert report["status"] == "PREREGISTERED"
+    assert report["sample_progress"]["independent_games"] == 0
+    counts = report["eligibility_funnel"]["counts"]
+    assert counts["observed_series_entry_games"] == 2
+    assert counts["tipped_after_registration"] == 2
+    assert counts["observed_valid_postregistration_pretip_quote"] == 0
+    assert counts["selected_rule_games"] == 0
+    assert report["prospective"]["net_roi"] is None
