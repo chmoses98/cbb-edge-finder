@@ -34,7 +34,12 @@ from cbb_edge.kalshi.research import (
     study,
 )
 from cbb_edge.kalshi.research.evaluate import FILL_ASSUMPTION, evaluate_all
-from cbb_edge.kalshi.research.universe import attach_panel, load_scores, load_universe
+from cbb_edge.kalshi.research.universe import (
+    attach_panel,
+    load_period_scores,
+    load_scores,
+    load_universe,
+)
 
 
 def _jsonl_gz(path: Path, items: list[dict[str, Any]]) -> None:
@@ -74,9 +79,12 @@ def build(
     out: Path,
     now: datetime | None = None,
     runs: Path | None = None,
+    periods: Path | None = None,
+    candles: Path | None = None,
     thresholds: audit.HealthThresholds | None = None,
     fee_evidence: Path | None = None,
     candidates_dir: Path | None = None,
+    challenger_path: Path | None = None,
 ) -> dict[str, Any]:
     now = now or datetime.now(UTC)
     contracts, ledger = load_universe(kalshi)
@@ -95,9 +103,13 @@ def build(
             official = (float(t[0]), float(m[0]) if len(m) == 1 else fees.MAKER_RATE)
     for c in contracts.values():
         c.fee_coefficients = official
-    panel_info = attach_panel(contracts, panel)
+    challenger = None
+    if challenger_path is not None and challenger_path.exists():
+        challenger = json.loads(challenger_path.read_text())
+    panel_info = attach_panel(contracts, panel, challenger)
     scores = load_scores(schedule)
-    summaries, rows = evaluate_all(contracts, scores)
+    period_scores = load_period_scores(periods)
+    summaries, rows = evaluate_all(contracts, scores, period_scores)
     mx = matrix.build_matrix(summaries, rows)
     night = audit.opening_night(summaries, rows)
     health = audit.archive_health(ledger, panel_info, summaries, now)
@@ -139,6 +151,12 @@ def build(
     (latest / "candidates.json").write_text(json.dumps(cand, indent=1, default=str))
     _jsonl_gz(latest / "universe.jsonl.gz", summaries)
     _jsonl_gz(latest / "evaluations.jsonl.gz", rows)
+    if candles is not None:
+        from cbb_edge.kalshi.candles import candle_recovery_report
+
+        (latest / "candle_recovery_report.json").write_text(
+            json.dumps(candle_recovery_report(summaries, candles), indent=1)
+        )
     (latest / "snapshot_ledger.json").write_text(json.dumps(ledger, indent=1))
     mx["fee_schedule"] = fees.FEE_SCHEDULE_VERSION
     mx["fee_verification"] = fee_check
@@ -179,6 +197,7 @@ def build(
         "families": {f: b["discovered_contracts"] for f, b in mx["families"].items()},
         "panel_rows_joined": panel_info["rows"],
         "scores_loaded": len(scores),
+        "period_scores_loaded": len(period_scores),
         "health": health["findings"],
         "healthy": health["healthy"],
         "health_status": health["grade"]["status"],
@@ -196,10 +215,13 @@ def main() -> None:
     ap.add_argument("--kalshi", required=True, type=Path)
     ap.add_argument("--panel", type=Path)
     ap.add_argument("--schedule", type=Path)
+    ap.add_argument("--periods", type=Path, help="period-scores-archive checkout (optional)")
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--candidates", type=Path, help="research/candidates registry directory")
     ap.add_argument("--fee-evidence", type=Path, help="latest.json from fee-schedule-archive")
+    ap.add_argument("--challenger", type=Path, help="frozen challenger parameters JSON")
     ap.add_argument("--runs", type=Path, help="gh run list --json output for the pipeline monitor")
+    ap.add_argument("--candles", type=Path, help="candles archive dir -> candle_recovery_report")
     a = ap.parse_args()
     print(
         json.dumps(
@@ -209,6 +231,9 @@ def main() -> None:
                 a.schedule,
                 a.out,
                 runs=a.runs,
+                periods=a.periods,
+                candles=a.candles,
+                challenger_path=a.challenger,
                 fee_evidence=a.fee_evidence,
                 candidates_dir=a.candidates,
             ),
