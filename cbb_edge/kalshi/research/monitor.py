@@ -58,3 +58,46 @@ def pipeline_health(
         if yld is not None and yld < 0.5:
             findings.append(f"{wf}: scheduler delivered {yld:.0%} of expected ticks in {window_h}h")
     return {"window_hours": window_h, "pipelines": out, "findings": findings}
+
+
+def panel_recovery_decision(
+    health: dict[str, Any],
+    runs: list[dict[str, Any]],
+    now: datetime | None = None,
+    *,
+    min_backlog: int = 3,
+    cooldown_minutes: int = 90,
+) -> dict[str, Any]:
+    """Bounded repair of archive gaps caused by dropped GitHub workflow_run/schedule ticks.
+
+    Only production runs are considered. Fail closed without workflow visibility,
+    and never dispatch when a panel is queued, running, or recently attempted.
+    """
+    now = now or datetime.now(UTC)
+    backlog = (health.get("panel_integrity") or {}).get("backlog_count")
+    base = {"action": "SKIP", "backlog": backlog, "cooldown_minutes": cooldown_minutes}
+    if type(backlog) is not int or backlog < 0:
+        return {**base, "reason": "panel_backlog_unavailable"}
+    if backlog < min_backlog:
+        return {**base, "reason": "below_recovery_threshold"}
+    if not runs:
+        return {**base, "reason": "workflow_run_visibility_unavailable"}
+    candidates = [
+        r
+        for r in runs
+        if r.get("workflowName") == "kalshi-market-panel" and r.get("event") != "pull_request"
+    ]
+    if any(
+        r.get("status") in ("queued", "pending", "in_progress", "waiting", "requested")
+        for r in candidates
+    ):
+        return {**base, "reason": "production_panel_already_active"}
+    observed = [t for r in candidates if (t := parse_ts(r.get("createdAt"))) is not None]
+    recent = max(observed) if observed else None
+    if recent is not None and now - recent < timedelta(minutes=cooldown_minutes):
+        return {
+            **base,
+            "reason": "panel_attempt_within_cooldown",
+            "latest_panel_created_at": recent.isoformat(),
+        }
+    return {**base, "action": "DISPATCH", "reason": "missing_partitions_and_no_recent_panel"}
