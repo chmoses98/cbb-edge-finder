@@ -225,7 +225,9 @@ function overview(){
    ${card(pct(modeled/N),`model coverage (${modeled.toLocaleString()} modeled)`)}${card(pct(settled/N),`settlement coverage (${settled.toLocaleString()} settled)`)}
    ${card(scored.toLocaleString(),'settled contracts with a scored closing quote')}${card(noPre.toLocaleString(),'no pretip quote (causes below)')}${card(noClose.toLocaleString(),'no closing quote')}
    ${card(age==null?'–':Math.round(age/60*10)/10+' h',`archive age at build · ${F.latest_snapshot_stale?'STALE':'fresh'}`)}${card(F.panel_backlog??'–','snapshots without panel partition')}</div>`;
-  h+=`<div class=note>Latest snapshot ${esc(H.last_snapshot)} · health ${H.healthy?'<span class=neg>healthy</span>':'<span class=pos>needs attention</span>'} · fee schedule ${esc(D.meta.fee_schedule)} · ${esc(D.meta.fill_assumption)}</div>`;
+  const G=H.grade||{status:H.healthy?'HEALTHY':'DEGRADED',critical:[],degraded:[]},CI=H.capture_intervals||{};
+  const rAge=Math.round((Date.now()-Date.parse(D.meta.generated_at))/60000);
+  h+=`<div class=note><b class="${G.status==='HEALTHY'?'neg':'pos'}">${G.status}</b>${[...G.critical,...G.degraded].length?' · '+esc([...G.critical,...G.degraded].join(', ')):''}<br>Research published ${rAge} min ago${rAge>180?' <span class=pos>(stale)</span>':''} · recent capture intervals (min): ${esc((CI.recent_minutes||[]).join(', '))||'–'} (median ${CI.median??'–'}, p90 ${CI.p90??'–'})<br>Latest snapshot ${esc(H.last_snapshot)} · health ${H.healthy?'<span class=neg>healthy</span>':'<span class=pos>needs attention</span>'} · fee schedule ${esc(D.meta.fee_schedule)} · ${esc(D.meta.fill_assumption)}</div>`;
   h+='<div class=grid2><div><h3>Pretip quote gaps (all contracts)</h3>'+tbl(count(C,c=>c.gap).map(([k,v])=>[esc(k),v]),['Cause','Contracts'])+
    '</div><div><h3>Health findings</h3>'+tbl(Object.entries(F).map(([k,v])=>[esc(k),esc(typeof v==='boolean'?(v?'yes':'no'):v)]),['Check','Value'])+'</div>';
   const pl=(H.pipelines&&H.pipelines.findings)||[];
