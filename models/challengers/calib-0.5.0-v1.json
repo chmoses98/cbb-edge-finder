@@ -1,0 +1,17 @@
+{
+ "base_version": "pure-0.5.0",
+ "diagnostics_before": {
+  "margin_z_sd": 1.0532759134539902,
+  "total_bias": 1.0867059594693973,
+  "total_z_sd": 1.0995626869127273
+ },
+ "fit_games": 72,
+ "fit_share": 0.6,
+ "fit_window_end": "2026-11-03T01:00:00+00:00",
+ "margin_sd_scale": 1.0532759134539902,
+ "note": "calibration layer on frozen projections; probabilities exist only for games tipping after fit_window_end; never promoted automatically",
+ "schema_version": "cbb-challenger-v1",
+ "total_bias": 1.0867059594693973,
+ "total_sd_scale": 1.0995626869127273,
+ "version": "calib-0.5.0-v1"
+}

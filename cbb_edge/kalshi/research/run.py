@@ -70,11 +70,16 @@ def build(
     now: datetime | None = None,
     runs: Path | None = None,
     periods: Path | None = None,
+    candles: Path | None = None,
     thresholds: audit.HealthThresholds | None = None,
+    challenger_path: Path | None = None,
 ) -> dict[str, Any]:
     now = now or datetime.now(UTC)
     contracts, ledger = load_universe(kalshi)
-    panel_info = attach_panel(contracts, panel)
+    challenger = None
+    if challenger_path is not None and challenger_path.exists():
+        challenger = json.loads(challenger_path.read_text())
+    panel_info = attach_panel(contracts, panel, challenger)
     scores = load_scores(schedule)
     period_scores = load_period_scores(periods)
     summaries, rows = evaluate_all(contracts, scores, period_scores)
@@ -99,6 +104,12 @@ def build(
     latest.mkdir(parents=True, exist_ok=True)
     _jsonl_gz(latest / "universe.jsonl.gz", summaries)
     _jsonl_gz(latest / "evaluations.jsonl.gz", rows)
+    if candles is not None:
+        from cbb_edge.kalshi.candles import candle_recovery_report
+
+        (latest / "candle_recovery_report.json").write_text(
+            json.dumps(candle_recovery_report(summaries, candles), indent=1)
+        )
     (latest / "snapshot_ledger.json").write_text(json.dumps(ledger, indent=1))
     mx["fee_schedule"] = fees.FEE_SCHEDULE_VERSION
     mx["fee_basis_rows"] = mx["overall"]["completeness"]["fee_basis_rows"]
@@ -148,11 +159,22 @@ def main() -> None:
     ap.add_argument("--schedule", type=Path)
     ap.add_argument("--periods", type=Path, help="period-scores-archive checkout (optional)")
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--challenger", type=Path, help="frozen challenger parameters JSON")
     ap.add_argument("--runs", type=Path, help="gh run list --json output for the pipeline monitor")
+    ap.add_argument("--candles", type=Path, help="candles archive dir -> candle_recovery_report")
     a = ap.parse_args()
     print(
         json.dumps(
-            build(a.kalshi, a.panel, a.schedule, a.out, runs=a.runs, periods=a.periods),
+            build(
+                a.kalshi,
+                a.panel,
+                a.schedule,
+                a.out,
+                runs=a.runs,
+                periods=a.periods,
+                candles=a.candles,
+                challenger_path=a.challenger,
+            ),
             indent=1,
             sort_keys=True,
         )
