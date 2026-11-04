@@ -278,6 +278,7 @@ def test_fee_inclusive_average_cost_is_not_double_counted():
 def test_evaluation_records_kind_basis_and_gross_vs_net_roi():
     c = contract([obs(20, 0.40, 0.44)], result="yes")
     c.series_meta = {"fee_type": "quadratic", "fee_multiplier": 1.0}
+    c.series_meta_at = T0  # fee fields were on record from the first capture
     _, rows = evaluate_contract(c, {7: (80, 60)})
     y = [r for r in rows if r["entry"] == "CLOSE"][0]["yes"]
     assert y["kind"] == "hypothetical_quote"
@@ -424,3 +425,16 @@ def test_dashboard_slim_carries_timelines_entries_and_night_readiness(tmp_path: 
     assert out["night_rows"][0]["rd"] == "110111101"
     close = next(r for r in out["rows"] if r["e"] == "CLOSE")
     assert close["Yg"] is not None and close["st"] is not None
+
+
+def test_fee_basis_distinguishes_contemporaneous_from_observed_later():
+    c = contract([obs(1, 0.4, 0.45), obs(20, 0.42, 0.46)], result="yes")
+    c.series_meta = {"fee_type": "quadratic", "fee_multiplier": 1}
+    c.series_meta_at = T0 + timedelta(hours=10)  # fee fields first on record between the quotes
+    _, rows = evaluate_contract(c, {7: (80, 60)})
+    basis = {r["entry"]: r["fee_basis"] for r in rows}
+    assert basis["OPEN"] == "series_api_observed_later"
+    assert basis["CLOSE"] == "series_api"
+    c.series_meta, c.series_meta_at = None, None
+    _, rows = evaluate_contract(c, {7: (80, 60)})
+    assert {r["fee_basis"] for r in rows} == {"assumed_default"}

@@ -43,6 +43,13 @@ capture before `min(tip, close_time)`, with `staleness_min`). A horizon with no 
   When a contract's series carries them the evaluation uses them (`fee_basis = series_api`);
   otherwise it falls back to the default and says so (`fee_basis = assumed_default`). `flat`/unknown
   fee types are `FEE_UNSUPPORTED` (no ROI is computed). Every row stores `fee_rule` and `fee_basis`.
+* **Observed 2026-11-03T23:47Z (first capture carrying series fee fields):** all 79 CBB series
+  report `fee_multiplier = 1`; 75 are `quadratic`, 4 (`KXNCAAMBGAME`, `KXNCAAMBSPREAD`,
+  `KXNCAAMBTOTAL`, `KXMARMAD`) are `quadratic_with_maker_fees`; `/series/fee_changes` returned no
+  scheduled changes. The 0.07 coefficient itself is not an API field, so it remains the published
+  general-schedule value. Quotes captured before a series' fee fields were first on record are
+  labelled `fee_basis = series_api_observed_later`. Hypothetical fills are taker orders; the maker
+  rate (0.0175) applies only to resting orders in the four maker-fee series and is not modelled.
 * `Execution` keeps `quote`, raw `fill`, `fee_total`, `total_cash`, Kalshi's fee-inclusive average
   cost, `gross_roi`, `net_roi` and a `kind` (`actual_fill` vs `hypothetical_quote`).
   `execution_from_inclusive_display` recovers a raw fill from the fee-inclusive display or refuses.

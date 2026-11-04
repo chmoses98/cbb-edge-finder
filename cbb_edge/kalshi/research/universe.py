@@ -102,6 +102,7 @@ class Contract:
     n_with_event: int = 0
     n_with_orderbook: int = 0
     series_meta: dict[str, Any] | None = None
+    series_meta_at: datetime | None = None  # first capture that carried the series fee fields
     obs: list[Obs] = field(default_factory=list)
     raw_last: dict[str, Any] = field(default_factory=dict)
     # panel-derived
@@ -181,6 +182,8 @@ def load_universe(kalshi_root: Path) -> tuple[dict[str, Contract], list[dict[str
                 c.settlement_value = sv
             if raw.get("series_meta"):
                 c.series_meta = raw["series_meta"]
+                if c.series_meta_at is None:
+                    c.series_meta_at = at
             c.last_status = str(m.get("status") or "")
             c.raw_last = {k: m[k] for k in _KEEP_RAW if k in m}
             o = Obs(
