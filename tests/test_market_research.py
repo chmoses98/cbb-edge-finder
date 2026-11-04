@@ -402,9 +402,13 @@ def test_headline_close_scoring_excludes_stale_closing_quotes():
 
     kept = matrix._scored([row("g1", 30.0), row("g2", 500.0), row("g3", 120.0)], "CLOSE")
     assert [r["cluster"] for r in kept] == ["g1", "g3"]  # 500 min old is not a closing price
+    fut = dict(
+        row("f1", 900000.0), tip_verified=False, ref_kind="close_time", family="FUTURES_OTHER"
+    )
+    assert matrix._scored([fut], "CLOSE") == [fut]  # non-game markets are exempt from the cap
     assert len(matrix._scored([row("g2", 500.0)], "H1")) == 0  # other entries are not capped
-    st = matrix._stale_stats([row("g1", 30.0), row("g2", 500.0)])
-    assert st["n"] == 2 and st["share_le_120"] == 0.5 and st["cap_minutes"] == 120.0
+    st = matrix._stale_stats([row("g1", 30.0), row("g2", 500.0), fut])
+    assert st["n"] == 2 and st["share_le_120"] == 0.5 and st["cap_minutes"] == 120.0  # fut excluded
 
 
 def test_dashboard_slim_carries_timelines_entries_and_night_readiness(tmp_path: Path):
