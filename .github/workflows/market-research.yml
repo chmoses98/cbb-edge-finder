@@ -157,3 +157,34 @@ jobs:
           elif [ "$stale" = "True" ]; then
             echo "capture is stale but a run is already waiting for a runner; not stacking another"
           fi
+
+      - name: Recover backlogged Kalshi as-of model panel (bounded and fail-closed)
+        # GitHub drops many workflow_run/scheduled events. Recover archived partitions,
+        # never fabricate missing raw quotes and never create a dispatch loop.
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # Re-fetch at action time: the earlier pipeline-health snapshot can be stale
+          # after the expensive market dataset build. No API access -> no dispatch.
+          gh run list --workflow kalshi-market-panel.yml --limit 30 \
+            --json workflowName,status,event,createdAt,conclusion > fresh_panel_runs.json \
+            || echo '[]' > fresh_panel_runs.json
+          python - <<'PY' > panel_recovery_decision.json
+          import json
+          from datetime import UTC, datetime
+          from cbb_edge.kalshi.research.monitor import panel_recovery_decision
+          with open("research_out/latest/health.json") as f:
+              health = json.load(f)
+          with open("fresh_panel_runs.json") as f:
+              runs = json.load(f)
+          print(json.dumps(panel_recovery_decision(health, runs, datetime.now(UTC))))
+          PY
+          cat panel_recovery_decision.json
+          action=$(python -c "import json; print(json.load(open('panel_recovery_decision.json'))['action'])")
+          if [ "$action" = "DISPATCH" ]; then
+            gh workflow run kalshi-market-panel.yml --ref main
+            echo 'Dispatched exactly one missing-panel backfill attempt'
+          fi
