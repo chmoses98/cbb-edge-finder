@@ -20,7 +20,7 @@ from typing import Any
 
 from cbb_edge.kalshi.research import fees
 from cbb_edge.kalshi.research.universe import Contract, Obs, parse_ts
-from cbb_edge.kalshi.semantics import settle
+from cbb_edge.kalshi.semantics import settle, settle_period
 
 LIVE_STATUSES = frozenset({"active", "open"})
 ENTRY_POINTS: tuple[tuple[str, float | None], ...] = (
@@ -129,7 +129,11 @@ def model_at(c: Contract, t: datetime) -> tuple[dict[str, float], dict[str, str]
     return (best.probs, best.gaps) if best else ({}, {})
 
 
-def status_dimensions(c: Contract, scores: dict[int, tuple[int, int]]) -> dict[str, Any]:
+def status_dimensions(
+    c: Contract,
+    scores: dict[int, tuple[int, int]],
+    periods: dict[int, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     tm = timing(c)
     priced = any(usable(o, tm.cutoff) for o in c.obs)
     res = c.result if c.result in ("yes", "no") else None
@@ -183,6 +187,12 @@ def status_dimensions(c: Contract, scores: dict[int, tuple[int, int]]) -> dict[s
             official = "GAME_NOT_COMPLETE_IN_ARCHIVE"
         else:
             exp, why = settle(sem, sc[0], sc[1])
+            if why == "needs_half_scores" or (
+                why == "needs_play_by_play" and sem.get("market_type") == "OVERTIME"
+            ):
+                pr = (periods or {}).get(c.espn_game_id)
+                if pr is not None:
+                    exp, why = settle_period(sem, pr)
             if exp is None:
                 official = f"NOT_CHECKABLE:{why}"
             else:
@@ -227,9 +237,11 @@ def pretip_gap_reason(c: Contract, tm: Resolved) -> str | None:
 
 
 def evaluate_contract(
-    c: Contract, scores: dict[int, tuple[int, int]]
+    c: Contract,
+    scores: dict[int, tuple[int, int]],
+    periods: dict[int, dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    dims = status_dimensions(c, scores)
+    dims = status_dimensions(c, scores, periods)
     rule = fees.rule_for(c.series_meta, (c.first_seen or datetime.now(UTC)).date())
     tm = timing(c)
     y = 1 if c.result == "yes" else 0 if c.result == "no" else None
@@ -366,12 +378,14 @@ def evaluate_contract(
 
 
 def evaluate_all(
-    contracts: dict[str, Contract], scores: dict[int, tuple[int, int]]
+    contracts: dict[str, Contract],
+    scores: dict[int, tuple[int, int]],
+    periods: dict[int, dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     summaries: list[dict[str, Any]] = []
     rows: list[dict[str, Any]] = []
     for tk in sorted(contracts):
-        s, r = evaluate_contract(contracts[tk], scores)
+        s, r = evaluate_contract(contracts[tk], scores, periods)
         summaries.append(s)
         rows.extend(r)
     return summaries, rows

@@ -24,7 +24,12 @@ from typing import Any
 
 from cbb_edge.kalshi.research import audit, dashboard, fees, matrix, monitor, panel_audit
 from cbb_edge.kalshi.research.evaluate import FILL_ASSUMPTION, evaluate_all
-from cbb_edge.kalshi.research.universe import attach_panel, load_scores, load_universe
+from cbb_edge.kalshi.research.universe import (
+    attach_panel,
+    load_period_scores,
+    load_scores,
+    load_universe,
+)
 
 
 def _jsonl_gz(path: Path, items: list[dict[str, Any]]) -> None:
@@ -64,6 +69,7 @@ def build(
     out: Path,
     now: datetime | None = None,
     runs: Path | None = None,
+    periods: Path | None = None,
     candles: Path | None = None,
     thresholds: audit.HealthThresholds | None = None,
     challenger_path: Path | None = None,
@@ -75,7 +81,8 @@ def build(
         challenger = json.loads(challenger_path.read_text())
     panel_info = attach_panel(contracts, panel, challenger)
     scores = load_scores(schedule)
-    summaries, rows = evaluate_all(contracts, scores)
+    period_scores = load_period_scores(periods)
+    summaries, rows = evaluate_all(contracts, scores, period_scores)
     mx = matrix.build_matrix(summaries, rows)
     night = audit.opening_night(summaries, rows)
     health = audit.archive_health(ledger, panel_info, summaries, now)
@@ -132,6 +139,7 @@ def build(
         "families": {f: b["discovered_contracts"] for f, b in mx["families"].items()},
         "panel_rows_joined": panel_info["rows"],
         "scores_loaded": len(scores),
+        "period_scores_loaded": len(period_scores),
         "health": health["findings"],
         "healthy": health["healthy"],
         "health_status": health["grade"]["status"],
@@ -149,6 +157,7 @@ def main() -> None:
     ap.add_argument("--kalshi", required=True, type=Path)
     ap.add_argument("--panel", type=Path)
     ap.add_argument("--schedule", type=Path)
+    ap.add_argument("--periods", type=Path, help="period-scores-archive checkout (optional)")
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--challenger", type=Path, help="frozen challenger parameters JSON")
     ap.add_argument("--runs", type=Path, help="gh run list --json output for the pipeline monitor")
@@ -162,6 +171,7 @@ def main() -> None:
                 a.schedule,
                 a.out,
                 runs=a.runs,
+                periods=a.periods,
                 candles=a.candles,
                 challenger_path=a.challenger,
             ),
