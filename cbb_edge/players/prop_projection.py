@@ -95,6 +95,9 @@ def player_stat_means(
     if past.duplicated(["player_id", "game_id"]).any():
         raise ValueError("duplicate pregame player-game box rows")
     past["min_numeric"] = past["min"].map(_minutes)
+    # A DNP row is not a played-game denominator and should not poison valid
+    # historical rates. Missing or malformed minutes never become fake zeroes.
+    past = past[past["min_numeric"].notna() & (past["min_numeric"] > 0)].copy()
     for stat in STATS:
         if stat in past:
             past[stat] = past[stat].map(_number)
