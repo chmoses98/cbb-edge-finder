@@ -26,8 +26,12 @@ def projected_target_mean(
 ) -> dict[str, Any]:
     """Projected *mean*, never a probability, for a precisely mapped team total."""
     out: dict[str, Any] = {
-        "value": None, "unit": "points", "basis": None, "status": "UNAVAILABLE",
-        "reason": None, "probability_available": False,
+        "value": None,
+        "unit": "points",
+        "basis": None,
+        "status": "UNAVAILABLE",
+        "reason": None,
+        "probability_available": False,
     }
     if semantics.get("status") != "parsed":
         out["reason"] = f"contract_parse_{semantics.get('status', 'missing')}"
@@ -55,10 +59,12 @@ def projected_target_mean(
     if other is not None and total is not None and abs((mean + other) - total) > 0.1:
         out["reason"] = "inconsistent_frozen_team_scores"
         return out
-    out.update({
-        "value": round(mean, 2),
-        "basis": "frozen_pretip_projected_team_score",
-        "status": "MEAN_ONLY",
-        "reason": "team_score_distribution_not_calibrated",
-    })
+    out.update(
+        {
+            "value": round(mean, 2),
+            "basis": "frozen_pretip_projected_team_score",
+            "status": "MEAN_ONLY",
+            "reason": "team_score_distribution_not_calibrated",
+        }
+    )
     return out
