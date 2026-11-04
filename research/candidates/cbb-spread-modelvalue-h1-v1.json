@@ -1,0 +1,45 @@
+{
+ "config": {
+  "entry": "H1",
+  "exclusions": [
+   "tip not verified",
+   "no fill"
+  ],
+  "family": "SPREAD",
+  "fill": "displayed top-of-book size must cover",
+  "horizon": "settled by final score",
+  "hypothesis": "Frozen pure-0.5.0 spread-cover probabilities find executable value (expected negative: the model trails the market on spreads).",
+  "id": "cbb-spread-modelvalue-h1-v1",
+  "order_contracts": 25,
+  "rule": {
+   "min_edge": 0.02,
+   "model_version": "pure-0.5.0",
+   "type": "model_value"
+  },
+  "series": [
+   "KXNCAAMBSPREAD"
+  ],
+  "success": {
+   "alpha_family": 0.05,
+   "ci": 0.9,
+   "min_games": 300,
+   "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+  }
+ },
+ "config_sha256": "afb9eab3c914046beb8bd0cb1ef8966fbd63318ea7cbbf8f87f9d6532ef3812f",
+ "discovery_at_registration": {
+  "contracts": 120,
+  "games": 120,
+  "gross_roi": -0.05069682892344983,
+  "hit_rate": 0.39166666666666666,
+  "mean_price": 0.4125833333333333,
+  "net_hi": 0.08279515835879193,
+  "net_lo": -0.2380310722907994,
+  "net_roi": -0.08506198218401544,
+  "note": "discovery only: seen before registration; cannot validate",
+  "p_le_zero": 0.8085
+ },
+ "registered_at": "2026-11-04T05:05:42.650829+00:00",
+ "registration_sha256": "afc68892ad85de472ba29d05d3d9838f480adea68c1d9dd4e3b991409f8dbac3",
+ "schema_version": "cbb-candidate-v1"
+}

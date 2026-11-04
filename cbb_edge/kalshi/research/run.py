@@ -22,7 +22,17 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from cbb_edge.kalshi.research import audit, dashboard, fee_probe, fees, matrix, monitor, panel_audit
+from cbb_edge.kalshi.research import (
+    audit,
+    candidates,
+    dashboard,
+    fee_probe,
+    fees,
+    matrix,
+    monitor,
+    panel_audit,
+    study,
+)
 from cbb_edge.kalshi.research.evaluate import FILL_ASSUMPTION, evaluate_all
 from cbb_edge.kalshi.research.universe import (
     attach_panel,
@@ -73,6 +83,7 @@ def build(
     candles: Path | None = None,
     thresholds: audit.HealthThresholds | None = None,
     fee_evidence: Path | None = None,
+    candidates_dir: Path | None = None,
     challenger_path: Path | None = None,
 ) -> dict[str, Any]:
     now = now or datetime.now(UTC)
@@ -121,8 +132,23 @@ def build(
             health["grade"]["status"] = "DEGRADED"
     health["fee_verification"] = fee_check
     health["healthy"] = health["grade"]["status"] == "HEALTHY"
+    tips = {s["ticker"]: s["game_start"] for s in summaries if s["game_start"]}
+    side_study = study.run_study(rows, tips)
+    registry = candidates.load_registry(candidates_dir) if candidates_dir else []
+    cand = candidates.evaluate(rows, tips, registry, fee_verified=fee_check["status"] == "MATCH")
+    cand["registry_violations"] = (
+        candidates.verify_registry(candidates_dir) if candidates_dir else []
+    )
+    if cand["registry_violations"]:
+        health["grade"]["critical"].extend(
+            f"candidate_registry:{v}" for v in cand["registry_violations"]
+        )
+        health["grade"]["status"] = "CRITICAL"
+        health["healthy"] = False
     latest = out / "latest"
     latest.mkdir(parents=True, exist_ok=True)
+    (latest / "study_sides.json").write_text(json.dumps(side_study, default=str))
+    (latest / "candidates.json").write_text(json.dumps(cand, indent=1, default=str))
     _jsonl_gz(latest / "universe.jsonl.gz", summaries)
     _jsonl_gz(latest / "evaluations.jsonl.gz", rows)
     if candles is not None:
@@ -153,7 +179,13 @@ def build(
     }  # fmt: skip
     (latest / "dashboard.html").write_text(
         dashboard.render(
-            mx, dashboard.slim(summaries, rows, contracts, night), {**meta, "health": health}
+            mx,
+            {
+                **dashboard.slim(summaries, rows, contracts, night),
+                "study": dashboard.study_summary(side_study),
+                "candidates": cand,
+            },
+            {**meta, "health": health},
         ),
         encoding="utf-8",
     )
@@ -185,6 +217,7 @@ def main() -> None:
     ap.add_argument("--schedule", type=Path)
     ap.add_argument("--periods", type=Path, help="period-scores-archive checkout (optional)")
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--candidates", type=Path, help="research/candidates registry directory")
     ap.add_argument("--fee-evidence", type=Path, help="latest.json from fee-schedule-archive")
     ap.add_argument("--challenger", type=Path, help="frozen challenger parameters JSON")
     ap.add_argument("--runs", type=Path, help="gh run list --json output for the pipeline monitor")
@@ -202,6 +235,7 @@ def main() -> None:
                 candles=a.candles,
                 challenger_path=a.challenger,
                 fee_evidence=a.fee_evidence,
+                candidates_dir=a.candidates,
             ),
             indent=1,
             sort_keys=True,

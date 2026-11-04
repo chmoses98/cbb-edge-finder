@@ -1,0 +1,45 @@
+{
+ "config": {
+  "entry": "H1",
+  "exclusions": [
+   "tip not verified",
+   "no fill"
+  ],
+  "family": "GAME_WINNER",
+  "fill": "displayed top-of-book size must cover",
+  "horizon": "settled by final score",
+  "hypothesis": "Where frozen pure-0.5.0 win probability exceeds the fee-inclusive ask, the best single side per game has positive net ROI.",
+  "id": "cbb-gw-modelvalue-h1-v1",
+  "order_contracts": 25,
+  "rule": {
+   "min_edge": 0.02,
+   "model_version": "pure-0.5.0",
+   "type": "model_value"
+  },
+  "series": [
+   "KXNCAAMBGAME"
+  ],
+  "success": {
+   "alpha_family": 0.05,
+   "ci": 0.9,
+   "min_games": 300,
+   "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+  }
+ },
+ "config_sha256": "f8d250b728a2deaaa126dd4de6cb84c5b160ec42bbc1d164e81e2f0be73a4ae4",
+ "discovery_at_registration": {
+  "contracts": 58,
+  "games": 58,
+  "gross_roi": 0.04566050888811432,
+  "hit_rate": 0.5172413793103449,
+  "mean_price": 0.49465517241379314,
+  "net_hi": 0.21228075036714789,
+  "net_lo": -0.1548572046733016,
+  "net_roi": 0.021408726916162784,
+  "note": "discovery only: seen before registration; cannot validate",
+  "p_le_zero": 0.4125
+ },
+ "registered_at": "2026-11-04T05:05:42.512036+00:00",
+ "registration_sha256": "d922f5216b70e463a41a735618cb52be444c070e414fc12dbf49584498489454",
+ "schema_version": "cbb-candidate-v1"
+}

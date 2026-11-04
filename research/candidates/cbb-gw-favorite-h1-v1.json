@@ -1,0 +1,43 @@
+{
+ "config": {
+  "entry": "H1",
+  "exclusions": [
+   "tip not verified",
+   "no fill"
+  ],
+  "family": "GAME_WINNER",
+  "fill": "displayed top-of-book size must cover",
+  "horizon": "settled by final score",
+  "hypothesis": "CONTROL: favorites at the ask lose to fees and overround (expected negative).",
+  "id": "cbb-gw-favorite-h1-v1",
+  "order_contracts": 25,
+  "rule": {
+   "type": "baseline_favorite"
+  },
+  "series": [
+   "KXNCAAMBGAME"
+  ],
+  "success": {
+   "alpha_family": 0.05,
+   "ci": 0.9,
+   "min_games": 300,
+   "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+  }
+ },
+ "config_sha256": "8afac47bbc97dd0eb3e23d78bf59bbad2067dc61afbfa6f30ad7a005a76d5767",
+ "discovery_at_registration": {
+  "contracts": 110,
+  "games": 110,
+  "gross_roi": -0.059595407326407876,
+  "hit_rate": 0.7818181818181819,
+  "mean_price": 0.8313636363636364,
+  "net_hi": -0.002121576300821283,
+  "net_lo": -0.13393765239366306,
+  "net_roi": -0.06873998354052062,
+  "note": "discovery only: seen before registration; cannot validate",
+  "p_le_zero": 0.9545
+ },
+ "registered_at": "2026-11-04T05:05:42.416653+00:00",
+ "registration_sha256": "dfb41b35949741b20e23a970462f8493737c33b6eee5a2e240c1c1dd29ac5cc2",
+ "schema_version": "cbb-candidate-v1"
+}

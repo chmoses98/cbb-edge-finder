@@ -104,6 +104,7 @@ jobs:
             --kalshi arch/kalshi-archive --panel arch/kalshi-panel-archive \
             --schedule arch/schedule-archive --periods arch/period-scores-archive \
             --runs runs.json --fee-evidence arch/fee-schedule-archive/latest.json \
+            --candidates research/candidates --challenger models/challengers/calib-0.5.0-v1.json \
             --out research_out | tee research_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
