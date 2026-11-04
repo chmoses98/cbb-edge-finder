@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import random
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -209,13 +210,9 @@ def test_candidate_report_includes_game_cluster_funnel_and_never_approves_early(
     from cbb_edge.kalshi.research import progress as P
 
     c = cfg()
-    C.register(c, {"games": 0}, now=__import__("datetime").datetime(
-        2026, 11, 4, 14, tzinfo=__import__("datetime").UTC
-    ), directory=tmp_path)
+    C.register(c, {"games": 0}, now=datetime(2026, 11, 4, 14, tzinfo=UTC), directory=tmp_path)
     reg = C.load_registry(tmp_path)
-    bets, tips = games(
-        "N", 2, "2026-11-05T09:00:00Z", "2026-11-05T10:00:00+00:00", [True]
-    )
+    bets, tips = games("N", 2, "2026-11-05T09:00:00Z", "2026-11-05T10:00:00+00:00", [True])
     # Deliberately duplicate the first game's contract observations: neither the
     # funnel nor the formal sample can treat ten contracts as ten independent games.
     report = C.evaluate(bets, tips, reg, fee_verified=False)["candidates"][0]
@@ -237,8 +234,6 @@ def test_candidate_report_includes_game_cluster_funnel_and_never_approves_early(
 
 
 def test_funnel_exposes_missing_post_registration_quotes_without_invented_roi(tmp_path: Path):
-    from datetime import UTC, datetime
-
     C.register(cfg(), {"games": 0}, now=datetime(2026, 11, 4, 14, tzinfo=UTC), directory=tmp_path)
     reg = C.load_registry(tmp_path)
     bets, tips = games("N", 2, "2026-11-04T13:00:00Z", "2026-11-05T10:00:00Z", [True])
