@@ -30,7 +30,7 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       DOC_URL: https://kalshi.com/docs/kalshi-fee-schedule.pdf
       PAGE_URL: https://kalshi.com/fee-schedule
@@ -51,7 +51,7 @@ jobs:
           fetch() { # url outfile ; polite back-off, honours rate limiting (HTTP 429), no evasion
             for i in 1 2 3; do
               if curl -fsSL -m 60 -A "$UA" -o "$2" "$1"; then return 0; fi
-              sleep $((i * 30))
+              sleep $((i * 15))
             done
             return 1
           }
