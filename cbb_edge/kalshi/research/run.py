@@ -64,6 +64,7 @@ def build(
     out: Path,
     now: datetime | None = None,
     runs: Path | None = None,
+    candles: Path | None = None,
     thresholds: audit.HealthThresholds | None = None,
     challenger_path: Path | None = None,
 ) -> dict[str, Any]:
@@ -96,6 +97,12 @@ def build(
     latest.mkdir(parents=True, exist_ok=True)
     _jsonl_gz(latest / "universe.jsonl.gz", summaries)
     _jsonl_gz(latest / "evaluations.jsonl.gz", rows)
+    if candles is not None:
+        from cbb_edge.kalshi.candles import candle_recovery_report
+
+        (latest / "candle_recovery_report.json").write_text(
+            json.dumps(candle_recovery_report(summaries, candles), indent=1)
+        )
     (latest / "snapshot_ledger.json").write_text(json.dumps(ledger, indent=1))
     mx["fee_schedule"] = fees.FEE_SCHEDULE_VERSION
     mx["fee_basis_rows"] = mx["overall"]["completeness"]["fee_basis_rows"]
@@ -145,10 +152,19 @@ def main() -> None:
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--challenger", type=Path, help="frozen challenger parameters JSON")
     ap.add_argument("--runs", type=Path, help="gh run list --json output for the pipeline monitor")
+    ap.add_argument("--candles", type=Path, help="candles archive dir -> candle_recovery_report")
     a = ap.parse_args()
     print(
         json.dumps(
-            build(a.kalshi, a.panel, a.schedule, a.out, runs=a.runs, challenger_path=a.challenger),
+            build(
+                a.kalshi,
+                a.panel,
+                a.schedule,
+                a.out,
+                runs=a.runs,
+                candles=a.candles,
+                challenger_path=a.challenger,
+            ),
             indent=1,
             sort_keys=True,
         )
