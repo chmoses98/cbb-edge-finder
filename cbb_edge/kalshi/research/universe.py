@@ -202,7 +202,11 @@ def load_universe(kalshi_root: Path) -> tuple[dict[str, Contract], list[dict[str
     return contracts, ledger
 
 
-def attach_panel(contracts: dict[str, Contract], panel_root: Path | None) -> dict[str, Any]:
+def attach_panel(
+    contracts: dict[str, Contract],
+    panel_root: Path | None,
+    challenger: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Join frozen as-of model probabilities / identity from panel partitions (if any)."""
     info: dict[str, Any] = {"partitions": 0, "rows": 0, "snapshots_with_panel": []}
     if panel_root is None:
@@ -234,6 +238,25 @@ def attach_panel(contracts: dict[str, Contract], panel_root: Path | None) -> dic
                     probs[ver] = float(pr["probability"])
                 else:
                     gaps[ver] = str(pr.get("method_or_gap"))
+            if (
+                challenger
+            ):  # shadow challenger derived from the frozen projection, out of sample only
+                from cbb_edge.kalshi.research import challenger as ch
+
+                base = ((row.get("models_as_of_capture") or {}).get("versions") or {}).get(
+                    challenger["base_version"]
+                )
+                tip = row.get("game_start_utc") or ""
+                if base is None:
+                    gaps[challenger["version"]] = "no_base_projection"
+                elif not tip or tip <= challenger["fit_window_end"]:
+                    gaps[challenger["version"]] = "game_inside_fit_window_no_out_of_sample_value"
+                else:
+                    cp = ch.probability(row.get("contract_semantics") or {}, base, challenger)
+                    if cp is None:
+                        gaps[challenger["version"]] = "unsupported_contract_for_challenger"
+                    else:
+                        probs[challenger["version"]] = cp
             at = parse_ts(row.get("captured_at"))
             if at is None:
                 continue
@@ -262,3 +285,31 @@ def load_scores(schedule_root: Path | None) -> dict[int, tuple[int, int]]:
                 ):
                     out[int(r["game_id"])] = (int(r["home_score"]), int(r["away_score"]))
     return out
+
+
+def load_period_scores(root: Path | None) -> dict[int, dict[str, Any]]:
+    """Verified per-period score records by ESPN game id from the period-scores archive.
+
+    Reads ``periods/**/*.jsonl`` (files in stamp order). The newest record that passes a fresh
+    re-check wins; unverified records are ignored. A game with any conflicting verified
+    observation (``superseded_by_conflict``) is left out entirely: ambiguity never settles.
+    """
+    from cbb_edge.market.period_scores import CONFLICT_FLAG, check
+
+    out: dict[int, dict[str, Any]] = {}
+    conflicted: set[int] = set()
+    if root is None:
+        return out
+    for path in sorted(root.glob("periods/**/*.jsonl")):
+        with path.open(encoding="utf-8") as fh:
+            for line in fh:
+                if not line.strip():
+                    continue
+                r = json.loads(line)
+                if r.get("espn_game_id") is None or r.get("verified") is not True or check(r):
+                    continue
+                gid = int(r["espn_game_id"])
+                if CONFLICT_FLAG in (r.get("flags") or []):
+                    conflicted.add(gid)
+                out[gid] = r
+    return {g: r for g, r in out.items() if g not in conflicted}
