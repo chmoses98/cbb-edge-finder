@@ -69,9 +69,10 @@ def fit_joint_scores(
         pred_at, tip, known = (_utc(s) for s in stamps)
         if not (pred_at < tip and pred_at <= cut and tip < known < cut):
             continue
-        vals = [_number(r.get(k)) for k in (
-            "predicted_home", "predicted_away", "actual_home", "actual_away"
-        )]
+        vals = [
+            _number(r.get(k))
+            for k in ("predicted_home", "predicted_away", "actual_home", "actual_away")
+        ]
         if any(v is None for v in vals):
             continue
         h, a, ah, aa = (float(v) for v in vals if v is not None)
@@ -128,10 +129,12 @@ def shadow_probability(
     h, a = _number(projection.get("home_score")), _number(projection.get("away_score"))
     if h is None or a is None or not math.isfinite(line):
         return {
-            "status": "UNAVAILABLE", "model_probability": None,
-            "reason": "missing_score_mean_or_valid_line", "authorized_bet": False,
+            "status": "UNAVAILABLE",
+            "model_probability": None,
+            "reason": "missing_score_mean_or_valid_line",
+            "authorized_bet": False,
         }
-    vh, va = fit.sd_home ** 2, fit.sd_away ** 2
+    vh, va = fit.sd_home**2, fit.sd_away**2
     mu, variance = {
         "home_total": (h, vh),
         "away_total": (a, va),
