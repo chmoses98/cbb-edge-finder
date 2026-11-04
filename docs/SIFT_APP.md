@@ -70,6 +70,16 @@ live_probability_ok, captured_at, note}` computed against the publication clock
 bid/ask stay as evidence with their `captured_at`. A settled or empty book therefore never shows the
 placeholder midpoint of 0.5, and a quote hours old is never shown as current.
 
+## Research block per market (`extensions.cbb_research`, never an authorized bet)
+
+Every published game market also carries `extensions.cbb_research` (`cbb_edge/app/sift_app/research_ext.py`):
+`model_probability` from the incumbent's frozen as-of projection (only for validated payoff parsers; otherwise
+`null` with the exact `model_gap`), `market_implied_probability` (live quotes only), `net_edge.{yes,no}` =
+model probability minus the fee-inclusive cost of the current best price (null unless the quote is LIVE),
+`max_acceptable_price.{yes,no}` (highest price with non-negative net expected value, fee included), `fee_rule` and
+`fee_basis` (assumed vs from the series API), and `validation = {status: RESEARCH_ONLY, authorized_bet: false}`.
+A SHADOW or preregistered signal is not an authorized bet; see the Market Lab Signals tab for candidate status.
+
 ## Freeze
 
 The package imports no projection, rating, roster-overlay or scoring module (AST-tested), writes into no

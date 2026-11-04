@@ -32,6 +32,7 @@ from edge_finder_contract.validate import validate
 from scipy.stats import norm
 
 from cbb_edge.app.sift_app.quotes import classify_quote
+from cbb_edge.app.sift_app.research_ext import research_block
 from cbb_edge.kalshi.semantics import parse_contract
 from cbb_edge.ops.schedule_state import ANNOUNCED, ET, time_state
 
@@ -779,7 +780,7 @@ def build(w: World) -> Built:
             if ev is None:
                 continue
             for raw in raws:
-                m = _market(raw, ev, teams, w.kalshi, w.now)
+                m = _market(raw, ev, teams, w.kalshi, w.now, _proj_info(sel.get(gid), w))
                 if m is not None:
                     markets.append(m)
     mk_by_event: dict[str, list[dict]] = {}
@@ -922,12 +923,56 @@ def _integrity(gid: int, s_: S.Selection, w: World, completed: bool) -> dict[str
             "scoreboard": w.scoreboard.path if w.scoreboard else None}  # fmt: skip
 
 
+def _proj_info(selection: Any, w: World) -> dict[str, Any] | None:
+    """The incumbent's frozen projection chosen for this game (as-of selection, never hindsight)."""
+    if selection is None:
+        return None
+    inc = w.active["incumbent"]
+    choice = selection.chosen.get(inc)
+    if choice is None or inc in selection.identity_changed:
+        return None
+    p = choice.record.get("projection") or {}
+    return {
+        "version": inc, "as_of": choice.as_of.isoformat(),
+        "projection": {
+            "margin": p.get("margin"), "margin_sd": p.get("margin_sd"), "total": p.get("total"),
+            "total_sd": p.get("total_sd"), "home_win_prob": p.get("home_win_prob"),
+        },
+    }  # fmt: skip
+
+
+def _market_extensions(
+    quote: dict[str, Any] | None,
+    sem: dict[str, Any],
+    proj_info: dict[str, Any] | None,
+    raw: dict[str, Any],
+    m: dict[str, Any],
+    now: pd.Timestamp | None,
+) -> dict[str, Any] | None:
+    ext: dict[str, Any] = {}
+    if quote:
+        ext["cbb_quote"] = quote
+    if now is not None:
+
+        def num(k: str) -> float | None:
+            v = m.get(k)
+            return None if v in (None, "") else float(v)
+
+        ext["cbb_research"] = research_block(
+            sem, (proj_info or {}).get("projection"), (proj_info or {}).get("version"),
+            (proj_info or {}).get("as_of"), quote, num("yes_bid_dollars"), num("yes_ask_dollars"),
+            raw.get("series_meta"), S.ts(now).date(),
+        )  # fmt: skip
+    return ext or None
+
+
 def _market(
     raw: dict[str, Any],
     ev: dict,
     teams: dict[str, dict],
     cap: KalshiCapture,
     now: pd.Timestamp | None = None,
+    proj_info: dict[str, Any] | None = None,
 ) -> dict | None:
     m = raw.get("market") or {}
     tk = m.get("ticker")
@@ -979,7 +1024,7 @@ def _market(
             open_interest=m.get("open_interest_fp"), market_status=status,
             close_time_utc=m.get("close_time"), captured_at=cap.captured_at,
             raw_market_reference=f"kalshi-archive/{cap.file}",
-            extensions={"cbb_quote": quote} if quote else None,
+            extensions=_market_extensions(quote, sem, proj_info, raw, m, now),
         )  # fmt: skip
     except (ValueError, TypeError):
         return None
