@@ -286,7 +286,7 @@ function families(){
    <label>Model version<select id="fver">${o(vers.length?vers:['(none)'])}</select></label>
    <label>Max closing-quote age (min)<input id="fst" type="number" step="15" min="0" value="${FF.stale}"></label>
    <label>Quality tier<select id="ftier">${['','A','B','C'].map(t=>`<option value="${t}"${t===FF.tier?' selected':''}>${t||'all'}</option>`).join('')}</select></label></div>
-   <div class=note>Means are cluster-weighted (one game = one observation); ± is 1.645 cluster standard errors. Model-vs-market is paired on the same contracts and quote; negative Δ Brier = model better. ROI is a hypothetical taker fill (see assumptions above), shown gross and net of fees; it is not a performance claim.</div>
+   <div class=note>Means are cluster-weighted (one game = one observation); ± is 1.645 cluster standard errors. Model-vs-market is paired on the same contracts and quote; negative Δ Brier = model better. The pooled-leg CLV column is a cost measure (closing mid minus entry ask averaged over YES and NO legs: movement cancels, so it equals the entry half-spread plus fee); selection CLV on the model-preferred side is in matrix.json (clv_selection_model_side). ROI is a hypothetical taker fill (see assumptions above), shown gross and net of fees; it is not a performance claim.</div>
    <div class=wrap><table id="fam"></table></div><h2 id="dt"></h2><div class=wrap style="max-height:420px"><table id="det"></table></div>`;
   for(const[id,k,t]of[['ffam','fam','s'],['fent','ent','s'],['fd0','d0','s'],['fd1','d1','s'],['fp0','p0','n'],['fp1','p1','n'],['fh','h','n'],['fst','stale','n'],['fver','ver','s'],['ftier','tier','s']])
     $(id).oninput=e=>{FF[k]=t==='n'?parseFloat(e.target.value):e.target.value;famTable()};
