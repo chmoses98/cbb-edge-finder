@@ -1,0 +1,113 @@
+name: kalshi-candles
+
+# Proof-of-concept recovery of pregame price HISTORY from Kalshi's official public candlesticks
+# endpoint for CBB contracts whose pregame quotes the live capture missed. Candle data is
+# aggregate OHLC, not top-of-book: it is stored in its own `kalshi-candles-archive` branch,
+# labelled executable=false / recovered_candle_not_top_of_book, and is never used for fills.
+# Independent of kalshi-capture: separate concurrency group, branch and permissions.
+# Pull-request runs only validate (target selection, no requests, no branch writes).
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "47 5,17 * * *"  # every 12 hours at an odd minute; safe if GitHub drops it
+  pull_request:
+    paths:
+      - "cbb_edge/kalshi/candles.py"
+      - "tests/test_candles.py"
+      - ".github/workflows/kalshi-candles.yml"
+
+concurrency:
+  group: kalshi-candles${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.pull_request.number) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  ALLOW_PAID_ODDS_API: "false"
+  ODDS_API_MAX_REQUESTS: "0"
+  ALLOW_CBBD: "false"
+  CBBD_MAX_REQUESTS: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  candles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Cost audit
+        run: python -m cbb_edge.data.cost_policy audit
+      - name: Fetch research universe (market-research branch)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir research && cd research
+          git init -q
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin market-research && git checkout -q FETCH_HEAD -- latest/universe.jsonl.gz; then
+            ls -l latest/universe.jsonl.gz
+          else
+            echo "::warning::no latest/universe.jsonl.gz on market-research; nothing to do"
+            rm -rf latest
+          fi
+      - name: Check out candles archive (if it exists)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir archive && cd archive
+          git init -q
+          git config user.name "cbb-edge-finder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin kalshi-candles-archive; then
+            git checkout -q -b kalshi-candles-archive FETCH_HEAD
+          else
+            git checkout -q --orphan kalshi-candles-archive
+            printf '# Kalshi candlestick recovery archive\n\nImmutable records written by .github/workflows/kalshi-candles.yml.\nSchema: cbb_edge/kalshi/candles.py (kalshi-candles-v1).\n\nEvery record is `executable=false`, provenance `recovered_candle_not_top_of_book`:\naggregate OHLC candles, NOT top-of-book quotes. Never use as a fill price.\n' > README.md
+          fi
+      - name: Recover candles (PR runs: select targets only, no requests)
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/data
+          DRY_RUN: ${{ github.event_name == 'pull_request' && '--dry-run' || '' }}
+        run: |
+          set -euo pipefail
+          if [ ! -f research/latest/universe.jsonl.gz ]; then
+            echo '{"targets": 0, "note": "no universe available"}' | tee candles_summary.json
+            exit 0
+          fi
+          python -m cbb_edge.kalshi.candles \
+            --universe research/latest/universe.jsonl.gz --archive archive \
+            --max-targets 150 --sleep 0.5 $DRY_RUN | tee candles_summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kalshi-candles-${{ github.run_id }}
+          path: |
+            candles_summary.json
+            archive/candles
+          retention-days: 30
+      - name: Append partition to kalshi-candles-archive branch
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          cd archive
+          git add -A
+          if git diff --cached --quiet; then
+            echo "nothing new to archive"
+            exit 0
+          fi
+          git commit -q -m "kalshi candles $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3 4; do
+            git push -q origin kalshi-candles-archive && exit 0
+            sleep $((2 ** i))
+            git fetch -q --depth=1 origin kalshi-candles-archive && git rebase -q FETCH_HEAD || true
+          done
+          exit 1
