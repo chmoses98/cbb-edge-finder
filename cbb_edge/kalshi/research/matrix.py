@@ -155,7 +155,32 @@ def _model_rule_roi(rows: list[dict[str, Any]], ver: str) -> dict[str, Any]:
 
 
 def _clv(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
+    """Mean of ``key`` over BOTH legs of every row (YES and NO, whatever a model would buy).
+
+    For ``clv_gross``/``clv_net`` (quoted execution: close mid - entry ask) the two legs move in opposite directions,
+    so any market movement cancels and the mean is the entry half-spread (plus the fee for ``clv_net``) BY CONSTRUCTION.
+    It measures the cost of crossing the spread, not whether a selection beat the close. Use
+    ``_model_side_clv(..., "clv_selection")`` for a selection measure."""
     pairs = [(r["cluster"], r[s][key]) for r in rows for s in ("yes", "no") if key in r[s]]
+    return cluster_mean(pairs)
+
+
+def _model_side_clv(
+    rows: list[dict[str, Any]], ver: str, key: str = "clv_selection"
+) -> dict[str, Any]:
+    """``key`` on the side the model prefers (higher EV, the same side rule as ``_model_rule_roi`` but without the
+    EV > 0 filter), clustered by game. ``clv_selection`` = close mid - entry mid of that side: spread- and fee-free."""
+    pairs = []
+    for r in rows:
+        m = r["model"].get(ver)
+        if not m:
+            continue
+        evs = [(m[f"ev_{s}"], s) for s in ("yes", "no") if f"ev_{s}" in m]
+        if not evs:
+            continue
+        side = max(evs)[1]
+        if key in r[side]:
+            pairs.append((r["cluster"], r[side][key]))
     return cluster_mean(pairs)
 
 
@@ -214,8 +239,12 @@ def block(contracts: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[s
             ),
             "yes_buy": _roi(er, "yes"),
             "no_buy": _roi(er, "no"),
+            # QUOTED-EXECUTION CLV pooled over both legs: equals the entry half-spread (and fee) by construction.
             "clv_gross": _clv(er, "clv_gross"),
             "clv_fee_adjusted": _clv(er, "clv_net"),
+            "clv_pooled_legs_basis": "quoted_execution (close_mid - entry_ask) over YES and NO legs; movement cancels",
+            # SELECTION CLV on the model-preferred side (additive, clv-canonical/1).
+            "clv_selection_model_side": {v: _model_side_clv(er, v) for v in versions},
             "model_positive_ev_rule": {v: _model_rule_roi(er, v) for v in versions},
         }
     return {
