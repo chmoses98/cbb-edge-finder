@@ -25,9 +25,10 @@ def test_no_dispatch_if_panel_is_recent_or_running_or_backlog_is_small():
     assert panel_recovery_decision(health(), [run(minutes_ago=20)], NOW)["reason"] == (
         "panel_attempt_within_cooldown"
     )
-    assert panel_recovery_decision(
-        health(), [run(minutes_ago=120, status="queued")], NOW
-    )["reason"] == "production_panel_already_active"
+    assert (
+        panel_recovery_decision(health(), [run(minutes_ago=120, status="queued")], NOW)["reason"]
+        == "production_panel_already_active"
+    )
     assert panel_recovery_decision(health(2), [run(minutes_ago=120)], NOW)["action"] == "SKIP"
 
 
