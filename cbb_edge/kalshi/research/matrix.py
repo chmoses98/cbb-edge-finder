@@ -165,7 +165,9 @@ def _clv(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
     return cluster_mean(pairs)
 
 
-def _model_side_clv(rows: list[dict[str, Any]], ver: str, key: str = "clv_selection") -> dict[str, Any]:
+def _model_side_clv(
+    rows: list[dict[str, Any]], ver: str, key: str = "clv_selection"
+) -> dict[str, Any]:
     """``key`` on the side the model prefers (higher EV, the same side rule as ``_model_rule_roi`` but without the
     EV > 0 filter), clustered by game. ``clv_selection`` = close mid - entry mid of that side: spread- and fee-free."""
     pairs = []
