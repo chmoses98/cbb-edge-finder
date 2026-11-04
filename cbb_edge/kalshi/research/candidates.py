@@ -25,6 +25,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from cbb_edge.kalshi.research import progress as sample_progress
 from cbb_edge.kalshi.research import study
 from cbb_edge.kalshi.research.matrix import cluster_ratio
 
@@ -130,17 +131,23 @@ def evaluate(
         cfg = reg["config"]
         reg_at = reg["registered_at"]
         bets = apply_rule(cfg, eval_rows, tips)
-        prosp = [b for b in bets if b["t"] >= reg_at and b["tip"] > reg_at]
-        retro = [b for b in bets if b not in prosp]
+        prosp = [b for b in bets if sample_progress.prospective_bet(b, reg_at)]
+        retro = [b for b in bets if not sample_progress.prospective_bet(b, reg_at)]
         ps, rs = study.summarize(prosp, rng), study.summarize(retro, rng)
         ps["clv"] = None  # CLV needs the closing quote per bet; reported by the matrix, not here
+        status = _status(ps, cfg, len(registry), fee_verified)
+        milestone_progress = sample_progress.progress(
+            ps["games"], cfg["success"]["min_games"], status
+        )
+        funnel = sample_progress.eligibility_funnel(cfg, reg_at, eval_rows, tips, prosp)
         out.append(
             {
                 "id": cfg["id"], "hypothesis": cfg["hypothesis"], "family": cfg["family"],
                 "side_rule": cfg["rule"], "entry": cfg["entry"], "registered_at": reg_at,
                 "config_sha256": reg["config_sha256"],
-                "status": _status(ps, cfg, len(registry), fee_verified),
+                "status": status,
                 "prospective": ps, "discovery_retrospective": rs,
+                "sample_progress": milestone_progress, "eligibility_funnel": funnel,
                 "discovery_at_registration": reg.get("discovery_at_registration"),
                 "success_criteria": cfg["success"],
                 "fee_schedule_verified": fee_verified,
