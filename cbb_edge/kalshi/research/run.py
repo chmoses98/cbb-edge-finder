@@ -66,10 +66,14 @@ def build(
     runs: Path | None = None,
     candles: Path | None = None,
     thresholds: audit.HealthThresholds | None = None,
+    challenger_path: Path | None = None,
 ) -> dict[str, Any]:
     now = now or datetime.now(UTC)
     contracts, ledger = load_universe(kalshi)
-    panel_info = attach_panel(contracts, panel)
+    challenger = None
+    if challenger_path is not None and challenger_path.exists():
+        challenger = json.loads(challenger_path.read_text())
+    panel_info = attach_panel(contracts, panel, challenger)
     scores = load_scores(schedule)
     summaries, rows = evaluate_all(contracts, scores)
     mx = matrix.build_matrix(summaries, rows)
@@ -146,12 +150,21 @@ def main() -> None:
     ap.add_argument("--panel", type=Path)
     ap.add_argument("--schedule", type=Path)
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--challenger", type=Path, help="frozen challenger parameters JSON")
     ap.add_argument("--runs", type=Path, help="gh run list --json output for the pipeline monitor")
     ap.add_argument("--candles", type=Path, help="candles archive dir -> candle_recovery_report")
     a = ap.parse_args()
     print(
         json.dumps(
-            build(a.kalshi, a.panel, a.schedule, a.out, runs=a.runs, candles=a.candles),
+            build(
+                a.kalshi,
+                a.panel,
+                a.schedule,
+                a.out,
+                runs=a.runs,
+                candles=a.candles,
+                challenger_path=a.challenger,
+            ),
             indent=1,
             sort_keys=True,
         )
