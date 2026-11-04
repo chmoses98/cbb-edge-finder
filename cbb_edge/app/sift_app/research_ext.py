@@ -17,6 +17,7 @@ from typing import Any
 
 from cbb_edge.kalshi import semantics
 from cbb_edge.kalshi.research import fees
+from cbb_edge.kalshi.research.target_means import projected_target_mean
 
 ORDER = fees.REFERENCE_CONTRACTS
 
@@ -40,6 +41,9 @@ def research_block(
         p, method = semantics.probability(sem, proj)
         if p is None:
             gap = method
+    # Show an actual frozen team scoring projection even when its cover probability
+    # is unavailable. Never turn the point mean into a hit-rate or executable edge.
+    target_mean = projected_target_mean(sem, proj if version is not None else None)
     rule = fees.rule_for(series_meta, on)
     live = bool(quote and quote.get("live_probability_ok"))
     prices = fees.side_prices(yes_bid, yes_ask) if live else {"yes": None, "no": None}
@@ -71,6 +75,7 @@ def research_block(
     return {
         "model_version": version, "model_as_of": as_of,
         "model_probability": p, "model_gap": gap,
+        "projected_target_mean": target_mean,
         "market_implied_probability": mid,
         "market_probability_reason": None if live else "quote_not_live",
         "fee_rule": rule.version, "fee_basis": rule.basis, "order_contracts": ORDER,
