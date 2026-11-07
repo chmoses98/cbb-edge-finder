@@ -1,0 +1,2358 @@
+{
+  "bet_authority": "RESEARCH_ONLY",
+  "commit_sha": "199488b3d0a61139e50896f24ea92d0de2248aba",
+  "components": {
+    "export": {
+      "age_seconds": 0.0,
+      "as_of": "2026-11-07T15:53:42Z",
+      "detail": null,
+      "status": "OK"
+    },
+    "market_data": {
+      "age_seconds": 154.8,
+      "as_of": "2026-11-07T15:51:07Z",
+      "detail": "5816 Kalshi game contracts mapped (read-only capture 2026-11-07T15:51:07.230289+00:00)",
+      "status": "OK"
+    },
+    "model": {
+      "age_seconds": 16559.0,
+      "as_of": "2026-11-07T11:17:42Z",
+      "detail": null,
+      "status": "OK"
+    },
+    "projection_archive": {
+      "age_seconds": 16559.0,
+      "as_of": "2026-11-07T11:17:42Z",
+      "detail": "4110 archived records; append-only; commit d6b39a01a3a6bb9f0870d82d2f08c0d17509276d",
+      "status": "OK"
+    },
+    "prospective_pipeline": {
+      "age_seconds": 16559.0,
+      "as_of": "2026-11-07T11:17:42Z",
+      "detail": "HEALTHY: last prospective run 2026-11-07T11:17:42.967589+00:00 (5 records)",
+      "status": "OK"
+    },
+    "prospective_scorer": {
+      "age_seconds": 76788.0,
+      "as_of": "2026-11-06T18:33:54Z",
+      "detail": "game-1 N = 162",
+      "status": "OK"
+    },
+    "roster_archive": {
+      "age_seconds": 4151.0,
+      "as_of": "2026-11-07T14:44:31Z",
+      "detail": "commit a90e569e8153ce3ad5e37c47ea1bed89b8763b7e",
+      "status": "OK"
+    },
+    "roster_truth": {
+      "age_seconds": 4151.0,
+      "as_of": "2026-11-07T14:44:31Z",
+      "detail": "HEALTHY: CONFIRMED 359, LIKELY 8, STALE 1",
+      "status": "OK"
+    },
+    "router": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": null,
+      "status": "NOT_APPLICABLE"
+    },
+    "schedule": {
+      "age_seconds": 4379.0,
+      "as_of": "2026-11-07T14:40:43Z",
+      "detail": "HEALTHY: 5454 D-I games (6071 SDV-native, 45 ESPN fallback, 57 field-reconciled)",
+      "status": "OK"
+    },
+    "schedule_archive": {
+      "age_seconds": 4379.0,
+      "as_of": "2026-11-07T14:40:43Z",
+      "detail": "commit 1d72e0d08b591cc91c34487ea12917f2e411557d",
+      "status": "OK"
+    },
+    "settlement": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": null,
+      "status": "NOT_APPLICABLE"
+    },
+    "upcoming_projection": {
+      "age_seconds": null,
+      "as_of": null,
+      "detail": "304 games with an archived pre-tip projection; 69 games tip in the next 30 h",
+      "status": "OK"
+    }
+  },
+  "data_age_seconds": 16559.0,
+  "errors": [],
+  "extensions": {
+    "cbb": {
+      "capabilities": {
+        "bets": "UNAVAILABLE",
+        "expected_rotation": "AVAILABLE_WHERE_VALID",
+        "game_scripting": "UNAVAILABLE",
+        "live_kalshi_quotes": "AVAILABLE",
+        "margin_projection": "AVAILABLE",
+        "opponent_adjusted_ratings": "AVAILABLE",
+        "player_props": "UNAVAILABLE",
+        "prospective_evaluation": "AVAILABLE",
+        "recommendations": "UNAVAILABLE",
+        "roster_truth": "AVAILABLE",
+        "schedule": "AVAILABLE",
+        "score_projection": "AVAILABLE",
+        "team_projections": "AVAILABLE",
+        "total_projection": "AVAILABLE",
+        "win_probability": "AVAILABLE"
+      },
+      "first_game_utc": "2026-11-07T17:00:00Z",
+      "games_in_capture_window": 69,
+      "leaders": {
+        "adj_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Bellarmine Knights",
+              "entity_id": "prt_4a3ec98de5b3349fba45",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "BELL",
+              "value": 118.9218
+            },
+            {
+              "display_name": "Mississippi Valley State Delta Devils",
+              "entity_id": "prt_2d600f5d9e59703b837b",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "MVSU",
+              "value": 118.1622
+            },
+            {
+              "display_name": "Chicago State Cougars",
+              "entity_id": "prt_0e4e9a9cf51e41c8962e",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "CHST",
+              "value": 117.8117
+            },
+            {
+              "display_name": "Binghamton Bearcats",
+              "entity_id": "prt_7a183a6883abf3751127",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "BING",
+              "value": 117.3566
+            },
+            {
+              "display_name": "Holy Cross Crusaders",
+              "entity_id": "prt_80c0c595b907b5dc8201",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "HC",
+              "value": 117.3374
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": false,
+          "mean": 103.140108,
+          "metric_id": "met_cbb.adj_def",
+          "name": "Adjusted defensive efficiency",
+          "ranking_id": "rnk_f6a8212480e20f10df9c",
+          "short_name": "Adj D",
+          "top": [
+            {
+              "display_name": "Houston Cougars",
+              "entity_id": "prt_f1432d24458ffb2ea461",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "HOU",
+              "value": 76.9653
+            },
+            {
+              "display_name": "Duke Blue Devils",
+              "entity_id": "prt_6e05c0e05403e3e4312b",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "DUKE",
+              "value": 85.5601
+            },
+            {
+              "display_name": "Michigan Wolverines",
+              "entity_id": "prt_83efbb68b3e66290006c",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "MICH",
+              "value": 86.6509
+            },
+            {
+              "display_name": "Florida Gators",
+              "entity_id": "prt_29db619d019b6e7c06f1",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "FLA",
+              "value": 87.0207
+            },
+            {
+              "display_name": "Gonzaga Bulldogs",
+              "entity_id": "prt_66d812230cca375cbb89",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "GONZ",
+              "value": 87.4721
+            }
+          ],
+          "unit": "pts/100",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_efg_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Chicago State Cougars",
+              "entity_id": "prt_0e4e9a9cf51e41c8962e",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "CHST",
+              "value": 57.4129
+            },
+            {
+              "display_name": "North Dakota State Bison",
+              "entity_id": "prt_663f23c18f1616b36f2d",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "NDSU",
+              "value": 57.2681
+            },
+            {
+              "display_name": "Bellarmine Knights",
+              "entity_id": "prt_4a3ec98de5b3349fba45",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "BELL",
+              "value": 57.1808
+            },
+            {
+              "display_name": "Northern Illinois Huskies",
+              "entity_id": "prt_ee194128e01e65cdeb49",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "NIU",
+              "value": 57.068
+            },
+            {
+              "display_name": "South Dakota Coyotes",
+              "entity_id": "prt_ec371b45a54ea198ebff",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "SDAK",
+              "value": 57.0607
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": false,
+          "mean": 49.470065,
+          "metric_id": "met_cbb.adj_efg_def",
+          "name": "Adjusted effective FG% (defense allowed)",
+          "ranking_id": "rnk_887fc88e4b7e304cf6cc",
+          "short_name": "eFG% D",
+          "top": [
+            {
+              "display_name": "Houston Cougars",
+              "entity_id": "prt_f1432d24458ffb2ea461",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "HOU",
+              "value": 37.817
+            },
+            {
+              "display_name": "Michigan Wolverines",
+              "entity_id": "prt_83efbb68b3e66290006c",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "MICH",
+              "value": 39.9291
+            },
+            {
+              "display_name": "Florida Gators",
+              "entity_id": "prt_29db619d019b6e7c06f1",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "FLA",
+              "value": 40.6396
+            },
+            {
+              "display_name": "USC Trojans",
+              "entity_id": "prt_96598bc3c9174471198c",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "USC",
+              "value": 41.1949
+            },
+            {
+              "display_name": "Washington Huskies",
+              "entity_id": "prt_db23dfea5a17c37501de",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "WASH",
+              "value": 41.3444
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_efg_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "North Alabama Lions",
+              "entity_id": "prt_f4d30ec1fb640dc9c005",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "UNA",
+              "value": 40.8234
+            },
+            {
+              "display_name": "Lindenwood Lions",
+              "entity_id": "prt_be808cfc8c33409159e2",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "LIN",
+              "value": 41.2142
+            },
+            {
+              "display_name": "UL Monroe Warhawks",
+              "entity_id": "prt_9f610951d26d5a7bd894",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "ULM",
+              "value": 41.3058
+            },
+            {
+              "display_name": "Delaware State Hornets",
+              "entity_id": "prt_c1d0ac4d17d16c980854",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "DSU",
+              "value": 41.507
+            },
+            {
+              "display_name": "Army Black Knights",
+              "entity_id": "prt_76e06ab4ecc3ca0037eb",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "ARMY",
+              "value": 41.5917
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": true,
+          "mean": 49.697014,
+          "metric_id": "met_cbb.adj_efg_off",
+          "name": "Adjusted effective FG% (offense)",
+          "ranking_id": "rnk_5374f0d9505a3289b30e",
+          "short_name": "eFG% O",
+          "top": [
+            {
+              "display_name": "Saint Louis Billikens",
+              "entity_id": "prt_cbaab1344c95307533b8",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "SLU",
+              "value": 60.2325
+            },
+            {
+              "display_name": "Liberty Flames",
+              "entity_id": "prt_16faa855df4bb5496bb7",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "LIB",
+              "value": 58.7907
+            },
+            {
+              "display_name": "Purdue Boilermakers",
+              "entity_id": "prt_5b169af0e759c556850a",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "PUR",
+              "value": 58.3732
+            },
+            {
+              "display_name": "BYU Cougars",
+              "entity_id": "prt_03c988d23608af0f5e34",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "BYU",
+              "value": 57.9114
+            },
+            {
+              "display_name": "Cornell Big Red",
+              "entity_id": "prt_dfa25939b3dd2a9547f8",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "COR",
+              "value": 57.4912
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_fg2_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Chicago State Cougars",
+              "entity_id": "prt_0e4e9a9cf51e41c8962e",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "CHST",
+              "value": 59.9458
+            },
+            {
+              "display_name": "Northern Illinois Huskies",
+              "entity_id": "prt_ee194128e01e65cdeb49",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "NIU",
+              "value": 59.8689
+            },
+            {
+              "display_name": "Alcorn State Braves",
+              "entity_id": "prt_ff1d7d303f6a111ecbb3",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "ALCN",
+              "value": 59.8278
+            },
+            {
+              "display_name": "Bellarmine Knights",
+              "entity_id": "prt_4a3ec98de5b3349fba45",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "BELL",
+              "value": 59.5275
+            },
+            {
+              "display_name": "Fairleigh Dickinson Knights",
+              "entity_id": "prt_b5642de735c6857cddcb",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "FDU",
+              "value": 59.0669
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": false,
+          "mean": 51.096297,
+          "metric_id": "met_cbb.adj_fg2_def",
+          "name": "Adjusted 2-point FG% (defense allowed)",
+          "ranking_id": "rnk_958b92e0a2e1e9877157",
+          "short_name": "2P% D",
+          "top": [
+            {
+              "display_name": "Kansas Jayhawks",
+              "entity_id": "prt_0942f878f3ef65425167",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "KU",
+              "value": 38.4729
+            },
+            {
+              "display_name": "Houston Cougars",
+              "entity_id": "prt_f1432d24458ffb2ea461",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "HOU",
+              "value": 38.8357
+            },
+            {
+              "display_name": "Florida Gators",
+              "entity_id": "prt_29db619d019b6e7c06f1",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "FLA",
+              "value": 39.7683
+            },
+            {
+              "display_name": "UConn Huskies",
+              "entity_id": "prt_99af22e47799c5a7fcf6",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "CONN",
+              "value": 39.9676
+            },
+            {
+              "display_name": "Michigan Wolverines",
+              "entity_id": "prt_83efbb68b3e66290006c",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "MICH",
+              "value": 40.0882
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_fg2_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Louisiana Ragin' Cajuns",
+              "entity_id": "prt_5a8601a5add68fb3347a",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "UL",
+              "value": 41.0276
+            },
+            {
+              "display_name": "Delaware State Hornets",
+              "entity_id": "prt_c1d0ac4d17d16c980854",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "DSU",
+              "value": 41.6384
+            },
+            {
+              "display_name": "Rider Broncs",
+              "entity_id": "prt_95b7c9f6d7ecc3e51a3b",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "RID",
+              "value": 42.6365
+            },
+            {
+              "display_name": "Western Kentucky Hilltoppers",
+              "entity_id": "prt_7ff21187467d12883835",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "WKU",
+              "value": 42.7125
+            },
+            {
+              "display_name": "UL Monroe Warhawks",
+              "entity_id": "prt_9f610951d26d5a7bd894",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "ULM",
+              "value": 42.7419
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": true,
+          "mean": 51.343053,
+          "metric_id": "met_cbb.adj_fg2_off",
+          "name": "Adjusted 2-point FG% (offense)",
+          "ranking_id": "rnk_be2fdac2b3a05be27199",
+          "short_name": "2P% O",
+          "top": [
+            {
+              "display_name": "Illinois Fighting Illini",
+              "entity_id": "prt_1642e0a86c7af2fdfa97",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "ILL",
+              "value": 63.3409
+            },
+            {
+              "display_name": "Saint Louis Billikens",
+              "entity_id": "prt_cbaab1344c95307533b8",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "SLU",
+              "value": 63.0197
+            },
+            {
+              "display_name": "Duke Blue Devils",
+              "entity_id": "prt_6e05c0e05403e3e4312b",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "DUKE",
+              "value": 62.1837
+            },
+            {
+              "display_name": "Michigan Wolverines",
+              "entity_id": "prt_83efbb68b3e66290006c",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "MICH",
+              "value": 62.0421
+            },
+            {
+              "display_name": "Purdue Boilermakers",
+              "entity_id": "prt_5b169af0e759c556850a",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "PUR",
+              "value": 61.6698
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_fg3_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Abilene Christian Wildcats",
+              "entity_id": "prt_92410d13406364e435cd",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "ACU",
+              "value": 39.2344
+            },
+            {
+              "display_name": "Rider Broncs",
+              "entity_id": "prt_95b7c9f6d7ecc3e51a3b",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "RID",
+              "value": 38.8686
+            },
+            {
+              "display_name": "North Dakota State Bison",
+              "entity_id": "prt_663f23c18f1616b36f2d",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "NDSU",
+              "value": 38.2371
+            },
+            {
+              "display_name": "Coppin State Eagles",
+              "entity_id": "prt_66a5c72b15b7fc153bfb",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "COPP",
+              "value": 37.5479
+            },
+            {
+              "display_name": "Queens University Royals",
+              "entity_id": "prt_19a74a000f45c3809b84",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "QUC",
+              "value": 37.4476
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": false,
+          "mean": 31.549574,
+          "metric_id": "met_cbb.adj_fg3_def",
+          "name": "Adjusted 3-point FG% (defense allowed)",
+          "ranking_id": "rnk_ac6df151ca273f7997c8",
+          "short_name": "3P% D",
+          "top": [
+            {
+              "display_name": "USC Trojans",
+              "entity_id": "prt_96598bc3c9174471198c",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "USC",
+              "value": 24.7833
+            },
+            {
+              "display_name": "Houston Cougars",
+              "entity_id": "prt_f1432d24458ffb2ea461",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "HOU",
+              "value": 24.8644
+            },
+            {
+              "display_name": "Hawai'i Rainbow Warriors",
+              "entity_id": "prt_3ef0ac5d8a8e71d5ff33",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "HAW",
+              "value": 25.9173
+            },
+            {
+              "display_name": "Gonzaga Bulldogs",
+              "entity_id": "prt_66d812230cca375cbb89",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "GONZ",
+              "value": 26.2849
+            },
+            {
+              "display_name": "Illinois Fighting Illini",
+              "entity_id": "prt_1642e0a86c7af2fdfa97",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "ILL",
+              "value": 26.4006
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_fg3_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Lindenwood Lions",
+              "entity_id": "prt_be808cfc8c33409159e2",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "LIN",
+              "value": 23.6511
+            },
+            {
+              "display_name": "Louisiana Tech Bulldogs",
+              "entity_id": "prt_c10673f40b4ea669f073",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "LT",
+              "value": 24.3888
+            },
+            {
+              "display_name": "North Alabama Lions",
+              "entity_id": "prt_f4d30ec1fb640dc9c005",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "UNA",
+              "value": 25.0289
+            },
+            {
+              "display_name": "The Citadel Bulldogs",
+              "entity_id": "prt_35e83dcb182f1572c181",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "CIT",
+              "value": 25.3863
+            },
+            {
+              "display_name": "Siena Saints",
+              "entity_id": "prt_c7dc9f3af5af581d5df8",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "SIE",
+              "value": 25.5573
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": true,
+          "mean": 31.662789,
+          "metric_id": "met_cbb.adj_fg3_off",
+          "name": "Adjusted 3-point FG% (offense)",
+          "ranking_id": "rnk_89ed7e0ea6b7855b7a88",
+          "short_name": "3P% O",
+          "top": [
+            {
+              "display_name": "Cornell Big Red",
+              "entity_id": "prt_dfa25939b3dd2a9547f8",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "COR",
+              "value": 38.5211
+            },
+            {
+              "display_name": "Liberty Flames",
+              "entity_id": "prt_16faa855df4bb5496bb7",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "LIB",
+              "value": 38.2313
+            },
+            {
+              "display_name": "NC State Wolfpack",
+              "entity_id": "prt_86adb2ab8b4821df8f73",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "NCSU",
+              "value": 37.7201
+            },
+            {
+              "display_name": "Saint Louis Billikens",
+              "entity_id": "prt_cbaab1344c95307533b8",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "SLU",
+              "value": 37.3564
+            },
+            {
+              "display_name": "George Washington Revolutionaries",
+              "entity_id": "prt_3e05bea3a48ec5969923",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "GW",
+              "value": 36.89
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_fg3a_rate_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "South Dakota Coyotes",
+              "entity_id": "prt_ec371b45a54ea198ebff",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "SDAK",
+              "value": 29.2542
+            },
+            {
+              "display_name": "Campbell Fighting Camels",
+              "entity_id": "prt_4e1aeba045915f8b6750",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "CAM",
+              "value": 30.5081
+            },
+            {
+              "display_name": "Charleston Southern Buccaneers",
+              "entity_id": "prt_60a2fbbd37fd84729ecd",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "CHSO",
+              "value": 30.6291
+            },
+            {
+              "display_name": "Columbia Lions",
+              "entity_id": "prt_5b59ee16b8c9bc04317b",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "COLU",
+              "value": 32.8302
+            },
+            {
+              "display_name": "Southern Indiana Screaming Eagles",
+              "entity_id": "prt_c1420a5f2326f5045511",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "USI",
+              "value": 33.4307
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": null,
+          "mean": 41.092687,
+          "metric_id": "met_cbb.adj_fg3a_rate_def",
+          "name": "Adjusted 3-point attempt rate (defense allowed)",
+          "ranking_id": "rnk_63a8ec36db8b9c2563e2",
+          "short_name": "3PA rate D",
+          "top": [
+            {
+              "display_name": "South Alabama Jaguars",
+              "entity_id": "prt_0697ec417ba5a1e446d2",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "USA",
+              "value": 65.4606
+            },
+            {
+              "display_name": "Central Arkansas Bears",
+              "entity_id": "prt_899a6378e381c8af5bba",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "CARK",
+              "value": 52.7111
+            },
+            {
+              "display_name": "UCLA Bruins",
+              "entity_id": "prt_2bb6d5350fbfea2db7f0",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "UCLA",
+              "value": 51.3852
+            },
+            {
+              "display_name": "Texas Southern Tigers",
+              "entity_id": "prt_3afc384a8705d7b96a92",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "TXSO",
+              "value": 49.7779
+            },
+            {
+              "display_name": "Chicago State Cougars",
+              "entity_id": "prt_0e4e9a9cf51e41c8962e",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "CHST",
+              "value": 49.2833
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_fg3a_rate_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Texas State Bobcats",
+              "entity_id": "prt_df026bedd5139cf0cc85",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "TXST",
+              "value": 23.291
+            },
+            {
+              "display_name": "Delaware State Hornets",
+              "entity_id": "prt_c1d0ac4d17d16c980854",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "DSU",
+              "value": 29.82
+            },
+            {
+              "display_name": "Tarleton State Texans",
+              "entity_id": "prt_cc026444da272e458e7e",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "TAR",
+              "value": 30.1744
+            },
+            {
+              "display_name": "UC Irvine Anteaters",
+              "entity_id": "prt_f06a9cab0f0879112a80",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "UCI",
+              "value": 30.2763
+            },
+            {
+              "display_name": "Southern Miss Golden Eagles",
+              "entity_id": "prt_429d3b1cf050d7b0b68f",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "USM",
+              "value": 30.29
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": null,
+          "mean": 40.859731,
+          "metric_id": "met_cbb.adj_fg3a_rate_off",
+          "name": "Adjusted 3-point attempt rate (offense)",
+          "ranking_id": "rnk_a4484e4b8a5b6a920ef4",
+          "short_name": "3PA rate O",
+          "top": [
+            {
+              "display_name": "Central Arkansas Bears",
+              "entity_id": "prt_899a6378e381c8af5bba",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "CARK",
+              "value": 53.5859
+            },
+            {
+              "display_name": "Cal Poly Mustangs",
+              "entity_id": "prt_a6001583c78bb02372aa",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "CP",
+              "value": 53.0342
+            },
+            {
+              "display_name": "Sacred Heart Pioneers",
+              "entity_id": "prt_c2fe4f0258f44b21a547",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "SHU",
+              "value": 52.2497
+            },
+            {
+              "display_name": "Army Black Knights",
+              "entity_id": "prt_76e06ab4ecc3ca0037eb",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "ARMY",
+              "value": 51.7487
+            },
+            {
+              "display_name": "Bryant Bulldogs",
+              "entity_id": "prt_78bbcd361106084b9088",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "BRY",
+              "value": 51.7252
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_ftr_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Southern Jaguars",
+              "entity_id": "prt_31f09570fe84e355c79e",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "SOU",
+              "value": 51.8248
+            },
+            {
+              "display_name": "Morgan State Bears",
+              "entity_id": "prt_d85e26f9a6c3ee807a27",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "MORG",
+              "value": 50.3749
+            },
+            {
+              "display_name": "Mississippi Valley State Delta Devils",
+              "entity_id": "prt_2d600f5d9e59703b837b",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "MVSU",
+              "value": 49.8681
+            },
+            {
+              "display_name": "South Carolina State Bulldogs",
+              "entity_id": "prt_6db65888713cbce9d26f",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "SCST",
+              "value": 49.6418
+            },
+            {
+              "display_name": "Abilene Christian Wildcats",
+              "entity_id": "prt_92410d13406364e435cd",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "ACU",
+              "value": 49.1419
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": false,
+          "mean": 36.970817,
+          "metric_id": "met_cbb.adj_ftr_def",
+          "name": "Adjusted free-throw rate (defense allowed)",
+          "ranking_id": "rnk_6582727ec6c111259acd",
+          "short_name": "FTR D",
+          "top": [
+            {
+              "display_name": "Illinois Fighting Illini",
+              "entity_id": "prt_1642e0a86c7af2fdfa97",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "ILL",
+              "value": 22.3783
+            },
+            {
+              "display_name": "Creighton Bluejays",
+              "entity_id": "prt_665c6b30eaf0837b37ac",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "CREI",
+              "value": 25.4379
+            },
+            {
+              "display_name": "Duke Blue Devils",
+              "entity_id": "prt_6e05c0e05403e3e4312b",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "DUKE",
+              "value": 25.5987
+            },
+            {
+              "display_name": "Nebraska Cornhuskers",
+              "entity_id": "prt_d592d6f5210fdfeb17d8",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "NEB",
+              "value": 26.538
+            },
+            {
+              "display_name": "Liberty Flames",
+              "entity_id": "prt_16faa855df4bb5496bb7",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "LIB",
+              "value": 26.7813
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_ftr_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "IU Indianapolis Jaguars",
+              "entity_id": "prt_0419a955e31928223a83",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "IUIN",
+              "value": 25.7664
+            },
+            {
+              "display_name": "Mercyhurst Lakers",
+              "entity_id": "prt_49bdd63ad1b588a80f61",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "MERC",
+              "value": 25.9545
+            },
+            {
+              "display_name": "Loyola Maryland Greyhounds",
+              "entity_id": "prt_89114e92a87509ba2e29",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "L-MD",
+              "value": 27.4294
+            },
+            {
+              "display_name": "West Georgia Wolves",
+              "entity_id": "prt_cabca5cd72e519bddc22",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "WGA",
+              "value": 27.504
+            },
+            {
+              "display_name": "Army Black Knights",
+              "entity_id": "prt_76e06ab4ecc3ca0037eb",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "ARMY",
+              "value": 28.0164
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": true,
+          "mean": 36.950368,
+          "metric_id": "met_cbb.adj_ftr_off",
+          "name": "Adjusted free-throw rate (offense)",
+          "ranking_id": "rnk_5ba94d56b087e096644d",
+          "short_name": "FTR O",
+          "top": [
+            {
+              "display_name": "VCU Rams",
+              "entity_id": "prt_9c6332f1807a71aa18f0",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "VCU",
+              "value": 52.4425
+            },
+            {
+              "display_name": "Valparaiso Beacons",
+              "entity_id": "prt_3412b6d7de5fbb41ebb3",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "VAL",
+              "value": 49.7069
+            },
+            {
+              "display_name": "Tulane Green Wave",
+              "entity_id": "prt_46586c8ae3f60d8f5e64",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "TULN",
+              "value": 48.1014
+            },
+            {
+              "display_name": "Arizona Wildcats",
+              "entity_id": "prt_0ad855908caebef30034",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "ARIZ",
+              "value": 47.4355
+            },
+            {
+              "display_name": "Clemson Tigers",
+              "entity_id": "prt_5ff1258a8cda3338ec2c",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "CLEM",
+              "value": 47.361
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Air Force Falcons",
+              "entity_id": "prt_82670e288f1ad459c519",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "AF",
+              "value": 82.7206
+            },
+            {
+              "display_name": "Florida A&M Rattlers",
+              "entity_id": "prt_d2a381e8b1a463c83698",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "FAMU",
+              "value": 84.4893
+            },
+            {
+              "display_name": "Mississippi Valley State Delta Devils",
+              "entity_id": "prt_2d600f5d9e59703b837b",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "MVSU",
+              "value": 85.0429
+            },
+            {
+              "display_name": "Delaware State Hornets",
+              "entity_id": "prt_c1d0ac4d17d16c980854",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "DSU",
+              "value": 85.1158
+            },
+            {
+              "display_name": "Lindenwood Lions",
+              "entity_id": "prt_be808cfc8c33409159e2",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "LIN",
+              "value": 87.0819
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": true,
+          "mean": 103.639573,
+          "metric_id": "met_cbb.adj_off",
+          "name": "Adjusted offensive efficiency",
+          "ranking_id": "rnk_bf22d6e920caf25d7332",
+          "short_name": "Adj O",
+          "top": [
+            {
+              "display_name": "Illinois Fighting Illini",
+              "entity_id": "prt_1642e0a86c7af2fdfa97",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "ILL",
+              "value": 128.4948
+            },
+            {
+              "display_name": "BYU Cougars",
+              "entity_id": "prt_03c988d23608af0f5e34",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "BYU",
+              "value": 124.7041
+            },
+            {
+              "display_name": "Purdue Boilermakers",
+              "entity_id": "prt_5b169af0e759c556850a",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "PUR",
+              "value": 124.4965
+            },
+            {
+              "display_name": "Texas Longhorns",
+              "entity_id": "prt_2f3e018f356bf658552c",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "TEX",
+              "value": 122.8643
+            },
+            {
+              "display_name": "Alabama Crimson Tide",
+              "entity_id": "prt_2f5a452d209219604d95",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "ALA",
+              "value": 121.7353
+            }
+          ],
+          "unit": "pts/100",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_orb_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Merrimack Warriors",
+              "entity_id": "prt_7064d6d19ae6c25b5840",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "MRMK",
+              "value": 41.8048
+            },
+            {
+              "display_name": "Bucknell Bison",
+              "entity_id": "prt_68f85aff8ef10e1b358d",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "BUCK",
+              "value": 39.5815
+            },
+            {
+              "display_name": "Chicago State Cougars",
+              "entity_id": "prt_0e4e9a9cf51e41c8962e",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "CHST",
+              "value": 39.5058
+            },
+            {
+              "display_name": "UTSA Roadrunners",
+              "entity_id": "prt_55930693ac7622acfb48",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "UTSA",
+              "value": 39.0683
+            },
+            {
+              "display_name": "Bellarmine Knights",
+              "entity_id": "prt_4a3ec98de5b3349fba45",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "BELL",
+              "value": 38.8536
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": false,
+          "mean": 31.716301,
+          "metric_id": "met_cbb.adj_orb_def",
+          "name": "Adjusted offensive rebound rate (defense allowed)",
+          "ranking_id": "rnk_c2bd4b7893d35490807b",
+          "short_name": "OR% D",
+          "top": [
+            {
+              "display_name": "Illinois Fighting Illini",
+              "entity_id": "prt_1642e0a86c7af2fdfa97",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "ILL",
+              "value": 21.8408
+            },
+            {
+              "display_name": "Michigan State Spartans",
+              "entity_id": "prt_08009b31567e8277afb4",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "MSU",
+              "value": 22.7426
+            },
+            {
+              "display_name": "Florida Gators",
+              "entity_id": "prt_29db619d019b6e7c06f1",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "FLA",
+              "value": 23.8296
+            },
+            {
+              "display_name": "Gonzaga Bulldogs",
+              "entity_id": "prt_66d812230cca375cbb89",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "GONZ",
+              "value": 24.2588
+            },
+            {
+              "display_name": "Miami Hurricanes",
+              "entity_id": "prt_1d280d95ed458836977e",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "MIA",
+              "value": 24.5065
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_orb_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Liberty Flames",
+              "entity_id": "prt_16faa855df4bb5496bb7",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "LIB",
+              "value": 20.8725
+            },
+            {
+              "display_name": "Maine Black Bears",
+              "entity_id": "prt_497232ef55be73101676",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "ME",
+              "value": 21.7141
+            },
+            {
+              "display_name": "Binghamton Bearcats",
+              "entity_id": "prt_7a183a6883abf3751127",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "BING",
+              "value": 21.7584
+            },
+            {
+              "display_name": "Niagara Purple Eagles",
+              "entity_id": "prt_6858b2b73b9797425350",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "NIA",
+              "value": 21.8637
+            },
+            {
+              "display_name": "Holy Cross Crusaders",
+              "entity_id": "prt_80c0c595b907b5dc8201",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "HC",
+              "value": 22.7711
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": true,
+          "mean": 31.843646,
+          "metric_id": "met_cbb.adj_orb_off",
+          "name": "Adjusted offensive rebound rate (offense)",
+          "ranking_id": "rnk_38ad7a9bbf12d2b6df55",
+          "short_name": "OR% O",
+          "top": [
+            {
+              "display_name": "Tennessee Volunteers",
+              "entity_id": "prt_15b3cac2189298c05fdb",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "TENN",
+              "value": 45.3637
+            },
+            {
+              "display_name": "Illinois Fighting Illini",
+              "entity_id": "prt_1642e0a86c7af2fdfa97",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "ILL",
+              "value": 43.681
+            },
+            {
+              "display_name": "Florida Gators",
+              "entity_id": "prt_29db619d019b6e7c06f1",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "FLA",
+              "value": 42.7192
+            },
+            {
+              "display_name": "Maryland Terrapins",
+              "entity_id": "prt_40559ebdf537ca80a6c5",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "MD",
+              "value": 41.3354
+            },
+            {
+              "display_name": "Duke Blue Devils",
+              "entity_id": "prt_6e05c0e05403e3e4312b",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "DUKE",
+              "value": 41.1357
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_tempo": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "App State Mountaineers",
+              "entity_id": "prt_a61eea399d859652305f",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "APP",
+              "value": 60.5941
+            },
+            {
+              "display_name": "Merrimack Warriors",
+              "entity_id": "prt_7064d6d19ae6c25b5840",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "MRMK",
+              "value": 60.6764
+            },
+            {
+              "display_name": "Iowa Hawkeyes",
+              "entity_id": "prt_434510226c875aacb2c7",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "IOWA",
+              "value": 61.3693
+            },
+            {
+              "display_name": "Vermont Catamounts",
+              "entity_id": "prt_4e1eb24348e89be48483",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "UVM",
+              "value": 61.7853
+            },
+            {
+              "display_name": "Houston Cougars",
+              "entity_id": "prt_f1432d24458ffb2ea461",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "HOU",
+              "value": 62.0158
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": null,
+          "mean": 71.143955,
+          "metric_id": "met_cbb.adj_tempo",
+          "name": "Adjusted tempo",
+          "ranking_id": "rnk_33daea89ddd7b7981b4d",
+          "short_name": "Tempo",
+          "top": [
+            {
+              "display_name": "Cal Poly Mustangs",
+              "entity_id": "prt_a6001583c78bb02372aa",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "CP",
+              "value": 83.6427
+            },
+            {
+              "display_name": "Cal State Fullerton Titans",
+              "entity_id": "prt_f520438773a7ccd23e5c",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "CSUF",
+              "value": 82.4932
+            },
+            {
+              "display_name": "Alabama Crimson Tide",
+              "entity_id": "prt_2f5a452d209219604d95",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "ALA",
+              "value": 82.4893
+            },
+            {
+              "display_name": "Murray State Racers",
+              "entity_id": "prt_53faec648ec8a88fd25c",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "MUR",
+              "value": 82.3901
+            },
+            {
+              "display_name": "IU Indianapolis Jaguars",
+              "entity_id": "prt_0419a955e31928223a83",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "IUIN",
+              "value": 82.0258
+            }
+          ],
+          "unit": "poss/40",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_to_def": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Coastal Carolina Chanticleers",
+              "entity_id": "prt_c2c43c752a17d96cce12",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "CCU",
+              "value": 13.4703
+            },
+            {
+              "display_name": "Holy Cross Crusaders",
+              "entity_id": "prt_80c0c595b907b5dc8201",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "HC",
+              "value": 13.7755
+            },
+            {
+              "display_name": "App State Mountaineers",
+              "entity_id": "prt_a61eea399d859652305f",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "APP",
+              "value": 14.3493
+            },
+            {
+              "display_name": "Boston University Terriers",
+              "entity_id": "prt_de6dabd136093e788203",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "BU",
+              "value": 14.6549
+            },
+            {
+              "display_name": "Northern Colorado Bears",
+              "entity_id": "prt_c3b209f5b651764966bc",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "UNCO",
+              "value": 14.7825
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": true,
+          "mean": 18.878251,
+          "metric_id": "met_cbb.adj_to_def",
+          "name": "Adjusted turnover rate (defense allowed)",
+          "ranking_id": "rnk_93f6bbb003f433367050",
+          "short_name": "TO% D",
+          "top": [
+            {
+              "display_name": "Houston Cougars",
+              "entity_id": "prt_f1432d24458ffb2ea461",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "HOU",
+              "value": 25.5202
+            },
+            {
+              "display_name": "McNeese Cowboys",
+              "entity_id": "prt_7fa657c6ce8aec301f6c",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "MCN",
+              "value": 25.2141
+            },
+            {
+              "display_name": "Seton Hall Pirates",
+              "entity_id": "prt_42571654e73ebdea6d00",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "HALL",
+              "value": 23.6364
+            },
+            {
+              "display_name": "Tarleton State Texans",
+              "entity_id": "prt_cc026444da272e458e7e",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "TAR",
+              "value": 23.2535
+            },
+            {
+              "display_name": "North Texas Mean Green",
+              "entity_id": "prt_7d05000ea8a878826a10",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "UNT",
+              "value": 23.1974
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "adj_to_off": {
+          "adjusted": true,
+          "bottom": [
+            {
+              "display_name": "Air Force Falcons",
+              "entity_id": "prt_82670e288f1ad459c519",
+              "percentile": 0.28,
+              "rank": 354,
+              "short_name": "AF",
+              "value": 24.8783
+            },
+            {
+              "display_name": "Coppin State Eagles",
+              "entity_id": "prt_66a5c72b15b7fc153bfb",
+              "percentile": 0.56,
+              "rank": 353,
+              "short_name": "COPP",
+              "value": 24.5452
+            },
+            {
+              "display_name": "Florida A&M Rattlers",
+              "entity_id": "prt_d2a381e8b1a463c83698",
+              "percentile": 0.85,
+              "rank": 352,
+              "short_name": "FAMU",
+              "value": 24.3526
+            },
+            {
+              "display_name": "Columbia Lions",
+              "entity_id": "prt_5b59ee16b8c9bc04317b",
+              "percentile": 1.13,
+              "rank": 351,
+              "short_name": "COLU",
+              "value": 23.9437
+            },
+            {
+              "display_name": "Maryland Eastern Shore Hawks",
+              "entity_id": "prt_42fa59ea6c53ca6432b0",
+              "percentile": 1.41,
+              "rank": 350,
+              "short_name": "UMES",
+              "value": 23.843
+            }
+          ],
+          "group": "ratings",
+          "higher_is_better": false,
+          "mean": 18.816504,
+          "metric_id": "met_cbb.adj_to_off",
+          "name": "Adjusted turnover rate (offense)",
+          "ranking_id": "rnk_f251aa1c23451a63b935",
+          "short_name": "TO% O",
+          "top": [
+            {
+              "display_name": "Liberty Flames",
+              "entity_id": "prt_16faa855df4bb5496bb7",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "LIB",
+              "value": 13.8108
+            },
+            {
+              "display_name": "Illinois Fighting Illini",
+              "entity_id": "prt_1642e0a86c7af2fdfa97",
+              "percentile": 99.72,
+              "rank": 2,
+              "short_name": "ILL",
+              "value": 14.2655
+            },
+            {
+              "display_name": "UCLA Bruins",
+              "entity_id": "prt_2bb6d5350fbfea2db7f0",
+              "percentile": 99.44,
+              "rank": 3,
+              "short_name": "UCLA",
+              "value": 14.2702
+            },
+            {
+              "display_name": "UAB Blazers",
+              "entity_id": "prt_7ed01aa0a4746b387dfc",
+              "percentile": 99.15,
+              "rank": 4,
+              "short_name": "UAB",
+              "value": 14.3408
+            },
+            {
+              "display_name": "Arkansas Razorbacks",
+              "entity_id": "prt_1e237e6b24b82c3ccb4c",
+              "percentile": 98.87,
+              "rank": 5,
+              "short_name": "ARK",
+              "value": 14.55
+            }
+          ],
+          "unit": "%",
+          "universe_size": 354,
+          "window": "LATEST_PREGAME"
+        },
+        "expected_first_d1_minutes": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Wichita State Shockers",
+              "entity_id": "prt_b599ff4f3c580c26fdc8",
+              "percentile": 0.55,
+              "rank": 364,
+              "short_name": "WICH",
+              "value": 0.0
+            },
+            {
+              "display_name": "Temple Owls",
+              "entity_id": "prt_8630c540e22705953704",
+              "percentile": 0.55,
+              "rank": 364,
+              "short_name": "TEM",
+              "value": 0.0
+            },
+            {
+              "display_name": "Coppin State Eagles",
+              "entity_id": "prt_66a5c72b15b7fc153bfb",
+              "percentile": 0.82,
+              "rank": 363,
+              "short_name": "COPP",
+              "value": 0.6369
+            },
+            {
+              "display_name": "UC San Diego Tritons",
+              "entity_id": "prt_32545d6f4103660b06e9",
+              "percentile": 1.1,
+              "rank": 362,
+              "short_name": "UCSD",
+              "value": 1.1647
+            },
+            {
+              "display_name": "Grand Canyon Lopes",
+              "entity_id": "prt_42e0aa35b4a9c713b6f9",
+              "percentile": 1.37,
+              "rank": 361,
+              "short_name": "GCU",
+              "value": 1.336
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 22.387149,
+          "metric_id": "met_cbb.expected_first_d1_minutes",
+          "name": "Expected minutes to first-D-I players",
+          "ranking_id": "rnk_4c18fa3a84698075d432",
+          "short_name": "First D-I",
+          "top": [
+            {
+              "display_name": "Louisiana Tech Bulldogs",
+              "entity_id": "prt_c10673f40b4ea669f073",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "LT",
+              "value": 160.0
+            },
+            {
+              "display_name": "Idaho State Bengals",
+              "entity_id": "prt_cb7bf2acdbb1704a1ba5",
+              "percentile": 99.73,
+              "rank": 2,
+              "short_name": "IDST",
+              "value": 130.81
+            },
+            {
+              "display_name": "South Alabama Jaguars",
+              "entity_id": "prt_0697ec417ba5a1e446d2",
+              "percentile": 99.45,
+              "rank": 3,
+              "short_name": "USA",
+              "value": 123.1143
+            },
+            {
+              "display_name": "Eastern Illinois Panthers",
+              "entity_id": "prt_2ffb8785f7b05d194ce0",
+              "percentile": 99.18,
+              "rank": 4,
+              "short_name": "EIU",
+              "value": 120.0079
+            },
+            {
+              "display_name": "Western Illinois Leathernecks",
+              "entity_id": "prt_5f2f305ee798dc9ab46a",
+              "percentile": 98.9,
+              "rank": 5,
+              "short_name": "WIU",
+              "value": 120.0
+            }
+          ],
+          "unit": "min/200",
+          "universe_size": 365,
+          "window": "PRESEASON_ROSTER"
+        },
+        "expected_returning_minutes": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Alcorn State Braves",
+              "entity_id": "prt_ff1d7d303f6a111ecbb3",
+              "percentile": 4.66,
+              "rank": 349,
+              "short_name": "ALCN",
+              "value": 0.0
+            },
+            {
+              "display_name": "Jacksonville State Gamecocks",
+              "entity_id": "prt_f8a1518f950716bf4055",
+              "percentile": 4.66,
+              "rank": 349,
+              "short_name": "JXST",
+              "value": 0.0
+            },
+            {
+              "display_name": "Fresno State Bulldogs",
+              "entity_id": "prt_ee920801f26004708d00",
+              "percentile": 4.66,
+              "rank": 349,
+              "short_name": "FRES",
+              "value": 0.0
+            },
+            {
+              "display_name": "Northern Illinois Huskies",
+              "entity_id": "prt_ee194128e01e65cdeb49",
+              "percentile": 4.66,
+              "rank": 349,
+              "short_name": "NIU",
+              "value": 0.0
+            },
+            {
+              "display_name": "Kansas City Roos",
+              "entity_id": "prt_ec2046bb1b3659d33a2b",
+              "percentile": 4.66,
+              "rank": 349,
+              "short_name": "KC",
+              "value": 0.0
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 75.691661,
+          "metric_id": "met_cbb.expected_returning_minutes",
+          "name": "Expected minutes to returning players",
+          "ranking_id": "rnk_c4ed1ffd0c16d73173d4",
+          "short_name": "Ret. exp",
+          "top": [
+            {
+              "display_name": "American University Eagles",
+              "entity_id": "prt_0adb0fb532dc432ef03e",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "AMER",
+              "value": 195.3669
+            },
+            {
+              "display_name": "Cal Poly Mustangs",
+              "entity_id": "prt_a6001583c78bb02372aa",
+              "percentile": 99.73,
+              "rank": 2,
+              "short_name": "CP",
+              "value": 194.7335
+            },
+            {
+              "display_name": "Princeton Tigers",
+              "entity_id": "prt_2792a9b0c3660478fcfa",
+              "percentile": 99.45,
+              "rank": 3,
+              "short_name": "PRIN",
+              "value": 193.9857
+            },
+            {
+              "display_name": "Air Force Falcons",
+              "entity_id": "prt_82670e288f1ad459c519",
+              "percentile": 99.18,
+              "rank": 4,
+              "short_name": "AF",
+              "value": 193.074
+            },
+            {
+              "display_name": "Brown Bears",
+              "entity_id": "prt_ac76a06fafa970e2ffe9",
+              "percentile": 98.9,
+              "rank": 5,
+              "short_name": "BRWN",
+              "value": 192.3328
+            }
+          ],
+          "unit": "min/200",
+          "universe_size": 365,
+          "window": "PRESEASON_ROSTER"
+        },
+        "expected_transfer_minutes": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Yale Bulldogs",
+              "entity_id": "prt_fa72d4de124ded76c2bd",
+              "percentile": 4.93,
+              "rank": 348,
+              "short_name": "YALE",
+              "value": 0.0
+            },
+            {
+              "display_name": "Navy Midshipmen",
+              "entity_id": "prt_f9d69ebb167b3c4f42d8",
+              "percentile": 4.93,
+              "rank": 348,
+              "short_name": "NAVY",
+              "value": 0.0
+            },
+            {
+              "display_name": "Colgate Raiders",
+              "entity_id": "prt_e3331191b740cbbccdab",
+              "percentile": 4.93,
+              "rank": 348,
+              "short_name": "COLG",
+              "value": 0.0
+            },
+            {
+              "display_name": "Cornell Big Red",
+              "entity_id": "prt_dfa25939b3dd2a9547f8",
+              "percentile": 4.93,
+              "rank": 348,
+              "short_name": "COR",
+              "value": 0.0
+            },
+            {
+              "display_name": "Louisiana Tech Bulldogs",
+              "entity_id": "prt_c10673f40b4ea669f073",
+              "percentile": 4.93,
+              "rank": 348,
+              "short_name": "LT",
+              "value": 0.0
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 101.92119,
+          "metric_id": "met_cbb.expected_transfer_minutes",
+          "name": "Expected minutes to incoming transfers",
+          "ranking_id": "rnk_93ec16d3fd9800fd13e8",
+          "short_name": "Transfer",
+          "top": [
+            {
+              "display_name": "Cincinnati Bearcats",
+              "entity_id": "prt_d6fe2f16cf95c3112cc9",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "CIN",
+              "value": 198.1803
+            },
+            {
+              "display_name": "Boston College Eagles",
+              "entity_id": "prt_3c531f3a75018c8fcb5f",
+              "percentile": 99.73,
+              "rank": 2,
+              "short_name": "BC",
+              "value": 196.9626
+            },
+            {
+              "display_name": "Western Michigan Broncos",
+              "entity_id": "prt_d0d724a8880073a09298",
+              "percentile": 99.45,
+              "rank": 3,
+              "short_name": "WMU",
+              "value": 193.1252
+            },
+            {
+              "display_name": "Jacksonville State Gamecocks",
+              "entity_id": "prt_f8a1518f950716bf4055",
+              "percentile": 99.18,
+              "rank": 4,
+              "short_name": "JXST",
+              "value": 186.0145
+            },
+            {
+              "display_name": "SE Louisiana Lions",
+              "entity_id": "prt_1e0a5ddf70475dee5084",
+              "percentile": 98.9,
+              "rank": 5,
+              "short_name": "SELA",
+              "value": 183.7079
+            }
+          ],
+          "unit": "min/200",
+          "universe_size": 365,
+          "window": "PRESEASON_ROSTER"
+        },
+        "returning_minutes_share": {
+          "adjusted": false,
+          "bottom": [
+            {
+              "display_name": "Alcorn State Braves",
+              "entity_id": "prt_ff1d7d303f6a111ecbb3",
+              "percentile": 4.4,
+              "rank": 349,
+              "short_name": "ALCN",
+              "value": 0.0
+            },
+            {
+              "display_name": "Jacksonville State Gamecocks",
+              "entity_id": "prt_f8a1518f950716bf4055",
+              "percentile": 4.4,
+              "rank": 349,
+              "short_name": "JXST",
+              "value": 0.0
+            },
+            {
+              "display_name": "Fresno State Bulldogs",
+              "entity_id": "prt_ee920801f26004708d00",
+              "percentile": 4.4,
+              "rank": 349,
+              "short_name": "FRES",
+              "value": 0.0
+            },
+            {
+              "display_name": "Northern Illinois Huskies",
+              "entity_id": "prt_ee194128e01e65cdeb49",
+              "percentile": 4.4,
+              "rank": 349,
+              "short_name": "NIU",
+              "value": 0.0
+            },
+            {
+              "display_name": "Kansas City Roos",
+              "entity_id": "prt_ec2046bb1b3659d33a2b",
+              "percentile": 4.4,
+              "rank": 349,
+              "short_name": "KC",
+              "value": 0.0
+            }
+          ],
+          "group": "roster",
+          "higher_is_better": null,
+          "mean": 0.264335,
+          "metric_id": "met_cbb.returning_minutes_share",
+          "name": "Returning minutes share",
+          "ranking_id": "rnk_902ea9d649eef1999773",
+          "short_name": "Ret. min",
+          "top": [
+            {
+              "display_name": "Princeton Tigers",
+              "entity_id": "prt_2792a9b0c3660478fcfa",
+              "percentile": 100.0,
+              "rank": 1,
+              "short_name": "PRIN",
+              "value": 0.9998
+            },
+            {
+              "display_name": "Air Force Falcons",
+              "entity_id": "prt_82670e288f1ad459c519",
+              "percentile": 99.73,
+              "rank": 2,
+              "short_name": "AF",
+              "value": 0.9828
+            },
+            {
+              "display_name": "Brown Bears",
+              "entity_id": "prt_ac76a06fafa970e2ffe9",
+              "percentile": 99.45,
+              "rank": 3,
+              "short_name": "BRWN",
+              "value": 0.8747
+            },
+            {
+              "display_name": "American University Eagles",
+              "entity_id": "prt_0adb0fb532dc432ef03e",
+              "percentile": 99.18,
+              "rank": 4,
+              "short_name": "AMER",
+              "value": 0.848
+            },
+            {
+              "display_name": "Harvard Crimson",
+              "entity_id": "prt_4965a75d7c8c3a4e775f",
+              "percentile": 98.9,
+              "rank": 5,
+              "short_name": "HARV",
+              "value": 0.8329
+            }
+          ],
+          "unit": "share",
+          "universe_size": 364,
+          "window": "PRESEASON_ROSTER"
+        }
+      },
+      "market_mapping": {
+        "capture_at": "2026-11-07T15:51:07.230289+00:00",
+        "captured_contracts": 19662,
+        "counts": {
+          "ambiguous_game": 2,
+          "no_game_on_date": 225,
+          "non_game_market": 13394,
+          "ok": 5816,
+          "teams_unresolved": 225
+        },
+        "mapped_contracts": 5816
+      },
+      "markets": {
+        "captured_at": "2026-11-07T15:51:07.230289+00:00",
+        "note": null,
+        "published": 5816
+      },
+      "model_note": "pure-0.2.0 is the production incumbent. Challengers run in shadow; P-ROSTER-1 is a prospective roster overlay on pure-0.5.0. No model is called better before the preregistered evaluation (after the 2027 national championship game).",
+      "models": [
+        {
+          "role": "incumbent",
+          "role_label": "Incumbent",
+          "version": "pure-0.2.0"
+        },
+        {
+          "role": "shadow",
+          "role_label": "Shadow research",
+          "version": "pure-0.3.0"
+        },
+        {
+          "role": "shadow",
+          "role_label": "Shadow research",
+          "version": "pure-0.4.0"
+        },
+        {
+          "role": "shadow",
+          "role_label": "Shadow research",
+          "version": "pure-0.5.0"
+        },
+        {
+          "role": "roster_overlay",
+          "role_label": "Prospective roster overlay",
+          "version": "pure-0.5.0+roster"
+        }
+      ],
+      "projection_states": {
+        "AWAITING_CAPTURE": 20,
+        "PENDING_WINDOW": 5130,
+        "PROJECTED": 304
+      },
+      "prospective": {
+        "game_1": {
+          "N": 162,
+          "base": {
+            "MAE": 10.0794,
+            "RMSE": 12.7463,
+            "bias": 0.2446
+          },
+          "ci90": null,
+          "delta_MAE": -0.0032,
+          "delta_RMSE": -0.0467,
+          "incumbent": {
+            "MAE": 10.2647,
+            "RMSE": 13.0463,
+            "bias": 0.9138
+          },
+          "pct_games_improved": 0.5062,
+          "roster": {
+            "MAE": 10.0763,
+            "RMSE": 12.6996,
+            "bias": -1.8413
+          }
+        },
+        "game_2": {
+          "N": 29,
+          "base": {
+            "MAE": 9.7591,
+            "RMSE": 12.6376,
+            "bias": 0.7165
+          },
+          "ci90": null,
+          "delta_MAE": -0.3127,
+          "delta_RMSE": -0.1399,
+          "incumbent": {
+            "MAE": 10.0141,
+            "RMSE": 12.9776,
+            "bias": 2.0202
+          },
+          "pct_games_improved": 0.6552,
+          "roster": {
+            "MAE": 9.4464,
+            "RMSE": 12.4977,
+            "bias": -0.5576
+          }
+        },
+        "game_3": {
+          "N": 0,
+          "ci90": null
+        },
+        "gate": {
+          "PENDING": 3,
+          "UNSCORABLE": 2,
+          "VALID": 191
+        },
+        "inference_allowed": true,
+        "min_days_for_inference": 10,
+        "min_n_for_inference": 20,
+        "note": null,
+        "protocol": "research/hypotheses/WAVE7.md section 7 (locked); Wave 8 diagnostics in research/hypotheses/WAVE8.md",
+        "scoreboard_path": "scores/2026/11/2026-11-06T183354Z",
+        "scoreboard_stamp": "2026-11-06T183354Z",
+        "versions": {
+          "base": "pure-0.5.0",
+          "incumbent": "pure-0.2.0",
+          "roster": "pure-0.5.0+roster"
+        }
+      },
+      "provenance": {
+        "code_sha": "199488b3d0a61139e50896f24ea92d0de2248aba",
+        "kalshi_archive": "1c6f9a7b9a5aa9e4e3bb712b54c792a8dec94760",
+        "last_prospective_run": {
+          "as_of": "2026-11-07T11:17:42.967589+00:00",
+          "code_sha": "199488b3d0a61139e50896f24ea92d0de2248aba",
+          "records": 5,
+          "roster_archive_commit": "b226f6c6d7f2ff0ecad80ceae19f6e17f9a5abe8",
+          "stamp": "20261107T111742Z"
+        },
+        "projections_archive": "d6b39a01a3a6bb9f0870d82d2f08c0d17509276d",
+        "roster_archive": "a90e569e8153ce3ad5e37c47ea1bed89b8763b7e",
+        "schedule_archive": "1d72e0d08b591cc91c34487ea12917f2e411557d",
+        "scores_archive": "119ad895233a47253912d73051f3eeca9c0de02d"
+      },
+      "research_status": "IN_SEASON",
+      "roster_readiness": {
+        "continuity_audit": {
+          "abs_max": 8.39141382554014,
+          "abs_p90": 4.344554962216354,
+          "abs_p95": 5.407036277960871,
+          "confirmed_teams": 358,
+          "mean": -0.3948727491104027,
+          "median": -0.2414469132428717,
+          "n_abs_gt_2": 142,
+          "n_abs_gt_3": 80,
+          "n_abs_gt_4": 47
+        },
+        "counts": {
+          "CONFIRMED": 359,
+          "LIKELY": 8,
+          "STALE": 1
+        },
+        "snapshot": "20261107T144431Z",
+        "snapshot_at": "2026-11-07T14:44:31+00:00"
+      },
+      "schedule": {
+        "d1_games": 5454,
+        "excluded": 2,
+        "fallback_games": 45,
+        "observed_at": "2026-11-07T14:40:43+00:00",
+        "reconciled_games": 57,
+        "sdv_games": 6071
+      },
+      "season": "2026-27"
+    }
+  },
+  "freshness_status": "FRESH",
+  "generated_at": "2026-11-07T15:53:42Z",
+  "kind": "health",
+  "last_export_attempt": "2026-11-07T15:53:42Z",
+  "last_market_capture": "2026-11-07T15:51:07Z",
+  "last_model_generated": "2026-11-07T11:17:42Z",
+  "last_successful_run": "2026-11-07T15:53:42Z",
+  "market_data_status": "OK",
+  "model_status": "OK",
+  "next_scheduled_run": null,
+  "overall_status": "RESEARCH_ONLY",
+  "payload_run_id": "run_0e7d6342517db41fbaf3",
+  "router_status": "NOT_APPLICABLE",
+  "run_id": "run_0e7d6342517db41fbaf3",
+  "schema_version": "edge_finder.app.v1",
+  "settlement_status": "NOT_APPLICABLE",
+  "sport": "CBB",
+  "thresholds": {
+    "export": {
+      "fresh_after_seconds": 1800,
+      "stale_after_seconds": 10800
+    },
+    "market_data": {
+      "fresh_after_seconds": 900,
+      "stale_after_seconds": 3600
+    },
+    "model": {
+      "fresh_after_seconds": 50400,
+      "stale_after_seconds": 108000
+    },
+    "recommendations": {
+      "fresh_after_seconds": 3600,
+      "stale_after_seconds": 21600
+    },
+    "router": {
+      "fresh_after_seconds": 1800,
+      "stale_after_seconds": 14400
+    },
+    "schedule": {
+      "fresh_after_seconds": 86400,
+      "stale_after_seconds": 259200
+    },
+    "settlement": {
+      "fresh_after_seconds": 86400,
+      "stale_after_seconds": 259200
+    }
+  },
+  "warnings": []
+}
