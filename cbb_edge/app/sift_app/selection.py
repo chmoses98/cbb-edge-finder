@@ -92,6 +92,9 @@ class GameClock:
     completed: bool = False
     home_team_id: str | None = None
     away_team_id: str | None = None
+    neutral: bool | None = (
+        None  # schedule's neutral-site flag (None = unknown: a reversal then fails closed)
+    )
 
     def started(self, now: pd.Timestamp) -> bool:
         """Fail closed: anything but positive not-started evidence, or an announced tip
@@ -147,7 +150,18 @@ class Selection:
     rejected: list[dict[str, Any]] = field(default_factory=list)
     conflicts: list[str] = field(default_factory=list)
     identity_changed: list[str] = field(default_factory=list)  # versions whose record is
-    # for another matchup than the current schedule
+    # for another matchup than the current schedule, OR the same teams listed home/away reversed
+    orientation: dict[str, Any] = field(default_factory=dict)  # version -> OrientationCheck
+    # (canonical-id identity, cbb_edge.data.ids.orientation); ``reorientable`` = the identity_changed
+    # versions that are a verified neutral-site reversal and may be reframed by a consumer
+    # that opts in (the Sift app does not: it keeps treating every change as changed)
+
+    @property
+    def reorientable(self) -> list[str]:
+        from cbb_edge.data.ids.orientation import Orientation
+
+        return sorted(v for v, c in self.orientation.items()
+                      if c.status is Orientation.SWAPPED and v in self.identity_changed)  # fmt: skip
 
     @property
     def message(self) -> str:
@@ -197,14 +211,22 @@ def select(
             continue
         _, why, rec, role = top[0]
         chosen[v] = Choice(v, role, rec, why)
-    identity = [
-        v
-        for v, c in chosen.items()
-        if clock.home_team_id
-        and clock.away_team_id
-        and (c.record["home"]["team_id"], c.record["away"]["team_id"])
-        != (clock.home_team_id, clock.away_team_id)
-    ]
+    from cbb_edge.data.ids.orientation import Orientation, classify
+
+    identity: list[str] = []
+    checks: dict[str, Any] = {}
+    for v, c in chosen.items():
+        if not (clock.home_team_id and clock.away_team_id):
+            continue
+        rec_neutral = (c.record.get("game") or {}).get("site") == "neutral"
+        chk = classify(
+            c.record["home"]["team_id"], c.record["away"]["team_id"],
+            clock.home_team_id, clock.away_team_id,
+            neutral=bool(rec_neutral and clock.neutral is not False) if clock.neutral is not None else None,
+        )  # fmt: skip
+        checks[v] = chk
+        if chk.status is not Orientation.SAME:
+            identity.append(v)
     if chosen:
         state = PROJECTED
     elif not clock.started(now):
@@ -213,7 +235,7 @@ def select(
     else:
         state = UNAVAILABLE
     return Selection(
-        clock.espn_game_id, state, chosen, rejected, sorted(conflicts), sorted(identity)
+        clock.espn_game_id, state, chosen, rejected, sorted(conflicts), sorted(identity), checks
     )
 
 

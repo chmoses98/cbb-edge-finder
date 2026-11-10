@@ -802,13 +802,14 @@ def tbd_ambiguous(recs: list[dict], unproven: dict,
     return amb
 
 
-def identity_changed(pre: pd.DataFrame, games: pd.DataFrame | None) -> set[int]:
-    """Wave 11 (fail closed): games whose SCORED pre-tip record (``pregame``: the latest
-    before tip, per version) is for different teams, or the same teams with home / away
-    swapped, than the FINAL schedule (a source changed the matchup under the same id after
-    that record). Such a record predicts another matchup or the opposite margin sign:
-    never paired with the result. A later pre-tip record made for the corrected matchup is
-    the scored one, so a change caught before tip costs nothing."""
+def orientation_checks(pre: pd.DataFrame, games: pd.DataFrame | None) -> dict[int, Any]:
+    """Per game, the canonical-id orientation decision (``cbb_edge.data.ids.orientation``) of the
+    SCORED pre-tip records (base and roster versions) against the FINAL schedule. A game with several
+    versions takes the worst verdict (UNVERIFIED over SWAPPED over SAME). A reversal is accepted only
+    on a neutral site: the record's own site must say neutral and, when the schedule frame carries a
+    ``neutral`` flag, so must the schedule."""
+    from cbb_edge.data.ids.orientation import Orientation, classify
+
     if (
         games is None
         or not len(games)
@@ -816,17 +817,61 @@ def identity_changed(pre: pd.DataFrame, games: pd.DataFrame | None) -> set[int]:
         or pre is None
         or not len(pre)
     ):
-        return set()
+        return {}
     fin = {int(g): (h, a) for g, h, a in zip(games["espn_game_id"], games["home_team_id"],
                                              games["away_team_id"], strict=True)}  # fmt: skip
-    out = set()
+    neu = {}
+    if "neutral" in games:
+        neu = {int(g): (None if n is None or n != n else bool(n))
+               for g, n in zip(games["espn_game_id"], games["neutral"], strict=True)}  # fmt: skip
+    rank = {Orientation.SAME: 0, Orientation.SWAPPED: 1, Orientation.UNVERIFIED: 2}
+    out: dict[int, Any] = {}
     for r in pre[pre["version"].isin([BASE, ROSTER])].itertuples(index=False):
-        f = fin.get(int(r.espn_game_id))
-        if f is None or any(x is None or x != x for x in f):
-            continue
-        if (r.home_team_id, r.away_team_id) != f:
-            out.add(int(r.espn_game_id))
+        gid = int(r.espn_game_id)
+        f = fin.get(gid)
+        if f is None:
+            continue  # the schedule has no row for this game: nothing to compare
+        # a schedule row whose teams do not resolve to canonical ids is UNVERIFIED (fail closed), not
+        # silently scored as if it were the projected matchup
+        f = tuple(None if x is None or x != x else x for x in f)
+        sched_neutral = neu.get(gid, True) if neu else True
+        chk = classify(r.home_team_id, r.away_team_id, f[0], f[1],
+                       neutral=(r.site == "neutral") and sched_neutral)  # fmt: skip
+        if gid not in out or rank[chk.status] > rank[out[gid].status]:
+            out[gid] = chk
     return out
+
+
+def identity_changed(
+    pre: pd.DataFrame, games: pd.DataFrame | None, remap_swapped: bool = True
+) -> set[int]:
+    """Wave 11 (fail closed): games whose SCORED pre-tip record (``pregame``: the latest
+    before tip, per version) is for different teams, or the same teams with home / away
+    swapped, than the FINAL schedule (a source changed the matchup under the same id after
+    that record). Such a record predicts another matchup or the opposite margin sign:
+    never paired with the result. A later pre-tip record made for the corrected matchup is
+    the scored one, so a change caught before tip costs nothing.
+
+    Wave 13: identity is decided by ``cbb_edge.data.ids.orientation`` (canonical team ids). With
+    ``remap_swapped`` (the default) a verified NEUTRAL-SITE reversal is NOT an identity change: it is
+    scored with the result mapped onto the projected teams (``score`` flips the margin). Anything
+    unverifiable (different teams, a reversal at a non-neutral site, unknown flags) stays here and is
+    UNSCORABLE. ``remap_swapped=False`` reproduces the earlier rule exactly (every mismatch)."""
+    from cbb_edge.data.ids.orientation import Orientation
+
+    checks = orientation_checks(pre, games)
+    bad = (
+        {Orientation.UNVERIFIED} if remap_swapped else {Orientation.UNVERIFIED, Orientation.SWAPPED}
+    )
+    return {g for g, c in checks.items() if c.status in bad}
+
+
+def orientation_swapped(pre: pd.DataFrame, games: pd.DataFrame | None) -> set[int]:
+    """Games whose scored records are a verified neutral-site reversal of the schedule (and nothing
+    worse): their result margin must be mapped onto the projected teams."""
+    from cbb_edge.data.ids.orientation import Orientation
+
+    return {g for g, c in orientation_checks(pre, games).items() if c.status is Orientation.SWAPPED}
 
 
 # ------------------------------------------------------------------------------- run
@@ -838,7 +883,8 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
           committed_roster: dict[str, pd.Timestamp] | None = None,
           projections_root: Path | None = None, expected: pd.DataFrame | None = None,
           enforce_gate: bool = True,
-          schedule_obs: pd.DataFrame | None = None) -> tuple[dict, dict]:  # fmt: skip
+          schedule_obs: pd.DataFrame | None = None,
+          remap_swapped: bool = True) -> tuple[dict, dict]:  # fmt: skip
     """``games``: espn_game_id, home_team_id, away_team_id, tip (the season schedule; for
     each team's first five games). ``box``: espn_game_id, team_id, player_id, minutes,
     starter (played and DNP rows). ``expected``: the D-I games (espn_game_id) that tipped
@@ -863,7 +909,17 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
         tips = tips or {}
         tips[gid] = bound
     pre = pregame(recs, tips)
+    # Wave 13: verified neutral-site reversals are scored with the result mapped onto the projected
+    # teams (margin sign flipped; totals are orientation-free); the schedule archive is not edited.
+    swapped = orientation_swapped(pre, games) if remap_swapped else set()
+    if swapped and len(res):
+        res = res.copy()
+        flip = res["espn_game_id"].astype(int).isin(swapped)
+        res.loc[flip, "result_margin"] = -res.loc[flip, "result_margin"]
     pg_all = paired_games(pre, res, mkt, roster_archive, committed, committed_roster)
+    if remap_swapped and len(pg_all):
+        pg_all["orientation"] = ["SWAPPED" if int(g) in swapped else "SAME"
+                                 for g in pg_all["espn_game_id"]]  # fmt: skip
     tg_all = team_games(pg_all, roster_archive, d1_teams)
     gate = pretip_gate.classify(
         pre, pg_all, res, expected, tg_all, roster_archive=roster_archive,
@@ -873,7 +929,7 @@ def score(recs: list[dict], res: pd.DataFrame, mkt: pd.DataFrame | None = None,
         mutated_roster=pretip_gate.git_mutated_paths(roster_archive),
         dups=pretip_gate.duplicates(recs),
     )  # fmt: skip
-    changed = identity_changed(pre, games)
+    changed = identity_changed(pre, games, remap_swapped)
     amb = tbd_ambiguous(recs, unproven, committed) | changed
     if amb:
         gate = gate[~gate["espn_game_id"].isin(amb)]

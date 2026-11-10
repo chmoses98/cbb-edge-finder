@@ -73,15 +73,36 @@ def check_orientation(
         return _bad("schedule_team_id_unparseable", proj_home, proj_away)
     if sh is None or sa is None:
         return _bad("schedule_team_id_unresolved", proj_home, proj_away, sh, sa)
-    if sh == sa:
-        return _bad("schedule_teams_identical", proj_home, proj_away, sh, sa)
-    if (sh, sa) == (proj_home, proj_away):
-        return OrientationCheck(Orientation.SAME, None, proj_home, proj_away, sh, sa)
-    if (sh, sa) == (proj_away, proj_home):
-        if not neutral:
-            return _bad("reversed_at_non_neutral_site", proj_home, proj_away, sh, sa)
-        return OrientationCheck(Orientation.SWAPPED, None, proj_home, proj_away, sh, sa)
-    return _bad("team_set_mismatch", proj_home, proj_away, sh, sa)
+    return classify(proj_home, proj_away, sh, sa, neutral=neutral)
+
+
+def classify(
+    proj_home: str | None,
+    proj_away: str | None,
+    game_home: str | None,
+    game_away: str | None,
+    *,
+    neutral: bool | None,
+) -> OrientationCheck:
+    """The decision itself, on canonical ids. ``neutral`` must be True for a reversal to be accepted
+    (None = unknown, which fails closed). Every production scoring path calls this one function."""
+    if not proj_home or not proj_away or proj_home == proj_away:
+        return _bad(
+            "projection_team_ids_missing_or_equal", proj_home, proj_away, game_home, game_away
+        )
+    if not game_home or not game_away:
+        return _bad("schedule_team_ids_missing", proj_home, proj_away, game_home, game_away)
+    if game_home == game_away:
+        return _bad("schedule_teams_identical", proj_home, proj_away, game_home, game_away)
+    if (game_home, game_away) == (proj_home, proj_away):
+        return OrientationCheck(Orientation.SAME, None, proj_home, proj_away, game_home, game_away)
+    if (game_home, game_away) == (proj_away, proj_home):
+        if neutral is not True:
+            return _bad("reversed_at_non_neutral_site", proj_home, proj_away, game_home, game_away)
+        return OrientationCheck(
+            Orientation.SWAPPED, None, proj_home, proj_away, game_home, game_away
+        )
+    return _bad("team_set_mismatch", proj_home, proj_away, game_home, game_away)
 
 
 def check_record(
@@ -111,3 +132,22 @@ def to_projection_frame(
     if check.status is Orientation.SWAPPED:
         return sched_away_score, sched_home_score
     raise ValueError(f"orientation unverified ({check.reason}); refusing to map result")
+
+
+def reframe_projection(check: OrientationCheck, projection: dict[str, Any]) -> dict[str, Any]:
+    """A frozen ``projection`` block expressed in the SCHEDULE's home/away frame (a copy; the archived
+    record is never touched). SAME returns the values unchanged; SWAPPED mirrors every home/away
+    quantity (scores, ppp, margin sign, home win probability); UNVERIFIED raises."""
+    if check.status is Orientation.SAME:
+        return dict(projection)
+    if check.status is not Orientation.SWAPPED:
+        raise ValueError(f"orientation unverified ({check.reason}); refusing to reframe projection")
+    out = dict(projection)
+    for a, b in (("home_score", "away_score"), ("home_ppp", "away_ppp")):
+        if a in projection or b in projection:
+            out[a], out[b] = projection.get(b), projection.get(a)
+    if projection.get("margin") is not None:
+        out["margin"] = -projection["margin"]
+    if projection.get("home_win_prob") is not None:
+        out["home_win_prob"] = 1.0 - projection["home_win_prob"]
+    return out

@@ -52,6 +52,8 @@ def results_and_schedule(s: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
                 s["status_type_short_detail"] if "status_type_short_detail" in s
                 else [None] * len(s), strict=True)],
             "schedule_source": s["schedule_source"].to_numpy(),
+            "neutral": s["neutral_site"].map(lambda v: None if v is None or v != v else bool(v)).to_numpy()
+            if "neutral_site" in s else None,
         "reconciled_fields": s["reconciled_fields"].to_numpy() if "reconciled_fields" in s else "",
         }
     )  # fmt: skip
@@ -128,7 +130,7 @@ def main() -> None:
     expected = expected_games(sched, d1, now)
     frames, s = prospective_score.score(
         recs, res, market(a.espn, sched), a.rosters if a.rosters.exists() else None, bx,
-        sched[["espn_game_id", "home_team_id", "away_team_id", "tip", "time_state"]]
+        sched[["espn_game_id", "home_team_id", "away_team_id", "tip", "time_state", "neutral"]]
         if len(sched) else sched, a.season, d1,
         committed=prospective_score.git_first_commit_times(a.projections),
         committed_roster=prospective_score.git_first_commit_times(a.rosters),

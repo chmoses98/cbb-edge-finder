@@ -33,13 +33,25 @@ def _projections(
     records: list[dict[str, Any]],
     w: World,
     at: pd.Timestamp,
+    reorient: bool = True,
 ) -> dict[str, Any]:
+    """Frozen projections usable for this game. A record for the SAME teams listed home/away reversed
+    on a neutral site (verified by canonical team id) is reframed into the schedule's frame - the frame
+    ``parse_contract`` / ``settle`` use for ``subject_side`` - so contract probabilities point the right
+    way; anything else that changed identity is skipped. ``reorient=False`` is the legacy behaviour
+    (every identity change skipped), kept only for the before/after comparison."""
+    from cbb_edge.data.ids.orientation import reframe_projection
+
     selected = S.select(records, clock_of(game), at, S.roles(w.active))
     out: dict[str, Any] = {}
+    reoriented: list[str] = []
     for version, choice in selected.chosen.items():
-        if version in selected.identity_changed:
-            continue
         p = choice.record.get("projection") or {}
+        if version in selected.identity_changed:
+            if not (reorient and version in selected.reorientable):
+                continue
+            p = reframe_projection(selected.orientation[version], p)
+            reoriented.append(version)
         out[version] = {
             "role": choice.role,
             "as_of": choice.as_of.isoformat(),
@@ -58,7 +70,8 @@ def _projections(
         "state": selected.state,
         "versions": out,
         "rejected_version_count": len(selected.rejected),
-        "identity_changed_versions": selected.identity_changed,
+        "identity_changed_versions": [v for v in selected.identity_changed if v not in reoriented],
+        "reoriented_versions": sorted(reoriented),
         "conflicting_versions": selected.conflicts,
     }
 
