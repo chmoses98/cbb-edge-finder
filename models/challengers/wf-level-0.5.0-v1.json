@@ -1,0 +1,24 @@
+{
+ "schema_version": "cbb-challenger-v2",
+ "version": "wf-level-0.5.0-v1",
+ "base_version": "pure-0.5.0",
+ "status": "SHADOW_RESEARCH_ONLY",
+ "registered": "2026-11-10",
+ "protocol": "research/hypotheses/WAVE12.md",
+ "code": "cbb_edge/model/level_adapt.py",
+ "kind": "walk_forward_rule",
+ "params": {
+  "k_level": 30.0,
+  "k_sd": 40.0,
+  "min_games": 30,
+  "margin_bins": [6.0, 14.0],
+  "level": true,
+  "sd": true
+ },
+ "information_rule": "state for a game uses only games whose final was first observed in the schedule archive at or before that projection's as_of; below min_games no adaptation exists (explicit gap)",
+ "market_inputs": "none",
+ "prospective_from": "tip after the registration commit; recomputable from immutable archives (projections-archive, schedule-archive)",
+ "evaluation_label_at_registration": "INSUFFICIENT EVIDENCE (exploratory historical; research/reports/WAVE12_SCORING_LEVEL.md)",
+ "promotion": "none; incumbent pure-0.2.0 unchanged; promotion governed by research/hypotheses/WAVE4.md",
+ "note": "Not listed in models/pure/active.json. The shadow SD recalibration component was not supported on the evaluation window and is flagged for removal in the next protocol; ablation 'wf-level-only' reported in the report."
+}
