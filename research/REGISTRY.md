@@ -209,3 +209,15 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | A1 Nov 1–9 readiness (frozen snapshot) | 357 = canonical: 107 SDV + 250 fallback; 0 absent, 0 at risk; 0 CRITICAL, 16 WARNING (all reconciled) | target met |
 | A1 full dry run (synthetic) | 357 projected/settled; 356 VALID + 1 designed UNSCORABLE (matchup changed after last pre-tip record); duplicate run 0 written | passed |
 | Model / P-ROSTER-1 / scoring change | none | by design |
+
+## Wave 12 / Model Wave 1 (2026-11-10, scoring-level challenger; protocol `research/hypotheses/WAVE12.md`)
+
+| ID | Description | Status |
+|---|---|---|
+| WF-LEVEL | `wf-level-0.5.0-v1`: walk-forward scoring-level (possession-scaled total shift) + shrunk SD rescale on frozen pure-0.5.0; as-of-respecting, no market input; **shadow, research only** | **INSUFFICIENT EVIDENCE** (exploratory historical; total bias +2.7 → −0.1, total MAE −0.13 [−0.42, +0.15]; SD rescale unsupported) |
+| WF-LEVEL-only / WF-SD-only | ablations of the above | reported |
+| WF-LEVEL-0.5.0r | same rule on the roster-overlay base (secondary) | reported, not selected |
+| Neutral-site orientation guard | scoring excludes games whose home/away order differs between projection and schedule (4 games) | adopted in the Wave 1 scorer |
+| Per-team pace / prior weighting, team-total and half distributions | blocked: not in archived records / frozen model | next wave |
+
+Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`: unchanged.

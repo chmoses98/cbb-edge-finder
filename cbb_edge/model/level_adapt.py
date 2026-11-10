@@ -45,10 +45,11 @@ def _bin(abs_margin: float, edges: tuple[float, float]) -> int:
     return 0 if abs_margin < edges[0] else 1 if abs_margin < edges[1] else 2
 
 
-def fit(history: Sequence[dict[str, float]], params: Params = Params()) -> dict[str, Any] | None:
+def fit(history: Sequence[dict[str, float]], params: Params | None = None) -> dict[str, Any] | None:
     """``history``: one dict per FINISHED game with the frozen projection's ``poss``, ``margin``,
     ``margin_sd``, ``total``, ``total_sd`` and the realised ``margin_err`` / ``total_err``
     (actual - projected). Returns the adaptation state, or None below ``min_games``."""
+    params = params or Params()
     n = len(history)
     if n < params.min_games:
         return None
@@ -103,13 +104,14 @@ def win_prob(adapted: dict[str, float]) -> float:
 def walk_forward(
     games: Sequence[dict[str, Any]],
     finals: dict[int, dict[str, Any]],
-    params: Params = Params(),
+    params: Params | None = None,
 ) -> dict[int, dict[str, Any] | None]:
     """For each game, the adaptation state built ONLY from other games whose final was recorded
     (``finals[gid]['available_at']``) at or before this game's projection ``as_of``.
 
     ``games``: the frozen projections of ONE base version (``cbb_edge.research.wave1.load_frozen``
     values). Returns {game_id: state or None}; None means fewer than ``min_games`` were finished."""
+    params = params or Params()
     hist: list[tuple[Any, dict[str, float]]] = []
     for g in games:
         f = finals.get(g["game_id"])

@@ -125,6 +125,7 @@ def load_finals(schedule_root: Path) -> dict[int, dict[str, Any]]:
                     "home": int(r["home_score"]), "away": int(r["away_score"]),
                     "available_at": min(first, seen) if first and seen else (first or seen),
                     "periods": r.get("status_period"), "neutral": bool(r.get("neutral_site")),
+                    "home_loc": r.get("home_location"), "away_loc": r.get("away_location"),
                 }  # fmt: skip
     return out
 
@@ -194,21 +195,37 @@ def load_team_box_actuals(team_box_parquet: Path) -> dict[int, dict[str, float]]
 
 
 # --------------------------------------------------------------------------------- assembly
+def orientation_swapped(proj: dict[str, Any], final: dict[str, Any]) -> bool:
+    """True when the schedule archive lists the two teams in the opposite home/away order from the
+    frozen projection (seen on neutral-site event games). Scoring such a game as-is would flip the
+    margin sign and invent a huge "miss"; the prospective scoreboard marks them UNSCORABLE and so
+    do we. Both names must match the swapped order, so alias differences never trigger it."""
+    hn, an = proj.get("home_name") or "", proj.get("away_name") or ""
+    hl, al = final.get("home_loc") or "", final.get("away_loc") or ""
+    if not (hl and al):
+        return False
+    return hn.startswith(al) and an.startswith(hl) and not (hn.startswith(hl) and an.startswith(al))
+
+
 def eligible_games(
     frozen: dict[str, dict[int, dict[str, Any]]],
     finals: dict[int, dict[str, Any]],
     *,
     cutoff_tip: str = CUTOFF_TIP_UTC,
-) -> list[int]:
-    """Games with a frozen pregame projection from EVERY version and a verified final, tipping
-    before ``cutoff_tip``. Ordered by tip time."""
+) -> tuple[list[int], list[int]]:
+    """(eligible ids ordered by tip, orientation-swapped ids excluded).
+
+    Eligible: a frozen pregame projection from EVERY version, a verified final, tip before
+    ``cutoff_tip`` and the same home/away orientation in projection and schedule."""
     cut = parse_ts(cutoff_tip)
     ids = set(finals)
     for per in frozen.values():
         ids &= set(per)
     base = frozen[BASE_VERSION]
     keep = [g for g in ids if base[g]["tip"] < cut]  # type: ignore[operator]
-    return sorted(keep, key=lambda g: (base[g]["tip"], g))
+    swapped = sorted(g for g in keep if orientation_swapped(base[g], finals[g]))
+    keep = [g for g in keep if g not in set(swapped)]
+    return sorted(keep, key=lambda g: (base[g]["tip"], g)), swapped
 
 
 def errors(proj: dict[str, Any], final: dict[str, Any]) -> dict[str, float]:
@@ -240,7 +257,7 @@ def decompose(proj: dict[str, Any], act: dict[str, float]) -> dict[str, float]:
         "total_eff_term": pa * (d_h + d_a),
         "margin_pace_term": d_poss * (hp - ap),
         "margin_eff_term": pa * (d_h - d_a),
-        "total_err_check": (act["home_pts"] + act["away_pts"]) - proj["total"],
+        "total_err_check": (act["home_pts"] + act["away_pts"]) - pp * (hp + ap),
     }
 
 
@@ -323,3 +340,128 @@ def tercile_labels(values: Sequence[float]) -> tuple[float, float]:
 def et_date(tip: datetime) -> str:
     """Tip's Eastern calendar date (EST, UTC-5; all Wave 1 games are after the Nov 1 change)."""
     return (tip - timedelta(hours=5)).date().isoformat()
+
+
+# --------------------------------------------------------------------------------- game table
+def build_table(
+    frozen: dict[str, dict[int, dict[str, Any]]],
+    finals: dict[int, dict[str, Any]],
+    actuals: dict[int, dict[str, float]],
+    market: dict[int, dict[str, Any]],
+    ids: Sequence[int],
+) -> list[dict[str, Any]]:
+    """One row per eligible game: frozen projections per version, the final, realised possessions
+    (postgame, scoring only) and the free ESPN pre-tip line (benchmark only)."""
+    base = frozen[BASE_VERSION]
+    rows = []
+    for g in ids:
+        b, f = base[g], finals[g]
+        hp, ap = (b["home_games_seen"] or 0), (b["away_games_seen"] or 0)
+        row: dict[str, Any] = {
+            "game_id": g, "tip": b["tip"], "as_of": b["as_of"], "date": et_date(b["tip"]),
+            "home": f["home"], "away": f["away"], "margin": f["home"] - f["away"],
+            "total": f["home"] + f["away"], "y_home": int(f["home"] > f["away"]),
+            "min_gs": min(hp, ap), "max_gs": max(hp, ap),
+            "home_name": b["home_name"], "away_name": b["away_name"], "site": b["site"],
+            "quality": (b["home_adj_o"] - b["home_adj_d"] + b["away_adj_o"] - b["away_adj_d"]) / 2,
+            "proj": {v: frozen[v][g] for v in frozen},
+        }  # fmt: skip
+        a = actuals.get(g)
+        if a is not None:
+            row["act_poss"] = a["poss"]
+        m = market.get(g)
+        if m is not None:
+            row["mkt_margin"] = -m["spread"]
+            row["mkt_total"] = m["total"]
+        rows.append(row)
+    return rows
+
+
+def forecast_of(row: dict[str, Any], name: str) -> dict[str, float] | None:
+    """Margin / total point forecast, SDs and winner probabilities for one named forecaster."""
+    if name == "market":
+        if "mkt_margin" not in row:
+            return None
+        return {"margin": row["mkt_margin"], "total": row["mkt_total"]}
+    p = row["proj"].get(name) or row.get("adapted", {}).get(name)
+    if p is None:
+        return None
+    out = {"margin": p["margin"], "total": p["total"]}
+    if p.get("margin_sd"):
+        out["margin_sd"] = p["margin_sd"]
+        out["total_sd"] = p["total_sd"]
+        out["p_normal"] = _cdf(p["margin"] / p["margin_sd"])
+    if p.get("home_wp") is not None:
+        out["p_published"] = p["home_wp"]
+    return out
+
+
+def score_forecaster(rows: Sequence[dict[str, Any]], name: str, p_kind: str = "p_normal") -> dict:
+    """Metrics for ``name`` over ``rows`` (all must have the forecaster). Adds 90% interval
+    coverage for margin and total and the standardised-error SD."""
+    sc, zm, zt, cm, ct = [], [], [], [], []
+    for r in rows:
+        f = forecast_of(r, name)
+        assert f is not None, (name, r["game_id"])
+        e = {"margin_err": r["margin"] - f["margin"], "total_err": r["total"] - f["total"]}
+        p = f.get(p_kind)
+        e["p_home"], e["y_home"] = p, r["y_home"]  # type: ignore[assignment]
+        sc.append(e)
+        if "margin_sd" in f:
+            zm.append(e["margin_err"] / f["margin_sd"])
+            zt.append(e["total_err"] / f["total_sd"])
+            cm.append(abs(zm[-1]) <= 1.645)
+            ct.append(abs(zt[-1]) <= 1.645)
+    out = point_metrics(sc)
+    if zm:
+        out.update(
+            margin_z_sd=sd(zm), total_z_sd=sd(zt),
+            margin_cover90=mean([float(x) for x in cm]), total_cover90=mean([float(x) for x in ct]),
+        )  # fmt: skip
+    return out
+
+
+def calibration_bins(rows: Sequence[dict[str, Any]], name: str, p_kind: str = "p_normal") -> list:
+    edges = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0000001]
+    out = []
+    for lo, hi in zip(edges[:-1], edges[1:], strict=True):
+        pts = []
+        for r in rows:
+            f = forecast_of(r, name) or {}
+            p = f.get(p_kind)
+            if p is not None and lo <= p < hi:
+                pts.append((p, r["y_home"]))
+        out.append(
+            {"bin": f"[{lo:.1f},{min(hi, 1.0):.1f})", "n": len(pts),
+             "mean_pred": mean([p for p, _ in pts]) if pts else None,
+             "observed": mean([float(y) for _, y in pts]) if pts else None}
+        )  # fmt: skip
+    return out
+
+
+def paired_vs(
+    rows: Sequence[dict[str, Any]], a: str, b: str, p_kind: str = "p_normal"
+) -> dict[str, dict[str, float]]:
+    """Paired (a - b) loss differences with bootstrap intervals; negative = a better."""
+
+    def col(name: str, fn: Callable[[dict[str, Any], dict[str, float]], float]) -> list[float]:
+        return [fn(r, forecast_of(r, name)) for r in rows]  # type: ignore[arg-type]
+
+    res = {}
+    for label, fn in {
+        "margin_abs": lambda r, f: abs(r["margin"] - f["margin"]),
+        "margin_sq": lambda r, f: (r["margin"] - f["margin"]) ** 2,
+        "total_abs": lambda r, f: abs(r["total"] - f["total"]),
+        "total_sq": lambda r, f: (r["total"] - f["total"]) ** 2,
+    }.items():
+        res[label] = paired_bootstrap(col(a, fn), col(b, fn))
+    if all(p_kind in (forecast_of(r, n) or {}) for r in rows for n in (a, b)):
+        res["brier"] = paired_bootstrap(
+            col(a, lambda r, f: brier(f[p_kind], r["y_home"])),
+            col(b, lambda r, f: brier(f[p_kind], r["y_home"])),
+        )
+        res["logloss"] = paired_bootstrap(
+            col(a, lambda r, f: logloss(f[p_kind], r["y_home"])),
+            col(b, lambda r, f: logloss(f[p_kind], r["y_home"])),
+        )
+    return res

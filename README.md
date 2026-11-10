@@ -48,3 +48,4 @@ The full rebuild (bronze → silver → tuning → backtest → Sift outputs) is
 | `research/reports/WAVE2.md` | wave-2 PURE_BASKETBALL results (player, shot, context, pace, uncertainty, residuals) |
 | `docs/MODEL_FAMILIES.md` | PURE_BASKETBALL vs market separation and its CI enforcement |
 | `docs/PROSPECTIVE.md` | immutable 2026–27 projection archive |
+| `research/reports/WAVE12_SCORING_LEVEL.md` | Model Wave 1: scoring-level diagnosis, walk-forward challenger, identical-game comparison, contract-level diagnostics (protocol `research/hypotheses/WAVE12.md`) |
