@@ -27,6 +27,7 @@ import pandas as pd
 from scipy.stats import norm
 
 from cbb_edge import __version__
+from cbb_edge.app import model_inputs
 from cbb_edge.app.sift import (
     Freshness,
     GameRef,
@@ -226,6 +227,10 @@ def feature_frame(
         [df.reset_index(drop=True), X.reset_index(drop=True).loc[:, ~X.columns.isin(df.columns)]],
         axis=1,
     )
+    try:  # additive export: a failure must never block a projection, it is recorded as missing
+        out.attrs["inputs_noise"] = model_inputs.league_noise(tg_e, season)
+    except Exception as exc:  # noqa: BLE001
+        out.attrs["inputs_noise"] = {"missing": f"noise_failed:{type(exc).__name__}"}
     out.attrs["reconstruction"] = (
         {"mode": "checkpoint", "boundary": season - 1, "sha256": ck.manifest["sha256"]}
         if ck is not None
@@ -332,6 +337,7 @@ def project_window(
         model, season, as_of, share_adjust=share_adjust, preseason_shares=preseason_shares
     )
     recon = df.attrs.get("reconstruction")
+    noise = df.attrs.get("inputs_noise") or {"missing": "noise_not_computed"}
     end = as_of + pd.Timedelta(hours=horizon_h)
     win = select_window(df, as_of, end)
     if win.empty:
@@ -425,6 +431,13 @@ def project_window(
             "spread_cover_prob_fn": "Phi((margin - line) / margin_sd)",
             "home_win_prob_normal": float(norm.cdf(margin[i] / sig_m[i])),
         }
+        try:
+            rec["model_inputs"] = model_inputs.game_block(r, model, noise, as_of)
+        except Exception as exc:  # noqa: BLE001
+            rec["model_inputs"] = {
+                "version": model_inputs.INPUTS_VERSION,
+                "missing": f"export_failed:{type(exc).__name__}",
+            }
         validate(rec)
         out.append(rec)
     return out
