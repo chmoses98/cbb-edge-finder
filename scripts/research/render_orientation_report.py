@@ -68,10 +68,11 @@ def main() -> None:
       f"({s['not_checkable']:,} not checkable: halves, overtime, race, ties). On the reversed games: {s['agree_on_reversed_games']:,} agree, "
       f"{s['disagree_on_reversed_games']} disagree. Settlement code is unchanged; this confirms contract directions are untouched.\n")  # fmt: skip
     b = ka["reversed_games_probability_brier"]
-    if b.get("n_contracts"):
-        a(f"* Model probabilities for the reversed games (last pre-tip panel row per contract, outcome from the settled score, {b['n_contracts']} version×contract "
-          f"probabilities): Brier **{b['reframed']:.4f}** reframed vs {b['raw_unframed']:.4f} if the projection were applied without reframing (backwards). The old panel held "
-          f"{b['stored_nonnull_probabilities_in_old_panel']} such probabilities (they were skipped).\n")  # fmt: skip
+    a(f"* The schedule archive flipped these games' orientation late on Nov 8. Panel rows captured BEFORE the flip (**{ka['reversed_games_pre_flip_rows_unchanged']:,}** "
+      "rows) were built in the projection's own frame, already carry correct probabilities, and are untouched by NEW. Rows captured AFTER the flip are where OLD skipped "
+      f"every version (0 probabilities). For those, NEW reframes the projection into the schedule frame: **{b['n_contracts']:,}** version×contract probabilities, outcomes from "
+      f"the settled score, Brier **{b['reframed']:.4f}** reframed versus {b['raw_unframed']:.4f} if the projection were applied without reframing (backwards). "
+      "Frames are never mixed: the reframing uses the schedule as of each row's own capture.\n")  # fmt: skip
     a("## C. `model_inputs` real-data dry run (before integration)\n")
     c, p = dr["checks"], dr.get("future_row_perturbation", {})
     a(f"Production projection code on a locally rebuilt free-input lake, `{dr['version']}` at as-of `{dr['as_of']}` ({c['records']} records). "

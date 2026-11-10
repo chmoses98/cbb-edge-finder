@@ -1,0 +1,323 @@
+{
+ "archive_heads": {
+  "projections": "b8f32dd3ce0c9f2914e8274e6bf54adbc78a3327",
+  "rosters": "f22b0febd2837aecd118029f8902545461b64e75"
+ },
+ "baseline_ref": "b3203a31",
+ "kalshi": {
+  "differing_games": {
+   "401909694": {
+    "new_identity_changed": [],
+    "new_versions": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_identity_changed": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_versions": [],
+    "reoriented": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ]
+   },
+   "401918053": {
+    "new_identity_changed": [],
+    "new_versions": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_identity_changed": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_versions": [],
+    "reoriented": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ]
+   },
+   "401919029": {
+    "new_identity_changed": [],
+    "new_versions": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_identity_changed": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_versions": [],
+    "reoriented": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ]
+   },
+   "401921704": {
+    "new_identity_changed": [],
+    "new_versions": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_identity_changed": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ],
+    "old_versions": [],
+    "reoriented": [
+     "pure-0.2.0",
+     "pure-0.3.0",
+     "pure-0.4.0",
+     "pure-0.5.0",
+     "pure-0.5.0+roster"
+    ]
+   }
+  },
+  "games_where_old_and_new_selection_differ": 4,
+  "games_with_frozen_records_compared": 427,
+  "reversed_games_pre_flip_rows_unchanged": 4021,
+  "reversed_games_probability_brier": {
+   "n_contracts": 1990,
+   "raw_unframed": 0.2848873121456339,
+   "reframed": 0.18425798544889926,
+   "stored_nonnull_probabilities_in_old_panel": 0
+  },
+  "settlement_all_settled_panel_contracts": {
+   "agree": 1335172,
+   "agree_on_reversed_games": 17902,
+   "disagree": 0,
+   "disagree_on_reversed_games": 0,
+   "not_checkable": 136826
+  }
+ },
+ "now": "2026-11-10T12:00:00Z",
+ "scoreboard": {
+  "completed_games": 523,
+  "fail_closed_perturbations": {
+   "different_away_team": {
+    "game": 401902275,
+    "new": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    },
+    "old": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    }
+   },
+   "projected_game_reversed_at_non_neutral_site": {
+    "game": 401902275,
+    "new": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    },
+    "old": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    }
+   },
+   "reversed_game_marked_non_neutral": {
+    "game": 401909694,
+    "new": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    },
+    "old": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    }
+   },
+   "reversed_game_neutral_unknown": {
+    "game": 401909694,
+    "new": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    },
+    "old": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    }
+   },
+   "unresolved_schedule_team_id": {
+    "game": 401902275,
+    "new": {
+     "in_scored_pairs": false,
+     "reasons": "schedule_identity_changed",
+     "status": "UNSCORABLE"
+    },
+    "old": {
+     "in_scored_pairs": true,
+     "reasons": "",
+     "status": "VALID"
+    }
+   }
+  },
+  "gate_changes": {
+   "401909694": {
+    "new": [
+     "VALID",
+     ""
+    ],
+    "old": [
+     "UNSCORABLE",
+     "schedule_identity_changed"
+    ]
+   },
+   "401918053": {
+    "new": [
+     "VALID",
+     ""
+    ],
+    "old": [
+     "UNSCORABLE",
+     "schedule_identity_changed"
+    ]
+   },
+   "401919029": {
+    "new": [
+     "VALID",
+     ""
+    ],
+    "old": [
+     "UNSCORABLE",
+     "schedule_identity_changed"
+    ]
+   },
+   "401921704": {
+    "new": [
+     "VALID",
+     ""
+    ],
+    "old": [
+     "UNSCORABLE",
+     "schedule_identity_changed"
+    ]
+   }
+  },
+  "gate_counts_new": {
+   "INVALID": 1,
+   "PENDING": 4,
+   "VALID": 362
+  },
+  "gate_counts_old": {
+   "INVALID": 1,
+   "PENDING": 4,
+   "UNSCORABLE": 4,
+   "VALID": 358
+  },
+  "gate_rows_that_differ": [
+   401909694,
+   401918053,
+   401919029,
+   401921704
+  ],
+  "integrity_gate_unaffected_rows": {
+   "columns": 3,
+   "columns_equal": true,
+   "identical": true,
+   "rows_compared": 363
+  },
+  "paired_games": {
+   "columns": 112,
+   "columns_equal": true,
+   "identical": true,
+   "rows_compared": 359
+  },
+  "records_read": 5675,
+  "reversed_games_detail": {
+   "401909694": {
+    "new_base_err": 19.615537214101806,
+    "new_base_margin": 23.384462785898194,
+    "new_gate": "VALID",
+    "new_gate_reasons": "",
+    "new_result_margin_for_projected_home": 43.0,
+    "old_in_paired_games": true,
+    "schedule_margin_for_schedule_home": -43.0
+   },
+   "401918053": {
+    "new_base_err": -0.8969295675900959,
+    "new_base_margin": -17.103070432409904,
+    "new_gate": "VALID",
+    "new_gate_reasons": "",
+    "new_result_margin_for_projected_home": -18.0,
+    "old_in_paired_games": true,
+    "schedule_margin_for_schedule_home": 18.0
+   },
+   "401919029": {
+    "new_base_err": -5.960534348542758,
+    "new_base_margin": -1.0394656514572418,
+    "new_gate": "VALID",
+    "new_gate_reasons": "",
+    "new_result_margin_for_projected_home": -7.0,
+    "old_in_paired_games": true,
+    "schedule_margin_for_schedule_home": 7.0
+   },
+   "401921704": {
+    "new_base_err": -13.574157176817584,
+    "new_base_margin": 7.574157176817584,
+    "new_gate": "VALID",
+    "new_gate_reasons": "",
+    "new_result_margin_for_projected_home": -6.0,
+    "old_in_paired_games": true,
+    "schedule_margin_for_schedule_home": 6.0
+   }
+  },
+  "reversed_neutral_games": [
+   401909694,
+   401918053,
+   401919029,
+   401921704
+  ],
+  "settled_paired_games_new": 362,
+  "settled_paired_games_old": 358,
+  "team_games_unaffected": {
+   "columns": 38,
+   "columns_equal": true,
+   "identical": true,
+   "rows_compared": 718
+  },
+  "unverified_identity_games": {}
+ }
+}
