@@ -292,8 +292,12 @@ def kalshi(a: argparse.Namespace, old_sel: Any, ref: str) -> dict[str, Any]:
         sel = S.select(
             by_game[gid], H.clock_of(gdict), pd.Timestamp(r["captured_at"]), S.roles(w.active)
         )
-        sem, res = r["contract_semantics"], r.get("result")
-        if res not in ("yes", "no") or sem.get("status") != "parsed" or sem.get("period") != "FULL":
+        sem = r["contract_semantics"]
+        if sem.get("status") != "parsed" or sem.get("period") != "FULL" or gid not in scores:
+            continue
+        # a PRETIP row is captured before settlement: take the outcome from the settled schedule score
+        res, _ = settle(sem, *scores[gid])
+        if res is None:
             continue
         brier["stored_in_panel"] += sum(1 for v in (r.get("market_specific_model_probability") or {}).values() if v.get("probability") is not None)  # fmt: skip
         for ver in sel.reorientable:
@@ -338,6 +342,11 @@ def main() -> None:
     for k in ("projections", "rosters", "schedule", "espn", "panel", "out"):
         ap.add_argument(f"--{k}", type=Path, required=True)
     ap.add_argument("--now", required=True)
+    ap.add_argument(
+        "--sections",
+        default="scoreboard,kalshi",
+        help="comma list; results merge into an existing file",
+    )
     ap.add_argument("--baseline-ref", required=True)
     a = ap.parse_args()
     old_ps = load_old_module(
@@ -346,20 +355,27 @@ def main() -> None:
     old_sel = load_old_module(a.baseline_ref, "cbb_edge/app/sift_app/selection.py", "old_selection")
     from cbb_edge.rosters import prospective_score as new_ps
 
-    res = {
-        "baseline_ref": a.baseline_ref,
-        "now": a.now,
-        "archive_heads": {
-            k: subprocess.run(
-                ["git", "-C", str(getattr(a, k)), "rev-parse", "HEAD"],
-                capture_output=True,
-                text=True,
-            ).stdout.strip()
-            for k in ("projections", "rosters")
-        },  # fmt: skip
-        "scoreboard": scoreboard(a, old_ps, new_ps),
-        "kalshi": kalshi(a, old_sel, a.baseline_ref),
-    }
+    path = a.out / "orientation_comparison.json"
+    res = json.loads(path.read_text()) if path.exists() else {}
+    res.update(
+        {
+            "baseline_ref": a.baseline_ref,
+            "now": a.now,
+            "archive_heads": {
+                k: subprocess.run(
+                    ["git", "-C", str(getattr(a, k)), "rev-parse", "HEAD"],
+                    capture_output=True,
+                    text=True,
+                ).stdout.strip()
+                for k in ("projections", "rosters")
+            },  # fmt: skip
+        }
+    )
+    secs = set(a.sections.split(","))
+    if "scoreboard" in secs:
+        res["scoreboard"] = scoreboard(a, old_ps, new_ps)
+    if "kalshi" in secs:
+        res["kalshi"] = kalshi(a, old_sel, a.baseline_ref)
     a.out.mkdir(parents=True, exist_ok=True)
     (a.out / "orientation_comparison.json").write_text(
         json.dumps(res, indent=1, sort_keys=True, default=str) + "\n"
