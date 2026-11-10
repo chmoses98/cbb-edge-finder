@@ -195,17 +195,15 @@ def scoreboard(a: argparse.Namespace, old_ps: Any, new_ps: Any) -> dict[str, Any
             ("projected_game_reversed_at_non_neutral_site", plain[0], {"__reverse__": True})
         )
     for name, gid, change in cases:
-        gm = games.copy()
-        i = gm.index[gm.espn_game_id == gid][0]
+        recs_ = games.to_dict("records")  # plain python rows: no dtype coercion surprises
+        row = next(x for x in recs_ if x["espn_game_id"] == gid)
         if change.get("__reverse__"):
-            gm.loc[i, ["home_team_id", "away_team_id"]] = [
-                gm.loc[i, "away_team_id"],
-                gm.loc[i, "home_team_id"],
-            ]
-            gm.loc[i, "neutral"] = False
+            row["home_team_id"], row["away_team_id"] = row["away_team_id"], row["home_team_id"]
+            row["neutral"] = False
         else:
-            for k, v in change.items():
-                gm.loc[i, k] = v
+            row.update(change)
+        gm = pd.DataFrame(recs_, columns=list(games.columns))
+        gm["neutral"] = pd.Series([x["neutral"] for x in recs_], dtype=object, index=gm.index)
         r: dict[str, Any] = {}
         for tag, mod, gframe, kw in (
             ("old", old_ps, gm.drop(columns=["neutral"]), {}),
