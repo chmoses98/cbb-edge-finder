@@ -1,0 +1,18 @@
+{
+ "schema_version": "cbb-challenger-v2",
+ "version": "wf13-hier-level-0.5.0-v1",
+ "base_version": "pure-0.5.0",
+ "status": "SHADOW_RESEARCH_ONLY",
+ "registered": "2026-11-10",
+ "protocol": "research/hypotheses/WAVE13.md",
+ "code": "cbb_edge/model/level_hier.py",
+ "kind": "walk_forward_rule",
+ "params": {"n0": 30.0, "n_tau": 100.0, "min_games": 30, "hierarchical": true},
+ "sd_rescale": false,
+ "information_rule": "state uses only games whose final was first visible in the schedule archive at or before the projection's as_of; below min_games no adaptation exists",
+ "market_inputs": "none",
+ "prospective_from": "2026-11-10T21:00:00+00:00",
+ "evaluation_label_at_registration": "NOT IMPROVED (exploratory; worse than Wave 12 level-only on total MAE); research/reports/WAVE13_GAME_NUMBER.md",
+ "promotion": "none; incumbent pure-0.2.0 unchanged; Wave 12 level-only remains the better level baseline",
+ "note": "Not listed in models/pure/active.json."
+}

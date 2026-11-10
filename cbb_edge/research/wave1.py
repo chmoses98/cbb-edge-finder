@@ -78,6 +78,8 @@ def load_frozen(root: Path, version: str) -> dict[int, dict[str, Any]]:
             best[int(gid)] = {
                 "game_id": int(gid), "tip": tip, "as_of": as_of, "site": g.get("site"),
                 "home_name": (r.get("home") or {}).get("name"),
+                "home_tid": (r.get("home") or {}).get("team_id"),
+                "away_tid": (r.get("away") or {}).get("team_id"),
                 "away_name": (r.get("away") or {}).get("name"),
                 "home_conf": (r.get("home") or {}).get("conference"),
                 "away_conf": (r.get("away") or {}).get("conference"),
@@ -153,6 +155,8 @@ def load_espn_lines(espn_root: Path) -> dict[int, dict[str, Any]]:
                         "captured_at": cap, "spread": float(r["spread"]),
                         "total": float(r["over_under"]), "provider": r.get("provider"),
                         "minutes_to_tip": r.get("minutes_to_tip"),
+                        "home_espn_id": r.get("home_espn_id"), "away_espn_id": r.get("away_espn_id"),
+                        "neutral": r.get("neutral_site"),
                     }  # fmt: skip
     return best
 

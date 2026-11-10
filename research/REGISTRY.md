@@ -221,3 +221,15 @@ AND does not worsen log loss, on the common sample of games every arm projects.
 | Per-team pace / prior weighting, team-total and half distributions | blocked: not in archived records / frozen model | next wave |
 
 Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`: unchanged.
+
+## Wave 13 (2026-11-10; protocol `research/hypotheses/WAVE13.md`)
+
+| ID | Description | Status |
+|---|---|---|
+| ORIENT | canonical-team-id orientation identity (`cbb_edge/data/ids/orientation.py`): SAME / SWAPPED / UNVERIFIED, fail closed; the four Wave 12 neutral-site games remapped, not excluded | adopted in the Wave 13 scorer; existing scorers unchanged |
+| INPUTS | additive `model_inputs` block in NEW prospective records (pace/prior weight/ESS/efficiency components/game number/freshness); explicit missing; no back-fill | implemented, unit-tested; live path not exercised here (no data lake) |
+| WF13-HIER | `wf13-hier-level-0.5.0-v1`: hierarchical game-number-aware level, no SD rescale | **NOT IMPROVED** (exploratory: total MAE +0.09 [+0.01, +0.17] vs Wave 12 level-only); shadow, research only |
+| WF13-independent / WF13r | per-group ablation; rule on roster base | reported, not selected |
+| SCORE-DIST | coherent full-game (home, away) normal from frozen margin/total/SDs; halves, periods, players `Unmodeled` | interface + tests; team-total outputs SHADOW_UNVALIDATED |
+
+Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`, Wave 12 protocol/report/evidence: unchanged.

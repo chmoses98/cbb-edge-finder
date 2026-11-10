@@ -303,3 +303,14 @@ Full opening-window dry run:
 ```
 python scripts/prospective/dry_run_w11.py --rosters <roster-archive> --schedule-archive <schedule-archive> --sandbox DIR
 ```
+
+## Wave 13 additions (research only)
+
+* New records carry an additive `model_inputs` block (`cbb_edge/app/model_inputs.py`, version
+  `cbb-model-inputs-1`): per-team game number, possessions seen, tempo/efficiency effects, prior-vs-current
+  weight and effective sample (`ridge_diagonal_approx`), posterior SDs from current-season within-team noise,
+  rest and freshness. Missing values are `null` with a reason; archived records are never back-filled; a failure
+  in the block is recorded as `missing` and never blocks a projection. Sift contract fields are unchanged.
+* Scoring must map results to the projected teams with `cbb_edge/data/ids/orientation.py` (canonical ids; reversed
+  neutral-site order is remapped, anything unverifiable is excluded). The existing scoreboard already marks such
+  games UNSCORABLE; adopting the helper there is a follow-up that needs approval because it changes production scoring.
