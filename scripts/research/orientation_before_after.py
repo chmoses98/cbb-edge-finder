@@ -259,6 +259,7 @@ def kalshi(a: argparse.Namespace, old_sel: Any, ref: str) -> dict[str, Any]:
     scores = {int(g["espn_game_id"]): (int(g["home_score"]), int(g["away_score"])) for g in games.to_dict("records")
               if g["completed"] and g["home_score"] is not None}  # fmt: skip
     agree = dis = notchk = 0
+    pre_flip_rows = 0
     agree_sw = dis_sw = 0
     last: dict[str, dict[str, Any]] = {}
     for pth in sorted(a.panel.glob("panels/**/*.panel.jsonl.gz")):
@@ -281,8 +282,14 @@ def kalshi(a: argparse.Namespace, old_sel: Any, ref: str) -> dict[str, Any]:
                     else:
                         dis += 1
                         dis_sw += gid in swapped
+                mc = r.get("models_as_of_capture") or {}
                 if gid in swapped and r.get("market_phase") == "PRETIP":
-                    last[r["kalshi_ticker"]] = r
+                    if mc.get("identity_changed_versions"):  # captured after the schedule flipped
+                        last[f"{r['kalshi_ticker']}|{r['captured_at']}"] = r
+                    elif mc.get("versions"):
+                        pre_flip_rows += (
+                            1  # captured in the projection's own frame: untouched by NEW
+                        )
     # probabilities for the reversed games: reframed projections vs the (wrong-direction) raw ones
     brier = {"reframed": [], "raw_unframed": [], "stored_in_panel": 0}
     for r in last.values():
@@ -325,6 +332,7 @@ def kalshi(a: argparse.Namespace, old_sel: Any, ref: str) -> dict[str, Any]:
             "agree_on_reversed_games": agree_sw,
             "disagree_on_reversed_games": dis_sw,
         },  # fmt: skip
+        "reversed_games_pre_flip_rows_unchanged": pre_flip_rows,
         "reversed_games_probability_brier": {
             k: (sum(v) / len(v) if isinstance(v, list) and v else None)
             for k, v in brier.items()
