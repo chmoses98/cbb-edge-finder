@@ -1,0 +1,27 @@
+{
+ "as_of": "2026-11-05T23:06:44.762463+00:00",
+ "checks": {
+  "noise_export": {
+   "eff_unit_sd": 179.45914788447413,
+   "n_rows": 388,
+   "n_teams": 30,
+   "tempo_game_sd": 5.49066430545293
+  },
+  "noise_independent": {
+   "eff_unit_sd": 179.4591478844741,
+   "tempo_game_sd": 5.490664305452929
+  },
+  "noise_max_abs_diff": 2.842170943040401e-14,
+  "records": 98,
+  "same_run_ratings_max_abs_diff": 0.0,
+  "seen_mismatches_vs_independent": []
+ },
+ "future_row_perturbation": {
+  "future_rows_perturbed": 568,
+  "model_inputs_changed": 0,
+  "projections_changed": 0,
+  "records": 98
+ },
+ "pass": true,
+ "version": "pure-0.2.0"
+}

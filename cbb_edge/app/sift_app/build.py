@@ -497,7 +497,8 @@ def participant(team: dict[str, Any]) -> dict[str, Any]:
 # ===================================================================== projections
 def clock_of(row: dict[str, Any]) -> S.GameClock:
     return S.GameClock(int(row["espn_game_id"]), row["start"], row["time_state"], row["state"],
-                       row["status_name"], bool(row["completed"]), row["home"], row["away"])  # fmt: skip
+                       row["status_name"], bool(row["completed"]), row["home"], row["away"],
+                       None if row.get("neutral") is None else bool(row["neutral"]))  # fmt: skip
 
 
 def model_row(c: S.Choice) -> dict[str, Any]:

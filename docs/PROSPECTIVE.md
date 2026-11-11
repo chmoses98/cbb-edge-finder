@@ -314,3 +314,12 @@ python scripts/prospective/dry_run_w11.py --rosters <roster-archive> --schedule-
 * Scoring must map results to the projected teams with `cbb_edge/data/ids/orientation.py` (canonical ids; reversed
   neutral-site order is remapped, anything unverifiable is excluded). The existing scoreboard already marks such
   games UNSCORABLE; adopting the helper there is a follow-up that needs approval because it changes production scoring.
+
+### Orientation integration (follow-up to Wave 13; awaiting owner review)
+
+`cbb_edge/data/ids/orientation.py::classify` is now the one orientation decision in the scoreboard
+(`prospective_score.score`) and the Kalshi panel (`selection.select` / `kalshi/history._projections`). A verified
+neutral-site reversal is scored with the result mapped onto the projected teams (previously UNSCORABLE
+`schedule_identity_changed`); an unverifiable identity, including a schedule row whose teams do not resolve, is UNSCORABLE.
+This amends the Wave 9/11 rule "schedule identity changed -> UNSCORABLE" for the reversal case only. Evidence:
+`research/reports/ORIENTATION_SCORING.md`. `remap_swapped=False` / `reorient=False` restore the earlier behaviour.
