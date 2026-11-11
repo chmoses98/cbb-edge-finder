@@ -79,10 +79,10 @@ def attach_inputs(
 def verify_manifests(root: Path) -> dict[str, Any]:
     """Frozen-record integrity: every manifest sha256 equals the file's bytes; none missing."""
     total = bad = missing = 0
-    for m in sorted(glob.glob(str(root / "manifests" / "*.json"))):
+    for m in sorted(glob.glob(str(root / "projections" / "manifests" / "*.json"))):
         for rel, h in _load(Path(m))["files"].items():
             total += 1
-            p = root / rel
+            p = root / "projections" / rel
             if not p.exists():
                 missing += 1
             elif hashlib.sha256(p.read_bytes()).hexdigest() != h:
@@ -98,12 +98,12 @@ def verify_manifests(root: Path) -> dict[str, Any]:
 def input_audit(root: Path) -> dict[str, Any]:
     """model_inputs coverage + consistency over EVERY version and manifest (counts only)."""
     out: dict[str, Any] = {"manifests": {}, "records": Counter(), "issues": Counter()}
-    for m in sorted(glob.glob(str(root / "manifests" / "*.json"))):
+    for m in sorted(glob.glob(str(root / "projections" / "manifests" / "*.json"))):
         d = _load(Path(m))
         per: dict[str, list[int]] = defaultdict(lambda: [0, 0, 0])
         for rel in d["files"]:
             v = "pure-0.2.0" if rel.startswith("2027/") else rel.split("/")[0]
-            r = _load(root / rel)
+            r = _load(root / "projections" / rel)
             mi = r.get("model_inputs")
             per[v][0] += 1
             per[v][1] += mi is not None

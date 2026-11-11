@@ -297,11 +297,11 @@ def test_regression_vs_w12_blocks_improved_and_no_gain_is_not_improved():
 def test_verify_manifests_detects_modification_and_missing(tmp_path):
     import hashlib
 
-    f = tmp_path / "pure-0.5.0" / "x.json"
-    f.parent.mkdir()
+    f = tmp_path / "projections" / "pure-0.5.0" / "x.json"
+    f.parent.mkdir(parents=True)
     f.write_text("{}")
-    (tmp_path / "manifests").mkdir()
-    (tmp_path / "manifests" / "m.json").write_text(json.dumps({"files": {"pure-0.5.0/x.json": hashlib.sha256(b"{}").hexdigest()}}))  # fmt: skip
+    (tmp_path / "projections" / "manifests").mkdir()
+    (tmp_path / "projections" / "manifests" / "m.json").write_text(json.dumps({"files": {"pure-0.5.0/x.json": hashlib.sha256(b"{}").hexdigest()}}))  # fmt: skip
     assert w14.verify_manifests(tmp_path)["ok"]
     f.write_text('{"edited": 1}')
     assert not w14.verify_manifests(tmp_path)["ok"]

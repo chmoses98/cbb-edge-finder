@@ -233,3 +233,12 @@ Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`: unchanged.
 | SCORE-DIST | coherent full-game (home, away) normal from frozen margin/total/SDs; halves, periods, players `Unmodeled` | interface + tests; team-total outputs SHADOW_UNVALIDATED |
 
 Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`, Wave 12 protocol/report/evidence: unchanged.
+
+## Wave 14 (2026-11-11; protocol `research/hypotheses/WAVE14.md`, spec `research/wave14/spec.json`)
+
+| ID | Description | Status |
+|---|---|---|
+| PW-LEVEL | `pw-level-0.5.0-v1`: `total += beta * pbar * possessions`, one walk-forward ridge `beta` from recorded pace/efficiency prior weights; margin untouched; fails closed on missing/invalid `model_inputs`; **shadow, research only** | **COLLECTING / INSUFFICIENT EVIDENCE** (0 eligible games; registered 2026-11-11, boundary 22:00Z) |
+| W14-AUDIT | `model_inputs` verified on all 5 versions: 114 records/version (1 on Nov 11 02:34Z, 48 + 65 post-merge), 71 distinct games, all valid; 103 games of Nov 10 21:23Z carry none (never back-filled); 6760 manifest hashes intact | done |
+
+Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`, Wave 12/13 protocols and evidence: unchanged.
