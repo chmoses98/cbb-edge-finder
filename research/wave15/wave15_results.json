@@ -1,0 +1,55 @@
+{
+ "analysis_time": "2026-11-13T15:57:05.096497+00:00",
+ "calibration_eligible": {},
+ "descriptive_contrasts_NOT_VERDICT": {},
+ "eligibility_funnel": {
+  "record_before_registration_or_missing": 552
+ },
+ "eligible_games": [],
+ "orientation_audit": {
+  "excluded": {},
+  "status": {
+   "SAME": 486,
+   "SWAPPED": 5
+  }
+ },
+ "provenance_file": "research/wave14/freeze_provenance.json",
+ "provenance_verified_manifests": [
+  "20261112T211053Z",
+  "20261112T215826Z"
+ ],
+ "status_note": "RESEARCH_ONLY; nothing promoted; prospective verdicts only at the registered analysis time",
+ "summary_eligible": {},
+ "verdicts": {
+  "W15-A1 margin stretch": {
+   "alpha_one_sided": 0.016666666666666666,
+   "floor": {
+    "dates": 10,
+    "games": 300
+   },
+   "n_dates": 0,
+   "n_games": 0,
+   "reason": "single analysis at 2026-12-22T12:00:00+00:00; 0 games on 0 dates so far",
+   "status": "COLLECTING / INSUFFICIENT EVIDENCE",
+   "test": "mstretch-0.5.0-v1 - pure-0.5.0 [abs_margin_err]"
+  },
+  "W15-A2 heteroscedastic margin SD": {
+   "alpha_one_sided": 0.016666666666666666,
+   "floor": {
+    "dates": 10,
+    "games": 300
+   },
+   "n_dates": 0,
+   "n_games": 0,
+   "reason": "single analysis at 2026-12-22T12:00:00+00:00; 0 games on 0 dates so far",
+   "status": "COLLECTING / INSUFFICIENT EVIDENCE",
+   "test": "hsd-0.5.0-v1 - pure-0.5.0 [margin_nll]"
+  }
+ },
+ "wave": 15,
+ "window": {
+  "analysis_not_before": "2026-12-22T12:00:00+00:00",
+  "last_et_date": "2026-12-20",
+  "prospective_from": "2026-11-15T00:00:00+00:00"
+ }
+}
