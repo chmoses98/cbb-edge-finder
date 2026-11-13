@@ -15,6 +15,7 @@ import math
 import random
 from collections import Counter, defaultdict
 from collections.abc import Sequence
+from datetime import timedelta
 from pathlib import Path
 from typing import Any
 
@@ -407,3 +408,65 @@ def market_summary(rows: Sequence[dict[str, Any]]) -> dict[str, dict[str, float]
         out[f] = {"n": float(len(mk)), "total_mae": w.mean([abs(x) for x in te]), "total_bias": w.mean(te),
                   "margin_mae": w.mean([abs(x) for x in me]), "margin_bias": w.mean(me)}  # fmt: skip
     return out
+
+
+#: A college game that tipped this long ago is normally final (2 h regulation + overtime/delays).
+EXPECTED_FINAL_AFTER_H = 3.0
+
+
+def pending_finals(
+    base: dict[int, dict[str, Any]],
+    finals: dict[int, dict[str, Any]],
+    schedule_root: Path,
+    *,
+    prospective_from: str = PROSPECTIVE_FROM,
+) -> dict[str, Any]:
+    """DIAGNOSTIC ONLY: why post-boundary games still lack an archived final. Classes:
+    ``tip_after_last_capture`` (not played when the archive was last written), ``capture_lag`` (the
+    last schedule-archive write came before the game could normally have finished: a collection
+    delay that the next observation run fixes), ``no_final_after_expected_end`` (the archive was
+    written after the expected end yet holds no final for the game: postponed/cancelled/out of the
+    observation window; needs a look). Never changes eligibility."""
+    cut = w.parse_ts(prospective_from)
+    last_capture = None
+    last_state: dict[int, tuple[Any, str | None]] = {}
+    for path in sorted(schedule_root.glob("rows/**/*.jsonl")):
+        with path.open(encoding="utf-8") as fh:
+            for line in fh:
+                if not line.strip():
+                    continue
+                r = json.loads(line)
+                t = w.parse_ts(r.get("observed_at"))
+                if t is None:
+                    continue
+                last_capture = t if last_capture is None or t > last_capture else last_capture
+                if r.get("game_id") is not None:
+                    gid = int(r["game_id"])
+                    if gid not in last_state or t >= last_state[gid][0]:
+                        last_state[gid] = (t, r.get("status_type_name"))
+    lag = timedelta(hours=EXPECTED_FINAL_AFTER_H)
+    cls: Counter = Counter()
+    by_date: dict[str, Counter] = defaultdict(Counter)
+    attention = []
+    for gid, g in sorted(base.items()):
+        if cut is None or g["as_of"] < cut or gid in finals:
+            continue
+        tip = g["tip"]
+        if last_capture is None or tip >= last_capture:
+            k = "tip_after_last_capture"
+        elif last_capture < tip + lag:
+            k = "capture_lag"
+        else:
+            k = "no_final_after_expected_end"
+            attention.append({"game_id": gid, "tip": str(tip), "last_status": (last_state.get(gid) or (None, None))[1]})  # fmt: skip
+        cls[k] += 1
+        by_date[w.et_date(tip)][k] += 1
+    return {
+        "schedule_archive_last_observed_at": None
+        if last_capture is None
+        else last_capture.isoformat(),
+        "expected_final_after_tip_hours": EXPECTED_FINAL_AFTER_H,
+        "classes": dict(cls),
+        "by_et_date": {d: dict(c) for d, c in sorted(by_date.items())},
+        "needs_attention": attention,
+    }

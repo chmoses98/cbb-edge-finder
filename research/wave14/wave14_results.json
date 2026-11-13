@@ -388,6 +388,7 @@
   "20261112T211053Z",
   "20261112T215826Z"
  ],
+ "freeze_provenance_unverified": {},
  "input_audit": {
   "issues": {},
   "manifests": {
@@ -1470,6 +1471,24 @@
   "graded_finals": {
    "match": 8
   }
+ },
+ "pending_finals_diagnostic": {
+  "by_et_date": {
+   "2026-11-12": {
+    "capture_lag": 12,
+    "tip_after_last_capture": 3
+   },
+   "2026-11-13": {
+    "tip_after_last_capture": 55
+   }
+  },
+  "classes": {
+   "capture_lag": 12,
+   "tip_after_last_capture": 58
+  },
+  "expected_final_after_tip_hours": 3.0,
+  "needs_attention": [],
+  "schedule_archive_last_observed_at": "2026-11-13T01:58:14.731136+00:00"
  },
  "post_boundary_records": {
   "games": 78,

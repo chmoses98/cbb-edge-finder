@@ -29,7 +29,20 @@ Post-boundary records (as_of >= boundary): 78 games, 8 with an archived, orienta
 
 ## Freeze provenance
 
-A game is graded only if every compared record (pure-0.2.0, pure-0.5.0, roster) has `as_of` < tip AND sits in a hashed manifest whose push to `origin/projections-archive` is proven before the tip by GitHub server-side Actions step timestamps (`research/wave14/freeze_provenance.json`; manifests with evidence: 20261112T211053Z, 20261112T215826Z). Missing evidence excludes the game (`freeze_time_not_provable`). This check is stricter than registration and was added 2026-11-13; it can only remove games.
+A game is graded only if every compared record (pure-0.2.0, pure-0.5.0, roster) has `as_of` < tip AND sits in a hashed manifest whose push to `origin/projections-archive` is proven before the tip by GitHub server-side Actions step timestamps (`research/wave14/freeze_provenance.json`, regenerated on every run by `cbb_edge.research.freeze_provenance` from the archive git history and the saved job records in `research/wave14/provenance_evidence.json`; the job's head_sha must equal the manifest code_sha and its append-step window must contain the archive commit; manifests verified: 20261112T211053Z, 20261112T215826Z). Missing evidence excludes the game (`freeze_time_not_provable`). This check is stricter than registration and was added 2026-11-13 (automated the same day); it can only remove games.
+
+Unverified post-boundary manifests (records excluded): none.
+
+## Games awaiting an archived final (diagnostic only; never changes eligibility)
+
+Schedule archive last written 2026-11-13T01:58:14.731136+00:00. `capture_lag` = the game tipped before the last archive write, but that write came less than 3 h after the tip, before it could normally have finished (the next schedule observation run captures it); `tip_after_last_capture` = not yet played at the last write; `no_final_after_expected_end` = archive written after the expected end with no final (needs a look).
+
+| ET date | capture_lag | tip_after_last_capture | no_final_after_expected_end |
+|---|---|---|---|
+| 2026-11-12 | 12 | 3 | 0 |
+| 2026-11-13 | 0 | 55 | 0 |
+
+Needs attention: none
 
 Outcome cross-check (graded finals re-observed from the public ESPN scoreboard after the archive capture; same provider, not an independent organisation): {'file': 'research/wave14/outcome_crosscheck.json', 'fetched_at': '2026-11-13T03:58:50Z', 'graded_finals': {'match': 8}}
 

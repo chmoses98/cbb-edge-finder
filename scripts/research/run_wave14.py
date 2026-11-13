@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from collections import Counter
 from pathlib import Path
 
 from cbb_edge.model import pw_level as pw
+from cbb_edge.research import freeze_provenance as fp
 from cbb_edge.research import wave1 as w
 from cbb_edge.research import wave13 as w13
 from cbb_edge.research import wave14 as w14
@@ -19,7 +21,21 @@ def main() -> None:
     ap.add_argument("--schedule", required=True, type=Path)
     ap.add_argument("--espn", type=Path, help="espn-lines-archive checkout (benchmark only)")
     ap.add_argument(
-        "--provenance", type=Path, default=Path("research/wave14/freeze_provenance.json")
+        "--provenance",
+        type=Path,
+        default=Path("research/wave14/freeze_provenance.json"),
+        help="OUTPUT: regenerated from --projections git history + --evidence (fail closed)",
+    )
+    ap.add_argument(
+        "--evidence",
+        type=Path,
+        default=Path("research/wave14/provenance_evidence.json"),
+        help="saved GitHub Actions job records (server-side step times)",
+    )
+    ap.add_argument(
+        "--fetch-evidence",
+        metavar="OWNER/REPO",
+        help="append newer job records from the GitHub REST API first (needs GITHUB_TOKEN)",
     )
     ap.add_argument(
         "--crosscheck", type=Path, default=Path("research/wave14/outcome_crosscheck.json")
@@ -32,7 +48,16 @@ def main() -> None:
     inputs = w14.load_inputs(a.projections)
     cov = w14.attach_inputs(base, inputs)
     finals, orient = w13.load_finals_oriented(a.schedule, base)
-    prov = json.loads(a.provenance.read_text()) if a.provenance.exists() else {}
+    ev = json.loads(a.evidence.read_text()) if a.evidence.exists() else {"jobs": []}
+    if a.fetch_evidence:
+        new = fp.fetch_evidence(
+            a.fetch_evidence, os.environ["GITHUB_TOKEN"], w14.PROSPECTIVE_FROM[:10]
+        )
+        ev = {**ev, "fetched_at": new["fetched_at"], "jobs": fp.merge_evidence(ev, new["jobs"])}
+        a.evidence.write_text(json.dumps(ev, indent=1) + "\n")
+    prov = fp.build(a.projections, ev, w.parse_ts(w14.PROSPECTIVE_FROM))  # type: ignore[arg-type]
+    a.provenance.parent.mkdir(parents=True, exist_ok=True)
+    a.provenance.write_text(json.dumps(prov, indent=1) + "\n")
     pushed = w14.freeze_pushed_at(frozen, w14.record_manifests(a.projections), prov)
     rows, funnel = w14.build_rows(frozen, finals, pushed=pushed)
     mk_audit: dict = {"espn_archive": None}
@@ -55,7 +80,9 @@ def main() -> None:
         "summary_eligible": w14.summarize(rows),
         "descriptive_contrasts_NOT_VERDICT": w14.descriptive_contrasts(rows) if rows else {},
         "market_benchmark": {"audit": mk_audit, "summary": w14.market_summary(rows)},
-        "freeze_provenance_manifests": sorted(prov.keys() - {"_note"}),
+        "freeze_provenance_manifests": sorted(k for k in prov if not k.startswith("_")),
+        "freeze_provenance_unverified": prov["_unverified"],
+        "pending_finals_diagnostic": w14.pending_finals(base, finals, a.schedule),
         "outcome_crosscheck": _crosscheck(a.crosscheck, rows),
         "post_boundary_records": {
             "games": len(post),
@@ -107,6 +134,9 @@ def _crosscheck(path: Path, rows: list) -> dict:
     return {"file": str(path), "fetched_at": d.get("fetched_at"), "graded_finals": dict(by)}
 
 
+PENDING_CLASSES = ("capture_lag", "tip_after_last_capture", "no_final_after_expected_end")
+
+
 def _ci(c: dict) -> str:
     return f"{c['diff']:+.3f} [{c['lo']:+.3f}, {c['hi']:+.3f}]"
 
@@ -140,9 +170,21 @@ def render(r: dict) -> str:
         "## Freeze provenance", "",
         "A game is graded only if every compared record (pure-0.2.0, pure-0.5.0, roster) has `as_of` < tip AND sits in a hashed "
         "manifest whose push to `origin/projections-archive` is proven before the tip by GitHub server-side Actions step "
-        f"timestamps (`research/wave14/freeze_provenance.json`; manifests with evidence: {', '.join(r['freeze_provenance_manifests']) or 'none'}). "
+        f"timestamps (`research/wave14/freeze_provenance.json`, regenerated on every run by `cbb_edge.research.freeze_provenance` "
+        "from the archive git history and the saved job records in `research/wave14/provenance_evidence.json`; the job's head_sha "
+        f"must equal the manifest code_sha and its append-step window must contain the archive commit; manifests verified: {', '.join(r['freeze_provenance_manifests']) or 'none'}). "
         "Missing evidence excludes the game (`freeze_time_not_provable`). This check is stricter than registration and was added "
-        "2026-11-13; it can only remove games.", "",
+        "2026-11-13 (automated the same day); it can only remove games.", "",
+        f"Unverified post-boundary manifests (records excluded): {r['freeze_provenance_unverified'] or 'none'}.", "",
+        "## Games awaiting an archived final (diagnostic only; never changes eligibility)", "",
+        f"Schedule archive last written {r['pending_finals_diagnostic']['schedule_archive_last_observed_at']}. "
+        "`capture_lag` = the game tipped before the last archive write, but that write came less than 3 h after the tip, before it could "
+        "normally have finished (the next schedule observation run captures it); `tip_after_last_capture` = not yet played at the "
+        "last write; `no_final_after_expected_end` = archive written after the expected end with no final (needs a look).", "",
+        "| ET date | " + " | ".join(PENDING_CLASSES) + " |", "|---|" + "---|" * len(PENDING_CLASSES),
+        *[f"| {d} | " + " | ".join(str(c.get(k, 0)) for k in PENDING_CLASSES) + " |"
+          for d, c in r["pending_finals_diagnostic"]["by_et_date"].items()],
+        "", f"Needs attention: {r['pending_finals_diagnostic']['needs_attention'] or 'none'}", "",
         f"Outcome cross-check (graded finals re-observed from the public ESPN scoreboard after the archive capture; same "
         f"provider, not an independent organisation): {r['outcome_crosscheck']}", "",
     ]  # fmt: skip
