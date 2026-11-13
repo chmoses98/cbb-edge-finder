@@ -16,6 +16,13 @@ env:
 permissions:
   contents: read
 
+# A newer push to the same PR supersedes the older run: cancel it instead of queueing both
+# (runners were backlogged with 3 runs for superseded commits on PR #48). main pushes and
+# manual dispatches keep a unique group per run, so they are never cancelled.
+concurrency:
+  group: ci-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -46,7 +53,8 @@ jobs:
   # branch). Fails closed: manifests without matching job records stay unverified and their games
   # are excluded. Results are uploaded as an artifact; this job never changes the verdict rule.
   wave14-regrade:
-    if: github.event_name != 'push'
+    # Only Wave 14 PRs and manual dispatches: other PRs do not need the archive fetch + API reads.
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && contains(github.head_ref, 'wave-14'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:

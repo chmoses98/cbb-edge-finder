@@ -69,3 +69,15 @@ def test_projection_catchup_ticks_still_observe_game_states():
         assert (
             "steps.decide.outputs.due == 'true'" in _step("prospective-projections", prefix)["if"]
         )
+
+
+def test_ci_cancels_superseded_pr_runs_only():
+    doc = yaml.safe_load(Path(".github/workflows/ci.yml").read_text())
+    c = doc["concurrency"]
+    assert "pull_request.number" in c["group"] and "github.run_id" in c["group"]
+    assert c["cancel-in-progress"] == "${{ github.event_name == 'pull_request' }}"
+    regrade = doc["jobs"]["wave14-regrade"]
+    assert regrade["permissions"] == {"contents": "read", "actions": "read"}
+    assert "workflow_dispatch" in regrade["if"] and "push" not in regrade["if"].replace(
+        "pull_request", ""
+    )
