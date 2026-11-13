@@ -51,9 +51,16 @@ def main() -> None:
     ev = json.loads(a.evidence.read_text()) if a.evidence.exists() else {"jobs": []}
     if a.fetch_evidence:
         new = fp.fetch_evidence(
-            a.fetch_evidence, os.environ["GITHUB_TOKEN"], w14.PROSPECTIVE_FROM[:10]
+            a.fetch_evidence,
+            w14.PROSPECTIVE_FROM[:10],
+            known_run_ids={j["run_id"] for j in ev.get("jobs") or []},
+            token=os.environ.get("GITHUB_TOKEN"),
         )
-        ev = {**ev, "fetched_at": new["fetched_at"], "jobs": fp.merge_evidence(ev, new["jobs"])}
+        print(
+            {k: new[k] for k in ("runs_listed", "runs_read")}, len(new["jobs"]), "new job records"
+        )
+        ev = {**ev, "source": new["source"], "fetched_at": new["fetched_at"]}
+        ev["jobs"] = fp.merge_evidence(ev, new["jobs"])
         a.evidence.write_text(json.dumps(ev, indent=1) + "\n")
     prov = fp.build(a.projections, ev, w.parse_ts(w14.PROSPECTIVE_FROM))  # type: ignore[arg-type]
     a.provenance.parent.mkdir(parents=True, exist_ok=True)

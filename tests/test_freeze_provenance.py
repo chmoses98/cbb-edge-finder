@@ -163,3 +163,67 @@ def test_pending_finals_classifies_lag_future_and_attention(tmp_path):
     d = w14.pending_finals(base, {4: {}}, tmp_path, prospective_from=b)
     assert d["classes"] == {"capture_lag": 1, "tip_after_last_capture": 1, "no_final_after_expected_end": 1}  # fmt: skip
     assert d["needs_attention"] == [{"game_id": 3, "tip": str(base[3]["tip"]), "last_status": "STATUS_POSTPONED"}]  # fmt: skip
+
+
+# ------------------------------------------------------------------ REST evidence fetch (offline)
+def _fake_api(runs: list[dict], jobs: dict[int, list[dict]]):
+    calls: list[str] = []
+
+    def get(url: str):
+        calls.append(url)
+        if "/workflows/" in url:
+            page = int(url.split("&page=")[1].split("&")[0])
+            return {"workflow_runs": runs[(page - 1) * 100 : page * 100]}
+        rid = int(url.split("/runs/")[1].split("/")[0])
+        return {"jobs": jobs.get(rid, [])}
+
+    return get, calls
+
+
+def _raw_job(rid: int) -> dict:
+    return {"id": rid * 10, "run_id": rid, "workflow_name": fp.WORKFLOW, "head_sha": CODE,
+            "conclusion": "success", "steps": [{"name": fp.APPEND_STEP, "conclusion": "success",
+            "started_at": "2026-11-12T21:14:34Z", "completed_at": "2026-11-12T21:14:39Z"}]}  # fmt: skip
+
+
+def test_fetch_evidence_is_incremental_paginated_and_trimmed():
+    runs = [{"id": i} for i in range(1, 151)]
+    get, calls = _fake_api(runs, {i: [_raw_job(i)] for i in range(1, 151)})
+    ev = fp.fetch_evidence("o/r", "2026-11-11", known_run_ids=set(range(1, 141)), get=get)
+    assert ev["runs_listed"] == 150 and ev["runs_read"] == 10
+    assert sum("/workflows/" in c for c in calls) == 2  # two pages, then stop
+    assert all("status=completed" in c for c in calls if "/workflows/" in c)
+    assert [j["run_id"] for j in ev["jobs"]] == list(range(141, 151))
+    assert set(ev["jobs"][0]) == {"job_id", "run_id", "run_attempt", "workflow_name", "head_sha", "conclusion", "append_step"}  # fmt: skip
+
+
+def test_fetched_evidence_verifies_a_new_manifest_end_to_end(tmp_path):
+    root = _archive(tmp_path)
+    get, _ = _fake_api([{"id": 7}], {7: [_raw_job(7)]})
+    ev = fp.fetch_evidence("o/r", "2026-11-11", get=get)
+    out = fp.build(root, {"jobs": fp.merge_evidence({"jobs": []}, ev["jobs"])}, SINCE)
+    assert out["20261112T211053Z"]["actions_run"] == 7
+
+
+def test_fetch_evidence_requires_credentials():
+    with pytest.raises(ValueError):
+        fp.fetch_evidence("o/r", "2026-11-11")
+
+
+# ------------------------------------------------------------------ coverage report
+def test_coverage_report_flags_non_identical_populations_and_unverified():
+    import importlib.util
+
+    p = Path(__file__).parents[1] / "scripts/research/wave14_coverage.py"
+    spec = importlib.util.spec_from_file_location("wave14_coverage", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    res = {"eligibility_funnel": {"eligible": 2, "no_verified_final_yet": 1},
+           "verdict": {"status": "COLLECTING", "n_games": 2, "n_dates": 1, "floor": {"games": 150, "dates": 5}},
+           "post_boundary_records": {"games": 3},
+           "summary_eligible": {k: {"n": 2.0} for k in w14.FORECASTERS},
+           "eligible_games": [{"date": "2026-11-12"}, {"date": "2026-11-12"}]}  # fmt: skip
+    ok = mod.coverage(res, {"M1": {}, "_unverified": {"M2": {"reason": "0_matching_actions_jobs"}}})
+    assert "identical 2 games: yes" in ok and "UNVERIFIED M2: 0_matching_actions_jobs" in ok
+    res["summary_eligible"]["pure-0.2.0"]["n"] = 1.0
+    assert "identical 2 games: NO" in mod.coverage(res, {})

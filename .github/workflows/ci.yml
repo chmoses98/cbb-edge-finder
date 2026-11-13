@@ -40,3 +40,54 @@ jobs:
         run: pytest
       - name: Cost audit (post-test ledger)
         run: python -m cbb_edge.data.cost_policy audit
+
+  # Wave 14 (RESEARCH_ONLY): regrade from the live archives with freeze provenance verified from
+  # GitHub's own Actions job records (read with this run's token; nothing is written to any
+  # branch). Fails closed: manifests without matching job records stay unverified and their games
+  # are excluded. Results are uploaded as an artifact; this job never changes the verdict rule.
+  wave14-regrade:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Fetch archives (read-only; full history for projections-archive provenance)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for b in projections-archive schedule-archive espn-lines-archive; do
+            mkdir -p "arch/$b" && git -C "arch/$b" init -q
+            git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            d="--depth=1"; [ "$b" = projections-archive ] && d=""
+            git -C "arch/$b" fetch -q $d origin "$b" && git -C "arch/$b" checkout -q FETCH_HEAD
+            echo "$b $(git -C "arch/$b" rev-parse --short HEAD)"
+          done
+      - name: Fetch Actions evidence, verify provenance, regrade
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python scripts/research/run_wave14.py --projections arch/projections-archive \
+            --schedule arch/schedule-archive --espn arch/espn-lines-archive \
+            --fetch-evidence "${GITHUB_REPOSITORY}" --evidence research/wave14/provenance_evidence.json \
+            --provenance wave14_out/freeze_provenance.json --out wave14_out \
+            --report wave14_out/WAVE14_PRIOR_WEIGHT.md | tee wave14_out.log
+          cp research/wave14/provenance_evidence.json wave14_out/
+          python scripts/research/wave14_coverage.py wave14_out/wave14_results.json wave14_out/freeze_provenance.json >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave14-regrade-${{ github.run_id }}
+          path: |
+            wave14_out
+            wave14_out.log
+          retention-days: 30

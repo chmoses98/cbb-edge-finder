@@ -23,9 +23,11 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
+import time
+import urllib.error
 import urllib.request
-from collections.abc import Iterable
-from datetime import datetime, timedelta
+from collections.abc import Callable, Iterable
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -192,26 +194,57 @@ def build(root: Path, evidence: dict[str, Any], since: datetime) -> dict[str, An
     return out
 
 
-def fetch_evidence(repo: str, token: str, created_from: str) -> dict[str, Any]:  # pragma: no cover
-    """Pull ``prospective-projections`` job records from the GitHub REST API (read-only). Used where a
-    token with ``actions:read`` is available; otherwise evidence is saved via another GitHub client."""
-
+def _http_get_json(token: str) -> Callable[[str], Any]:  # pragma: no cover - network
     def get(url: str) -> Any:
-        req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})  # fmt: skip
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return json.load(r)
+        req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"})  # fmt: skip
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    return json.load(r)
+            except (urllib.error.URLError, TimeoutError):
+                if attempt == 3:
+                    raise
+                time.sleep(2**attempt)
+        return None
 
+    return get
+
+
+def fetch_evidence(
+    repo: str,
+    created_from: str,
+    *,
+    known_run_ids: Iterable[int] = (),
+    token: str | None = None,
+    get: Callable[[str], Any] | None = None,
+) -> dict[str, Any]:
+    """Pull completed ``prospective-projections`` job records from the GitHub REST API (read-only;
+    the token needs ``actions: read``). Incremental: runs already in the evidence are not re-read, so
+    each run costs one jobs request once. Records are GitHub's own; nothing is synthesised."""
+    if get is None:
+        if not token:
+            raise ValueError("fetch_evidence needs a token (actions: read) or a get callable")
+        get = _http_get_json(token)
+    known = set(known_run_ids)
     base = f"https://api.github.com/repos/{repo}/actions"
-    jobs, page = [], 1
+    jobs: list[dict[str, Any]] = []
+    listed = read = 0
+    page = 1
     while True:
-        d = get(f"{base}/workflows/{WORKFLOW}.yml/runs?per_page=100&page={page}&created=%3E%3D{created_from}")  # fmt: skip
-        for run in d.get("workflow_runs", []):
-            for j in get(f"{base}/runs/{run['id']}/jobs?filter=all&per_page=100").get("jobs", []):
+        d = get(f"{base}/workflows/{WORKFLOW}.yml/runs?status=completed&per_page=100&page={page}&created=%3E%3D{created_from}")  # fmt: skip
+        runs = d.get("workflow_runs") or []
+        for run in runs:
+            listed += 1
+            if run.get("id") in known:
+                continue
+            read += 1
+            for j in get(f"{base}/runs/{run['id']}/jobs?filter=all&per_page=100").get("jobs") or []:
                 jobs.append(trim_job(j))
-        if len(d.get("workflow_runs", [])) < 100:
+        if len(runs) < 100:
             break
         page += 1
-    return {"source": "GitHub REST API", "fetched_at": datetime.now().astimezone().isoformat(), "jobs": jobs}  # fmt: skip
+    return {"source": "GitHub REST API", "fetched_at": datetime.now(UTC).isoformat(timespec="seconds"),
+            "runs_listed": listed, "runs_read": read, "jobs": jobs}  # fmt: skip
 
 
 def merge_evidence(old: dict[str, Any], new_jobs: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
