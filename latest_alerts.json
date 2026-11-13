@@ -6,13 +6,12 @@
   "minutes_at_stake": 22.7
  },
  {
-  "code": "GAME_MISSING_FROM_SCHEDULE_SOURCE",
-  "severity": "WARNING",
-  "n_games": 1,
-  "first_tip": "2026-11-14T05:00:00+00:00",
-  "espn_game_ids": [
-   401928854
-  ]
+  "code": "GAME_MISSING_FROM_SCHEDULE_SOURCE_IMMINENT",
+  "severity": "CRITICAL",
+  "espn_game_id": 401928854,
+  "tip": "2026-11-14T05:00:00+00:00",
+  "home": "T0058",
+  "away": "T0243"
  },
  {
   "code": "SCHEDULE_RECONCILIATION_AMBIGUOUS",
@@ -64,37 +63,37 @@
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
-  "espn_game_id": 401926007,
-  "last_listed": "2026-10-06T18:39:34.935495+00:00",
-  "latest_fetch_of_date": "2026-11-12T21:25:33.668385+00:00"
- },
- {
-  "code": "FALLBACK_GAME_DISAPPEARED",
-  "severity": "WARNING",
   "espn_game_id": 401925840,
   "last_listed": "2026-10-06T18:39:34.935495+00:00",
-  "latest_fetch_of_date": "2026-11-12T21:25:33.668385+00:00"
+  "latest_fetch_of_date": "2026-11-13T01:58:17.872743+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
-  "espn_game_id": 401920545,
-  "last_listed": "2026-10-06T18:39:36.925904+00:00",
-  "latest_fetch_of_date": "2026-11-12T21:25:35.773647+00:00"
+  "espn_game_id": 401926007,
+  "last_listed": "2026-10-06T18:39:34.935495+00:00",
+  "latest_fetch_of_date": "2026-11-13T01:58:17.872743+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401925955,
   "last_listed": "2026-10-06T18:39:36.925904+00:00",
-  "latest_fetch_of_date": "2026-11-12T21:25:35.773647+00:00"
+  "latest_fetch_of_date": "2026-11-13T01:58:19.752089+00:00"
+ },
+ {
+  "code": "FALLBACK_GAME_DISAPPEARED",
+  "severity": "WARNING",
+  "espn_game_id": 401920545,
+  "last_listed": "2026-10-06T18:39:36.925904+00:00",
+  "latest_fetch_of_date": "2026-11-13T01:58:19.752089+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401925956,
   "last_listed": "2026-10-06T18:39:39.938021+00:00",
-  "latest_fetch_of_date": "2026-11-12T21:25:38.696274+00:00"
+  "latest_fetch_of_date": "2026-11-13T01:58:22.747852+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
