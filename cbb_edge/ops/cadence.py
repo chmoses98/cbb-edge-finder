@@ -150,7 +150,14 @@ def freeze_guard(records: list[dict], existing: dict[tuple[str, int], pd.Timesta
     frozen (2026-11-09: game 401916315, as_of 22:57:54, tip 23:00, pushed 23:01:34). With
     ``guard_min`` >= the job's ``timeout-minutes`` every record this run writes for an already
     covered game is pushed before its tip (or not at all). A game with NO pre-tip record is
-    never dropped: this run is its only chance. ``guard_min <= 0`` disables the guard."""
+    never dropped: this run is its only chance. ``guard_min <= 0`` disables the guard.
+
+    NOT a guarantee against post-tip publication: (1) a game with no prior record is always
+    written and may still be pushed after tip; (2) the guarantee for covered games holds only
+    while ``guard_min`` >= the job timeout and the push happens inside that job; (3) "covered"
+    means an archived ``as_of`` < tip, not a VERIFIED push. Evaluation therefore never relies on
+    this guard: ``research.wave14.VerifiedPush`` quarantines every record not provably pushed
+    before tip and falls back to the latest verified earlier one."""
     if guard_min <= 0:
         return records, []
     limit = _ts(now) + pd.Timedelta(minutes=guard_min)

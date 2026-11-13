@@ -54,6 +54,17 @@ for all rows. Forecasters: pure-0.2.0, pure-0.5.0, roster overlay, Wave 12 level
 MAE/bias, winner log loss and Brier. Matched-game differences with a 90% percentile bootstrap that resamples ET game
 DATES (clusters), 4000 reps, seed 20261111.
 
+### 5a. Amendment 2026-11-13: verified-push selection (outcome-blind, before the sample floor)
+
+The selected record per (version, game) is the latest one with `as_of` < tip **and** a server-side push time,
+taken from a verified manifest (`research/wave14/freeze_provenance.json`), that is strictly before tip. A
+record pushed at or after tip, with an unverifiable push time, or listed in no manifest is quarantined and never
+selected. Selection falls back to the latest earlier verified record, which must still satisfy every rule above,
+including `as_of >= PROSPECTIVE_FROM`. Records before `PROSPECTIVE_FROM` are selected as before (latest `as_of` < tip):
+they are never eligible and only train. The rule reads provenance only, never outcomes. On the archive at amendment
+time it changes no eligible game, `as_of` or verdict (`docs/COLLECTION_RELIABILITY.md` section 6). Previously a
+late-pushed latest record excluded the whole game even when an earlier record had been safely frozen.
+
 ## 6. Decision rule (fixed now)
 
 Floor: >= 150 eligible games on >= 5 distinct dates. Below it the only status is **COLLECTING / INSUFFICIENT EVIDENCE**.

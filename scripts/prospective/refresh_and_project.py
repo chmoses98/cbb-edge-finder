@@ -13,6 +13,7 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -235,6 +236,26 @@ def project_all(
     return out, failed
 
 
+def resolve_guard(
+    minutes: float, existing_archive: str | None, season: int
+) -> tuple[tuple[dict[tuple[str, int], pd.Timestamp], float] | None, str]:
+    """(guard for ``project_all``, status). If the archive cannot be read the guard cannot know
+    which games are covered (the workflow's fetch step creates the directory even when the fetch
+    fails). It never aborts or drops records then: this run may be a game's only pre-tip
+    forecast. It projects UNGUARDED and reports it. Evaluation integrity rests on verified push
+    provenance (``wave14.VerifiedPush`` quarantines any record pushed at/after tip), not on this
+    guard."""
+    if minutes <= 0:
+        return None, "DISABLED"
+    arch = Path(existing_archive) if existing_archive else None
+    if arch is None or not (arch / "projections").is_dir():
+        print(f"freeze guard: UNGUARDED_ARCHIVE_UNREADABLE ({arch})", file=sys.stderr)
+        return None, "UNGUARDED_ARCHIVE_UNREADABLE"
+    from cbb_edge.ops.cadence import latest_pre_tip_as_of
+
+    return (latest_pre_tip_as_of(arch, season), minutes), "ACTIVE"
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--season", type=int, required=True)
@@ -265,15 +286,7 @@ def main() -> None:
                     help="projections-archive checkout the freeze guard reads (required with it)")  # fmt: skip
     a = ap.parse_args()
     now = pd.Timestamp(datetime.now(UTC))
-    guard = None
-    if a.freeze_guard_min > 0:
-        from cbb_edge.ops.cadence import latest_pre_tip_as_of
-
-        if not a.existing_archive or not Path(a.existing_archive).is_dir():
-            # fail closed: without the archive the guard cannot know what is covered, and
-            # silently projecting unguarded is exactly what it exists to prevent
-            raise SystemExit("--freeze-guard-min needs a readable --existing-archive")
-        guard = (latest_pre_tip_as_of(Path(a.existing_archive), a.season), a.freeze_guard_min)
+    guard, guard_status = resolve_guard(a.freeze_guard_min, a.existing_archive, a.season)
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     seasons = list(range(a.season - a.warmup, a.season + 1))
     # provenance (Wave 8): the code commit and the roster-archive commit each record was
@@ -326,6 +339,9 @@ def main() -> None:
     out, failed = project_all(a.season, now, a.horizon_h, Path(a.out), a.roster_dir,
                               a.availability_dir, code_sha, roster_commit, only, live,
                               sources, guard)  # fmt: skip
+    if a.freeze_guard_min > 0:
+        out["_freeze_guard"] = {"minutes": a.freeze_guard_min, "dropped": 0,
+                                **out.get("_freeze_guard", {}), "status": guard_status}  # fmt: skip
     out["_live_scoreboard"] = {"observations": len(live), "failed_dates": failed_dates}
     out["_schedule_completion"] = {k: completion.get(k) for k in (
         "sdv_games", "fallback_games", "shared_games")} | {

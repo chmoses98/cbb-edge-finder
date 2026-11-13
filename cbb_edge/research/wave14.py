@@ -44,8 +44,11 @@ def _load(path: Path) -> Any:
         return json.load(fh)
 
 
-def load_inputs(root: Path, version: str = pw.BASE_VERSION) -> dict[int, dict[str, Any]]:
-    """``model_inputs`` of the SAME record ``wave1.load_frozen`` selects (latest, as_of < tip)."""
+def load_inputs(
+    root: Path, version: str = pw.BASE_VERSION, allow: Any = None
+) -> dict[int, dict[str, Any]]:
+    """``model_inputs`` of the SAME record ``wave1.load_frozen`` selects (latest, as_of < tip, and
+    admitted by the same ``allow`` test)."""
     best: dict[int, tuple[Any, Any]] = {}
     for path in sorted(glob.glob(str(root / w.VERSION_DIRS[version] / "*" / "*" / "*.json"))):
         with open(path, encoding="utf-8") as fh:
@@ -58,6 +61,8 @@ def load_inputs(root: Path, version: str = pw.BASE_VERSION) -> dict[int, dict[st
         if g.get("espn_game_id") is None or tip is None or as_of is None or not as_of < tip:
             continue
         gid = int(g["espn_game_id"])
+        if allow is not None and not allow(gid, as_of, tip):
+            continue
         if gid not in best or as_of > best[gid][0]:
             best[gid] = (as_of, r.get("model_inputs"))
     return {gid: {"as_of": a, "mi": mi} for gid, (a, mi) in best.items()}
@@ -171,6 +176,74 @@ def record_manifests(root: Path) -> dict[tuple[str, int, str], str]:
             if gdir is not None:
                 out[(v, int(gdir[1:]), as_of.isoformat())] = Path(m).stem
     return out
+
+
+class VerifiedPush:
+    """Record-level admission for ``wave1.load_frozen`` / ``load_inputs`` (amendment 2026-11-13,
+    WAVE14.md section 5a): a frozen record is selectable only if a VERIFIED manifest lists it and
+    that manifest's server-side ``pushed_by`` is strictly before the game's tip. The evaluator then
+    takes the latest ADMITTED record, so a later record pushed at/after tip (or with no provable
+    push time) falls back to the latest earlier record that was independently verified pre-tip.
+
+    Rejected records are quarantined (``self.quarantined``) and can never be selected later: the
+    test reads only provenance, so evidence fetched after tip cannot move a push time before it, and
+    an unverified manifest stays unverified. The decision never reads outcomes.
+
+    Records with ``as_of`` before ``since`` (default ``PROSPECTIVE_FROM``) are admitted unchanged:
+    they are never eligible (``record_before_registration``) and only train the walk-forward
+    challengers, and freeze provenance is only built for manifests from the boundary on."""
+
+    def __init__(
+        self,
+        version: str,
+        rec_manifest: dict[tuple[str, int, str], str],
+        provenance: dict[str, dict[str, Any]],
+        since: str = PROSPECTIVE_FROM,
+    ) -> None:
+        self.version, self.rec_manifest, self.provenance = version, rec_manifest, provenance
+        self.since = w.parse_ts(since)
+        self.quarantined: dict[tuple[int, str], str] = {}
+
+    def __call__(self, gid: int, as_of: Any, tip: Any) -> bool:
+        if self.since is not None and as_of < self.since:
+            return True
+        stem = self.rec_manifest.get((self.version, gid, as_of.isoformat()))
+        t = w.parse_ts((self.provenance.get(stem) or {}).get("pushed_by")) if stem else None
+        why = (
+            "record_not_in_any_manifest" if stem is None
+            else "manifest_push_time_unverified" if t is None
+            else None if t < tip else "pushed_at_or_after_tip"
+        )  # fmt: skip
+        if why is not None:
+            self.quarantined[(gid, as_of.isoformat())] = why
+        return why is None
+
+
+def load_verified(
+    root: Path,
+    rec_manifest: dict[tuple[str, int, str], str],
+    provenance: dict[str, dict[str, Any]],
+    since: str = PROSPECTIVE_FROM,
+) -> tuple[dict[str, dict[int, dict[str, Any]]], dict[int, dict[str, Any]], dict[str, Any]]:
+    """Per version, the latest frozen record with ``as_of`` < tip whose push before tip is VERIFIED
+    (``VerifiedPush``), the matching pure-0.5.0 ``model_inputs``, and a selection audit: quarantined
+    records, games that fell back to an earlier record, and games with no admissible record."""
+    frozen, audit = {}, {"quarantined": {}, "fallback": {}, "no_verified_pre_tip_record": {}}
+    inputs: dict[int, dict[str, Any]] = {}
+    for v in VERSIONS:
+        adm = VerifiedPush(v, rec_manifest, provenance, since)
+        frozen[v] = w.load_frozen(root, v, allow=adm)
+        if v == pw.BASE_VERSION:
+            inputs = load_inputs(root, v, allow=VerifiedPush(v, rec_manifest, provenance, since))
+        naive = w.load_frozen(root, v)
+        audit["quarantined"][v] = [
+            {"game_id": g, "as_of": a, "reason": r} for (g, a), r in sorted(adm.quarantined.items())
+        ]
+        audit["fallback"][v] = sorted(
+            g for g, r in frozen[v].items() if g in naive and r["as_of"] < naive[g]["as_of"]
+        )
+        audit["no_verified_pre_tip_record"][v] = sorted(set(naive) - set(frozen[v]))
+    return frozen, inputs, audit
 
 
 def freeze_pushed_at(

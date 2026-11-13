@@ -49,11 +49,6 @@ def main() -> None:
     ap.add_argument("--out", type=Path, default=Path("research/wave14"))
     ap.add_argument("--report", type=Path, default=Path("research/reports/WAVE14_PRIOR_WEIGHT.md"))
     a = ap.parse_args()
-    frozen = {v: w.load_frozen(a.projections, v) for v in w14.VERSIONS}
-    base = frozen[pw.BASE_VERSION]
-    inputs = w14.load_inputs(a.projections)
-    cov = w14.attach_inputs(base, inputs)
-    finals, orient = w13.load_finals_oriented(a.schedule, base)
     ev = json.loads(a.evidence.read_text()) if a.evidence.exists() else {"jobs": []}
     if a.fetch_evidence:
         new = fp.fetch_evidence(
@@ -71,8 +66,19 @@ def main() -> None:
     prov = fp.build(a.projections, ev, w.parse_ts(w14.PROSPECTIVE_FROM))  # type: ignore[arg-type]
     a.provenance.parent.mkdir(parents=True, exist_ok=True)
     a.provenance.write_text(json.dumps(prov, indent=1) + "\n")
-    pushed = w14.freeze_pushed_at(frozen, w14.record_manifests(a.projections), prov)
+    # amendment 2026-11-13 (WAVE14.md 5a): select the latest record whose pre-tip push is VERIFIED;
+    # later unverified / post-tip records are quarantined and fall back, never re-qualified
+    rec_manifest = w14.record_manifests(a.projections)
+    frozen, inputs, selection = w14.load_verified(a.projections, rec_manifest, prov)
+    base = frozen[pw.BASE_VERSION]
+    cov = w14.attach_inputs(base, inputs)
+    finals, orient = w13.load_finals_oriented(a.schedule, base)
+    pushed = w14.freeze_pushed_at(frozen, rec_manifest, prov)  # defence in depth: must all pass
     rows, funnel = w14.build_rows(frozen, finals, pushed=pushed)
+    if selection["no_verified_pre_tip_record"][pw.BASE_VERSION]:
+        funnel["no_verified_pre_tip_record"] = len(
+            selection["no_verified_pre_tip_record"][pw.BASE_VERSION]
+        )
     mk_audit: dict = {"espn_archive": None}
     if a.espn is not None:
         market, orient_mk = w13.orient_market(w.load_espn_lines(a.espn), base)
@@ -89,6 +95,7 @@ def main() -> None:
         "prior_weight_reliability": w14.reliability(base, inputs),
         "orientation_audit": {k: orient[k] for k in ("status", "excluded")},
         "eligibility_funnel": funnel,
+        "verified_push_selection": selection,
         "verdict": w14.verdict(rows),
         "summary_eligible": w14.summarize(rows),
         "descriptive_contrasts_NOT_VERDICT": w14.descriptive_contrasts(rows) if rows else {},

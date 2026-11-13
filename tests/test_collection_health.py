@@ -206,13 +206,36 @@ def test_project_all_with_guard_skips_only_covered_imminent_games(tmp_path, monk
     assert len(list((tmp_path / "p").rglob("G*/*.json"))) == 3 and "_freeze_guard" not in out2
 
 
-def test_cli_refuses_guard_without_archive(tmp_path, monkeypatch):
-    monkeypatch.setattr(
-        sys, "argv", ["x", "--season", "2027", "--out", str(tmp_path), "--freeze-guard-min", "60"]
+def test_guard_never_aborts_or_drops_when_archive_is_unreadable(tmp_path, capsys):
+    # the workflow mkdir's arch_proj even when the fetch fails: an empty dir is NOT coverage
+    (tmp_path / "empty").mkdir()
+    for arch in (None, str(tmp_path / "missing"), str(tmp_path / "empty")):
+        assert rp.resolve_guard(60, arch, 2027) == (None, "UNGUARDED_ARCHIVE_UNREADABLE")
+    assert "UNGUARDED" in capsys.readouterr().err
+    assert rp.resolve_guard(0, None, 2027) == (None, "DISABLED")
+    tip = "2026-11-12T23:00:00+00:00"
+    _record(tmp_path / "ok", "pure-0.5.0", 7, "2026-11-12T13:00:00+00:00", tip)
+    g, status = rp.resolve_guard(60, str(tmp_path / "ok"), 2027)
+    assert status == "ACTIVE" and g == ({("pure-0.5.0", 7): pd.Timestamp("2026-11-12T13:00Z")}, 60)
+
+
+def test_guard_without_any_prior_forecast_keeps_every_game_and_claims_nothing():
+    # games with no existing forecast are ALWAYS written (their only chance), even tipping in
+    # 5 min, so a late push stays possible: the guard is no guarantee for them (evaluation
+    # quarantines such records via wave14.VerifiedPush instead)
+    now = pd.Timestamp("2026-11-12T22:55Z")
+    recs = [
+        frec(v, g, "2026-11-12T23:00Z") for v in ("pure-0.5.0", "pure-0.5.0+roster") for g in (1, 2)
+    ]
+    assert C.freeze_guard(recs, {}, now, 60) == (recs, [])
+    # a prior record made after the tip (moved earlier) is not coverage either
+    assert (
+        C.freeze_guard(recs, {("pure-0.5.0", 1): pd.Timestamp("2026-11-12T23:30Z")}, now, 60)[1]
+        == []
     )
-    try:
-        rp.main()
-    except SystemExit as e:
-        assert "existing-archive" in str(e)
-    else:  # pragma: no cover
-        raise AssertionError("guard without archive must fail closed")
+    # boundary: tip exactly at now + guard is dropped (covered); one second later is kept
+    ex = {("pure-0.5.0", 1): pd.Timestamp("2026-11-12T13:00Z")}
+    at = [frec("pure-0.5.0", 1, "2026-11-12T23:55Z")]
+    after = [frec("pure-0.5.0", 1, "2026-11-12T23:55:01Z")]
+    assert C.freeze_guard(at, ex, now, 60)[1] == [("pure-0.5.0", 1)]
+    assert C.freeze_guard(after, ex, now, 60) == (after, [])
