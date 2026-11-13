@@ -1,0 +1,485 @@
+{
+ "by_date": {
+  "2026-11-01": {
+   "margin_mae_base": 10.04946931617445,
+   "margin_mae_market": 8.5,
+   "margin_mae_roster": 7.076012186287752,
+   "n": 2.0,
+   "n_market": 2.0,
+   "total_bias_base": -12.296593011192968,
+   "total_bias_market": -13.5
+  },
+  "2026-11-02": {
+   "margin_mae_base": 10.751987282976236,
+   "margin_mae_market": 9.878151260504202,
+   "margin_mae_roster": 10.65776421703415,
+   "n": 119.0,
+   "n_market": 119.0,
+   "total_bias_base": 3.9259463669324757,
+   "total_bias_market": -1.8697478991596639
+  },
+  "2026-11-03": {
+   "margin_mae_base": 9.887370545638412,
+   "margin_mae_market": 9.131578947368421,
+   "margin_mae_roster": 9.875906977203416,
+   "n": 19.0,
+   "n_market": 19.0,
+   "total_bias_base": -3.8082330770096835,
+   "total_bias_market": -5.078947368421052
+  },
+  "2026-11-04": {
+   "margin_mae_base": 7.5328056828847325,
+   "margin_mae_market": 8.5,
+   "margin_mae_roster": 8.447712057683797,
+   "n": 10.0,
+   "n_market": 10.0,
+   "total_bias_base": 8.628261394580482,
+   "total_bias_market": 4.5
+  },
+  "2026-11-05": {
+   "margin_mae_base": 8.983578563483086,
+   "margin_mae_market": 7.9186046511627906,
+   "margin_mae_roster": 8.89717841396123,
+   "n": 43.0,
+   "n_market": 43.0,
+   "total_bias_base": 1.4118627562562909,
+   "total_bias_market": -2.453488372093023
+  },
+  "2026-11-06": {
+   "margin_mae_base": 10.759575313461177,
+   "margin_mae_market": 9.364406779661017,
+   "margin_mae_roster": 10.733556699870899,
+   "n": 59.0,
+   "n_market": 59.0,
+   "total_bias_base": 4.631082403208042,
+   "total_bias_market": 1.1440677966101696
+  },
+  "2026-11-07": {
+   "margin_mae_base": 7.476940715002354,
+   "margin_mae_market": 7.145833333333333,
+   "margin_mae_roster": 7.2530910346195085,
+   "n": 48.0,
+   "n_market": 48.0,
+   "total_bias_base": 5.214356258283888,
+   "total_bias_market": 1.7291666666666667
+  },
+  "2026-11-08": {
+   "margin_mae_base": 10.303137880091107,
+   "margin_mae_market": 9.051724137931034,
+   "margin_mae_roster": 9.906138290225272,
+   "n": 29.0,
+   "n_market": 29.0,
+   "total_bias_base": 5.871365480845751,
+   "total_bias_market": 3.189655172413793
+  },
+  "2026-11-09": {
+   "margin_mae_base": 8.696238725592915,
+   "margin_mae_market": 8.323529411764707,
+   "margin_mae_roster": 8.859598180153842,
+   "n": 34.0,
+   "n_market": 34.0,
+   "total_bias_base": -2.5117392246517376,
+   "total_bias_market": -4.705882352941177
+  },
+  "2026-11-10": {
+   "margin_mae_base": 9.681175167391173,
+   "margin_mae_market": 8.982142857142858,
+   "margin_mae_roster": 9.41450922288559,
+   "n": 56.0,
+   "n_market": 56.0,
+   "total_bias_base": 3.78519272490909,
+   "total_bias_market": 1.4285714285714286
+  },
+  "2026-11-11": {
+   "margin_mae_base": 10.054743909155734,
+   "margin_mae_market": 9.354166666666666,
+   "margin_mae_roster": 9.729972600760588,
+   "n": 48.0,
+   "n_market": 48.0,
+   "total_bias_base": 0.9218553848680783,
+   "total_bias_market": -0.8541666666666666
+  },
+  "2026-11-12": {
+   "margin_mae_base": 8.952160952855337,
+   "margin_mae_market": 7.5,
+   "margin_mae_roster": 12.259515332603804,
+   "n": 1.0,
+   "n_market": 1.0,
+   "total_bias_base": 2.744332451010706,
+   "total_bias_market": 2.5
+  }
+ },
+ "by_min_games_seen": {
+  "0": {
+   "margin_mae_base": 9.864616999525861,
+   "margin_mae_market": 8.98356807511737,
+   "margin_mae_roster": 9.824752232539614,
+   "n": 213.0,
+   "n_market": 213.0,
+   "total_bias_base": 3.7812885591250107,
+   "total_bias_market": -0.9741784037558685
+  },
+  "1": {
+   "margin_mae_base": 9.345058488129672,
+   "margin_mae_market": 8.51129943502825,
+   "margin_mae_roster": 9.181476786880724,
+   "n": 177.0,
+   "n_market": 177.0,
+   "total_bias_base": 3.0620644764686444,
+   "total_bias_market": 0.19491525423728814
+  },
+  "2": {
+   "margin_mae_base": 10.458019466765004,
+   "margin_mae_market": 9.897435897435898,
+   "margin_mae_roster": 10.202226339505597,
+   "n": 78.0,
+   "n_market": 78.0,
+   "total_bias_base": 0.476775015749986,
+   "total_bias_market": -1.3974358974358974
+  }
+ },
+ "by_projected_possessions": {
+  "1_low": {
+   "margin_mae_base": 10.128585903363499,
+   "margin_mae_market": 9.217948717948717,
+   "margin_mae_roster": 9.620158569764113,
+   "n": 156.0,
+   "n_market": 156.0,
+   "total_bias_base": 3.463211013179013,
+   "total_bias_market": -1.0128205128205128
+  },
+  "2_mid": {
+   "margin_mae_base": 9.43706588426547,
+   "margin_mae_market": 8.852564102564102,
+   "margin_mae_roster": 9.739583238596753,
+   "n": 156.0,
+   "n_market": 156.0,
+   "total_bias_base": 3.0308041893999427,
+   "total_bias_market": -0.7051282051282052
+  },
+  "3_high": {
+   "margin_mae_base": 9.735401364330201,
+   "margin_mae_market": 8.801282051282051,
+   "margin_mae_roster": 9.573381725551075,
+   "n": 156.0,
+   "n_market": 156.0,
+   "total_bias_base": 2.381550993940764,
+   "total_bias_market": -0.08974358974358974
+  }
+ },
+ "by_projected_total": {
+  "1_low": {
+   "margin_mae_base": 9.584031279448066,
+   "margin_mae_market": 8.89102564102564,
+   "margin_mae_roster": 9.297794002464412,
+   "n": 156.0,
+   "n_market": 156.0,
+   "total_bias_base": 3.5034655214740815,
+   "total_bias_market": -0.9935897435897436
+  },
+  "2_mid": {
+   "margin_mae_base": 9.9030604458723,
+   "margin_mae_market": 8.756410256410257,
+   "margin_mae_roster": 9.722890035786602,
+   "n": 156.0,
+   "n_market": 156.0,
+   "total_bias_base": 2.892652743811868,
+   "total_bias_market": -0.6410256410256411
+  },
+  "3_high": {
+   "margin_mae_base": 9.813961426638803,
+   "margin_mae_market": 9.224358974358974,
+   "margin_mae_roster": 9.912439495660925,
+   "n": 156.0,
+   "n_market": 156.0,
+   "total_bias_base": 2.4794479312337705,
+   "total_bias_market": -0.17307692307692307
+  }
+ },
+ "ci_base": {
+  "margin_slope": {
+   "dates": 12,
+   "est": 1.0807849788531092,
+   "hi": 1.1262810387574471,
+   "lo": 1.0492855072786835,
+   "n": 468
+  },
+  "margin_z_sd": {
+   "dates": 12,
+   "est": 1.0272566114182744,
+   "hi": 1.0673053809473823,
+   "lo": 0.9631023966278379,
+   "n": 468
+  },
+  "total_bias": {
+   "dates": 12,
+   "est": 2.9585220655065734,
+   "hi": 4.037807449426686,
+   "lo": 1.3830786319515636,
+   "n": 468
+  },
+  "total_slope": {
+   "dates": 12,
+   "est": 0.968108602648999,
+   "hi": 1.128679900560015,
+   "lo": 0.7988201578589036,
+   "n": 468
+  },
+  "total_z_sd": {
+   "dates": 12,
+   "est": 1.0042644252934732,
+   "hi": 1.032148614896377,
+   "lo": 0.9611932612989418,
+   "n": 468
+  }
+ },
+ "ci_base_margin_bias": {
+  "dates": 12,
+  "est": 0.44251138143916574,
+  "hi": 1.2534628430874908,
+  "lo": -0.34258706490780616,
+  "n": 468
+ },
+ "ci_roster": {
+  "margin_bias": {
+   "dates": 12,
+   "est": -1.0422678683356712,
+   "hi": -0.34298149313494364,
+   "lo": -1.6431234454464632,
+   "n": 468
+  },
+  "margin_slope": {
+   "dates": 12,
+   "est": 0.9743181300833967,
+   "hi": 1.0361077266456573,
+   "lo": 0.9287295887366334,
+   "n": 468
+  }
+ },
+ "evidence_class": "EXPLORATORY_HISTORICAL (records frozen before the Wave 14 boundary only)",
+ "funnel": {
+  "no_final": 74,
+  "prospective_wave14_excluded": 8,
+  "scored": 468
+ },
+ "margin_compression_by_abs_projected_margin": {
+  "8to16": {
+   "base_margin_z_sd": 1.0675271335888716,
+   "base_signed_err_toward_favourite": -0.7318539613315093,
+   "base_slope": {
+    "dates": 11,
+    "est": 1.128898245349817,
+    "hi": 2.1669566218788527,
+    "lo": 0.6042934951196434,
+    "n": 99
+   },
+   "n": 99
+  },
+  "ge16": {
+   "base_margin_z_sd": 1.134237662971845,
+   "base_signed_err_toward_favourite": 1.8084726944970064,
+   "base_slope": {
+    "dates": 11,
+    "est": 0.9738340373932128,
+    "hi": 1.273683001843294,
+    "lo": 0.7405742938850612,
+    "n": 212
+   },
+   "n": 212
+  },
+  "lt8": {
+   "base_margin_z_sd": 0.8195176519257842,
+   "base_signed_err_toward_favourite": -0.46123096433678923,
+   "base_slope": {
+    "dates": 10,
+    "est": 0.8967056977878817,
+    "hi": 1.1139606802820177,
+    "lo": 0.7103384053254358,
+    "n": 157
+   },
+   "n": 157
+  }
+ },
+ "market_disagreement": {
+  "margin": {
+   "dates": 12,
+   "est": 1.209086431555725,
+   "hi": 1.5233064480318326,
+   "lo": 1.0326166849532796,
+   "n": 468
+  },
+  "total": {
+   "dates": 12,
+   "est": 0.9280753524964608,
+   "hi": 1.2311552903153669,
+   "lo": 0.770590966249257,
+   "n": 468
+  }
+ },
+ "market_on_market_games": {
+  "base_margin_mae_same_games": 9.767017717319725,
+  "base_total_mae_same_games": 13.726641415043927,
+  "margin_mae": 8.957264957264957,
+  "total_bias": -0.6025641025641025,
+  "total_mae": 13.083333333333334
+ },
+ "n_dates": 12,
+ "n_games": 468,
+ "n_with_market": 468,
+ "orientation_finals": {
+  "SAME": 471,
+  "SWAPPED": 5
+ },
+ "orientation_market": {
+  "SAME": 526,
+  "SWAPPED": 3
+ },
+ "reliability_base": [
+  {
+   "mean_p": 0.45642016140247105,
+   "n": 93.0,
+   "observed": 0.4946236559139785
+  },
+  {
+   "mean_p": 0.7408212266867714,
+   "n": 94.0,
+   "observed": 0.648936170212766
+  },
+  {
+   "mean_p": 0.9005399013338952,
+   "n": 93.0,
+   "observed": 0.8602150537634409
+  },
+  {
+   "mean_p": 0.9664397935628514,
+   "n": 94.0,
+   "observed": 0.9361702127659575
+  },
+  {
+   "mean_p": 0.9916962570665747,
+   "n": 94.0,
+   "observed": 1.0
+  }
+ ],
+ "reliability_roster": [
+  {
+   "mean_p": 0.43882729190727177,
+   "n": 93.0,
+   "observed": 0.4838709677419355
+  },
+  {
+   "mean_p": 0.7516987012844059,
+   "n": 94.0,
+   "observed": 0.6063829787234043
+  },
+  {
+   "mean_p": 0.9196542474262815,
+   "n": 93.0,
+   "observed": 0.9032258064516129
+  },
+  {
+   "mean_p": 0.9770756492252243,
+   "n": 94.0,
+   "observed": 0.9574468085106383
+  },
+  {
+   "mean_p": 0.9950141990077654,
+   "n": 94.0,
+   "observed": 0.9893617021276596
+  }
+ ],
+ "roster": {
+  "roster_minus_base_margin_mae_all": {
+   "dates": 12,
+   "est": -0.12264320601574294,
+   "hi": -0.03425423534015673,
+   "lo": -0.2049304682309501,
+   "n": 468
+  },
+  "roster_minus_base_margin_mae_big_moves": {
+   "dates": 12,
+   "est": -0.0869062298012891,
+   "hi": 0.09872523028487037,
+   "lo": -0.24785162327419158,
+   "n": 229
+  },
+  "threshold": 2.0
+ },
+ "versions": {
+  "pure-0.2.0": {
+   "brier": 0.131354315101189,
+   "logloss": 0.403607254417115,
+   "margin_bias": 1.1431013930235892,
+   "margin_cover80": 0.7863247863247863,
+   "margin_mae": 10.124758898351624,
+   "margin_slope": 1.1069140239628328,
+   "margin_z_sd": 1.0488327573597498,
+   "n": 468.0,
+   "total_bias": 3.248056808019026,
+   "total_cover80": 0.7948717948717948,
+   "total_mae": 13.863085353976329,
+   "total_slope": 0.8823227475077099,
+   "total_z_sd": 1.0098144384264878
+  },
+  "pure-0.3.0": {
+   "brier": 0.12755441173161386,
+   "logloss": 0.38965994702234225,
+   "margin_bias": 0.758456154183468,
+   "margin_cover80": 0.7991452991452992,
+   "margin_mae": 9.761574448090629,
+   "margin_slope": 1.0911171094731933,
+   "margin_z_sd": 1.023138609823484,
+   "n": 468.0,
+   "total_bias": 2.7238087865733767,
+   "total_cover80": 0.8098290598290598,
+   "total_mae": 13.660481082862212,
+   "total_slope": 0.9625228873481779,
+   "total_z_sd": 1.0001822065711967
+  },
+  "pure-0.4.0": {
+   "brier": 0.12702448258084584,
+   "logloss": 0.38860168195914796,
+   "margin_bias": 0.576423927001452,
+   "margin_cover80": 0.8141025641025641,
+   "margin_mae": 9.750767830879841,
+   "margin_slope": 1.0878235406430472,
+   "margin_z_sd": 1.0239984320369115,
+   "n": 468.0,
+   "total_bias": 2.8727895209572036,
+   "total_cover80": 0.8012820512820513,
+   "total_mae": 13.701535751665602,
+   "total_slope": 0.9579072936243105,
+   "total_z_sd": 1.0028750814563612
+  },
+  "pure-0.5.0": {
+   "brier": 0.12767830096371655,
+   "logloss": 0.39184649044164893,
+   "margin_bias": 0.44251138143916574,
+   "margin_cover80": 0.8012820512820513,
+   "margin_mae": 9.767017717319725,
+   "margin_slope": 1.0807849788531092,
+   "margin_z_sd": 1.0272566114182744,
+   "n": 468.0,
+   "total_bias": 2.9585220655065734,
+   "total_cover80": 0.7884615384615384,
+   "total_mae": 13.726641415043927,
+   "total_slope": 0.968108602648999,
+   "total_z_sd": 1.0042644252934732
+  },
+  "pure-0.5.0_roster": {
+   "brier": 0.12584180262829722,
+   "logloss": 0.38584816128481086,
+   "margin_bias": -1.0422678683356712,
+   "margin_cover80": 0.8141025641025641,
+   "margin_mae": 9.64437451130398,
+   "margin_slope": 0.9743181300833967,
+   "margin_z_sd": 1.011522376202416,
+   "n": 468.0,
+   "total_bias": 2.8781022308111384,
+   "total_cover80": 0.7927350427350427,
+   "total_mae": 13.730495250054398,
+   "total_slope": 0.9624647883991176,
+   "total_z_sd": 1.0050783228819369
+  }
+ }
+}
