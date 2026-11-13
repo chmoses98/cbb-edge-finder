@@ -1,0 +1,14 @@
+ORIGINAL funnel {'eligible': 24, 'no_verified_final_yet': 116, 'record_before_registration': 472} verdict COLLECTING / INSUFFICIENT EVIDENCE 24/150 games, 2/5 dates
+AMEND-5a funnel {'eligible': 24, 'no_verified_final_yet': 116, 'record_before_registration': 472} verdict COLLECTING / INSUFFICIENT EVIDENCE 24/150 games, 2/5 dates
+eligible only-orig [] only-amend []
+same games different as_of: []
+amend eligible with pushed_by>=tip: []
+min lead (min): 96.45
+5a selection keys ['fallback', 'no_verified_pre_tip_record', 'quarantined']
+  fallback {'pure-0.2.0': 0, 'pure-0.5.0': 0, 'pure-0.5.0_roster': 0}
+  no_verified_pre_tip_record {'pure-0.2.0': 0, 'pure-0.5.0': 0, 'pure-0.5.0_roster': 0}
+  quarantined {'pure-0.2.0': 0, 'pure-0.5.0': 0, 'pure-0.5.0_roster': 0}
+summary orig==amend: True
+outcome_crosscheck {'fetched_at': '2026-11-13T22:54:17+00:00', 'file': 'research/wave14/verification_20261113/outcome_crosscheck.json', 'graded_finals': {'match': 24}, 'problem_game_ids': []}
+provenance unverified (amend): {}
+manifests verified: 5
