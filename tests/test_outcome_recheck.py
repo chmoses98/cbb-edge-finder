@@ -75,3 +75,11 @@ def test_compare_is_orientation_aware():
         "not_rechecked": 1,
     }
     assert out["problem_game_ids"] == [3, 4]
+
+
+def test_recheck_skips_failed_day_without_overwriting():
+    t0 = datetime(2026, 11, 13, tzinfo=UTC)
+    graded = [{"game_id": 10, "date": "2026-11-12"}]
+    first = orc.recheck(graded, lambda d: {"events": [_ev(10, 70, 60)]}, None, now=t0)
+    again = orc.recheck(graded, lambda d: {}, first, now=t0)
+    assert again["games"] == first["games"]

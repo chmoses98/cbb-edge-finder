@@ -71,7 +71,10 @@ def recheck(
     for g in graded:
         by_date.setdefault(str(g["date"]), []).append(int(g["game_id"]))
     for day, ids in sorted(by_date.items()):
-        seen = parse_scoreboard(fetch_day(day.replace("-", "")))
+        payload = fetch_day(day.replace("-", ""))
+        if not isinstance(payload, dict) or "events" not in payload:
+            continue  # failed/empty response: keep earlier observations, never mark NOT_LISTED
+        seen = parse_scoreboard(payload)
         for gid in ids:
             obs = seen.get(gid) or {"espn_status": "NOT_LISTED", "home": None, "away": None}
             new = {"game_id": gid, **obs, "observed_at": when}

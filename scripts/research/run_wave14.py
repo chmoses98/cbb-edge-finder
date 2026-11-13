@@ -138,6 +138,7 @@ def _crosscheck(path: Path, rows: list, finals: dict, *, refresh: bool = False) 
     With ``refresh`` every graded game is re-read from the free ESPN scoreboard first and merged
     into ``path`` (earlier differing observations are kept under ``history``).
     """
+    refresh_error = None
     if refresh and rows:
         from cbb_edge.data.http import fetch
 
@@ -147,14 +148,20 @@ def _crosscheck(path: Path, rows: list, finals: dict, *, refresh: bool = False) 
             return json.loads(r.path.read_text()) if r is not None else {}
 
         old = json.loads(path.read_text()) if path.exists() else None
-        new = orc.recheck(({"game_id": r["game_id"], "date": r["date"]} for r in rows), day, old)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(new, indent=1) + "\n")
+        try:
+            new = orc.recheck(({"game_id": r["game_id"], "date": r["date"]} for r in rows), day, old)  # fmt: skip
+        except Exception as exc:  # noqa: BLE001 - a provider outage must not fail the regrade
+            refresh_error = f"{type(exc).__name__}: {exc}"[:300]
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(new, indent=1) + "\n")
+            refresh_error = None
     if not path.exists():
-        return {"file": None}
+        return {"file": None, "refresh_error": refresh_error}
     d = json.loads(path.read_text())
     oriented = [{**r, "orientation": finals[r["game_id"]]["orientation"]} for r in rows]
-    return {"file": str(path), "fetched_at": d.get("fetched_at"), **orc.compare(d, oriented)}
+    out = {"file": str(path), "fetched_at": d.get("fetched_at"), **orc.compare(d, oriented)}
+    return {**out, "refresh_error": refresh_error} if refresh_error else out
 
 
 PENDING_CLASSES = ("capture_lag", "tip_after_last_capture", "no_final_after_expected_end")
