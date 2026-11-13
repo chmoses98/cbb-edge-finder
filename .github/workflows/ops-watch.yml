@@ -38,6 +38,7 @@ env:
 
 permissions:
   contents: write
+  actions: read  # collection-health diagnostics read recent run listings (never dispatch)
 
 jobs:
   watch:
@@ -120,6 +121,24 @@ jobs:
           [ -f overlap_out/overlap.json ] && mkdir -p ops_out && cp overlap_out/overlap.json ops_out/
           [ -f ops_out/readiness.md ] && cat ops_out/readiness.md | head -60 >> "$GITHUB_STEP_SUMMARY"
           exit 0
+      - name: Collection coverage / freshness diagnostics (report only; never fails the run)
+        # cbb_edge.ops.collection_health: cron delivery, stalled queued runs, pre-tip records lost
+        # or pushed after tip (Waves 14-16 would exclude the game), forecast lead, finals latency.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          mkdir -p ops_out runs
+          args=""
+          for w in prospective-projections prospective-scores kalshi-capture ops-watch period-scores roster-capture; do
+            gh run list --workflow "$w.yml" --limit 200 \
+              --json databaseId,status,conclusion,event,createdAt > "runs/$w.json" && args="$args --runs $w=runs/$w.json"
+          done
+          python -m cbb_edge.ops.collection_health --projections arch/projections-archive \
+            --schedule-archive "$( [ -d sa ] && echo sa || echo arch/schedule-archive )" \
+            $args --hours 72 --out ops_out/collection_health.json > /dev/null
+          python -c "import json;a=json.load(open('ops_out/collection_health.json'))['alerts'];print(json.dumps(a,indent=1))" | head -80 >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: ops-watch-${{ github.run_id }}

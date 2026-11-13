@@ -22,6 +22,9 @@ on:
       season:
         description: "season (end year)"
         default: "2027"
+      catchup:
+        description: "decide like a scheduled tick (cadence catch-up) instead of a full run"
+        default: "false"
 
 # Production runs stay serialized and are never cancelled; PR validation runs use a per-PR group
 # so they cannot displace the production group's pending slot.
@@ -67,8 +70,7 @@ jobs:
           git fetch -q --depth=1 origin roster-archive && git checkout -q FETCH_HEAD || echo "no roster-archive yet"
           # provenance (Wave 8): the roster-archive commit the P-ROSTER-1 records read
           echo "CBB_ROSTER_ARCHIVE_COMMIT=$(git rev-parse -q --verify HEAD || true)" >> "$GITHUB_ENV"
-      - name: Fetch projections archive (read-only, for the catch-up decision)
-        if: github.event_name == 'schedule'
+      - name: Fetch projections archive (read-only; catch-up decision and freeze guard)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -88,7 +90,9 @@ jobs:
           CBB_DATA_DIR: ${{ runner.temp }}/data
         run: |
           set -o pipefail
-          if [ "${{ github.event_name }}" != "schedule" ]; then
+          # failover ticks dispatched by kalshi-capture's heartbeat (catchup=true) decide exactly
+          # like a scheduled tick, so a duplicate tick re-decides from the archive and is a no-op
+          if [ "${{ github.event_name }}" != "schedule" ] && [ "${{ github.event.inputs.catchup }}" != "true" ]; then
             echo "due=true" >> "$GITHUB_OUTPUT"; echo "mode=full" >> "$GITHUB_OUTPUT"; exit 0
           fi
           python -m cbb_edge.ops.cadence projections --archive arch_proj --rosters rosters \
@@ -104,7 +108,8 @@ jobs:
           [ "${{ steps.decide.outputs.mode }}" = "missing_only" ] && ONLY="--only-missing gaps.json"
           python scripts/prospective/refresh_and_project.py \
             --season "${{ github.event.inputs.season || '2027' }}" --out projections_out \
-            --availability-dir avail --roster-dir rosters --schedule-archive sched_arch $ONLY | tee run_summary.json
+            --availability-dir avail --roster-dir rosters --schedule-archive sched_arch $ONLY \
+            --freeze-guard-min 60 --existing-archive arch_proj | tee run_summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
