@@ -238,7 +238,8 @@ Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`, Wave 12 protoco
 
 | ID | Description | Status |
 |---|---|---|
-| PW-LEVEL | `pw-level-0.5.0-v1`: `total += beta * pbar * possessions`, one walk-forward ridge `beta` from recorded pace/efficiency prior weights; margin untouched; fails closed on missing/invalid `model_inputs`; **shadow, research only** | **COLLECTING / INSUFFICIENT EVIDENCE** (0 eligible games; registered 2026-11-11, boundary 22:00Z) |
+| PW-LEVEL | `pw-level-0.5.0-v1`: `total += beta * pbar * possessions`, one walk-forward ridge `beta` from recorded pace/efficiency prior weights; margin untouched; fails closed on missing/invalid `model_inputs`; **shadow, research only** | **COLLECTING / INSUFFICIENT EVIDENCE** (2026-11-13 update: 8 eligible games on 1 ET date vs floor 150 / 5; registered 2026-11-11, boundary 22:00Z) |
+| W14-FREEZE | 2026-11-13: graded records must also sit in a manifest whose push to `projections-archive` is proven before tip by GitHub Actions step times (`research/wave14/freeze_provenance.json`); stricter only, all 8 pass. ESPN pre-tip line added as a benchmark-only comparator; graded finals re-checked against a later ESPN fetch (8/8 match) | done |
 | W14-AUDIT | `model_inputs` verified on all 5 versions: 114 records/version (1 on Nov 11 02:34Z, 48 + 65 post-merge), 71 distinct games, all valid; 103 games of Nov 10 21:23Z carry none (never back-filled); 6760 manifest hashes intact | done |
 
 Model, P-ROSTER-1, candidates, gates, `models/pure/active.json`, Wave 12/13 protocols and evidence: unchanged.

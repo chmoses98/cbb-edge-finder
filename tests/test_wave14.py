@@ -320,3 +320,79 @@ def test_loader_reads_without_writing(tmp_path):
     got = w14.load_inputs(tmp_path)
     assert got[1]["mi"]["version"] == pw.INPUTS_VERSION
     assert (p.read_bytes(), p.stat().st_mtime_ns) == before
+
+
+# -------------------------------------------------------------------- freeze provenance (stricter only)
+def _pushed(gs, delta):
+    return {g["game_id"]: {"pushed_by": g["tip"] + delta, "reason": None} for g in gs}
+
+
+def test_freeze_provenance_excludes_unprovable_and_late_pushes_only():
+    gs = games(120, start=datetime(2026, 11, 20, 18, tzinfo=UTC))
+    fr, fin, frm = frozen_for(gs), finals_of(gs), "2026-11-01T00:00:00+00:00"
+    plain, f0 = w14.build_rows(fr, fin, prospective_from=frm)
+    ok, f1 = w14.build_rows(fr, fin, prospective_from=frm, pushed=_pushed(gs, -timedelta(hours=1)))
+    assert [r["game_id"] for r in ok] == [r["game_id"] for r in plain] and f1 == f0
+    pushed = _pushed(gs, -timedelta(hours=1))
+    late = [g["game_id"] for g in gs[-5:]]
+    for gid in late[:2]:
+        pushed[gid] = {"pushed_by": None, "reason": "manifest_push_time_unverified"}
+    for gid in late[2:]:
+        pushed[gid]["pushed_by"] = gs[gid]["tip"]  # pushed AT tip is not before tip
+    rows, f = w14.build_rows(fr, fin, prospective_from=frm, pushed=pushed)
+    assert f["freeze_time_not_provable"] == 2 and f["freeze_pushed_at_or_after_tip"] == 3
+    assert not {r["game_id"] for r in rows} & set(late)
+
+
+def test_freeze_pushed_at_requires_every_version_in_a_proven_manifest():
+    gs = games(3, start=datetime(2026, 11, 20, 18, tzinfo=UTC))
+    fr = frozen_for(gs)
+    t = datetime(2026, 11, 20, 12, tzinfo=UTC)
+    recm = {(v, g["game_id"], g["as_of"].isoformat()): "M1" for v in w14.VERSIONS for g in gs}
+    recm.pop(("pure-0.5.0_roster", 1, gs[1]["as_of"].isoformat()))
+    recm[("pure-0.2.0", 2, gs[2]["as_of"].isoformat())] = "M2"
+    out = w14.freeze_pushed_at(fr, recm, {"M1": {"pushed_by": t.isoformat()}})
+    assert out[0] == {"pushed_by": t, "reason": None}
+    assert out[1]["pushed_by"] is None and out[1]["reason"] == "record_not_in_any_manifest"
+    assert out[2]["pushed_by"] is None and out[2]["reason"] == "manifest_push_time_unverified"
+
+
+def test_record_manifests_maps_version_game_and_as_of(tmp_path):
+    (tmp_path / "projections" / "manifests").mkdir(parents=True)
+    files = {"2027/2026-11-12/G7/a.json": "x", "pure-0.5.0/2027/2026-11-12/G7/a.json": "y"}
+    (tmp_path / "projections" / "manifests" / "M.json").write_text(json.dumps({"as_of": "2026-11-12T21:10:53+00:00", "files": files}))  # fmt: skip
+    got = w14.record_manifests(tmp_path)
+    key = datetime(2026, 11, 12, 21, 10, 53, tzinfo=UTC).isoformat()
+    assert got == {("pure-0.2.0", 7, key): "M", ("pure-0.5.0", 7, key): "M"}
+
+
+# -------------------------------------------------------------------- market benchmark (never an input)
+def test_market_benchmark_sign_pre_tip_only_and_verdict_unchanged():
+    rows, _ = run(200)
+    v0 = w14.verdict(rows)
+    r0, r1 = rows[0], rows[1]
+    market = {
+        r0["game_id"]: {
+            "captured_at": r0["tip"] - timedelta(minutes=30),
+            "spread": -5.0,
+            "total": 141.0,
+        },
+        r1["game_id"]: {"captured_at": r1["tip"], "spread": -5.0, "total": 141.0},  # not pre-tip
+    }
+    cnt = w14.attach_market(rows, market)
+    assert cnt == {"with_line": 1, "no_pre_tip_line": len(rows) - 1}
+    m = r0[w14.MARKET]
+    assert m["margin_err"] == r0["actual_margin"] - 5.0  # market margin = -spread = +5
+    assert m["total_err"] == r0["actual_total"] - 141.0
+    assert w14.MARKET not in r1
+    assert w14.verdict(rows) == v0
+    assert w14.market_summary(rows)[w14.MARKET]["n"] == 1
+
+
+def test_game_level_interval_is_descriptive_and_single_date_collapses():
+    rows, _ = run(200)
+    one = [{**r, "date": "d"} for r in rows[:40]]
+    c = w14.cluster_diff(one, pw.VERSION, "pure-0.5.0", "abs:total_err", reps=200)
+    assert c["lo"] == c["hi"] == c["diff"] and c["n_dates"] == 1
+    gl = w14.game_level_diff(one, pw.VERSION, "pure-0.5.0", "abs:total_err")
+    assert gl["diff"] == pytest.approx(c["diff"]) and gl["n_dates"] == 40

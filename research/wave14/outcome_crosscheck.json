@@ -1,0 +1,78 @@
+{
+ "_note": "Re-observation of the graded finals from the free public ESPN scoreboard (site.api.espn.com, dates=20261112, groups=50), fetched after the schedule archive's capture. Same provider as the archive (not a different organisation); it confirms the archived finals are final and were not later corrected. A non-ESPN source (barttorvik.com) was refused by this session's network proxy. All eligible games here are orientation SAME, so ESPN home/away = projection frame.",
+ "fetched_at": "2026-11-13T03:58:50Z",
+ "games": [
+  {
+   "game_id": 401916288,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "84",
+   "espn_away_id": "2635",
+   "home": 90,
+   "away": 66,
+   "matches_archive_final": true
+  },
+  {
+   "game_id": 401917176,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "213",
+   "espn_away_id": "2385",
+   "home": 72,
+   "away": 57,
+   "matches_archive_final": true
+  },
+  {
+   "game_id": 401921086,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "2378",
+   "espn_away_id": "2415",
+   "home": 85,
+   "away": 70,
+   "matches_archive_final": true
+  },
+  {
+   "game_id": 401925631,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "2154",
+   "espn_away_id": "71",
+   "home": 54,
+   "away": 56,
+   "matches_archive_final": true
+  },
+  {
+   "game_id": 401920064,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "227",
+   "espn_away_id": "2379",
+   "home": 67,
+   "away": 47,
+   "matches_archive_final": true
+  },
+  {
+   "game_id": 401920566,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "119",
+   "espn_away_id": "2352",
+   "home": 90,
+   "away": 60,
+   "matches_archive_final": true
+  },
+  {
+   "game_id": 401924876,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "2529",
+   "espn_away_id": "2115",
+   "home": 75,
+   "away": 79,
+   "matches_archive_final": true
+  },
+  {
+   "game_id": 401928818,
+   "espn_status": "STATUS_FINAL",
+   "espn_home_id": "2870",
+   "espn_away_id": "2711",
+   "home": 59,
+   "away": 81,
+   "matches_archive_final": true
+  }
+ ]
+}

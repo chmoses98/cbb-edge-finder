@@ -156,14 +156,60 @@ def _corr(a: Sequence[float], b: Sequence[float]) -> float | None:
     return sum((x - ma) * (y - mb) for x, y in zip(a, b, strict=True)) / math.sqrt(va * vb)
 
 
+def record_manifests(root: Path) -> dict[tuple[str, int, str], str]:
+    """``(version, game_id, as_of iso)`` -> manifest stem that lists (and hashes) that frozen record."""
+    out: dict[tuple[str, int, str], str] = {}
+    for m in sorted(glob.glob(str(root / "projections" / "manifests" / "*.json"))):
+        d = _load(Path(m))
+        as_of = w.parse_ts(d.get("as_of"))
+        if as_of is None:
+            continue
+        for rel in d["files"]:
+            v = "pure-0.2.0" if rel.startswith("2027/") else rel.split("/")[0]
+            gdir = next((x for x in rel.split("/") if x.startswith("G") and x[1:].isdigit()), None)
+            if gdir is not None:
+                out[(v, int(gdir[1:]), as_of.isoformat())] = Path(m).stem
+    return out
+
+
+def freeze_pushed_at(
+    frozen: dict[str, dict[int, dict[str, Any]]],
+    rec_manifest: dict[tuple[str, int, str], str],
+    provenance: dict[str, dict[str, Any]],
+) -> dict[int, dict[str, Any]]:
+    """Per game: the server-side time by which EVERY compared version's selected frozen record was on
+    ``origin`` (latest ``pushed_by`` over the manifests holding them), or ``None`` with a reason.
+
+    ``provenance``: manifest stem -> {"pushed_by": ISO time, ...}, an upper bound on the push time
+    taken from GitHub (archive commit + the Actions run that pushed it). A record whose manifest has
+    no provenance entry is NOT provably frozen."""
+    out: dict[int, dict[str, Any]] = {}
+    for gid in frozen[pw.BASE_VERSION]:
+        times, why = [], None
+        for v in VERSIONS:
+            r = frozen[v].get(gid)
+            stem = None if r is None else rec_manifest.get((v, gid, r["as_of"].isoformat()))
+            t = w.parse_ts((provenance.get(stem) or {}).get("pushed_by")) if stem else None
+            if stem is None:
+                why = "record_not_in_any_manifest"
+            elif t is None:
+                why = "manifest_push_time_unverified"
+            else:
+                times.append(t)
+        out[gid] = {"pushed_by": None if why else max(times), "reason": why}
+    return out
+
+
 def build_rows(
     frozen: dict[str, dict[int, dict[str, Any]]],
     finals: dict[int, dict[str, Any]],
     *,
     prospective_from: str = PROSPECTIVE_FROM,
+    pushed: dict[int, dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Identical-game rows for every forecaster plus an eligibility funnel. ``frozen['pure-0.5.0']``
-    must already carry ``pbar`` (``attach_inputs``)."""
+    must already carry ``pbar`` (``attach_inputs``). With ``pushed`` (``freeze_pushed_at``), a game is
+    also excluded unless every compared record is PROVABLY on origin before the tip (stricter only)."""
     cut = w.parse_ts(prospective_from)
     base = frozen[pw.BASE_VERSION]
     games = sorted(base.values(), key=lambda g: g["as_of"])
@@ -185,6 +231,14 @@ def build_rows(
         if any(gid not in frozen[v] or frozen[v][gid]["as_of"] < cut for v in VERSIONS):
             funnel["comparator_record_missing"] += 1
             continue
+        if pushed is not None:
+            pa = (pushed.get(gid) or {}).get("pushed_by")
+            if pa is None:
+                funnel["freeze_time_not_provable"] += 1
+                continue
+            if not pa < g["tip"]:
+                funnel["freeze_pushed_at_or_after_tip"] += 1
+                continue
         if st_pw[gid] is None or st_12[gid] is None:
             funnel["challenger_undefined_too_few_finished_games"] += 1
             continue
@@ -195,6 +249,8 @@ def build_rows(
         fc[pw.VERSION] = {**pw.adapt(g, st_pw[gid], g["pbar"]), "home_wp": g["home_wp"]}  # type: ignore[arg-type]
         y = int(f["home"] > f["away"])
         row: dict[str, Any] = {"game_id": gid, "date": w.et_date(g["tip"]), "pbar": g["pbar"], "y_home": y,
+                               "tip": g["tip"], "as_of": g["as_of"], "actual_margin": f["home"] - f["away"],
+                               "actual_total": f["home"] + f["away"],
                                "beta": st_pw[gid]["beta"], "n_train": st_pw[gid]["n_games"]}  # fmt: skip
         for name, p in fc.items():
             wp = p["home_wp"] if "home_wp" in p else w._cdf(p["margin"] / p["margin_sd"])
@@ -292,4 +348,62 @@ def verdict(rows: Sequence[dict[str, Any]]) -> dict[str, Any]:
         out["status"] = "NOT IMPROVED"
     else:
         out["status"] = "INSUFFICIENT EVIDENCE"
+    return out
+
+
+MARKET = "market (ESPN pre-tip line, benchmark only)"
+
+
+def attach_market(
+    rows: Sequence[dict[str, Any]], market: dict[int, dict[str, Any]]
+) -> dict[str, int]:
+    """BENCHMARK ONLY (never an input): add the last pre-tip ESPN line, already oriented to the
+    projection frame (``wave13.orient_market``), as a forecaster on rows that have one. Only lines
+    captured strictly before the tip are used (``wave1.load_espn_lines``)."""
+    cnt: Counter[str] = Counter()
+    for r in rows:
+        m = market.get(r["game_id"])
+        if m is None or not m["captured_at"] < r["tip"]:
+            cnt["no_pre_tip_line"] += 1
+            continue
+        # market margin = -home spread (spread already in the projection frame)
+        r[MARKET] = {"margin_err": r["actual_margin"] + m["spread"], "total_err": r["actual_total"] - m["total"],
+                     "minutes_to_tip": m.get("minutes_to_tip"), "provider": m.get("provider")}  # fmt: skip
+        cnt["with_line"] += 1
+    return dict(cnt)
+
+
+def game_level_diff(
+    rows: Sequence[dict[str, Any]], a: str, b: str, metric: str
+) -> dict[str, float]:
+    """DESCRIPTIVE ONLY: the same bootstrap with each game as its own cluster (ignores within-date
+    correlation, so it is narrower than the protocol's date-clustered interval)."""
+    return cluster_diff([{**r, "date": str(r["game_id"])} for r in rows], a, b, metric)
+
+
+def descriptive_contrasts(rows: Sequence[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """Point differences with both intervals for every pairing reported; never used by ``verdict``.
+    With one date the date-clustered interval collapses to the point estimate (one cluster)."""
+    ch, out = pw.VERSION, {}
+    pairs = [(ch, "pure-0.5.0", m) for m in ("abs:total_err", "abs:margin_err", "logloss", "brier")]
+    pairs += [(ch, b, "abs:total_err") for b in ("pure-0.2.0", "pure-0.5.0_roster", "wf-level-0.5.0-v1:level-only")]  # fmt: skip
+    mk = [r for r in rows if MARKET in r]
+    for a, b, m in pairs:
+        out[f"{a} - {b} [{m}]"] = {"date_clustered": cluster_diff(rows, a, b, m), "game_level": game_level_diff(rows, a, b, m)}  # fmt: skip
+    for a in (ch, "pure-0.5.0"):
+        for m in ("abs:total_err", "abs:margin_err"):
+            out[f"{a} - market [{m}]"] = {"date_clustered": cluster_diff(mk, a, MARKET, m), "game_level": game_level_diff(mk, a, MARKET, m)}  # fmt: skip
+    return out
+
+
+def market_summary(rows: Sequence[dict[str, Any]]) -> dict[str, dict[str, float]]:
+    """Point metrics on the subset of eligible games that has a pre-tip line (identical games)."""
+    mk = [r for r in rows if MARKET in r]
+    out = {}
+    for f in (*FORECASTERS, MARKET):
+        if not mk:
+            break
+        te, me = [r[f]["total_err"] for r in mk], [r[f]["margin_err"] for r in mk]
+        out[f] = {"n": float(len(mk)), "total_mae": w.mean([abs(x) for x in te]), "total_bias": w.mean(te),
+                  "margin_mae": w.mean([abs(x) for x in me]), "margin_bias": w.mean(me)}  # fmt: skip
     return out

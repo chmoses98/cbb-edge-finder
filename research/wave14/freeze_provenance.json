@@ -1,0 +1,25 @@
+{
+ "_note": "Server-side evidence that each post-boundary projections manifest (and every record it hashes) was on origin/projections-archive by `pushed_by`. pushed_by = completed_at of the 'Append to projections-archive (never overwrite)' step of the GitHub Actions run that created the archive commit (GitHub server clock), an upper bound on the push time. The manifest blob is identical at the archive commit and at the archive head used for evaluation, and is absent from the commit's parent. Manifests without an entry here are NOT provably frozen and their records are excluded. Collected 2026-11-13 via the GitHub API.",
+ "20261112T211053Z": {
+  "manifest_as_of": "2026-11-12T21:10:53.321388+00:00",
+  "archive_commit": "e5896135b54c3df901d1ceb76f35585d573d0296",
+  "archive_commit_parent": "ffc6d35b5484b5fea54e41c8d3d5774cf1993c68",
+  "committer_date": "2026-11-12T21:14:37Z",
+  "manifest_blob": "8a5aec5de0bb5846d7f683b57d496b942ad8ee23",
+  "actions_run": 43306468445,
+  "actions_job": 131490961587,
+  "append_step_completed_at": "2026-11-12T21:14:39Z",
+  "pushed_by": "2026-11-12T21:14:39+00:00"
+ },
+ "20261112T215826Z": {
+  "manifest_as_of": "2026-11-12T21:58:26.681896+00:00",
+  "archive_commit": "b18484d46d418536b78843017a50fde2c22e5fc4",
+  "archive_commit_parent": "e5896135b54c3df901d1ceb76f35585d573d0296",
+  "committer_date": "2026-11-12T22:02:15Z",
+  "manifest_blob": "08ec79c891eca1372a2cc668fbdcb910366e7ef4",
+  "actions_run": 43310362941,
+  "actions_job": 131504535966,
+  "append_step_completed_at": "2026-11-12T22:02:16Z",
+  "pushed_by": "2026-11-12T22:02:16+00:00"
+ }
+}
