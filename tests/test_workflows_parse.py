@@ -80,8 +80,10 @@ def test_ci_cancels_superseded_pr_runs_only():
     assert regrade["permissions"] == {"contents": "read", "actions": "read"}
     # Regrade on manual dispatch, Wave 14 PRs and main pushes (merges) only; push is main-only.
     assert "workflow_dispatch" in regrade["if"] and "github.event_name == 'push'" in regrade["if"]
-    assert "contains(github.head_ref, 'wave-14')" in regrade["if"]
+    assert "contains(github.head_ref, 'wave-')" in regrade["if"]
     assert doc[True]["push"] == {"branches": ["main"]}  # YAML 1.1 parses the `on` key as True
     assert "schedule" not in doc[True]
     run = next(s["run"] for s in regrade["steps"] if "run_wave14.py" in s.get("run", ""))
     assert "--recheck-outcomes" in run
+    waves = next(s["run"] for s in regrade["steps"] if "prospective_wave" in s.get("run", ""))
+    assert "wave14_out/freeze_provenance.json" in waves and "fetch-evidence" not in waves
