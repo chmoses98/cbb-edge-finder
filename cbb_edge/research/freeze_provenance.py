@@ -81,14 +81,17 @@ def trim_job(job: dict[str, Any]) -> dict[str, Any]:
 
 def adding_commits(root: Path, rel: str) -> list[dict[str, str]]:
     """Every commit (reachable from HEAD) that added ``rel``; normally exactly one."""
-    out = _git(root, "log", "--diff-filter=A", "--format=%H %P %cI", "HEAD", "--", rel)
+    # %ct (epoch seconds) rendered in UTC: %cI's offset spelling differs across git versions
+    # ("Z" vs "+00:00"), which made the generated provenance file differ between CI and local runs.
+    out = _git(root, "log", "--diff-filter=A", "--format=%H %P %ct", "HEAD", "--", rel)
     if out is None:
         return []
     rows = []
     for line in out.splitlines():
         parts = line.split()
-        if len(parts) >= 3:
-            rows.append({"commit": parts[0], "parents": parts[1:-1], "committer_date": parts[-1]})
+        if len(parts) >= 3 and parts[-1].isdigit():
+            when = datetime.fromtimestamp(int(parts[-1]), UTC).isoformat()
+            rows.append({"commit": parts[0], "parents": parts[1:-1], "committer_date": when})
     return rows
 
 

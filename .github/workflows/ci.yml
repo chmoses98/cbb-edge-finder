@@ -53,8 +53,10 @@ jobs:
   # branch). Fails closed: manifests without matching job records stay unverified and their games
   # are excluded. Results are uploaded as an artifact; this job never changes the verdict rule.
   wave14-regrade:
-    # Only Wave 14 PRs and manual dispatches: other PRs do not need the archive fetch + API reads.
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && contains(github.head_ref, 'wave-14'))
+    # Wave 14 PRs, manual dispatches and pushes to main (existing triggers only; no schedule).
+    # main pushes keep evaluation running after the Wave 14 PR merges, without a perpetual PR;
+    # other PRs do not need the archive fetch + API reads.
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && contains(github.head_ref, 'wave-14'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -79,17 +81,19 @@ jobs:
             git -C "arch/$b" fetch -q $d origin "$b" && git -C "arch/$b" checkout -q FETCH_HEAD
             echo "$b $(git -C "arch/$b" rev-parse --short HEAD)"
           done
-      - name: Fetch Actions evidence, verify provenance, regrade
+      - name: Fetch Actions evidence, verify provenance, re-check finals (free ESPN), regrade
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          CBB_DATA_DIR: ${{ runner.temp }}/cbb-data
         run: |
           set -euo pipefail
           python scripts/research/run_wave14.py --projections arch/projections-archive \
             --schedule arch/schedule-archive --espn arch/espn-lines-archive \
             --fetch-evidence "${GITHUB_REPOSITORY}" --evidence research/wave14/provenance_evidence.json \
             --provenance wave14_out/freeze_provenance.json --out wave14_out \
+            --recheck-outcomes --crosscheck research/wave14/outcome_crosscheck.json \
             --report wave14_out/WAVE14_PRIOR_WEIGHT.md | tee wave14_out.log
-          cp research/wave14/provenance_evidence.json wave14_out/
+          cp research/wave14/provenance_evidence.json research/wave14/outcome_crosscheck.json wave14_out/
           python scripts/research/wave14_coverage.py wave14_out/wave14_results.json wave14_out/freeze_provenance.json >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()

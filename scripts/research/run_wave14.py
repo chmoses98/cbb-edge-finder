@@ -10,6 +10,7 @@ from pathlib import Path
 
 from cbb_edge.model import pw_level as pw
 from cbb_edge.research import freeze_provenance as fp
+from cbb_edge.research import outcome_recheck as orc
 from cbb_edge.research import wave1 as w
 from cbb_edge.research import wave13 as w13
 from cbb_edge.research import wave14 as w14
@@ -39,6 +40,11 @@ def main() -> None:
     )
     ap.add_argument(
         "--crosscheck", type=Path, default=Path("research/wave14/outcome_crosscheck.json")
+    )
+    ap.add_argument(
+        "--recheck-outcomes",
+        action="store_true",
+        help="re-read every graded final from the free ESPN scoreboard and merge into --crosscheck",
     )
     ap.add_argument("--out", type=Path, default=Path("research/wave14"))
     ap.add_argument("--report", type=Path, default=Path("research/reports/WAVE14_PRIOR_WEIGHT.md"))
@@ -90,7 +96,7 @@ def main() -> None:
         "freeze_provenance_manifests": sorted(k for k in prov if not k.startswith("_")),
         "freeze_provenance_unverified": prov["_unverified"],
         "pending_finals_diagnostic": w14.pending_finals(base, finals, a.schedule),
-        "outcome_crosscheck": _crosscheck(a.crosscheck, rows),
+        "outcome_crosscheck": _crosscheck(a.crosscheck, rows, finals, refresh=a.recheck_outcomes),
         "post_boundary_records": {
             "games": len(post),
             "with_final": sum(g["game_id"] in finals for g in post),
@@ -126,19 +132,29 @@ def main() -> None:
     print(res["verdict"]["status"], funnel)
 
 
-def _crosscheck(path: Path, rows: list) -> dict:
-    """Graded finals re-observed later (``outcome_crosscheck.json``): how many match / are missing."""
+def _crosscheck(path: Path, rows: list, finals: dict, *, refresh: bool = False) -> dict:
+    """Graded finals re-observed later (``outcome_crosscheck.json``), orientation-aware.
+
+    With ``refresh`` every graded game is re-read from the free ESPN scoreboard first and merged
+    into ``path`` (earlier differing observations are kept under ``history``).
+    """
+    if refresh and rows:
+        from cbb_edge.data.http import fetch
+
+        def day(d: str) -> dict:
+            params = {"dates": d, "groups": "50", "limit": "400"}
+            r = fetch("espn_public", f"{orc.SITE}/scoreboard", params, use_cache=False)
+            return json.loads(r.path.read_text()) if r is not None else {}
+
+        old = json.loads(path.read_text()) if path.exists() else None
+        new = orc.recheck(({"game_id": r["game_id"], "date": r["date"]} for r in rows), day, old)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(new, indent=1) + "\n")
     if not path.exists():
         return {"file": None}
     d = json.loads(path.read_text())
-    got = {g["game_id"]: g for g in d["games"]}
-    by = Counter(
-        "not_rechecked" if r["game_id"] not in got
-        else "match" if (got[r["game_id"]]["home"] - got[r["game_id"]]["away"], got[r["game_id"]]["home"] + got[r["game_id"]]["away"]) == (r["actual_margin"], r["actual_total"])
-        else "MISMATCH"
-        for r in rows
-    )  # fmt: skip
-    return {"file": str(path), "fetched_at": d.get("fetched_at"), "graded_finals": dict(by)}
+    oriented = [{**r, "orientation": finals[r["game_id"]]["orientation"]} for r in rows]
+    return {"file": str(path), "fetched_at": d.get("fetched_at"), **orc.compare(d, oriented)}
 
 
 PENDING_CLASSES = ("capture_lag", "tip_after_last_capture", "no_final_after_expected_end")
