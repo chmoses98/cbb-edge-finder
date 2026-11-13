@@ -118,6 +118,54 @@ def pre_tip_records(archive: Path, season: int) -> set[tuple[str, int]]:
     return out
 
 
+def latest_pre_tip_as_of(archive: Path, season: int) -> dict[tuple[str, int], pd.Timestamp]:
+    """(version, game) -> newest ``as_of`` among records written before their listed tip."""
+    out: dict[tuple[str, int], pd.Timestamp] = {}
+    for f in Path(archive).rglob("*.json"):
+        if "manifests" in f.parts:
+            continue
+        try:
+            r = json.loads(f.read_text())
+            g = r.get("game") if isinstance(r, dict) else None
+            if not g or g.get("season") != season:
+                continue
+            t, tip = _ts(r["prospective"]["as_of"]), _ts(g["start_time_utc"])
+            k = (r.get("model", {}).get("version"), int(g["espn_game_id"]))
+        except (ValueError, KeyError, TypeError):
+            continue
+        if t < tip and (k not in out or t > out[k]):
+            out[k] = t
+    return out
+
+
+def freeze_guard(records: list[dict], existing: dict[tuple[str, int], pd.Timestamp],
+                 now: pd.Timestamp, guard_min: float) -> tuple[list[dict], list[tuple[str, int]]]:  # fmt: skip
+    """Collection-reliability guard: do not write a NEW record for a game that tips within
+    ``guard_min`` of this run's ``as_of`` (``now``) when the archive already holds a pre-tip
+    record of that version for it.
+
+    Why: the Wave 14-16 evaluators take the LATEST record with ``as_of < tip`` and exclude the
+    game unless that record was provably pushed before tip. A run that starts shortly before a
+    tip but pushes after it therefore disqualifies a game whose earlier record was safely
+    frozen (2026-11-09: game 401916315, as_of 22:57:54, tip 23:00, pushed 23:01:34). With
+    ``guard_min`` >= the job's ``timeout-minutes`` every record this run writes for an already
+    covered game is pushed before its tip (or not at all). A game with NO pre-tip record is
+    never dropped: this run is its only chance. ``guard_min <= 0`` disables the guard."""
+    if guard_min <= 0:
+        return records, []
+    limit = _ts(now) + pd.Timedelta(minutes=guard_min)
+    kept, dropped = [], []
+    for r in records:
+        k = (r["model"]["version"], int(r["game"]["espn_game_id"]))
+        tip = _ts(r["game"]["start_time_utc"])
+        prior = existing.get(k)
+        if tip <= limit and prior is not None and prior < tip:
+            dropped.append(k)
+        else:
+            kept.append(r)
+    return kept, dropped
+
+
 def required_versions(roster_available: bool) -> list[str]:
     from cbb_edge.app.prospective import active_models, load_model
 
