@@ -22,25 +22,26 @@ Even IMPROVED would be exploratory-prospective only; promotion stays governed by
 | stage | games |
 |---|---|
 | eligible | 23 |
-| no_verified_final_yet | 57 |
+| freeze_time_not_provable | 1 |
+| no_verified_final_yet | 116 |
 | record_before_registration | 472 |
 
-Post-boundary records (as_of >= boundary): 80 games, 23 with an archived, orientation-verified final; tips by ET date {'2026-11-12': 23, '2026-11-13': 55, '2026-11-14': 2}.
+Post-boundary records (as_of >= boundary): 140 games, 24 with an archived, orientation-verified final; tips by ET date {'2026-11-12': 23, '2026-11-13': 55, '2026-11-14': 62}.
 
 ## Freeze provenance
 
 A game is graded only if every compared record (pure-0.2.0, pure-0.5.0, roster) has `as_of` < tip AND sits in a hashed manifest whose push to `origin/projections-archive` is proven before the tip by GitHub server-side Actions step timestamps (`research/wave14/freeze_provenance.json`, regenerated on every run by `cbb_edge.research.freeze_provenance` from the archive git history and the saved job records in `research/wave14/provenance_evidence.json`; the job's head_sha must equal the manifest code_sha and its append-step window must contain the archive commit; manifests verified: 20261112T211053Z, 20261112T215826Z). Missing evidence excludes the game (`freeze_time_not_provable`). This check is stricter than registration and was added 2026-11-13 (automated the same day); it can only remove games.
 
-Unverified post-boundary manifests (records excluded): {'20261113T100153Z': {'reason': '0_matching_actions_jobs', 'archive_commit': '2664b1029d71643c2455b15db61451d0b1130b05'}}.
+Unverified post-boundary manifests (records excluded): {'20261113T100153Z': {'reason': '0_matching_actions_jobs', 'archive_commit': '2664b1029d71643c2455b15db61451d0b1130b05'}, '20261113T182041Z': {'reason': '0_matching_actions_jobs', 'archive_commit': 'b875b3c3694f7f25a613d098e25e6636298b02e3'}, '20261113T212058Z': {'reason': '0_matching_actions_jobs', 'archive_commit': 'ea35e884247b14a3d4520ab6e303d1eef9e14fb6'}}.
 
 ## Games awaiting an archived final (diagnostic only; never changes eligibility)
 
-Schedule archive last written 2026-11-13T10:00:27.493043+00:00. `capture_lag` = the game tipped before the last archive write, but that write came less than 3 h after the tip, before it could normally have finished (the next schedule observation run captures it); `tip_after_last_capture` = not yet played at the last write; `no_final_after_expected_end` = archive written after the expected end with no final (needs a look).
+Schedule archive last written 2026-11-13T22:26:25.586964+00:00. `capture_lag` = the game tipped before the last archive write, but that write came less than 3 h after the tip, before it could normally have finished (the next schedule observation run captures it); `tip_after_last_capture` = not yet played at the last write; `no_final_after_expected_end` = archive written after the expected end with no final (needs a look).
 
 | ET date | capture_lag | tip_after_last_capture | no_final_after_expected_end |
 |---|---|---|---|
-| 2026-11-13 | 0 | 55 | 0 |
-| 2026-11-14 | 0 | 2 | 0 |
+| 2026-11-13 | 2 | 52 | 0 |
+| 2026-11-14 | 0 | 62 | 0 |
 
 Needs attention: none
 
@@ -119,24 +120,24 @@ The line has no moneyline in these snapshots, so no market log loss/Brier is com
 
 | manifest | code | pure-0.2.0 | pure-0.3.0 | pure-0.4.0 | pure-0.5.0 | pure-0.5.0_roster |
 |---|---|---|---|---|---|---|
-| 20261110T135300Z | 199488b | 0/4 | 0/4 | 0/4 | 0/4 | 0/4 |
-| 20261110T212340Z | 199488b | 0/103 | 0/103 | 0/103 | 0/103 | 0/103 |
 | 20261111T023403Z | 797110b | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
 | 20261111T164620Z | 06ce7c4 | 48/48 | 48/48 | 48/48 | 48/48 | 48/48 |
 | 20261111T212246Z | 06ce7c4 | 65/65 | 65/65 | 65/65 | 65/65 | 65/65 |
 | 20261112T211053Z | 06ce7c4 | 77/77 | 77/77 | 77/77 | 77/77 | 77/77 |
 | 20261112T215826Z | 06ce7c4 | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 |
 | 20261113T100153Z | 06ce7c4 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 |
+| 20261113T182041Z | 115cb17 | 105/105 | 105/105 | 105/105 | 105/105 | 105/105 |
+| 20261113T212058Z | 115cb17 | 116/116 | 116/116 | 116/116 | 116/116 | 116/116 |
 
-Archive integrity: {'files': 7160, 'hash_mismatch': 0, 'missing': 0, 'ok': True}
+Archive integrity: {'files': 8265, 'hash_mismatch': 0, 'missing': 0, 'ok': True}
 
-Input validity (pure-0.5.0 games): {'model_inputs_absent': 424, 'valid': 128}
+Input validity (pure-0.5.0 games): {'model_inputs_absent': 424, 'valid': 188}
 
-Prior-weight reliability: {'n_games': 128, 'pbar_min': 0.4706044330700781, 'pbar_max': 0.8055855201742558, 'pbar_mean': 0.5950974352267782, 'games_seen_counts': {0: 3, 1: 42, 2: 114, 3: 89, 4: 8}, 'pace_prior_weight_is_function_of_games_seen': True, 'pace_ess_minus_prior_minus_games_max_abs': 0.0, 'corr_pace_vs_eff_prior_weight': 0.9884534914782755, 'pbar_distinct_values': 125}
+Prior-weight reliability: {'n_games': 188, 'pbar_min': 0.44824151203477614, 'pbar_max': 0.8055855201742558, 'pbar_mean': 0.5791304806573436, 'games_seen_counts': {0: 3, 1: 48, 2: 157, 3: 146, 4: 20, 5: 2}, 'pace_prior_weight_is_function_of_games_seen': True, 'pace_ess_minus_prior_minus_games_max_abs': 0.0, 'corr_pace_vs_eff_prior_weight': 0.9877904147178689, 'pbar_distinct_values': 177}
 
-Orientation audit (finals): {'SAME': 486, 'SWAPPED': 5}; excluded 0.
+Orientation audit (finals): {'SAME': 487, 'SWAPPED': 5}; excluded 0.
 
-beta using every valid-input game with an archived final (NOT an evaluation; n=71): 0.008253806969788004 (raw 0.011031783962884923).
+beta using every valid-input game with an archived final (NOT an evaluation; n=72): 0.005460418330035761 (raw 0.007276783793331878).
 
 Verdict reason: 23/150 games, 1/5 dates
 

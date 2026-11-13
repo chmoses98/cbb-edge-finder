@@ -116,3 +116,22 @@ gap so far is about 9 h).
 * The one manual step is the registered analysis itself: a regrade on each wave branch at or after
   2026-12-22T12:00Z, using push or `workflow_dispatch` with the code-identity check above.
 * Remaining blocker: real production confirmation of item 1, which needs the first post-merge `due=false` tick.
+
+## Follow-up 2026-11-13 ~22:55Z (item 1)
+
+* Two scheduled `prospective-projections` runs have fired on post-merge code 115cb17:
+  * **43478453688**: created 18:01Z, job ran 18:19–18:23Z.
+  * **43505580950**: created 20:52Z, job ran 21:20–21:23Z.
+* In both runs every step succeeded, including "Observe game states". The observe step wrote schedule-archive
+  commits 60e91ca (18:23:37Z) and ca94f2a (21:23:49Z).
+* Both runs were **due ticks**: "Refresh free inputs and project" and "Append to projections-archive" ran. So the
+  `due=false` path, where projecting is skipped but observation still runs, has **still not been exercised in
+  production**. Item 1 stays **unverified**.
+* Finals: no Nov 13 ET final is archived yet. The first tips were at 20:00Z, and the latest schedule-archive write
+  is b9d68b3 at 22:26Z (from ops-watch, which also runs observe).
+* Wave 14 regraded locally against these heads:
+  * 23 eligible.
+  * 116 `no_verified_final_yet`: 2 `capture_lag` and 114 `tip_after_last_capture`.
+  * 1 `freeze_time_not_provable`. Its manifest is newer than the committed evidence, so it is expected to be
+    verified by the CI live fetch.
+  * `needs_attention`: none.
