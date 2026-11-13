@@ -1,0 +1,47 @@
+{
+ "_note": "Trimmed GitHub Actions job records (cbb_edge.research.freeze_provenance.trim_job) for prospective-projections runs since the Wave 14 boundary; steps' started_at/completed_at are GitHub server times. Append-only: add newer jobs, never edit existing ones.",
+ "source": "GitHub Actions API (list_workflow_jobs) via the session's GitHub connector",
+ "fetched_at": "2026-11-13T06:40:00+00:00",
+ "runs_listed_through": "43349667025 (run 91, created 2026-11-13T02:05:45Z; latest run at fetch time)",
+ "jobs": [
+  {
+   "job_id": 131490961587,
+   "run_id": 43306468445,
+   "run_attempt": 1,
+   "workflow_name": "prospective-projections",
+   "head_sha": "06ce7c426e41072709ce0ab83235b078c8e484ab",
+   "conclusion": "success",
+   "append_step": {
+    "conclusion": "success",
+    "started_at": "2026-11-12T21:14:34Z",
+    "completed_at": "2026-11-12T21:14:39Z"
+   }
+  },
+  {
+   "job_id": 131504535966,
+   "run_id": 43310362941,
+   "run_attempt": 1,
+   "workflow_name": "prospective-projections",
+   "head_sha": "06ce7c426e41072709ce0ab83235b078c8e484ab",
+   "conclusion": "success",
+   "append_step": {
+    "conclusion": "success",
+    "started_at": "2026-11-12T22:02:13Z",
+    "completed_at": "2026-11-12T22:02:16Z"
+   }
+  },
+  {
+   "job_id": 131637371556,
+   "run_id": 43349667025,
+   "run_attempt": 1,
+   "workflow_name": "prospective-projections",
+   "head_sha": "06ce7c426e41072709ce0ab83235b078c8e484ab",
+   "conclusion": "success",
+   "append_step": {
+    "conclusion": "skipped",
+    "started_at": "2026-11-13T03:02:30Z",
+    "completed_at": "2026-11-13T03:02:30Z"
+   }
+  }
+ ]
+}

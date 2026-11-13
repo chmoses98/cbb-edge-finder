@@ -16,6 +16,13 @@ env:
 permissions:
   contents: read
 
+# A newer push to the same PR supersedes the older run: cancel it instead of queueing both
+# (runners were backlogged with 3 runs for superseded commits on PR #48). main pushes and
+# manual dispatches keep a unique group per run, so they are never cancelled.
+concurrency:
+  group: ci-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -40,3 +47,73 @@ jobs:
         run: pytest
       - name: Cost audit (post-test ledger)
         run: python -m cbb_edge.data.cost_policy audit
+
+  # Wave 14 (RESEARCH_ONLY): regrade from the live archives with freeze provenance verified from
+  # GitHub's own Actions job records (read with this run's token; nothing is written to any
+  # branch). Fails closed: manifests without matching job records stay unverified and their games
+  # are excluded. Results are uploaded as an artifact; this job never changes the verdict rule.
+  wave14-regrade:
+    # Research-wave PRs (branch name contains 'wave-'), manual dispatches and pushes to main
+    # (existing triggers only; no schedule). main pushes keep evaluation running after a wave's PR
+    # merges, without a perpetual PR; other PRs do not need the archive fetch + API reads.
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && contains(github.head_ref, 'wave-'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Fetch archives (read-only; full history for projections-archive provenance)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for b in projections-archive schedule-archive espn-lines-archive; do
+            mkdir -p "arch/$b" && git -C "arch/$b" init -q
+            git -C "arch/$b" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+            d="--depth=1"; [ "$b" = projections-archive ] && d=""
+            git -C "arch/$b" fetch -q $d origin "$b" && git -C "arch/$b" checkout -q FETCH_HEAD
+            echo "$b $(git -C "arch/$b" rev-parse --short HEAD)"
+          done
+      - name: Fetch Actions evidence, verify provenance, re-check finals (free ESPN), regrade
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CBB_DATA_DIR: ${{ runner.temp }}/cbb-data
+        run: |
+          set -euo pipefail
+          python scripts/research/run_wave14.py --projections arch/projections-archive \
+            --schedule arch/schedule-archive --espn arch/espn-lines-archive \
+            --fetch-evidence "${GITHUB_REPOSITORY}" --evidence research/wave14/provenance_evidence.json \
+            --provenance wave14_out/freeze_provenance.json --out wave14_out \
+            --recheck-outcomes --crosscheck research/wave14/outcome_crosscheck.json \
+            --report wave14_out/WAVE14_PRIOR_WEIGHT.md | tee wave14_out.log
+          cp research/wave14/provenance_evidence.json research/wave14/outcome_crosscheck.json wave14_out/
+          python scripts/research/wave14_coverage.py wave14_out/wave14_results.json wave14_out/freeze_provenance.json >> "$GITHUB_STEP_SUMMARY"
+      # Later registered waves reuse the archives and the provenance verified above (one fetch and
+      # one set of Actions API reads per run, not one per wave). Each runner is read-only.
+      - name: Other registered prospective waves (scripts/research/prospective_wave*.py)
+        env:
+          CBB_DATA_DIR: ${{ runner.temp }}/cbb-data
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for s in scripts/research/prospective_wave*.py; do
+            echo "== $s"
+            python "$s" --projections arch/projections-archive --schedule arch/schedule-archive \
+              --provenance wave14_out/freeze_provenance.json --out waves_out | tee -a wave14_out.log
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave14-regrade-${{ github.run_id }}
+          path: |
+            wave14_out
+            waves_out
+            wave14_out.log
+          retention-days: 30

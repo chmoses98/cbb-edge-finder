@@ -50,3 +50,40 @@ def test_production_workflows_can_be_dispatched():
         doc = yaml.safe_load(p.read_text())
         triggers = doc.get(True, doc.get("on"))
         assert "workflow_dispatch" in triggers, f"{name} cannot be dispatched"
+
+
+def _step(workflow: str, prefix: str) -> dict:
+    doc = yaml.safe_load(Path(f".github/workflows/{workflow}.yml").read_text())
+    steps = [s for j in doc["jobs"].values() for s in j.get("steps") or []]
+    return next(s for s in steps if str(s.get("name", "")).startswith(prefix))
+
+
+def test_projection_catchup_ticks_still_observe_game_states():
+    """Finals must be archived on catch-up ticks that skip projecting (no `due` gate), but never on
+    PR runs; projecting and appending projections stay gated on `due`."""
+    obs = _step("prospective-projections", "Observe game states")
+    assert "steps.decide.outputs.due" not in obs["if"]
+    assert "!cancelled()" in obs["if"] and "github.event_name != 'pull_request'" in obs["if"]
+    assert "schedule_state observe" in obs["run"] and "projections-archive" not in obs["run"]
+    for prefix in ("Refresh free inputs and project", "Append to projections-archive"):
+        assert (
+            "steps.decide.outputs.due == 'true'" in _step("prospective-projections", prefix)["if"]
+        )
+
+
+def test_ci_cancels_superseded_pr_runs_only():
+    doc = yaml.safe_load(Path(".github/workflows/ci.yml").read_text())
+    c = doc["concurrency"]
+    assert "pull_request.number" in c["group"] and "github.run_id" in c["group"]
+    assert c["cancel-in-progress"] == "${{ github.event_name == 'pull_request' }}"
+    regrade = doc["jobs"]["wave14-regrade"]
+    assert regrade["permissions"] == {"contents": "read", "actions": "read"}
+    # Regrade on manual dispatch, Wave 14 PRs and main pushes (merges) only; push is main-only.
+    assert "workflow_dispatch" in regrade["if"] and "github.event_name == 'push'" in regrade["if"]
+    assert "contains(github.head_ref, 'wave-')" in regrade["if"]
+    assert doc[True]["push"] == {"branches": ["main"]}  # YAML 1.1 parses the `on` key as True
+    assert "schedule" not in doc[True]
+    run = next(s["run"] for s in regrade["steps"] if "run_wave14.py" in s.get("run", ""))
+    assert "--recheck-outcomes" in run
+    waves = next(s["run"] for s in regrade["steps"] if "prospective_wave" in s.get("run", ""))
+    assert "wave14_out/freeze_provenance.json" in waves and "fetch-evidence" not in waves

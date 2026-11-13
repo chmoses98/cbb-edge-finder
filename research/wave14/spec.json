@@ -1,0 +1,14 @@
+{
+  "id": "pw-level-0.5.0-v1",
+  "status": "REGISTERED, SHADOW, RESEARCH_ONLY; nothing promoted",
+  "base_version": "pure-0.5.0",
+  "formula": "adjusted_total = base_total + beta * pbar * projected_possessions; home/away += shift/2; margin, margin_sd, total_sd, win prob unchanged",
+  "pbar": "mean of home/away x pace/efficiency prior_weight from the record's own model_inputs (cbb-model-inputs-1, ridge_diagonal_approx)",
+  "beta": "ridge slope through the origin of (actual_total - projected_total) on x = pbar * possessions over pure-0.5.0 games with valid inputs and a final first visible at or before the projection as_of: beta = sum(x*e) / (sum(x^2) + k_beta * x_ref^2)",
+  "params": {"k_beta": 30.0, "x_ref": 40.0, "min_games": 30},
+  "fail_closed": ["model_inputs absent", "version != cbb-model-inputs-1", "basis != ridge_diagonal_approx", "any prior weight missing/non-finite/outside [0,1]", "prior+current weight != 1", "prior_strength/effective_sample != prior_weight", "info_cutoff_utc after as_of", "expected possessions != projection possessions", "fewer than min_games finished valid-input games"],
+  "prospective_from": "2026-11-11T22:00:00+00:00",
+  "comparators": ["pure-0.2.0", "pure-0.5.0", "pure-0.5.0_roster", "wf-level-0.5.0-v1:level-only (Wave 12, k_level=30, sd=False, min_games=30)"],
+  "evaluation": {"cluster": "ET game date", "bootstrap_reps": 4000, "seed": 20261111, "interval": 0.90, "min_games": 150, "min_dates": 5},
+  "decision": {"noninferiority_total_mae_vs_w12_level_points": 0.10, "margin_mae_upper_tol_points": 0.10, "logloss_upper_tol": 0.005}
+}

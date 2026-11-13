@@ -147,7 +147,13 @@ jobs:
           done
           exit 1
       - name: Observe game states (append-only schedule-archive; Wave 10)
-        if: github.event_name != 'pull_request' && steps.decide.outputs.due == 'true'
+        # Runs on EVERY non-PR tick, including catch-up ticks that skip projecting, so finals
+        # are archived as soon as a tick fires (Wave 14: finals waited 5-8 h for the next due
+        # slot). Independent of the projection steps: it reads the public scoreboard, appends
+        # only changed observations as new stamp-named files to schedule-archive, never touches
+        # projections-archive, and pushes nothing when nothing changed. Still runs if an earlier
+        # step failed (not if the run was cancelled).
+        if: ${{ !cancelled() && github.event_name != 'pull_request' }}
         env:
           GH_TOKEN: ${{ github.token }}
           CBB_DATA_DIR: ${{ runner.temp }}/data
