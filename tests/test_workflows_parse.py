@@ -50,3 +50,22 @@ def test_production_workflows_can_be_dispatched():
         doc = yaml.safe_load(p.read_text())
         triggers = doc.get(True, doc.get("on"))
         assert "workflow_dispatch" in triggers, f"{name} cannot be dispatched"
+
+
+def _step(workflow: str, prefix: str) -> dict:
+    doc = yaml.safe_load(Path(f".github/workflows/{workflow}.yml").read_text())
+    steps = [s for j in doc["jobs"].values() for s in j.get("steps") or []]
+    return next(s for s in steps if str(s.get("name", "")).startswith(prefix))
+
+
+def test_projection_catchup_ticks_still_observe_game_states():
+    """Finals must be archived on catch-up ticks that skip projecting (no `due` gate), but never on
+    PR runs; projecting and appending projections stay gated on `due`."""
+    obs = _step("prospective-projections", "Observe game states")
+    assert "steps.decide.outputs.due" not in obs["if"]
+    assert "!cancelled()" in obs["if"] and "github.event_name != 'pull_request'" in obs["if"]
+    assert "schedule_state observe" in obs["run"] and "projections-archive" not in obs["run"]
+    for prefix in ("Refresh free inputs and project", "Append to projections-archive"):
+        assert (
+            "steps.decide.outputs.due == 'true'" in _step("prospective-projections", prefix)["if"]
+        )
