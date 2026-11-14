@@ -135,3 +135,25 @@ gap so far is about 9 h).
   * 1 `freeze_time_not_provable`. Its manifest is newer than the committed evidence, so it is expected to be
     verified by the CI live fetch.
   * `needs_attention`: none.
+
+## Follow-up 2026-11-14 ~11:10Z (item 1): VERIFIED in production
+
+The scheduled `prospective-projections` runs after 2026-11-13T21:24Z were all `due=false` ticks: "Refresh free
+inputs and project", "Append to projections-archive" and "Fail if any model failed" were **skipped**, and
+"Observe game states" **succeeded**.
+
+| run | head | job | observe step | schedule-archive commit |
+|---|---|---|---|---|
+| 43530022010 | 2d932f9 (#51) | 00:08–00:09Z | success | 64b3938 at 00:09:11Z |
+| 43540506436 | 2d932f9 (#51) | 02:31–02:32Z | success | 1b1ad6d at 02:32:31Z |
+| 43568852374 | 5ba7daa (#50) | 07:08Z | success | none (nothing new since 06:49Z; pushes nothing by design) |
+
+Wave 14, regraded locally with origin/main 5ba7daa code against schedule-archive 4444d84 (06:49Z) and
+projections-archive 17d0ef97:
+
+* **78 eligible**: 23 on ET 2026-11-12 and **55 on ET 2026-11-13**. All 55 Nov 13 ET games that were pending
+  yesterday now have archived, orientation-verified finals.
+* The other 63 games are in funnel stage `no_verified_pre_tip_record`, a stage name added by code merged since
+  the first audit. This run used the committed job-record evidence, not the CI live fetch.
+* `needs_attention`: none.
+* The pending-finals diagnostic is empty.
