@@ -1,0 +1,18 @@
+{
+ "amendment": 1,
+ "waves": [15, 16],
+ "rule": "verified_pre_tip_push_selection",
+ "same_as": "research/hypotheses/WAVE14.md section 5a",
+ "document": "research/hypotheses/WAVES15_16_AMENDMENT_1.md",
+ "registered_on": "2026-11-14",
+ "must_precede": "2026-11-15T00:00:00+00:00",
+ "outcome_blind": true,
+ "parameters_changed": [],
+ "original_protocol_sha256": {
+  "research/hypotheses/WAVE15.md": "0a84c687de34df84d62c0c49c7b7ef7b54e9ea8e0d5c221f56fd72342e47d64e",
+  "research/wave15/spec.json": "1bdf52ac5818252fdb5df02c2d87d2c65f6c310638767903e518609dd33fb95e",
+  "research/hypotheses/WAVE16.md": "964d5caec17ba63de62bbac1eedc69d34ebee7682d0654fda031f057b5611ab0",
+  "research/wave16/spec.json": "106f4c8915d06f75157dbf81ecb82ad66c440a3b3069648473b859fe0e78150e"
+ },
+ "original_registration_commits": {"wave15": "acfcdf74be7a7d7292adc9cb75f15ac539bd685b", "wave16": "4097be12f9e371ca1308726446dc3e5345c63047"}
+}
