@@ -36,11 +36,17 @@ def main() -> None:
     a = ap.parse_args()
     now = w.parse_ts(a.now) if a.now else datetime.now(UTC)
     assert now is not None
-    frozen = {v: w.load_frozen(a.projections, v) for v in w16.VERSIONS}
-    finals, orient = w13.load_finals_oriented(a.schedule, frozen[w16.BASE])
     prov = json.loads(a.provenance.read_text()) if a.provenance.exists() else {}
+    # AMENDMENT 1 (2026-11-14, before PROSPECTIVE_FROM): Wave 14 5a verified pre-tip push selection
+    frozen, selection = ce.load_verified(a.projections, w16.VERSIONS, prov)
+    finals, orient = w13.load_finals_oriented(a.schedule, frozen[w16.BASE])
+    # defence in depth: every compared record's verified push must still precede tip (ce.eligibility)
     pushed = ce.pushed_by(frozen, w16.VERSIONS, w14.record_manifests(a.projections), prov)
     rows, funnel = w16.build_rows(frozen, finals, pushed=pushed)
+    if selection["no_verified_pre_tip_record"][w16.BASE]:
+        funnel["no_verified_pre_tip_record"] = len(
+            selection["no_verified_pre_tip_record"][w16.BASE]
+        )
     res: dict[str, Any] = {
         "wave": 16,
         "status_note": "RESEARCH_ONLY; nothing promoted; prospective verdicts only at the registered analysis time",
@@ -54,6 +60,7 @@ def main() -> None:
         "provenance_verified_manifests": sorted(k for k in prov if not k.startswith("_")),
         "orientation_audit": {k: orient[k] for k in ("status", "excluded")},
         "eligibility_funnel": funnel,
+        "record_selection": selection,
         "verdicts": w16.verdicts(rows, now=now),
         "summary_eligible": ce.summarize(rows, w16.FORECASTERS),
         "calibration_eligible": ce.calibration(rows, w16.FORECASTERS) if rows else {},
