@@ -1,5 +1,18 @@
 [
  {
+  "code": "EXPECTED_PROJECTION_MISSING",
+  "severity": "WARNING",
+  "espn_game_id": 401926864,
+  "tip": "2026-11-15T00:00:00+00:00",
+  "missing": [
+   "pure-0.2.0",
+   "pure-0.3.0",
+   "pure-0.4.0",
+   "pure-0.5.0",
+   "pure-0.5.0+roster"
+  ]
+ },
+ {
   "code": "UNRESOLVED_IDENTITY_MATERIAL",
   "severity": "WARNING",
   "team_id": "T0168",
@@ -17,6 +30,13 @@
   "severity": "WARNING",
   "espn_game_id": 401925923,
   "sdv_game_id": 401931195
+ },
+ {
+  "code": "SCHEDULE_ORIENTATION_RECONCILED",
+  "severity": "WARNING",
+  "espn_game_id": 401920074,
+  "sdv": "2244 vs 71",
+  "espn": "71 vs 2244"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
@@ -58,42 +78,42 @@
   "severity": "WARNING",
   "espn_game_id": 401926007,
   "last_listed": "2026-10-06T18:39:34.935495+00:00",
-  "latest_fetch_of_date": "2026-11-14T14:24:24.198329+00:00"
+  "latest_fetch_of_date": "2026-11-14T19:18:18.081981+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401925840,
   "last_listed": "2026-10-06T18:39:34.935495+00:00",
-  "latest_fetch_of_date": "2026-11-14T14:24:24.198329+00:00"
+  "latest_fetch_of_date": "2026-11-14T19:18:18.081981+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401925955,
   "last_listed": "2026-10-06T18:39:36.925904+00:00",
-  "latest_fetch_of_date": "2026-11-14T14:24:26.220677+00:00"
+  "latest_fetch_of_date": "2026-11-14T19:18:20.082181+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401920545,
   "last_listed": "2026-10-06T18:39:36.925904+00:00",
-  "latest_fetch_of_date": "2026-11-14T14:24:26.220677+00:00"
+  "latest_fetch_of_date": "2026-11-14T19:18:20.082181+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401925956,
   "last_listed": "2026-10-06T18:39:39.938021+00:00",
-  "latest_fetch_of_date": "2026-11-14T14:24:29.266253+00:00"
+  "latest_fetch_of_date": "2026-11-14T19:18:23.061497+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
   "espn_game_id": 401926008,
   "last_listed": "2026-10-06T18:39:41.933236+00:00",
-  "latest_fetch_of_date": "2026-11-14T14:24:31.217210+00:00"
+  "latest_fetch_of_date": "2026-11-14T19:18:25.097088+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
@@ -133,14 +153,14 @@
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
-  "espn_game_id": 401925960,
+  "espn_game_id": 401909776,
   "last_listed": "2026-10-06T18:39:51.932381+00:00",
   "latest_fetch_of_date": "2026-11-04T06:50:04.327862+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
-  "espn_game_id": 401909776,
+  "espn_game_id": 401925960,
   "last_listed": "2026-10-06T18:39:51.932381+00:00",
   "latest_fetch_of_date": "2026-11-04T06:50:04.327862+00:00"
  },
@@ -161,14 +181,14 @@
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
-  "espn_game_id": 401926012,
+  "espn_game_id": 401919764,
   "last_listed": "2026-10-06T18:39:58.954890+00:00",
   "latest_fetch_of_date": "2026-11-04T06:50:11.378835+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
   "severity": "WARNING",
-  "espn_game_id": 401919764,
+  "espn_game_id": 401926012,
   "last_listed": "2026-10-06T18:39:58.954890+00:00",
   "latest_fetch_of_date": "2026-11-04T06:50:11.378835+00:00"
  },
@@ -310,7 +330,7 @@
   "severity": "WARNING",
   "espn_game_id": 401928854,
   "last_listed": "2026-10-09T06:21:42.868071+00:00",
-  "latest_fetch_of_date": "2026-11-14T14:24:23.292967+00:00"
+  "latest_fetch_of_date": "2026-11-14T19:18:17.091014+00:00"
  },
  {
   "code": "FALLBACK_GAME_DISAPPEARED",
