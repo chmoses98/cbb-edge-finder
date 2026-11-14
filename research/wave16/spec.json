@@ -1,0 +1,22 @@
+{
+  "wave": 16,
+  "status": "REGISTERED, SHADOW, RESEARCH_ONLY; nothing promoted; no production model/default/prediction changed",
+  "base_version": "pure-0.5.0_roster",
+  "reference_version": "pure-0.5.0",
+  "model_sha256": "c4600f62351b26c159f1eaf9153d5a78a0c07e0c77fe20ed8bbc47e8e9ac0a19",
+  "challengers": {
+    "rcenter-0.5.0r-v1": {
+      "test": "W16-B roster centring",
+      "formula": "margin' = roster_margin + c; total, margin_sd unchanged; p' = sigmoid(logit(p_roster_frozen) + link_slope * c)",
+      "fit": "c = sum(y - roster_margin) / (n + k) over finished games (final first observed at or before the target as_of) that have a roster record",
+      "primary": "logloss vs pure-0.5.0_roster",
+      "guards": {"margin_mae": 0.05, "brier": 0.002}
+    }
+  },
+  "descriptive_only": ["rcenter-delta0-0.5.0r: roster margin minus the mean (roster - base) delta over earlier records (outcome-free)", "all contrasts vs pure-0.5.0"],
+  "params": {"k": 30.0, "min_games": 30, "link_slope": 0.161365},
+  "window": {"prospective_from": "2026-11-15T00:00:00+00:00", "last_et_date": "2026-12-20", "analysis_not_before": "2026-12-22T12:00:00+00:00"},
+  "eligibility": ["latest pure-0.5.0 AND pure-0.5.0_roster records with as_of < tip both have as_of >= prospective_from", "tip ET date <= last_et_date", "both records' model_sha256 == model_sha256", "orientation-verified archived final", "every compared record's manifest has verified freeze provenance (GitHub Actions job record) with pushed_by < tip", ">= min_games finished training games with a roster record"],
+  "family": {"tests": ["W15-A1 margin stretch", "W15-A2 heteroscedastic margin SD", "W16-B roster centring"], "alpha_one_sided": 0.05, "correction": "Bonferroni: each primary test at 0.05/3 one-sided"},
+  "evaluation": {"cluster": "ET game date", "bootstrap_reps": 10000, "seed": 20261113, "primary_quantile": 0.98333, "guard_quantile": 0.95, "min_games": 300, "min_dates": 10}
+}
