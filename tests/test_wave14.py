@@ -12,6 +12,7 @@ from pathlib import Path
 import pytest
 
 from cbb_edge.model import pw_level as pw
+from cbb_edge.research import wave1 as w
 from cbb_edge.research import wave14 as w14
 
 T0 = datetime(2026, 11, 12, 18, tzinfo=UTC)
@@ -396,3 +397,110 @@ def test_game_level_interval_is_descriptive_and_single_date_collapses():
     assert c["lo"] == c["hi"] == c["diff"] and c["n_dates"] == 1
     gl = w14.game_level_diff(one, pw.VERSION, "pure-0.5.0", "abs:total_err")
     assert gl["diff"] == pytest.approx(c["diff"]) and gl["n_dates"] == 40
+
+
+# -------------------------------------------------------------------- verified-push selection (amendment 5a)
+def _arch(root, gid, tip, as_of, manifest):
+    """One frozen record per compared version at ``as_of``, listed in ``manifest``."""
+    proj = {"margin": 2.0, "total": 140.0, "margin_sd": 11.0, "total_sd": 15.0, "home_score": 71.0,
+            "away_score": 69.0, "possessions": 70.0, "home_ppp": 1.01, "away_ppp": 0.99,
+            "home_win_prob": 0.57}  # fmt: skip
+    stamp = as_of.strftime("%Y%m%dT%H%M%SZ")
+    mpath = root / "projections" / "manifests" / f"{manifest}.json"
+    mpath.parent.mkdir(parents=True, exist_ok=True)
+    m = (
+        json.loads(mpath.read_text())
+        if mpath.exists()
+        else {"as_of": as_of.isoformat(), "files": {}}
+    )
+    for v in w14.VERSIONS:
+        rel = f"{'' if v == 'pure-0.2.0' else v + '/'}2027/{tip.date()}/G{gid}/{stamp}.json"
+        rec = {"game": {"espn_game_id": gid, "start_time_utc": tip.isoformat()},
+               "prospective": {"as_of": as_of.isoformat()}, "projection": proj,
+               "model_inputs": mi(cutoff=(as_of - timedelta(hours=1)).isoformat())}  # fmt: skip
+        f = root / "projections" / rel
+        f.parent.mkdir(parents=True, exist_ok=True)
+        f.write_text(json.dumps(rec))
+        m["files"][rel] = "sha-not-checked-here"
+    mpath.write_text(json.dumps(m))
+
+
+def test_selection_falls_back_to_latest_verified_pre_tip_push_and_quarantines_the_rest(tmp_path):
+    tip = datetime(2026, 11, 20, 23, tzinfo=UTC)
+    a, b, c = tip - timedelta(hours=9), tip - timedelta(minutes=40), tip - timedelta(minutes=5)
+    _arch(tmp_path, 1, tip, a, "MA")  # verified, pushed well before tip
+    _arch(tmp_path, 1, tip, b, "MB")  # verified, but pushed AFTER tip (the 401916315 pattern)
+    _arch(tmp_path, 1, tip, c, "MC")  # manifest has no provenance entry (unverified)
+    _arch(tmp_path, 2, tip, b, "MB")  # only record pushed after tip: no admissible record
+    _arch(tmp_path, 3, tip, a, "MA")
+    _arch(tmp_path, 3, tip, b, "MB3")  # verified pre-tip latest: selected, no fallback
+    prov = {"MA": {"pushed_by": (a + timedelta(minutes=3)).isoformat()},
+            "MB": {"pushed_by": (tip + timedelta(minutes=2)).isoformat()},
+            "MB3": {"pushed_by": (tip - timedelta(seconds=1)).isoformat()}}  # fmt: skip
+    recm = w14.record_manifests(tmp_path)
+    frozen, inputs, audit = w14.load_verified(tmp_path, recm, prov)
+    for v in w14.VERSIONS:
+        assert frozen[v][1]["as_of"] == a  # fell back past post-tip B and unverified C
+        assert frozen[v][3]["as_of"] == b
+        assert 2 not in frozen[v]
+        assert audit["fallback"][v] == [1]
+        assert audit["no_verified_pre_tip_record"][v] == [2]
+        q = {(r["game_id"], r["as_of"]): r["reason"] for r in audit["quarantined"][v]}
+        assert q == {(1, b.isoformat()): "pushed_at_or_after_tip",
+                     (1, c.isoformat()): "manifest_push_time_unverified",
+                     (2, b.isoformat()): "pushed_at_or_after_tip"}  # fmt: skip
+    # inputs come from the SAME fallback record, so pbar is defined (not "no_record")
+    assert inputs[1]["as_of"] == a and 2 not in inputs
+    base = frozen[pw.BASE_VERSION]
+    w14.attach_inputs(base, inputs)
+    assert base[1]["input_issues"] == [] and base[1]["pbar"] is not None
+    # the defence-in-depth gate agrees: every selected record is provably pushed before tip
+    pushed = w14.freeze_pushed_at(frozen, recm, prov)
+    assert all(p["reason"] is None and p["pushed_by"] < tip for p in pushed.values())
+
+
+def test_quarantined_record_is_never_requalified(tmp_path):
+    tip = datetime(2026, 11, 20, 23, tzinfo=UTC)
+    a, b = tip - timedelta(hours=9), tip - timedelta(minutes=40)
+    _arch(tmp_path, 1, tip, a, "MA")
+    _arch(tmp_path, 1, tip, b, "MB")
+    recm = w14.record_manifests(tmp_path)
+    ok = {"MA": {"pushed_by": (a + timedelta(minutes=3)).isoformat()}}
+    for mb in ({}, {"pushed_by": None}, {"pushed_by": "garbage"}, {"pushed_by": tip.isoformat()},
+               {"pushed_by": (tip + timedelta(hours=5)).isoformat()}):  # fmt: skip
+        frozen, _, audit = w14.load_verified(tmp_path, recm, {**ok, "MB": mb})
+        assert all(frozen[v][1]["as_of"] == a for v in w14.VERSIONS), mb
+    # no verified record at all -> the game is absent, never selected from unverified records
+    frozen, _, audit = w14.load_verified(tmp_path, recm, {})
+    assert all(1 not in frozen[v] for v in w14.VERSIONS)
+    assert audit["no_verified_pre_tip_record"][pw.BASE_VERSION] == [1]
+
+
+def test_load_frozen_without_allow_is_unchanged(tmp_path):
+    from cbb_edge.research import wave1 as w
+
+    tip = datetime(2026, 11, 20, 23, tzinfo=UTC)
+    _arch(tmp_path, 1, tip, tip - timedelta(hours=9), "MA")
+    _arch(tmp_path, 1, tip, tip - timedelta(minutes=5), "MB")
+    assert w.load_frozen(tmp_path, pw.BASE_VERSION)[1]["as_of"] == tip - timedelta(minutes=5)
+    assert w14.load_inputs(tmp_path)[1]["as_of"] == tip - timedelta(minutes=5)
+
+
+def test_pre_registration_records_are_selected_unchanged_for_training_only(tmp_path):
+    # provenance is only built from PROSPECTIVE_FROM on; earlier records are never eligible and
+    # only train the walk-forward challengers, so their selection must not change
+    tip = datetime(2026, 11, 10, 23, tzinfo=UTC)
+    early, late = tip - timedelta(hours=9), tip - timedelta(minutes=5)
+    _arch(tmp_path, 1, tip, early, "MA")
+    _arch(tmp_path, 1, tip, late, "MB")
+    frozen, inputs, audit = w14.load_verified(tmp_path, w14.record_manifests(tmp_path), {})
+    assert all(frozen[v][1]["as_of"] == late for v in w14.VERSIONS) and inputs[1]["as_of"] == late
+    assert audit["quarantined"][pw.BASE_VERSION] == [] and audit["fallback"][pw.BASE_VERSION] == []
+    # a post-boundary record with no verified push falls back to a pre-boundary record, which is
+    # then excluded as record_before_registration (never evaluated)
+    tip2 = datetime(2026, 11, 12, 1, tzinfo=UTC)
+    _arch(tmp_path, 2, tip2, datetime(2026, 11, 11, 20, tzinfo=UTC), "MC")
+    _arch(tmp_path, 2, tip2, datetime(2026, 11, 11, 23, tzinfo=UTC), "MD")
+    frozen, _, audit = w14.load_verified(tmp_path, w14.record_manifests(tmp_path), {})
+    assert frozen[pw.BASE_VERSION][2]["as_of"] < w.parse_ts(w14.PROSPECTIVE_FROM)
+    assert audit["fallback"][pw.BASE_VERSION] == [2]

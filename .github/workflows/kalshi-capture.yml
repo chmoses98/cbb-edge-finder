@@ -99,6 +99,29 @@ jobs:
             git fetch -q --depth=1 origin kalshi-archive && git rebase -q FETCH_HEAD || true
           done
           exit 1
+      - name: Projections failover heartbeat (bounded, fail-closed; never blocks the capture)
+        # GitHub delivered 15 of 78 prospective-projections cron ticks in the 72 h to
+        # 2026-11-13T19:23Z; this dispatch-driven chain is the repository's only reliable clock.
+        # cbb_edge.ops.dispatch_guard.heartbeat asks for ONE catch-up tick only when no production
+        # projections run was created in the last 55 min and none is healthily queued/running (a run
+        # queued > 30 min is ignored). The catch-up tick decides from the archives what is owed
+        # (cbb_edge.ops.cadence) and never projects a game that has tipped. Single attempt, no retry
+        # loop (a retried 502'd dispatch created the 0-job orphan 43467050714); the next capture retries.
+        if: ${{ !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          flag=""
+          gh run list --workflow prospective-projections.yml --limit 20 \
+            --json databaseId,status,conclusion,event,createdAt > proj_runs.json || flag="--listing-failed"
+          python -m cbb_edge.ops.dispatch_guard heartbeat --runs proj_runs.json $flag | tee heartbeat.json
+          action=$(python -c "import json;print(json.load(open('heartbeat.json'))['action'])" 2>/dev/null || echo SKIP)
+          if [ "$action" = "DISPATCH" ]; then
+            gh workflow run prospective-projections.yml --ref main -f catchup=true \
+              && echo "dispatched a prospective-projections catch-up tick"
+          fi
       - name: Chain the next capture (bounded, fail-closed, circuit-broken)
         # GitHub drops most scheduled ticks under load (about 5% of expected in 24h). After each
         # production capture (also after a failed one, so a transient API error cannot end the

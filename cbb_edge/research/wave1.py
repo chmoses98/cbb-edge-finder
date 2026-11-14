@@ -53,12 +53,16 @@ def parse_ts(s: str | None) -> datetime | None:
 
 
 # --------------------------------------------------------------------------------- loaders
-def load_frozen(root: Path, version: str) -> dict[int, dict[str, Any]]:
+def load_frozen(
+    root: Path, version: str, allow: Callable[[int, datetime, datetime], bool] | None = None
+) -> dict[int, dict[str, Any]]:
     """Latest FROZEN projection per game whose information cutoff (``as_of``) precedes the tip.
 
     Records are immutable archive files; we only read them. ``as_of`` (not file generation time) is
     the information cutoff, which is also the rule the prospective scoreboard uses, so counts and
-    errors reconcile with it."""
+    errors reconcile with it. ``allow(game_id, as_of, tip)``: optional record-level admission test
+    applied BEFORE choosing the latest (e.g. Wave 14's verified pre-tip push), so a rejected later
+    record falls back to the latest admitted earlier one; None keeps the original rule exactly."""
     best: dict[int, dict[str, Any]] = {}
     pattern = str(root / VERSION_DIRS[version] / "*" / "*" / "*.json")
     for path in sorted(glob.glob(pattern)):
@@ -71,6 +75,8 @@ def load_frozen(root: Path, version: str) -> dict[int, dict[str, Any]]:
         if gid is None or tip is None or as_of is None:
             continue
         if not as_of < tip or p.get("margin") is None or p.get("total") is None:
+            continue
+        if allow is not None and not allow(int(gid), as_of, tip):
             continue
         cur = best.get(int(gid))
         if cur is None or as_of > cur["as_of"]:
