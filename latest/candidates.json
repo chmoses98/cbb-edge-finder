@@ -1,0 +1,557 @@
+{
+ "candidates": [
+  {
+   "id": "cbb-total-modelvalue-h1-v1",
+   "hypothesis": "Frozen pure-0.5.0 total probabilities find executable value (expected negative).",
+   "family": "TOTAL",
+   "side_rule": {
+    "min_edge": 0.02,
+    "model_version": "pure-0.5.0",
+    "type": "model_value"
+   },
+   "entry": "H1",
+   "registered_at": "2026-11-04T05:05:42.784519+00:00",
+   "config_sha256": "a95262c4d93f0ab05a5ea341d4d63838d817a52006224b0b2343937c921edfe3",
+   "status": "SHADOW_VALIDATING",
+   "prospective": {
+    "contracts": 316,
+    "games": 316,
+    "net_roi": 0.0936693632451904,
+    "net_lo": -0.026978306737407094,
+    "net_hi": 0.2135456136000922,
+    "p_le_zero": 0.1005,
+    "gross_roi": 0.1415321501828234,
+    "hit_rate": 0.4050632911392405,
+    "mean_price": 0.35484177215189877,
+    "clv": null
+   },
+   "discovery_retrospective": {
+    "contracts": 110,
+    "games": 110,
+    "net_roi": -0.09451274724832485,
+    "net_lo": -0.28601676137202964,
+    "net_hi": 0.10672792200765378,
+    "p_le_zero": 0.784,
+    "gross_roi": -0.055613850996852024,
+    "hit_rate": 0.32727272727272727,
+    "mean_price": 0.3465454545454544
+   },
+   "sample_progress": {
+    "independent_games": 316,
+    "formal_min_games": 300,
+    "remaining_games_to_formal_min": 0,
+    "fraction_of_formal_min": 1.0,
+    "stage": "FORMAL_SAMPLE_MINIMUM_REACHED",
+    "milestones": [
+     {
+      "games": 25,
+      "reached": true
+     },
+     {
+      "games": 50,
+      "reached": true
+     },
+     {
+      "games": 100,
+      "reached": true
+     },
+     {
+      "games": 300,
+      "reached": true
+     }
+    ],
+    "next_milestone_games": null,
+    "not_authority": true,
+    "formal_candidate_status": "SHADOW_VALIDATING",
+    "note": "Preliminary checkpoints describe sample accumulation, NOT validated returns. Formal status additionally requires registered out-of-sample evidence, the candidate's unchanged inference criteria, and verified fees."
+   },
+   "eligibility_funnel": {
+    "unit": "independent_game",
+    "denominator": "observed_series_entry_games_not_all_scheduled_games",
+    "counts": {
+     "observed_series_entry_games": 606,
+     "tipped_after_registration": 465,
+     "observed_valid_postregistration_pretip_quote": 465,
+     "verified_pretip_tip": 465,
+     "independently_settled": 405,
+     "model_supported": 403,
+     "fillable_quote": 403,
+     "selected_rule_games": 316
+    },
+    "stage_dropoffs": {
+     "observed_series_entry_games_to_tipped_after_registration": 141,
+     "tipped_after_registration_to_observed_valid_postregistration_pretip_quote": 0,
+     "observed_valid_postregistration_pretip_quote_to_verified_pretip_tip": 0,
+     "verified_pretip_tip_to_independently_settled": 60,
+     "independently_settled_to_model_supported": 2,
+     "model_supported_to_fillable_quote": 0,
+     "fillable_quote_to_selected_rule_games": 87
+    },
+    "reason_if_zero": null,
+    "note": "The rule can reject otherwise fillable games. Counts are NOT independent contracts, and missing quote/model/outcome evidence is not fabricated."
+   },
+   "discovery_at_registration": {
+    "contracts": 108,
+    "games": 108,
+    "gross_roi": -0.03794762159273115,
+    "hit_rate": 0.3333333333333333,
+    "mean_price": 0.3464814814814815,
+    "net_hi": 0.12808137880972706,
+    "net_lo": -0.2808268436517558,
+    "net_roi": -0.077556960857667,
+    "note": "discovery only: seen before registration; cannot validate",
+    "p_le_zero": 0.7305
+   },
+   "success_criteria": {
+    "alpha_family": 0.05,
+    "ci": 0.9,
+    "min_games": 300,
+    "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+   },
+   "fee_schedule_verified": false,
+   "authority": "RESEARCH_ONLY"
+  },
+  {
+   "id": "cbb-gw-favorite-h1-v1",
+   "hypothesis": "CONTROL: favorites at the ask lose to fees and overround (expected negative).",
+   "family": "GAME_WINNER",
+   "side_rule": {
+    "type": "baseline_favorite"
+   },
+   "entry": "H1",
+   "registered_at": "2026-11-04T05:05:42.416653+00:00",
+   "config_sha256": "8afac47bbc97dd0eb3e23d78bf59bbad2067dc61afbfa6f30ad7a005a76d5767",
+   "status": "REJECTED",
+   "prospective": {
+    "contracts": 352,
+    "games": 352,
+    "net_roi": -0.046001119358686685,
+    "net_lo": -0.08521403240405791,
+    "net_hi": -0.004303111393323642,
+    "p_le_zero": 0.96,
+    "gross_roi": -0.034265684240646695,
+    "hit_rate": 0.7670454545454546,
+    "mean_price": 0.7942613636363639,
+    "clv": null
+   },
+   "discovery_retrospective": {
+    "contracts": 113,
+    "games": 113,
+    "net_roi": -0.07452201165260923,
+    "net_lo": -0.14351010449176727,
+    "net_hi": -0.010447151561598584,
+    "p_le_zero": 0.9715,
+    "gross_roi": -0.06551980460868655,
+    "hit_rate": 0.7787610619469026,
+    "mean_price": 0.8333628318584068
+   },
+   "sample_progress": {
+    "independent_games": 352,
+    "formal_min_games": 300,
+    "remaining_games_to_formal_min": 0,
+    "fraction_of_formal_min": 1.0,
+    "stage": "FORMAL_SAMPLE_MINIMUM_REACHED",
+    "milestones": [
+     {
+      "games": 25,
+      "reached": true
+     },
+     {
+      "games": 50,
+      "reached": true
+     },
+     {
+      "games": 100,
+      "reached": true
+     },
+     {
+      "games": 300,
+      "reached": true
+     }
+    ],
+    "next_milestone_games": null,
+    "not_authority": true,
+    "formal_candidate_status": "REJECTED",
+    "note": "Preliminary checkpoints describe sample accumulation, NOT validated returns. Formal status additionally requires registered out-of-sample evidence, the candidate's unchanged inference criteria, and verified fees."
+   },
+   "eligibility_funnel": {
+    "unit": "independent_game",
+    "denominator": "observed_series_entry_games_not_all_scheduled_games",
+    "counts": {
+     "observed_series_entry_games": 743,
+     "tipped_after_registration": 577,
+     "observed_valid_postregistration_pretip_quote": 577,
+     "verified_pretip_tip": 577,
+     "independently_settled": 405,
+     "model_supported": 405,
+     "fillable_quote": 405,
+     "selected_rule_games": 352
+    },
+    "stage_dropoffs": {
+     "observed_series_entry_games_to_tipped_after_registration": 166,
+     "tipped_after_registration_to_observed_valid_postregistration_pretip_quote": 0,
+     "observed_valid_postregistration_pretip_quote_to_verified_pretip_tip": 0,
+     "verified_pretip_tip_to_independently_settled": 172,
+     "independently_settled_to_model_supported": 0,
+     "model_supported_to_fillable_quote": 0,
+     "fillable_quote_to_selected_rule_games": 53
+    },
+    "reason_if_zero": null,
+    "note": "The rule can reject otherwise fillable games. Counts are NOT independent contracts, and missing quote/model/outcome evidence is not fabricated."
+   },
+   "discovery_at_registration": {
+    "contracts": 110,
+    "games": 110,
+    "gross_roi": -0.059595407326407876,
+    "hit_rate": 0.7818181818181819,
+    "mean_price": 0.8313636363636364,
+    "net_hi": -0.002121576300821283,
+    "net_lo": -0.13393765239366306,
+    "net_roi": -0.06873998354052062,
+    "note": "discovery only: seen before registration; cannot validate",
+    "p_le_zero": 0.9545
+   },
+   "success_criteria": {
+    "alpha_family": 0.05,
+    "ci": 0.9,
+    "min_games": 300,
+    "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+   },
+   "fee_schedule_verified": false,
+   "authority": "RESEARCH_ONLY"
+  },
+  {
+   "id": "cbb-gw-underdog-h1-v1",
+   "hypothesis": "Underdogs are underpriced on game-winner moneylines one hour before tip (favorite-longshot asymmetry); a one-bet-per-game underdog rule has positive net ROI.",
+   "family": "GAME_WINNER",
+   "side_rule": {
+    "type": "baseline_underdog"
+   },
+   "entry": "H1",
+   "registered_at": "2026-11-04T05:05:42.295382+00:00",
+   "config_sha256": "6eba7838d8f6d5c19ebad051d6947822bcdb9aa09f83fb758c1098eb8b75e9bf",
+   "status": "SHADOW_VALIDATING",
+   "prospective": {
+    "contracts": 353,
+    "games": 353,
+    "net_roi": 0.043899101492146875,
+    "net_lo": -0.10158438236568679,
+    "net_hi": 0.19282620288336488,
+    "p_le_zero": 0.3215,
+    "gross_roi": 0.09325605900948362,
+    "hit_rate": 0.23512747875354106,
+    "mean_price": 0.21507082152974516,
+    "clv": null
+   },
+   "discovery_retrospective": {
+    "contracts": 113,
+    "games": 113,
+    "net_roi": 0.2018999634622413,
+    "net_lo": -0.08155767817781048,
+    "net_hi": 0.5040869673457531,
+    "p_le_zero": 0.126,
+    "gross_roi": 0.2600806451612907,
+    "hit_rate": 0.22123893805309736,
+    "mean_price": 0.17557522123893804
+   },
+   "sample_progress": {
+    "independent_games": 353,
+    "formal_min_games": 300,
+    "remaining_games_to_formal_min": 0,
+    "fraction_of_formal_min": 1.0,
+    "stage": "FORMAL_SAMPLE_MINIMUM_REACHED",
+    "milestones": [
+     {
+      "games": 25,
+      "reached": true
+     },
+     {
+      "games": 50,
+      "reached": true
+     },
+     {
+      "games": 100,
+      "reached": true
+     },
+     {
+      "games": 300,
+      "reached": true
+     }
+    ],
+    "next_milestone_games": null,
+    "not_authority": true,
+    "formal_candidate_status": "SHADOW_VALIDATING",
+    "note": "Preliminary checkpoints describe sample accumulation, NOT validated returns. Formal status additionally requires registered out-of-sample evidence, the candidate's unchanged inference criteria, and verified fees."
+   },
+   "eligibility_funnel": {
+    "unit": "independent_game",
+    "denominator": "observed_series_entry_games_not_all_scheduled_games",
+    "counts": {
+     "observed_series_entry_games": 743,
+     "tipped_after_registration": 577,
+     "observed_valid_postregistration_pretip_quote": 577,
+     "verified_pretip_tip": 577,
+     "independently_settled": 405,
+     "model_supported": 405,
+     "fillable_quote": 405,
+     "selected_rule_games": 353
+    },
+    "stage_dropoffs": {
+     "observed_series_entry_games_to_tipped_after_registration": 166,
+     "tipped_after_registration_to_observed_valid_postregistration_pretip_quote": 0,
+     "observed_valid_postregistration_pretip_quote_to_verified_pretip_tip": 0,
+     "verified_pretip_tip_to_independently_settled": 172,
+     "independently_settled_to_model_supported": 0,
+     "model_supported_to_fillable_quote": 0,
+     "fillable_quote_to_selected_rule_games": 52
+    },
+    "reason_if_zero": null,
+    "note": "The rule can reject otherwise fillable games. Counts are NOT independent contracts, and missing quote/model/outcome evidence is not fabricated."
+   },
+   "discovery_at_registration": {
+    "contracts": 110,
+    "games": 110,
+    "gross_roi": 0.22887864823348691,
+    "hit_rate": 0.21818181818181817,
+    "mean_price": 0.17754545454545456,
+    "net_hi": 0.4714228659113363,
+    "net_lo": -0.12131685314275673,
+    "net_roi": 0.17240166481036404,
+    "note": "discovery only: seen before registration; cannot validate",
+    "p_le_zero": 0.171
+   },
+   "success_criteria": {
+    "alpha_family": 0.05,
+    "ci": 0.9,
+    "min_games": 300,
+    "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+   },
+   "fee_schedule_verified": false,
+   "authority": "RESEARCH_ONLY"
+  },
+  {
+   "id": "cbb-spread-modelvalue-h1-v1",
+   "hypothesis": "Frozen pure-0.5.0 spread-cover probabilities find executable value (expected negative: the model trails the market on spreads).",
+   "family": "SPREAD",
+   "side_rule": {
+    "min_edge": 0.02,
+    "model_version": "pure-0.5.0",
+    "type": "model_value"
+   },
+   "entry": "H1",
+   "registered_at": "2026-11-04T05:05:42.650829+00:00",
+   "config_sha256": "afb9eab3c914046beb8bd0cb1ef8966fbd63318ea7cbbf8f87f9d6532ef3812f",
+   "status": "REJECTED",
+   "prospective": {
+    "contracts": 337,
+    "games": 337,
+    "net_roi": -0.17244866575266757,
+    "net_lo": -0.26453719822409355,
+    "net_hi": -0.0794149287335643,
+    "p_le_zero": 0.997,
+    "gross_roi": -0.14235548352242047,
+    "hit_rate": 0.3768545994065282,
+    "mean_price": 0.43940652818991094,
+    "clv": null
+   },
+   "discovery_retrospective": {
+    "contracts": 123,
+    "games": 123,
+    "net_roi": -0.06606895079517555,
+    "net_lo": -0.22883708632618013,
+    "net_hi": 0.09678980968805785,
+    "p_le_zero": 0.751,
+    "gross_roi": -0.030854430379746875,
+    "hit_rate": 0.3983739837398374,
+    "mean_price": 0.41105691056910565
+   },
+   "sample_progress": {
+    "independent_games": 337,
+    "formal_min_games": 300,
+    "remaining_games_to_formal_min": 0,
+    "fraction_of_formal_min": 1.0,
+    "stage": "FORMAL_SAMPLE_MINIMUM_REACHED",
+    "milestones": [
+     {
+      "games": 25,
+      "reached": true
+     },
+     {
+      "games": 50,
+      "reached": true
+     },
+     {
+      "games": 100,
+      "reached": true
+     },
+     {
+      "games": 300,
+      "reached": true
+     }
+    ],
+    "next_milestone_games": null,
+    "not_authority": true,
+    "formal_candidate_status": "REJECTED",
+    "note": "Preliminary checkpoints describe sample accumulation, NOT validated returns. Formal status additionally requires registered out-of-sample evidence, the candidate's unchanged inference criteria, and verified fees."
+   },
+   "eligibility_funnel": {
+    "unit": "independent_game",
+    "denominator": "observed_series_entry_games_not_all_scheduled_games",
+    "counts": {
+     "observed_series_entry_games": 605,
+     "tipped_after_registration": 464,
+     "observed_valid_postregistration_pretip_quote": 464,
+     "verified_pretip_tip": 464,
+     "independently_settled": 405,
+     "model_supported": 403,
+     "fillable_quote": 403,
+     "selected_rule_games": 337
+    },
+    "stage_dropoffs": {
+     "observed_series_entry_games_to_tipped_after_registration": 141,
+     "tipped_after_registration_to_observed_valid_postregistration_pretip_quote": 0,
+     "observed_valid_postregistration_pretip_quote_to_verified_pretip_tip": 0,
+     "verified_pretip_tip_to_independently_settled": 59,
+     "independently_settled_to_model_supported": 2,
+     "model_supported_to_fillable_quote": 0,
+     "fillable_quote_to_selected_rule_games": 66
+    },
+    "reason_if_zero": null,
+    "note": "The rule can reject otherwise fillable games. Counts are NOT independent contracts, and missing quote/model/outcome evidence is not fabricated."
+   },
+   "discovery_at_registration": {
+    "contracts": 120,
+    "games": 120,
+    "gross_roi": -0.05069682892344983,
+    "hit_rate": 0.39166666666666666,
+    "mean_price": 0.4125833333333333,
+    "net_hi": 0.08279515835879193,
+    "net_lo": -0.2380310722907994,
+    "net_roi": -0.08506198218401544,
+    "note": "discovery only: seen before registration; cannot validate",
+    "p_le_zero": 0.8085
+   },
+   "success_criteria": {
+    "alpha_family": 0.05,
+    "ci": 0.9,
+    "min_games": 300,
+    "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+   },
+   "fee_schedule_verified": false,
+   "authority": "RESEARCH_ONLY"
+  },
+  {
+   "id": "cbb-gw-modelvalue-h1-v1",
+   "hypothesis": "Where frozen pure-0.5.0 win probability exceeds the fee-inclusive ask, the best single side per game has positive net ROI.",
+   "family": "GAME_WINNER",
+   "side_rule": {
+    "min_edge": 0.02,
+    "model_version": "pure-0.5.0",
+    "type": "model_value"
+   },
+   "entry": "H1",
+   "registered_at": "2026-11-04T05:05:42.512036+00:00",
+   "config_sha256": "f8d250b728a2deaaa126dd4de6cb84c5b160ec42bbc1d164e81e2f0be73a4ae4",
+   "status": "SHADOW_VALIDATING",
+   "prospective": {
+    "contracts": 173,
+    "games": 173,
+    "net_roi": -0.21767053578736056,
+    "net_lo": -0.33125065680739085,
+    "net_hi": -0.11219134236669029,
+    "p_le_zero": 0.9995,
+    "gross_roi": -0.1956441034525429,
+    "hit_rate": 0.37572254335260113,
+    "mean_price": 0.4671098265895954,
+    "clv": null
+   },
+   "discovery_retrospective": {
+    "contracts": 60,
+    "games": 60,
+    "net_roi": -0.004700382708756084,
+    "net_lo": -0.17842947012613067,
+    "net_hi": 0.18318585339968738,
+    "p_le_zero": 0.5125,
+    "gross_roi": 0.018062397372742196,
+    "hit_rate": 0.5166666666666667,
+    "mean_price": 0.5075
+   },
+   "sample_progress": {
+    "independent_games": 173,
+    "formal_min_games": 300,
+    "remaining_games_to_formal_min": 127,
+    "fraction_of_formal_min": 0.5767,
+    "stage": "PRELIMINARY",
+    "milestones": [
+     {
+      "games": 25,
+      "reached": true
+     },
+     {
+      "games": 50,
+      "reached": true
+     },
+     {
+      "games": 100,
+      "reached": true
+     },
+     {
+      "games": 300,
+      "reached": false
+     }
+    ],
+    "next_milestone_games": 300,
+    "not_authority": true,
+    "formal_candidate_status": "SHADOW_VALIDATING",
+    "note": "Preliminary checkpoints describe sample accumulation, NOT validated returns. Formal status additionally requires registered out-of-sample evidence, the candidate's unchanged inference criteria, and verified fees."
+   },
+   "eligibility_funnel": {
+    "unit": "independent_game",
+    "denominator": "observed_series_entry_games_not_all_scheduled_games",
+    "counts": {
+     "observed_series_entry_games": 743,
+     "tipped_after_registration": 577,
+     "observed_valid_postregistration_pretip_quote": 577,
+     "verified_pretip_tip": 577,
+     "independently_settled": 405,
+     "model_supported": 403,
+     "fillable_quote": 403,
+     "selected_rule_games": 173
+    },
+    "stage_dropoffs": {
+     "observed_series_entry_games_to_tipped_after_registration": 166,
+     "tipped_after_registration_to_observed_valid_postregistration_pretip_quote": 0,
+     "observed_valid_postregistration_pretip_quote_to_verified_pretip_tip": 0,
+     "verified_pretip_tip_to_independently_settled": 172,
+     "independently_settled_to_model_supported": 2,
+     "model_supported_to_fillable_quote": 0,
+     "fillable_quote_to_selected_rule_games": 230
+    },
+    "reason_if_zero": null,
+    "note": "The rule can reject otherwise fillable games. Counts are NOT independent contracts, and missing quote/model/outcome evidence is not fabricated."
+   },
+   "discovery_at_registration": {
+    "contracts": 58,
+    "games": 58,
+    "gross_roi": 0.04566050888811432,
+    "hit_rate": 0.5172413793103449,
+    "mean_price": 0.49465517241379314,
+    "net_hi": 0.21228075036714789,
+    "net_lo": -0.1548572046733016,
+    "net_roi": 0.021408726916162784,
+    "note": "discovery only: seen before registration; cannot validate",
+    "p_le_zero": 0.4125
+   },
+   "success_criteria": {
+    "alpha_family": 0.05,
+    "ci": 0.9,
+    "min_games": 300,
+    "primary_metric": "net ROI (cluster-bootstrap, fee-inclusive cash cost)"
+   },
+   "fee_schedule_verified": false,
+   "authority": "RESEARCH_ONLY"
+  }
+ ],
+ "registry_violations": [],
+ "n_registered": 5
+}

@@ -1,0 +1,2992 @@
+[
+ {
+  "snapshot": "kalshi_cbb_20261005T004055Z",
+  "captured_at": "2026-10-05T00:40:55+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261005T044958Z",
+  "captured_at": "2026-10-05T04:49:58+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261005T144951Z",
+  "captured_at": "2026-10-05T14:49:51+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261005T153821Z",
+  "captured_at": "2026-10-05T15:38:21+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261006T000715Z",
+  "captured_at": "2026-10-06T00:07:15+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261006T062759Z",
+  "captured_at": "2026-10-06T06:27:59+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261006T182635Z",
+  "captured_at": "2026-10-06T18:26:35+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261007T060710Z",
+  "captured_at": "2026-10-07T06:07:10+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261007T133203Z",
+  "captured_at": "2026-10-07T13:32:03+00:00",
+  "contracts": 2639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261007T230915Z",
+  "captured_at": "2026-10-07T23:09:15+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261008T061241Z",
+  "captured_at": "2026-10-08T06:12:41+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261008T133803Z",
+  "captured_at": "2026-10-08T13:38:03+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261008T232500Z",
+  "captured_at": "2026-10-08T23:25:00+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261009T061601Z",
+  "captured_at": "2026-10-09T06:16:01+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261009T132412Z",
+  "captured_at": "2026-10-09T13:24:12+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261009T224300Z",
+  "captured_at": "2026-10-09T22:43:00+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261010T055920Z",
+  "captured_at": "2026-10-10T05:59:20+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261010T123906Z",
+  "captured_at": "2026-10-10T12:39:06+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261010T214915Z",
+  "captured_at": "2026-10-10T21:49:15+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261011T055438Z",
+  "captured_at": "2026-10-11T05:54:38+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261011T130252Z",
+  "captured_at": "2026-10-11T13:02:52+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261011T220316Z",
+  "captured_at": "2026-10-11T22:03:16+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261012T061034Z",
+  "captured_at": "2026-10-12T06:10:34+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261012T153620Z",
+  "captured_at": "2026-10-12T15:36:20+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261013T004702Z",
+  "captured_at": "2026-10-13T00:47:02+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261013T141845Z",
+  "captured_at": "2026-10-13T14:18:45+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261013T225021Z",
+  "captured_at": "2026-10-13T22:50:21+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261014T045953Z",
+  "captured_at": "2026-10-14T04:59:53+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261014T120022Z",
+  "captured_at": "2026-10-14T12:00:22+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261014T171729Z",
+  "captured_at": "2026-10-14T17:17:29+00:00",
+  "contracts": 2663
+ },
+ {
+  "snapshot": "kalshi_cbb_20261014T214610Z",
+  "captured_at": "2026-10-14T21:46:10+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261015T044806Z",
+  "captured_at": "2026-10-15T04:48:06+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261015T113731Z",
+  "captured_at": "2026-10-15T11:37:31+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261015T170652Z",
+  "captured_at": "2026-10-15T17:06:52+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261015T213204Z",
+  "captured_at": "2026-10-15T21:32:04+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261016T044451Z",
+  "captured_at": "2026-10-16T04:44:51+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261016T113136Z",
+  "captured_at": "2026-10-16T11:31:36+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261016T164410Z",
+  "captured_at": "2026-10-16T16:44:10+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261016T212114Z",
+  "captured_at": "2026-10-16T21:21:14+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261017T044635Z",
+  "captured_at": "2026-10-17T04:46:35+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261017T105127Z",
+  "captured_at": "2026-10-17T10:51:27+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261017T154058Z",
+  "captured_at": "2026-10-17T15:40:58+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261017T204833Z",
+  "captured_at": "2026-10-17T20:48:33+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261018T044616Z",
+  "captured_at": "2026-10-18T04:46:16+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261018T111759Z",
+  "captured_at": "2026-10-18T11:17:59+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261018T160806Z",
+  "captured_at": "2026-10-18T16:08:06+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261018T210344Z",
+  "captured_at": "2026-10-18T21:03:44+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261019T045025Z",
+  "captured_at": "2026-10-19T04:50:25+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261019T133006Z",
+  "captured_at": "2026-10-19T13:30:06+00:00",
+  "contracts": 2667
+ },
+ {
+  "snapshot": "kalshi_cbb_20261019T222616Z",
+  "captured_at": "2026-10-19T22:26:16+00:00",
+  "contracts": 5492
+ },
+ {
+  "snapshot": "kalshi_cbb_20261020T050038Z",
+  "captured_at": "2026-10-20T05:00:38+00:00",
+  "contracts": 10742
+ },
+ {
+  "snapshot": "kalshi_cbb_20261020T114559Z",
+  "captured_at": "2026-10-20T11:45:59+00:00",
+  "contracts": 10742
+ },
+ {
+  "snapshot": "kalshi_cbb_20261020T171518Z",
+  "captured_at": "2026-10-20T17:15:18+00:00",
+  "contracts": 11067
+ },
+ {
+  "snapshot": "kalshi_cbb_20261020T214147Z",
+  "captured_at": "2026-10-20T21:41:47+00:00",
+  "contracts": 11067
+ },
+ {
+  "snapshot": "kalshi_cbb_20261021T045647Z",
+  "captured_at": "2026-10-21T04:56:47+00:00",
+  "contracts": 11217
+ },
+ {
+  "snapshot": "kalshi_cbb_20261021T115819Z",
+  "captured_at": "2026-10-21T11:58:19+00:00",
+  "contracts": 11217
+ },
+ {
+  "snapshot": "kalshi_cbb_20261021T171745Z",
+  "captured_at": "2026-10-21T17:17:45+00:00",
+  "contracts": 11217
+ },
+ {
+  "snapshot": "kalshi_cbb_20261021T215004Z",
+  "captured_at": "2026-10-21T21:50:04+00:00",
+  "contracts": 12056
+ },
+ {
+  "snapshot": "kalshi_cbb_20261022T050834Z",
+  "captured_at": "2026-10-22T05:08:34+00:00",
+  "contracts": 12056
+ },
+ {
+  "snapshot": "kalshi_cbb_20261022T120333Z",
+  "captured_at": "2026-10-22T12:03:33+00:00",
+  "contracts": 12056
+ },
+ {
+  "snapshot": "kalshi_cbb_20261022T174831Z",
+  "captured_at": "2026-10-22T17:48:31+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261022T224629Z",
+  "captured_at": "2026-10-22T22:46:29+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261023T052252Z",
+  "captured_at": "2026-10-23T05:22:52+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261023T114608Z",
+  "captured_at": "2026-10-23T11:46:08+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261023T172338Z",
+  "captured_at": "2026-10-23T17:23:38+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261023T212924Z",
+  "captured_at": "2026-10-23T21:29:24+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261024T044725Z",
+  "captured_at": "2026-10-24T04:47:25+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261024T111420Z",
+  "captured_at": "2026-10-24T11:14:20+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261024T160136Z",
+  "captured_at": "2026-10-24T16:01:36+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261024T205915Z",
+  "captured_at": "2026-10-24T20:59:15+00:00",
+  "contracts": 11945
+ },
+ {
+  "snapshot": "kalshi_cbb_20261025T045042Z",
+  "captured_at": "2026-10-25T04:50:42+00:00",
+  "contracts": 11949
+ },
+ {
+  "snapshot": "kalshi_cbb_20261025T115338Z",
+  "captured_at": "2026-10-25T11:53:38+00:00",
+  "contracts": 11955
+ },
+ {
+  "snapshot": "kalshi_cbb_20261025T164557Z",
+  "captured_at": "2026-10-25T16:45:57+00:00",
+  "contracts": 12065
+ },
+ {
+  "snapshot": "kalshi_cbb_20261025T220504Z",
+  "captured_at": "2026-10-25T22:05:04+00:00",
+  "contracts": 12209
+ },
+ {
+  "snapshot": "kalshi_cbb_20261026T045534Z",
+  "captured_at": "2026-10-26T04:55:34+00:00",
+  "contracts": 12209
+ },
+ {
+  "snapshot": "kalshi_cbb_20261026T131331Z",
+  "captured_at": "2026-10-26T13:13:31+00:00",
+  "contracts": 12209
+ },
+ {
+  "snapshot": "kalshi_cbb_20261026T230654Z",
+  "captured_at": "2026-10-26T23:06:54+00:00",
+  "contracts": 12249
+ },
+ {
+  "snapshot": "kalshi_cbb_20261027T061120Z",
+  "captured_at": "2026-10-27T06:11:20+00:00",
+  "contracts": 12871
+ },
+ {
+  "snapshot": "kalshi_cbb_20261027T122024Z",
+  "captured_at": "2026-10-27T12:20:24+00:00",
+  "contracts": 12871
+ },
+ {
+  "snapshot": "kalshi_cbb_20261027T181123Z",
+  "captured_at": "2026-10-27T18:11:23+00:00",
+  "contracts": 12871
+ },
+ {
+  "snapshot": "kalshi_cbb_20261027T232537Z",
+  "captured_at": "2026-10-27T23:25:37+00:00",
+  "contracts": 12959
+ },
+ {
+  "snapshot": "kalshi_cbb_20261028T055155Z",
+  "captured_at": "2026-10-28T05:51:55+00:00",
+  "contracts": 13285
+ },
+ {
+  "snapshot": "kalshi_cbb_20261028T131231Z",
+  "captured_at": "2026-10-28T13:12:31+00:00",
+  "contracts": 13285
+ },
+ {
+  "snapshot": "kalshi_cbb_20261028T231921Z",
+  "captured_at": "2026-10-28T23:19:21+00:00",
+  "contracts": 13413
+ },
+ {
+  "snapshot": "kalshi_cbb_20261029T060505Z",
+  "captured_at": "2026-10-29T06:05:05+00:00",
+  "contracts": 13413
+ },
+ {
+  "snapshot": "kalshi_cbb_20261029T131642Z",
+  "captured_at": "2026-10-29T13:16:42+00:00",
+  "contracts": 13413
+ },
+ {
+  "snapshot": "kalshi_cbb_20261029T225629Z",
+  "captured_at": "2026-10-29T22:56:29+00:00",
+  "contracts": 13557
+ },
+ {
+  "snapshot": "kalshi_cbb_20261030T055557Z",
+  "captured_at": "2026-10-30T05:55:57+00:00",
+  "contracts": 13563
+ },
+ {
+  "snapshot": "kalshi_cbb_20261030T130531Z",
+  "captured_at": "2026-10-30T13:05:31+00:00",
+  "contracts": 13772
+ },
+ {
+  "snapshot": "kalshi_cbb_20261030T222618Z",
+  "captured_at": "2026-10-30T22:26:18+00:00",
+  "contracts": 13860
+ },
+ {
+  "snapshot": "kalshi_cbb_20261031T063306Z",
+  "captured_at": "2026-10-31T06:33:06+00:00",
+  "contracts": 13912
+ },
+ {
+  "snapshot": "kalshi_cbb_20261031T125406Z",
+  "captured_at": "2026-10-31T12:54:06+00:00",
+  "contracts": 13912
+ },
+ {
+  "snapshot": "kalshi_cbb_20261031T215528Z",
+  "captured_at": "2026-10-31T21:55:28+00:00",
+  "contracts": 13952
+ },
+ {
+  "snapshot": "kalshi_cbb_20261101T025649Z",
+  "captured_at": "2026-11-01T02:56:49+00:00",
+  "contracts": 14262
+ },
+ {
+  "snapshot": "kalshi_cbb_20261101T095558Z",
+  "captured_at": "2026-11-01T09:55:58+00:00",
+  "contracts": 15913
+ },
+ {
+  "snapshot": "kalshi_cbb_20261101T165202Z",
+  "captured_at": "2026-11-01T16:52:02+00:00",
+  "contracts": 16158
+ },
+ {
+  "snapshot": "kalshi_cbb_20261101T204534Z",
+  "captured_at": "2026-11-01T20:45:34+00:00",
+  "contracts": 17235
+ },
+ {
+  "snapshot": "kalshi_cbb_20261102T001846Z",
+  "captured_at": "2026-11-02T00:18:46+00:00",
+  "contracts": 17980
+ },
+ {
+  "snapshot": "kalshi_cbb_20261102T050412Z",
+  "captured_at": "2026-11-02T05:04:12+00:00",
+  "contracts": 18567
+ },
+ {
+  "snapshot": "kalshi_cbb_20261102T125726Z",
+  "captured_at": "2026-11-02T12:57:26+00:00",
+  "contracts": 18649
+ },
+ {
+  "snapshot": "kalshi_cbb_20261102T224205Z",
+  "captured_at": "2026-11-02T22:42:05+00:00",
+  "contracts": 18788
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T003601Z",
+  "captured_at": "2026-11-03T00:36:01+00:00",
+  "contracts": 18874
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T015136Z",
+  "captured_at": "2026-11-03T01:51:36+00:00",
+  "contracts": 18925
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T035813Z",
+  "captured_at": "2026-11-03T03:58:13+00:00",
+  "contracts": 19463
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T115113Z",
+  "captured_at": "2026-11-03T11:51:13+00:00",
+  "contracts": 19559
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T190812Z",
+  "captured_at": "2026-11-03T19:08:12+00:00",
+  "contracts": 19579
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T231607Z",
+  "captured_at": "2026-11-03T23:16:07+00:00",
+  "contracts": 19751
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T232255Z",
+  "captured_at": "2026-11-03T23:22:55+00:00",
+  "contracts": 19757
+ },
+ {
+  "snapshot": "kalshi_cbb_20261103T234715Z",
+  "captured_at": "2026-11-03T23:47:15+00:00",
+  "contracts": 19758
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T001241Z",
+  "captured_at": "2026-11-04T00:12:41+00:00",
+  "contracts": 19834
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T023201Z",
+  "captured_at": "2026-11-04T02:32:01+00:00",
+  "contracts": 20117
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T024822Z",
+  "captured_at": "2026-11-04T02:48:22+00:00",
+  "contracts": 20121
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T030548Z",
+  "captured_at": "2026-11-04T03:05:48+00:00",
+  "contracts": 20121
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T032158Z",
+  "captured_at": "2026-11-04T03:21:58+00:00",
+  "contracts": 20123
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T033619Z",
+  "captured_at": "2026-11-04T03:36:19+00:00",
+  "contracts": 20126
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T035036Z",
+  "captured_at": "2026-11-04T03:50:36+00:00",
+  "contracts": 20126
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T040500Z",
+  "captured_at": "2026-11-04T04:05:00+00:00",
+  "contracts": 20132
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T041926Z",
+  "captured_at": "2026-11-04T04:19:26+00:00",
+  "contracts": 20135
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T043938Z",
+  "captured_at": "2026-11-04T04:39:38+00:00",
+  "contracts": 20140
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T051957Z",
+  "captured_at": "2026-11-04T05:19:57+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T060812Z",
+  "captured_at": "2026-11-04T06:08:12+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T062921Z",
+  "captured_at": "2026-11-04T06:29:21+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T064420Z",
+  "captured_at": "2026-11-04T06:44:20+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T070103Z",
+  "captured_at": "2026-11-04T07:01:03+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T072027Z",
+  "captured_at": "2026-11-04T07:20:27+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T073629Z",
+  "captured_at": "2026-11-04T07:36:29+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T075051Z",
+  "captured_at": "2026-11-04T07:50:51+00:00",
+  "contracts": 20177
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T080516Z",
+  "captured_at": "2026-11-04T08:05:16+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T081940Z",
+  "captured_at": "2026-11-04T08:19:40+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T083400Z",
+  "captured_at": "2026-11-04T08:34:00+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T084824Z",
+  "captured_at": "2026-11-04T08:48:24+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T090248Z",
+  "captured_at": "2026-11-04T09:02:48+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T091751Z",
+  "captured_at": "2026-11-04T09:17:51+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T093223Z",
+  "captured_at": "2026-11-04T09:32:23+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T094653Z",
+  "captured_at": "2026-11-04T09:46:53+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T100133Z",
+  "captured_at": "2026-11-04T10:01:33+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T101948Z",
+  "captured_at": "2026-11-04T10:19:48+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T103432Z",
+  "captured_at": "2026-11-04T10:34:32+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T104923Z",
+  "captured_at": "2026-11-04T10:49:23+00:00",
+  "contracts": 20179
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T110402Z",
+  "captured_at": "2026-11-04T11:04:02+00:00",
+  "contracts": 20180
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T124621Z",
+  "captured_at": "2026-11-04T12:46:21+00:00",
+  "contracts": 20180
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T130058Z",
+  "captured_at": "2026-11-04T13:00:58+00:00",
+  "contracts": 20180
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T131640Z",
+  "captured_at": "2026-11-04T13:16:40+00:00",
+  "contracts": 20180
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T133332Z",
+  "captured_at": "2026-11-04T13:33:32+00:00",
+  "contracts": 20180
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T134759Z",
+  "captured_at": "2026-11-04T13:47:59+00:00",
+  "contracts": 20180
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T140230Z",
+  "captured_at": "2026-11-04T14:02:30+00:00",
+  "contracts": 20181
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T141740Z",
+  "captured_at": "2026-11-04T14:17:40+00:00",
+  "contracts": 20191
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T143209Z",
+  "captured_at": "2026-11-04T14:32:09+00:00",
+  "contracts": 20191
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T144829Z",
+  "captured_at": "2026-11-04T14:48:29+00:00",
+  "contracts": 20191
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T150536Z",
+  "captured_at": "2026-11-04T15:05:36+00:00",
+  "contracts": 20191
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T152217Z",
+  "captured_at": "2026-11-04T15:22:17+00:00",
+  "contracts": 20191
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T154154Z",
+  "captured_at": "2026-11-04T15:41:54+00:00",
+  "contracts": 20191
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T155718Z",
+  "captured_at": "2026-11-04T15:57:18+00:00",
+  "contracts": 20191
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T161154Z",
+  "captured_at": "2026-11-04T16:11:54+00:00",
+  "contracts": 20162
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T162626Z",
+  "captured_at": "2026-11-04T16:26:26+00:00",
+  "contracts": 20162
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T164518Z",
+  "captured_at": "2026-11-04T16:45:18+00:00",
+  "contracts": 20162
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T170109Z",
+  "captured_at": "2026-11-04T17:01:09+00:00",
+  "contracts": 20162
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T171611Z",
+  "captured_at": "2026-11-04T17:16:11+00:00",
+  "contracts": 20169
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T173049Z",
+  "captured_at": "2026-11-04T17:30:49+00:00",
+  "contracts": 20150
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T174531Z",
+  "captured_at": "2026-11-04T17:45:31+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T180016Z",
+  "captured_at": "2026-11-04T18:00:16+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T182134Z",
+  "captured_at": "2026-11-04T18:21:34+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T183837Z",
+  "captured_at": "2026-11-04T18:38:37+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T185755Z",
+  "captured_at": "2026-11-04T18:57:55+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T191334Z",
+  "captured_at": "2026-11-04T19:13:34+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T192804Z",
+  "captured_at": "2026-11-04T19:28:04+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T195318Z",
+  "captured_at": "2026-11-04T19:53:18+00:00",
+  "contracts": 20103
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T203740Z",
+  "captured_at": "2026-11-04T20:37:40+00:00",
+  "contracts": 20138
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T211046Z",
+  "captured_at": "2026-11-04T21:10:46+00:00",
+  "contracts": 20138
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T214903Z",
+  "captured_at": "2026-11-04T21:49:03+00:00",
+  "contracts": 20141
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T224026Z",
+  "captured_at": "2026-11-04T22:40:26+00:00",
+  "contracts": 20147
+ },
+ {
+  "snapshot": "kalshi_cbb_20261104T233144Z",
+  "captured_at": "2026-11-04T23:31:44+00:00",
+  "contracts": 20583
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T004631Z",
+  "captured_at": "2026-11-05T00:46:31+00:00",
+  "contracts": 20631
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T015838Z",
+  "captured_at": "2026-11-05T01:58:38+00:00",
+  "contracts": 20679
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T030537Z",
+  "captured_at": "2026-11-05T03:05:37+00:00",
+  "contracts": 21353
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T032219Z",
+  "captured_at": "2026-11-05T03:22:19+00:00",
+  "contracts": 21359
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T035209Z",
+  "captured_at": "2026-11-05T03:52:09+00:00",
+  "contracts": 21363
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T044219Z",
+  "captured_at": "2026-11-05T04:42:19+00:00",
+  "contracts": 21373
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T051353Z",
+  "captured_at": "2026-11-05T05:13:53+00:00",
+  "contracts": 21390
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T054339Z",
+  "captured_at": "2026-11-05T05:43:39+00:00",
+  "contracts": 21390
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T062846Z",
+  "captured_at": "2026-11-05T06:28:46+00:00",
+  "contracts": 21390
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T075142Z",
+  "captured_at": "2026-11-05T07:51:42+00:00",
+  "contracts": 21342
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T082705Z",
+  "captured_at": "2026-11-05T08:27:05+00:00",
+  "contracts": 21342
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T085759Z",
+  "captured_at": "2026-11-05T08:57:59+00:00",
+  "contracts": 21342
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T095413Z",
+  "captured_at": "2026-11-05T09:54:13+00:00",
+  "contracts": 21342
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T110846Z",
+  "captured_at": "2026-11-05T11:08:46+00:00",
+  "contracts": 21332
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T114245Z",
+  "captured_at": "2026-11-05T11:42:45+00:00",
+  "contracts": 21391
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T123552Z",
+  "captured_at": "2026-11-05T12:35:52+00:00",
+  "contracts": 21391
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T135519Z",
+  "captured_at": "2026-11-05T13:55:19+00:00",
+  "contracts": 21337
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T145337Z",
+  "captured_at": "2026-11-05T14:53:37+00:00",
+  "contracts": 21361
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T154002Z",
+  "captured_at": "2026-11-05T15:40:02+00:00",
+  "contracts": 21361
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T160712Z",
+  "captured_at": "2026-11-05T16:07:12+00:00",
+  "contracts": 21361
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T162756Z",
+  "captured_at": "2026-11-05T16:27:56+00:00",
+  "contracts": 21361
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T164618Z",
+  "captured_at": "2026-11-05T16:46:18+00:00",
+  "contracts": 21308
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T170757Z",
+  "captured_at": "2026-11-05T17:07:57+00:00",
+  "contracts": 21325
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T182547Z",
+  "captured_at": "2026-11-05T18:25:47+00:00",
+  "contracts": 21378
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T191937Z",
+  "captured_at": "2026-11-05T19:19:37+00:00",
+  "contracts": 21327
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T194319Z",
+  "captured_at": "2026-11-05T19:43:19+00:00",
+  "contracts": 21327
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T200350Z",
+  "captured_at": "2026-11-05T20:03:50+00:00",
+  "contracts": 21331
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T205217Z",
+  "captured_at": "2026-11-05T20:52:17+00:00",
+  "contracts": 21685
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T211336Z",
+  "captured_at": "2026-11-05T21:13:36+00:00",
+  "contracts": 21685
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T221015Z",
+  "captured_at": "2026-11-05T22:10:15+00:00",
+  "contracts": 21643
+ },
+ {
+  "snapshot": "kalshi_cbb_20261105T233619Z",
+  "captured_at": "2026-11-05T23:36:19+00:00",
+  "contracts": 21822
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T022811Z",
+  "captured_at": "2026-11-06T02:28:11+00:00",
+  "contracts": 20657
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T024249Z",
+  "captured_at": "2026-11-06T02:42:49+00:00",
+  "contracts": 20391
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T035534Z",
+  "captured_at": "2026-11-06T03:55:34+00:00",
+  "contracts": 19252
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T044854Z",
+  "captured_at": "2026-11-06T04:48:54+00:00",
+  "contracts": 18525
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T051029Z",
+  "captured_at": "2026-11-06T05:10:29+00:00",
+  "contracts": 18300
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T060859Z",
+  "captured_at": "2026-11-06T06:08:59+00:00",
+  "contracts": 17991
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T062520Z",
+  "captured_at": "2026-11-06T06:25:20+00:00",
+  "contracts": 17991
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T064412Z",
+  "captured_at": "2026-11-06T06:44:12+00:00",
+  "contracts": 17988
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T081030Z",
+  "captured_at": "2026-11-06T08:10:30+00:00",
+  "contracts": 17975
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T083709Z",
+  "captured_at": "2026-11-06T08:37:09+00:00",
+  "contracts": 17978
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T095128Z",
+  "captured_at": "2026-11-06T09:51:28+00:00",
+  "contracts": 17978
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T100828Z",
+  "captured_at": "2026-11-06T10:08:28+00:00",
+  "contracts": 17978
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T102531Z",
+  "captured_at": "2026-11-06T10:25:31+00:00",
+  "contracts": 17978
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T105621Z",
+  "captured_at": "2026-11-06T10:56:21+00:00",
+  "contracts": 17978
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T111527Z",
+  "captured_at": "2026-11-06T11:15:27+00:00",
+  "contracts": 18013
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T113105Z",
+  "captured_at": "2026-11-06T11:31:05+00:00",
+  "contracts": 18013
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T115638Z",
+  "captured_at": "2026-11-06T11:56:38+00:00",
+  "contracts": 18013
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T121719Z",
+  "captured_at": "2026-11-06T12:17:19+00:00",
+  "contracts": 18013
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T125355Z",
+  "captured_at": "2026-11-06T12:53:55+00:00",
+  "contracts": 18013
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T132335Z",
+  "captured_at": "2026-11-06T13:23:35+00:00",
+  "contracts": 18013
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T141412Z",
+  "captured_at": "2026-11-06T14:14:12+00:00",
+  "contracts": 18032
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T143707Z",
+  "captured_at": "2026-11-06T14:37:07+00:00",
+  "contracts": 18032
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T145253Z",
+  "captured_at": "2026-11-06T14:52:53+00:00",
+  "contracts": 18032
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T153442Z",
+  "captured_at": "2026-11-06T15:34:42+00:00",
+  "contracts": 18032
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T160620Z",
+  "captured_at": "2026-11-06T16:06:20+00:00",
+  "contracts": 18032
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T162537Z",
+  "captured_at": "2026-11-06T16:25:37+00:00",
+  "contracts": 18032
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T173042Z",
+  "captured_at": "2026-11-06T17:30:42+00:00",
+  "contracts": 18121
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T175706Z",
+  "captured_at": "2026-11-06T17:57:06+00:00",
+  "contracts": 18121
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T181837Z",
+  "captured_at": "2026-11-06T18:18:37+00:00",
+  "contracts": 18131
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T183640Z",
+  "captured_at": "2026-11-06T18:36:40+00:00",
+  "contracts": 18131
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T193859Z",
+  "captured_at": "2026-11-06T19:38:59+00:00",
+  "contracts": 18134
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T204520Z",
+  "captured_at": "2026-11-06T20:45:20+00:00",
+  "contracts": 18456
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T214648Z",
+  "captured_at": "2026-11-06T21:46:48+00:00",
+  "contracts": 18482
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T223327Z",
+  "captured_at": "2026-11-06T22:33:27+00:00",
+  "contracts": 18498
+ },
+ {
+  "snapshot": "kalshi_cbb_20261106T232929Z",
+  "captured_at": "2026-11-06T23:29:29+00:00",
+  "contracts": 19424
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T000710Z",
+  "captured_at": "2026-11-07T00:07:10+00:00",
+  "contracts": 19435
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T002235Z",
+  "captured_at": "2026-11-07T00:22:35+00:00",
+  "contracts": 19465
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T021601Z",
+  "captured_at": "2026-11-07T02:16:01+00:00",
+  "contracts": 19502
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T033111Z",
+  "captured_at": "2026-11-07T03:31:11+00:00",
+  "contracts": 19589
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T035537Z",
+  "captured_at": "2026-11-07T03:55:37+00:00",
+  "contracts": 19582
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T041449Z",
+  "captured_at": "2026-11-07T04:14:49+00:00",
+  "contracts": 19585
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T043006Z",
+  "captured_at": "2026-11-07T04:30:06+00:00",
+  "contracts": 19589
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T044542Z",
+  "captured_at": "2026-11-07T04:45:42+00:00",
+  "contracts": 19585
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T050144Z",
+  "captured_at": "2026-11-07T05:01:44+00:00",
+  "contracts": 19587
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T051612Z",
+  "captured_at": "2026-11-07T05:16:12+00:00",
+  "contracts": 19642
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T053553Z",
+  "captured_at": "2026-11-07T05:35:53+00:00",
+  "contracts": 19622
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T060203Z",
+  "captured_at": "2026-11-07T06:02:03+00:00",
+  "contracts": 19622
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T074450Z",
+  "captured_at": "2026-11-07T07:44:50+00:00",
+  "contracts": 19622
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T081343Z",
+  "captured_at": "2026-11-07T08:13:43+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T083227Z",
+  "captured_at": "2026-11-07T08:32:27+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T085330Z",
+  "captured_at": "2026-11-07T08:53:30+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T092015Z",
+  "captured_at": "2026-11-07T09:20:15+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T094059Z",
+  "captured_at": "2026-11-07T09:40:59+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T095542Z",
+  "captured_at": "2026-11-07T09:55:42+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T101451Z",
+  "captured_at": "2026-11-07T10:14:51+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T103201Z",
+  "captured_at": "2026-11-07T10:32:01+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T105339Z",
+  "captured_at": "2026-11-07T10:53:39+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T112152Z",
+  "captured_at": "2026-11-07T11:21:52+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T114442Z",
+  "captured_at": "2026-11-07T11:44:42+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T122952Z",
+  "captured_at": "2026-11-07T12:29:52+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T125613Z",
+  "captured_at": "2026-11-07T12:56:13+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T132846Z",
+  "captured_at": "2026-11-07T13:28:46+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T135815Z",
+  "captured_at": "2026-11-07T13:58:15+00:00",
+  "contracts": 19633
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T142336Z",
+  "captured_at": "2026-11-07T14:23:36+00:00",
+  "contracts": 19662
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T152649Z",
+  "captured_at": "2026-11-07T15:26:49+00:00",
+  "contracts": 19662
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T155107Z",
+  "captured_at": "2026-11-07T15:51:07+00:00",
+  "contracts": 19662
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T160918Z",
+  "captured_at": "2026-11-07T16:09:18+00:00",
+  "contracts": 19662
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T171230Z",
+  "captured_at": "2026-11-07T17:12:30+00:00",
+  "contracts": 19733
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T172847Z",
+  "captured_at": "2026-11-07T17:28:47+00:00",
+  "contracts": 19756
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T183008Z",
+  "captured_at": "2026-11-07T18:30:08+00:00",
+  "contracts": 19841
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T195844Z",
+  "captured_at": "2026-11-07T19:58:44+00:00",
+  "contracts": 19848
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T205037Z",
+  "captured_at": "2026-11-07T20:50:37+00:00",
+  "contracts": 20116
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T212209Z",
+  "captured_at": "2026-11-07T21:22:09+00:00",
+  "contracts": 20121
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T213830Z",
+  "captured_at": "2026-11-07T21:38:30+00:00",
+  "contracts": 20128
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T232354Z",
+  "captured_at": "2026-11-07T23:23:54+00:00",
+  "contracts": 20457
+ },
+ {
+  "snapshot": "kalshi_cbb_20261107T235846Z",
+  "captured_at": "2026-11-07T23:58:46+00:00",
+  "contracts": 20467
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T012100Z",
+  "captured_at": "2026-11-08T01:21:00+00:00",
+  "contracts": 20557
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T030734Z",
+  "captured_at": "2026-11-08T03:07:34+00:00",
+  "contracts": 20569
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T033028Z",
+  "captured_at": "2026-11-08T03:30:28+00:00",
+  "contracts": 20539
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T041823Z",
+  "captured_at": "2026-11-08T04:18:23+00:00",
+  "contracts": 20511
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T043604Z",
+  "captured_at": "2026-11-08T04:36:04+00:00",
+  "contracts": 20513
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T045051Z",
+  "captured_at": "2026-11-08T04:50:51+00:00",
+  "contracts": 20481
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T051254Z",
+  "captured_at": "2026-11-08T05:12:54+00:00",
+  "contracts": 20427
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T053115Z",
+  "captured_at": "2026-11-08T05:31:15+00:00",
+  "contracts": 20430
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T054945Z",
+  "captured_at": "2026-11-08T05:49:45+00:00",
+  "contracts": 20430
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T061016Z",
+  "captured_at": "2026-11-08T06:10:16+00:00",
+  "contracts": 20430
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T070519Z",
+  "captured_at": "2026-11-08T07:05:19+00:00",
+  "contracts": 20430
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T080255Z",
+  "captured_at": "2026-11-08T08:02:55+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T082406Z",
+  "captured_at": "2026-11-08T08:24:06+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T083845Z",
+  "captured_at": "2026-11-08T08:38:45+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T085946Z",
+  "captured_at": "2026-11-08T08:59:46+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T092345Z",
+  "captured_at": "2026-11-08T09:23:45+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T093847Z",
+  "captured_at": "2026-11-08T09:38:47+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T095415Z",
+  "captured_at": "2026-11-08T09:54:15+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T100907Z",
+  "captured_at": "2026-11-08T10:09:07+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T102908Z",
+  "captured_at": "2026-11-08T10:29:08+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T105416Z",
+  "captured_at": "2026-11-08T10:54:16+00:00",
+  "contracts": 20431
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T115500Z",
+  "captured_at": "2026-11-08T11:55:00+00:00",
+  "contracts": 20432
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T124346Z",
+  "captured_at": "2026-11-08T12:43:46+00:00",
+  "contracts": 20432
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T131841Z",
+  "captured_at": "2026-11-08T13:18:41+00:00",
+  "contracts": 20432
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T135008Z",
+  "captured_at": "2026-11-08T13:50:08+00:00",
+  "contracts": 20432
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T144150Z",
+  "captured_at": "2026-11-08T14:41:50+00:00",
+  "contracts": 20587
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T153329Z",
+  "captured_at": "2026-11-08T15:33:29+00:00",
+  "contracts": 20587
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T160411Z",
+  "captured_at": "2026-11-08T16:04:11+00:00",
+  "contracts": 20587
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T173454Z",
+  "captured_at": "2026-11-08T17:34:54+00:00",
+  "contracts": 20600
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T180004Z",
+  "captured_at": "2026-11-08T18:00:04+00:00",
+  "contracts": 20600
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T190537Z",
+  "captured_at": "2026-11-08T19:05:37+00:00",
+  "contracts": 20610
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T193547Z",
+  "captured_at": "2026-11-08T19:35:47+00:00",
+  "contracts": 20624
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T203253Z",
+  "captured_at": "2026-11-08T20:32:53+00:00",
+  "contracts": 20675
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T223742Z",
+  "captured_at": "2026-11-08T22:37:42+00:00",
+  "contracts": 20696
+ },
+ {
+  "snapshot": "kalshi_cbb_20261108T235330Z",
+  "captured_at": "2026-11-08T23:53:30+00:00",
+  "contracts": 21021
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T005141Z",
+  "captured_at": "2026-11-09T00:51:41+00:00",
+  "contracts": 21068
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T013642Z",
+  "captured_at": "2026-11-09T01:36:42+00:00",
+  "contracts": 20908
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T022230Z",
+  "captured_at": "2026-11-09T02:22:30+00:00",
+  "contracts": 21171
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T025550Z",
+  "captured_at": "2026-11-09T02:55:50+00:00",
+  "contracts": 20811
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T033059Z",
+  "captured_at": "2026-11-09T03:30:59+00:00",
+  "contracts": 20498
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T041157Z",
+  "captured_at": "2026-11-09T04:11:57+00:00",
+  "contracts": 20469
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T045038Z",
+  "captured_at": "2026-11-09T04:50:38+00:00",
+  "contracts": 20405
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T053034Z",
+  "captured_at": "2026-11-09T05:30:34+00:00",
+  "contracts": 20455
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T055101Z",
+  "captured_at": "2026-11-09T05:51:01+00:00",
+  "contracts": 20423
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T062921Z",
+  "captured_at": "2026-11-09T06:29:21+00:00",
+  "contracts": 20424
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T072140Z",
+  "captured_at": "2026-11-09T07:21:40+00:00",
+  "contracts": 20424
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T075046Z",
+  "captured_at": "2026-11-09T07:50:46+00:00",
+  "contracts": 20424
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T082140Z",
+  "captured_at": "2026-11-09T08:21:40+00:00",
+  "contracts": 20437
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T085426Z",
+  "captured_at": "2026-11-09T08:54:26+00:00",
+  "contracts": 20437
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T092607Z",
+  "captured_at": "2026-11-09T09:26:07+00:00",
+  "contracts": 20437
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T094648Z",
+  "captured_at": "2026-11-09T09:46:48+00:00",
+  "contracts": 20437
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T100244Z",
+  "captured_at": "2026-11-09T10:02:44+00:00",
+  "contracts": 20437
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T104002Z",
+  "captured_at": "2026-11-09T10:40:02+00:00",
+  "contracts": 20437
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T111811Z",
+  "captured_at": "2026-11-09T11:18:11+00:00",
+  "contracts": 20448
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T115147Z",
+  "captured_at": "2026-11-09T11:51:47+00:00",
+  "contracts": 20448
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T120912Z",
+  "captured_at": "2026-11-09T12:09:12+00:00",
+  "contracts": 20448
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T122822Z",
+  "captured_at": "2026-11-09T12:28:22+00:00",
+  "contracts": 20448
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T125748Z",
+  "captured_at": "2026-11-09T12:57:48+00:00",
+  "contracts": 20448
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T133155Z",
+  "captured_at": "2026-11-09T13:31:55+00:00",
+  "contracts": 20448
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T135539Z",
+  "captured_at": "2026-11-09T13:55:39+00:00",
+  "contracts": 20448
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T142423Z",
+  "captured_at": "2026-11-09T14:24:23+00:00",
+  "contracts": 20462
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T144950Z",
+  "captured_at": "2026-11-09T14:49:50+00:00",
+  "contracts": 20462
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T151648Z",
+  "captured_at": "2026-11-09T15:16:48+00:00",
+  "contracts": 20462
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T153714Z",
+  "captured_at": "2026-11-09T15:37:14+00:00",
+  "contracts": 20462
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T160412Z",
+  "captured_at": "2026-11-09T16:04:12+00:00",
+  "contracts": 20462
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T162226Z",
+  "captured_at": "2026-11-09T16:22:26+00:00",
+  "contracts": 20462
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T164914Z",
+  "captured_at": "2026-11-09T16:49:14+00:00",
+  "contracts": 20462
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T170722Z",
+  "captured_at": "2026-11-09T17:07:22+00:00",
+  "contracts": 20475
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T173655Z",
+  "captured_at": "2026-11-09T17:36:55+00:00",
+  "contracts": 20475
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T180312Z",
+  "captured_at": "2026-11-09T18:03:12+00:00",
+  "contracts": 20475
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T193032Z",
+  "captured_at": "2026-11-09T19:30:32+00:00",
+  "contracts": 20476
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T194644Z",
+  "captured_at": "2026-11-09T19:46:44+00:00",
+  "contracts": 20477
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T203142Z",
+  "captured_at": "2026-11-09T20:31:42+00:00",
+  "contracts": 20590
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T204711Z",
+  "captured_at": "2026-11-09T20:47:11+00:00",
+  "contracts": 20590
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T210249Z",
+  "captured_at": "2026-11-09T21:02:49+00:00",
+  "contracts": 20590
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T214901Z",
+  "captured_at": "2026-11-09T21:49:01+00:00",
+  "contracts": 20591
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T223624Z",
+  "captured_at": "2026-11-09T22:36:24+00:00",
+  "contracts": 20626
+ },
+ {
+  "snapshot": "kalshi_cbb_20261109T225132Z",
+  "captured_at": "2026-11-09T22:51:32+00:00",
+  "contracts": 20626
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T002907Z",
+  "captured_at": "2026-11-10T00:29:07+00:00",
+  "contracts": 21656
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T004428Z",
+  "captured_at": "2026-11-10T00:44:28+00:00",
+  "contracts": 21632
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T014812Z",
+  "captured_at": "2026-11-10T01:48:12+00:00",
+  "contracts": 21639
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T020539Z",
+  "captured_at": "2026-11-10T02:05:39+00:00",
+  "contracts": 21564
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T022032Z",
+  "captured_at": "2026-11-10T02:20:32+00:00",
+  "contracts": 21769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T023618Z",
+  "captured_at": "2026-11-10T02:36:18+00:00",
+  "contracts": 21629
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T025245Z",
+  "captured_at": "2026-11-10T02:52:45+00:00",
+  "contracts": 21529
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T031147Z",
+  "captured_at": "2026-11-10T03:11:47+00:00",
+  "contracts": 21323
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T032650Z",
+  "captured_at": "2026-11-10T03:26:50+00:00",
+  "contracts": 21324
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T034333Z",
+  "captured_at": "2026-11-10T03:43:33+00:00",
+  "contracts": 21095
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T040051Z",
+  "captured_at": "2026-11-10T04:00:51+00:00",
+  "contracts": 20973
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T041638Z",
+  "captured_at": "2026-11-10T04:16:38+00:00",
+  "contracts": 20875
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T043143Z",
+  "captured_at": "2026-11-10T04:31:43+00:00",
+  "contracts": 20797
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T045809Z",
+  "captured_at": "2026-11-10T04:58:09+00:00",
+  "contracts": 20764
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T052232Z",
+  "captured_at": "2026-11-10T05:22:32+00:00",
+  "contracts": 20770
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T054525Z",
+  "captured_at": "2026-11-10T05:45:25+00:00",
+  "contracts": 20749
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T060844Z",
+  "captured_at": "2026-11-10T06:08:44+00:00",
+  "contracts": 20747
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T062604Z",
+  "captured_at": "2026-11-10T06:26:04+00:00",
+  "contracts": 20748
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T064112Z",
+  "captured_at": "2026-11-10T06:41:12+00:00",
+  "contracts": 20750
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T070540Z",
+  "captured_at": "2026-11-10T07:05:40+00:00",
+  "contracts": 20751
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T072827Z",
+  "captured_at": "2026-11-10T07:28:27+00:00",
+  "contracts": 20751
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T081411Z",
+  "captured_at": "2026-11-10T08:14:11+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T084355Z",
+  "captured_at": "2026-11-10T08:43:55+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T091117Z",
+  "captured_at": "2026-11-10T09:11:17+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T092938Z",
+  "captured_at": "2026-11-10T09:29:38+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T094523Z",
+  "captured_at": "2026-11-10T09:45:23+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T100021Z",
+  "captured_at": "2026-11-10T10:00:21+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T101628Z",
+  "captured_at": "2026-11-10T10:16:28+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T103802Z",
+  "captured_at": "2026-11-10T10:38:02+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T105406Z",
+  "captured_at": "2026-11-10T10:54:06+00:00",
+  "contracts": 20769
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T111320Z",
+  "captured_at": "2026-11-10T11:13:20+00:00",
+  "contracts": 20774
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T112938Z",
+  "captured_at": "2026-11-10T11:29:38+00:00",
+  "contracts": 20774
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T114445Z",
+  "captured_at": "2026-11-10T11:44:45+00:00",
+  "contracts": 20774
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T120104Z",
+  "captured_at": "2026-11-10T12:01:04+00:00",
+  "contracts": 20774
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T121625Z",
+  "captured_at": "2026-11-10T12:16:25+00:00",
+  "contracts": 20774
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T124917Z",
+  "captured_at": "2026-11-10T12:49:17+00:00",
+  "contracts": 20774
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T133810Z",
+  "captured_at": "2026-11-10T13:38:10+00:00",
+  "contracts": 20774
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T141712Z",
+  "captured_at": "2026-11-10T14:17:12+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T144612Z",
+  "captured_at": "2026-11-10T14:46:12+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T150529Z",
+  "captured_at": "2026-11-10T15:05:29+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T152143Z",
+  "captured_at": "2026-11-10T15:21:43+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T153819Z",
+  "captured_at": "2026-11-10T15:38:19+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T155527Z",
+  "captured_at": "2026-11-10T15:55:27+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T162418Z",
+  "captured_at": "2026-11-10T16:24:18+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T164440Z",
+  "captured_at": "2026-11-10T16:44:40+00:00",
+  "contracts": 20804
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T170448Z",
+  "captured_at": "2026-11-10T17:04:48+00:00",
+  "contracts": 20815
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T172652Z",
+  "captured_at": "2026-11-10T17:26:52+00:00",
+  "contracts": 20882
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T180248Z",
+  "captured_at": "2026-11-10T18:02:48+00:00",
+  "contracts": 20882
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T183036Z",
+  "captured_at": "2026-11-10T18:30:36+00:00",
+  "contracts": 20879
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T185215Z",
+  "captured_at": "2026-11-10T18:52:15+00:00",
+  "contracts": 20879
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T193021Z",
+  "captured_at": "2026-11-10T19:30:21+00:00",
+  "contracts": 20820
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T194839Z",
+  "captured_at": "2026-11-10T19:48:39+00:00",
+  "contracts": 20807
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T202222Z",
+  "captured_at": "2026-11-10T20:22:22+00:00",
+  "contracts": 20891
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T215616Z",
+  "captured_at": "2026-11-10T21:56:16+00:00",
+  "contracts": 20699
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T230132Z",
+  "captured_at": "2026-11-10T23:01:32+00:00",
+  "contracts": 20451
+ },
+ {
+  "snapshot": "kalshi_cbb_20261110T232448Z",
+  "captured_at": "2026-11-10T23:24:48+00:00",
+  "contracts": 21023
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T001903Z",
+  "captured_at": "2026-11-11T00:19:03+00:00",
+  "contracts": 20829
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T003442Z",
+  "captured_at": "2026-11-11T00:34:42+00:00",
+  "contracts": 20849
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T013141Z",
+  "captured_at": "2026-11-11T01:31:41+00:00",
+  "contracts": 20760
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T020536Z",
+  "captured_at": "2026-11-11T02:05:36+00:00",
+  "contracts": 20698
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T022049Z",
+  "captured_at": "2026-11-11T02:20:49+00:00",
+  "contracts": 21097
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T030307Z",
+  "captured_at": "2026-11-11T03:03:07+00:00",
+  "contracts": 20958
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T032321Z",
+  "captured_at": "2026-11-11T03:23:21+00:00",
+  "contracts": 20873
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T035331Z",
+  "captured_at": "2026-11-11T03:53:31+00:00",
+  "contracts": 20819
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T041231Z",
+  "captured_at": "2026-11-11T04:12:31+00:00",
+  "contracts": 20792
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T042745Z",
+  "captured_at": "2026-11-11T04:27:45+00:00",
+  "contracts": 20848
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T044301Z",
+  "captured_at": "2026-11-11T04:43:01+00:00",
+  "contracts": 20852
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T045928Z",
+  "captured_at": "2026-11-11T04:59:28+00:00",
+  "contracts": 20822
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T051520Z",
+  "captured_at": "2026-11-11T05:15:20+00:00",
+  "contracts": 20798
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T053033Z",
+  "captured_at": "2026-11-11T05:30:33+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T054535Z",
+  "captured_at": "2026-11-11T05:45:35+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T060041Z",
+  "captured_at": "2026-11-11T06:00:41+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T061558Z",
+  "captured_at": "2026-11-11T06:15:58+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T063121Z",
+  "captured_at": "2026-11-11T06:31:21+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T064722Z",
+  "captured_at": "2026-11-11T06:47:22+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T072415Z",
+  "captured_at": "2026-11-11T07:24:15+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T073908Z",
+  "captured_at": "2026-11-11T07:39:08+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T075508Z",
+  "captured_at": "2026-11-11T07:55:08+00:00",
+  "contracts": 20884
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T081829Z",
+  "captured_at": "2026-11-11T08:18:29+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T083624Z",
+  "captured_at": "2026-11-11T08:36:24+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T085057Z",
+  "captured_at": "2026-11-11T08:50:57+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T090531Z",
+  "captured_at": "2026-11-11T09:05:31+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T092321Z",
+  "captured_at": "2026-11-11T09:23:21+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T093755Z",
+  "captured_at": "2026-11-11T09:37:55+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T095410Z",
+  "captured_at": "2026-11-11T09:54:10+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T100945Z",
+  "captured_at": "2026-11-11T10:09:45+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T102541Z",
+  "captured_at": "2026-11-11T10:25:41+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T104023Z",
+  "captured_at": "2026-11-11T10:40:23+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T105748Z",
+  "captured_at": "2026-11-11T10:57:48+00:00",
+  "contracts": 20893
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T112654Z",
+  "captured_at": "2026-11-11T11:26:54+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T114258Z",
+  "captured_at": "2026-11-11T11:42:58+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T115846Z",
+  "captured_at": "2026-11-11T11:58:46+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T122248Z",
+  "captured_at": "2026-11-11T12:22:48+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T123843Z",
+  "captured_at": "2026-11-11T12:38:43+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T130218Z",
+  "captured_at": "2026-11-11T13:02:18+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T131907Z",
+  "captured_at": "2026-11-11T13:19:07+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T133418Z",
+  "captured_at": "2026-11-11T13:34:18+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T134856Z",
+  "captured_at": "2026-11-11T13:48:56+00:00",
+  "contracts": 20905
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T141003Z",
+  "captured_at": "2026-11-11T14:10:03+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T142607Z",
+  "captured_at": "2026-11-11T14:26:07+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T144054Z",
+  "captured_at": "2026-11-11T14:40:54+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T145607Z",
+  "captured_at": "2026-11-11T14:56:07+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T151444Z",
+  "captured_at": "2026-11-11T15:14:44+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T153547Z",
+  "captured_at": "2026-11-11T15:35:47+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T155612Z",
+  "captured_at": "2026-11-11T15:56:12+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T161057Z",
+  "captured_at": "2026-11-11T16:10:57+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T162742Z",
+  "captured_at": "2026-11-11T16:27:42+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T164957Z",
+  "captured_at": "2026-11-11T16:49:57+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T171444Z",
+  "captured_at": "2026-11-11T17:14:44+00:00",
+  "contracts": 20937
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T173837Z",
+  "captured_at": "2026-11-11T17:38:37+00:00",
+  "contracts": 20937
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T175609Z",
+  "captured_at": "2026-11-11T17:56:09+00:00",
+  "contracts": 20939
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T181739Z",
+  "captured_at": "2026-11-11T18:17:39+00:00",
+  "contracts": 20940
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T184428Z",
+  "captured_at": "2026-11-11T18:44:28+00:00",
+  "contracts": 20941
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T190444Z",
+  "captured_at": "2026-11-11T19:04:44+00:00",
+  "contracts": 20910
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T192551Z",
+  "captured_at": "2026-11-11T19:25:51+00:00",
+  "contracts": 20877
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T194137Z",
+  "captured_at": "2026-11-11T19:41:37+00:00",
+  "contracts": 20878
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T205424Z",
+  "captured_at": "2026-11-11T20:54:24+00:00",
+  "contracts": 20695
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T211342Z",
+  "captured_at": "2026-11-11T21:13:42+00:00",
+  "contracts": 20539
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T213136Z",
+  "captured_at": "2026-11-11T21:31:36+00:00",
+  "contracts": 20482
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T214656Z",
+  "captured_at": "2026-11-11T21:46:56+00:00",
+  "contracts": 20486
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T220543Z",
+  "captured_at": "2026-11-11T22:05:43+00:00",
+  "contracts": 20490
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T223134Z",
+  "captured_at": "2026-11-11T22:31:34+00:00",
+  "contracts": 20447
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T225440Z",
+  "captured_at": "2026-11-11T22:54:40+00:00",
+  "contracts": 20375
+ },
+ {
+  "snapshot": "kalshi_cbb_20261111T233124Z",
+  "captured_at": "2026-11-11T23:31:24+00:00",
+  "contracts": 20555
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T001500Z",
+  "captured_at": "2026-11-12T00:15:00+00:00",
+  "contracts": 20490
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T003444Z",
+  "captured_at": "2026-11-12T00:34:44+00:00",
+  "contracts": 20533
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T005841Z",
+  "captured_at": "2026-11-12T00:58:41+00:00",
+  "contracts": 20545
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T015236Z",
+  "captured_at": "2026-11-12T01:52:36+00:00",
+  "contracts": 20581
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T022504Z",
+  "captured_at": "2026-11-12T02:25:04+00:00",
+  "contracts": 20957
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T033300Z",
+  "captured_at": "2026-11-12T03:33:00+00:00",
+  "contracts": 20881
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T040212Z",
+  "captured_at": "2026-11-12T04:02:12+00:00",
+  "contracts": 20841
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T042011Z",
+  "captured_at": "2026-11-12T04:20:11+00:00",
+  "contracts": 20844
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T045432Z",
+  "captured_at": "2026-11-12T04:54:32+00:00",
+  "contracts": 20849
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T050928Z",
+  "captured_at": "2026-11-12T05:09:28+00:00",
+  "contracts": 20885
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T053312Z",
+  "captured_at": "2026-11-12T05:33:12+00:00",
+  "contracts": 20863
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T055511Z",
+  "captured_at": "2026-11-12T05:55:11+00:00",
+  "contracts": 20864
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T061220Z",
+  "captured_at": "2026-11-12T06:12:20+00:00",
+  "contracts": 20865
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T062855Z",
+  "captured_at": "2026-11-12T06:28:55+00:00",
+  "contracts": 20865
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T064435Z",
+  "captured_at": "2026-11-12T06:44:35+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T070021Z",
+  "captured_at": "2026-11-12T07:00:21+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T072634Z",
+  "captured_at": "2026-11-12T07:26:34+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T081729Z",
+  "captured_at": "2026-11-12T08:17:29+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T083242Z",
+  "captured_at": "2026-11-12T08:32:42+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T085037Z",
+  "captured_at": "2026-11-12T08:50:37+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T090531Z",
+  "captured_at": "2026-11-12T09:05:31+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T092036Z",
+  "captured_at": "2026-11-12T09:20:36+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T093549Z",
+  "captured_at": "2026-11-12T09:35:49+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T095211Z",
+  "captured_at": "2026-11-12T09:52:11+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T100726Z",
+  "captured_at": "2026-11-12T10:07:26+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T102327Z",
+  "captured_at": "2026-11-12T10:23:27+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T103913Z",
+  "captured_at": "2026-11-12T10:39:13+00:00",
+  "contracts": 20832
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T111249Z",
+  "captured_at": "2026-11-12T11:12:49+00:00",
+  "contracts": 20837
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T115424Z",
+  "captured_at": "2026-11-12T11:54:24+00:00",
+  "contracts": 20837
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T122218Z",
+  "captured_at": "2026-11-12T12:22:18+00:00",
+  "contracts": 20837
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T124810Z",
+  "captured_at": "2026-11-12T12:48:10+00:00",
+  "contracts": 20837
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T134155Z",
+  "captured_at": "2026-11-12T13:41:55+00:00",
+  "contracts": 20837
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T140708Z",
+  "captured_at": "2026-11-12T14:07:08+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T142505Z",
+  "captured_at": "2026-11-12T14:25:05+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T150414Z",
+  "captured_at": "2026-11-12T15:04:14+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T153316Z",
+  "captured_at": "2026-11-12T15:33:16+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T160127Z",
+  "captured_at": "2026-11-12T16:01:27+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T162202Z",
+  "captured_at": "2026-11-12T16:22:02+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T163954Z",
+  "captured_at": "2026-11-12T16:39:54+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T165526Z",
+  "captured_at": "2026-11-12T16:55:26+00:00",
+  "contracts": 20845
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T173429Z",
+  "captured_at": "2026-11-12T17:34:29+00:00",
+  "contracts": 20872
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T175032Z",
+  "captured_at": "2026-11-12T17:50:32+00:00",
+  "contracts": 20872
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T181701Z",
+  "captured_at": "2026-11-12T18:17:01+00:00",
+  "contracts": 20878
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T190749Z",
+  "captured_at": "2026-11-12T19:07:49+00:00",
+  "contracts": 20392
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T201552Z",
+  "captured_at": "2026-11-12T20:15:52+00:00",
+  "contracts": 20620
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T203404Z",
+  "captured_at": "2026-11-12T20:34:04+00:00",
+  "contracts": 20620
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T220012Z",
+  "captured_at": "2026-11-12T22:00:12+00:00",
+  "contracts": 20644
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T224638Z",
+  "captured_at": "2026-11-12T22:46:38+00:00",
+  "contracts": 20647
+ },
+ {
+  "snapshot": "kalshi_cbb_20261112T235037Z",
+  "captured_at": "2026-11-12T23:50:37+00:00",
+  "contracts": 21266
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T004514Z",
+  "captured_at": "2026-11-13T00:45:14+00:00",
+  "contracts": 21335
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T014228Z",
+  "captured_at": "2026-11-13T01:42:28+00:00",
+  "contracts": 21433
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T024445Z",
+  "captured_at": "2026-11-13T02:44:45+00:00",
+  "contracts": 21504
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T032943Z",
+  "captured_at": "2026-11-13T03:29:43+00:00",
+  "contracts": 21347
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T035547Z",
+  "captured_at": "2026-11-13T03:55:47+00:00",
+  "contracts": 21299
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T041054Z",
+  "captured_at": "2026-11-13T04:10:54+00:00",
+  "contracts": 21270
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T042558Z",
+  "captured_at": "2026-11-13T04:25:58+00:00",
+  "contracts": 21233
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T044640Z",
+  "captured_at": "2026-11-13T04:46:40+00:00",
+  "contracts": 21204
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T050211Z",
+  "captured_at": "2026-11-13T05:02:11+00:00",
+  "contracts": 21139
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T051726Z",
+  "captured_at": "2026-11-13T05:17:26+00:00",
+  "contracts": 21200
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T053250Z",
+  "captured_at": "2026-11-13T05:32:50+00:00",
+  "contracts": 21322
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T054945Z",
+  "captured_at": "2026-11-13T05:49:45+00:00",
+  "contracts": 21322
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T060607Z",
+  "captured_at": "2026-11-13T06:06:07+00:00",
+  "contracts": 21322
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T062410Z",
+  "captured_at": "2026-11-13T06:24:10+00:00",
+  "contracts": 21319
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T070808Z",
+  "captured_at": "2026-11-13T07:08:08+00:00",
+  "contracts": 21319
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T074833Z",
+  "captured_at": "2026-11-13T07:48:33+00:00",
+  "contracts": 21285
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T081301Z",
+  "captured_at": "2026-11-13T08:13:01+00:00",
+  "contracts": 21306
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T083419Z",
+  "captured_at": "2026-11-13T08:34:19+00:00",
+  "contracts": 21306
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T085607Z",
+  "captured_at": "2026-11-13T08:56:07+00:00",
+  "contracts": 21306
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T091231Z",
+  "captured_at": "2026-11-13T09:12:31+00:00",
+  "contracts": 21306
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T094425Z",
+  "captured_at": "2026-11-13T09:44:25+00:00",
+  "contracts": 21306
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T100319Z",
+  "captured_at": "2026-11-13T10:03:19+00:00",
+  "contracts": 21306
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T104743Z",
+  "captured_at": "2026-11-13T10:47:43+00:00",
+  "contracts": 21306
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T113412Z",
+  "captured_at": "2026-11-13T11:34:12+00:00",
+  "contracts": 21317
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T115113Z",
+  "captured_at": "2026-11-13T11:51:13+00:00",
+  "contracts": 21317
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T122002Z",
+  "captured_at": "2026-11-13T12:20:02+00:00",
+  "contracts": 21317
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T125303Z",
+  "captured_at": "2026-11-13T12:53:03+00:00",
+  "contracts": 21317
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T131722Z",
+  "captured_at": "2026-11-13T13:17:22+00:00",
+  "contracts": 21317
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T133232Z",
+  "captured_at": "2026-11-13T13:32:32+00:00",
+  "contracts": 21317
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T134747Z",
+  "captured_at": "2026-11-13T13:47:47+00:00",
+  "contracts": 21317
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T140503Z",
+  "captured_at": "2026-11-13T14:05:03+00:00",
+  "contracts": 21322
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T142057Z",
+  "captured_at": "2026-11-13T14:20:57+00:00",
+  "contracts": 21322
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T145018Z",
+  "captured_at": "2026-11-13T14:50:18+00:00",
+  "contracts": 21322
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T151253Z",
+  "captured_at": "2026-11-13T15:12:53+00:00",
+  "contracts": 21297
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T152915Z",
+  "captured_at": "2026-11-13T15:29:15+00:00",
+  "contracts": 21297
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T154511Z",
+  "captured_at": "2026-11-13T15:45:11+00:00",
+  "contracts": 21297
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T160256Z",
+  "captured_at": "2026-11-13T16:02:56+00:00",
+  "contracts": 21297
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T163658Z",
+  "captured_at": "2026-11-13T16:36:58+00:00",
+  "contracts": 21297
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T171117Z",
+  "captured_at": "2026-11-13T17:11:17+00:00",
+  "contracts": 21327
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T173431Z",
+  "captured_at": "2026-11-13T17:34:31+00:00",
+  "contracts": 21391
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T180657Z",
+  "captured_at": "2026-11-13T18:06:57+00:00",
+  "contracts": 21391
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T184031Z",
+  "captured_at": "2026-11-13T18:40:31+00:00",
+  "contracts": 21412
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T191235Z",
+  "captured_at": "2026-11-13T19:12:35+00:00",
+  "contracts": 21412
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T194045Z",
+  "captured_at": "2026-11-13T19:40:45+00:00",
+  "contracts": 21421
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T201514Z",
+  "captured_at": "2026-11-13T20:15:14+00:00",
+  "contracts": 21742
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T204426Z",
+  "captured_at": "2026-11-13T20:44:26+00:00",
+  "contracts": 21754
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T212207Z",
+  "captured_at": "2026-11-13T21:22:07+00:00",
+  "contracts": 21789
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T214209Z",
+  "captured_at": "2026-11-13T21:42:09+00:00",
+  "contracts": 21789
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T215904Z",
+  "captured_at": "2026-11-13T21:59:04+00:00",
+  "contracts": 21789
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T222026Z",
+  "captured_at": "2026-11-13T22:20:26+00:00",
+  "contracts": 21795
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T224952Z",
+  "captured_at": "2026-11-13T22:49:52+00:00",
+  "contracts": 21795
+ },
+ {
+  "snapshot": "kalshi_cbb_20261113T233342Z",
+  "captured_at": "2026-11-13T23:33:42+00:00",
+  "contracts": 22609
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T002424Z",
+  "captured_at": "2026-11-14T00:24:24+00:00",
+  "contracts": 22604
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T005119Z",
+  "captured_at": "2026-11-14T00:51:19+00:00",
+  "contracts": 22613
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T013802Z",
+  "captured_at": "2026-11-14T01:38:02+00:00",
+  "contracts": 22445
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T020712Z",
+  "captured_at": "2026-11-14T02:07:12+00:00",
+  "contracts": 22101
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T031506Z",
+  "captured_at": "2026-11-14T03:15:06+00:00",
+  "contracts": 21412
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T034038Z",
+  "captured_at": "2026-11-14T03:40:38+00:00",
+  "contracts": 21170
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T041505Z",
+  "captured_at": "2026-11-14T04:15:05+00:00",
+  "contracts": 20920
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T043251Z",
+  "captured_at": "2026-11-14T04:32:51+00:00",
+  "contracts": 20814
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T045117Z",
+  "captured_at": "2026-11-14T04:51:17+00:00",
+  "contracts": 20781
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T050950Z",
+  "captured_at": "2026-11-14T05:09:50+00:00",
+  "contracts": 20743
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T052619Z",
+  "captured_at": "2026-11-14T05:26:19+00:00",
+  "contracts": 20840
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T054144Z",
+  "captured_at": "2026-11-14T05:41:44+00:00",
+  "contracts": 20880
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T055820Z",
+  "captured_at": "2026-11-14T05:58:20+00:00",
+  "contracts": 20880
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T061350Z",
+  "captured_at": "2026-11-14T06:13:50+00:00",
+  "contracts": 20880
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T063001Z",
+  "captured_at": "2026-11-14T06:30:01+00:00",
+  "contracts": 20880
+ },
+ {
+  "snapshot": "kalshi_cbb_20261114T070600Z",
+  "captured_at": "2026-11-14T07:06:00+00:00",
+  "contracts": 20880
+ }
+]

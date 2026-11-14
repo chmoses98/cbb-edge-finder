@@ -1,0 +1,53 @@
+{
+ "generated_at": "2026-11-08T06:57:34.048183+00:00",
+ "snapshots": 289,
+ "fill_assumption": "hypothetical taker order of 25 contracts at the displayed best price; filled only if the displayed top-of-book size covers it; no partial fills, no queue, no price impact, no maker orders; fee per fees.py",
+ "fee_schedule": "kalshi-quadratic-v1",
+ "bet_authority": "RESEARCH_ONLY",
+ "contracts": 27064,
+ "entry_rows": 125262,
+ "status_flags": {
+  "PARTIAL": 16026,
+  "UNMODELED": 16274,
+  "UNSETTLED": 15076,
+  "UNSUPPORTED": 14319,
+  "EVALUATED": 10894,
+  "UNMATCHED": 792,
+  "UNOBSERVABLE": 144
+ },
+ "families": {
+  "FUTURES_CHAMPION": 982,
+  "FUTURES_CONFERENCE": 890,
+  "FUTURES_OTHER": 8838,
+  "FUTURES_SEED": 515,
+  "GAME_WINNER": 1676,
+  "HALF": 1227,
+  "OTHER": 1238,
+  "PLAYER_PROP": 820,
+  "SPREAD": 4684,
+  "TEAM_TOTAL": 154,
+  "TOTAL": 6040
+ },
+ "panel_rows_joined": 4342560,
+ "scores_loaded": 425,
+ "period_scores_loaded": 378,
+ "health": {
+  "snapshot_gaps": 111,
+  "snapshots_without_panel": 10,
+  "latest_snapshot_age_minutes": 47.30080305,
+  "latest_snapshot_stale": true,
+  "matched_game_contracts_unsettled_over_24h": 0,
+  "contracts_never_priced_pretip": 752,
+  "panel_backlog": 10,
+  "panel_integrity_ok": true,
+  "pipeline_findings": 4
+ },
+ "healthy": false,
+ "health_status": "DEGRADED",
+ "opening_night": {
+  "contracts": 5366,
+  "games": 133,
+  "fully_clean_contracts": 824,
+  "contracts_with_issue": 4542
+ }
+}
