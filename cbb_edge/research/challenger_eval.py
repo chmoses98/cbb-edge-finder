@@ -11,14 +11,17 @@ before that record's ``as_of``. Nothing here writes to an archive or changes a m
 
 from __future__ import annotations
 
+import hashlib
 import math
 import random
 from collections import defaultdict
 from collections.abc import Callable, Sequence
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from cbb_edge.research import wave1 as w
+from cbb_edge.research import wave14 as w14
 
 # ---- registered constants (shared by both waves; a test pins them to the specs) -----------------
 PROSPECTIVE_FROM = (
@@ -117,6 +120,50 @@ def pushed_by(
             times.append(t)
         out[gid] = max(times) if times else None
     return out
+
+
+# ---- AMENDMENT 1 (registered 2026-11-14, before PROSPECTIVE_FROM; research/hypotheses/WAVES15_16_AMENDMENT_1.md)
+# Record selection = Wave 14 amendment 5a, applied identically to every version of both waves.
+AMENDMENT_1 = "verified_pre_tip_push_selection"
+
+
+def load_verified(
+    root: Path, versions: Sequence[str], provenance: dict[str, Any]
+) -> tuple[dict[str, dict[int, dict[str, Any]]], dict[str, Any]]:
+    """Per version, the latest frozen record with ``as_of`` < tip whose push before tip is VERIFIED.
+
+    Uses ``wave14.VerifiedPush`` (WAVE14.md 5a) with this family's boundary ``PROSPECTIVE_FROM``:
+    a record with ``as_of >= PROSPECTIVE_FROM`` is selectable only if a verified manifest lists it and
+    that manifest's server-side ``pushed_by`` is strictly before tip. Any other such record (pushed at or
+    after tip, unverifiable push time, listed in no manifest) is quarantined and never selected; the
+    game falls back to the latest earlier admitted record, which must still pass ``eligibility``
+    (so a fallback to a record before ``PROSPECTIVE_FROM`` is ineligible, never graded). Records
+    before ``PROSPECTIVE_FROM`` are selected exactly as registered (they only train). Provenance
+    only - never outcomes. Waves 15 and 16 call this one function, so the ``pure-0.5.0`` record
+    selected for a game is the same in both (``base_selection_digest``)."""
+    rec_manifest = w14.record_manifests(root)
+    frozen: dict[str, dict[int, dict[str, Any]]] = {}
+    audit: dict[str, Any] = {"rule": AMENDMENT_1, "since": PROSPECTIVE_FROM, "quarantined": {},
+                             "fallback": {}, "no_verified_pre_tip_record": {}}  # fmt: skip
+    for v in versions:
+        adm = w14.VerifiedPush(v, rec_manifest, provenance, PROSPECTIVE_FROM)
+        frozen[v] = w.load_frozen(root, v, allow=adm)
+        naive = w.load_frozen(root, v)
+        audit["quarantined"][v] = [
+            {"game_id": g, "as_of": a, "reason": r} for (g, a), r in sorted(adm.quarantined.items())
+        ]
+        audit["fallback"][v] = sorted(
+            g for g, r in frozen[v].items() if g in naive and r["as_of"] < naive[g]["as_of"]
+        )
+        audit["no_verified_pre_tip_record"][v] = sorted(set(naive) - set(frozen[v]))
+    audit["base_selection_digest"] = selection_digest(frozen[versions[0]])
+    return frozen, audit
+
+
+def selection_digest(records: dict[int, dict[str, Any]]) -> str:
+    """sha256 over the sorted (game_id, selected as_of) pairs: equal digests = identical selection."""
+    s = "\n".join(f"{g},{records[g]['as_of'].isoformat()}" for g in sorted(records))
+    return hashlib.sha256(s.encode()).hexdigest()
 
 
 def eligibility(
