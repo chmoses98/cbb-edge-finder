@@ -13,6 +13,7 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -86,6 +87,7 @@ def project_all(
     only: set[tuple[str, int]] | None = None,
     live: list[dict] | None = None,
     sources: dict[int, dict] | None = None,
+    guard: tuple[dict[tuple[str, int], pd.Timestamp], float] | None = None,
 ) -> tuple[dict, dict]:
     """Project every active version for games tipping in (now, now + horizon_h] and
     append them to ``out_dir`` (the production step; also driven by the Wave 9 dry run
@@ -98,7 +100,10 @@ def project_all(
     keeps the frozen window rule exactly. ``sources`` (Wave 11): per ESPN game id, the
     schedule source of its silver row (``SDV`` / ``ESPN_FALLBACK``, with the ESPN
     observation time and row for a fallback game), stamped on each record; the fallback
-    rows behind this run's records are archived with them (``schedule_rows/``)."""
+    rows behind this run's records are archived with them (``schedule_rows/``).
+    ``guard``: (existing newest pre-tip ``as_of`` per (version, game), minutes): the
+    collection-reliability freeze guard (``cadence.freeze_guard``). None keeps the current
+    behaviour exactly."""
     from contextlib import nullcontext
 
     from cbb_edge.app.prospective import window_override
@@ -139,10 +144,23 @@ def project_all(
             }  # fmt: skip
         return rs
 
+    guarded: list[tuple[str, int]] = []
+
+    def guard_rs(rs: list[dict]) -> list[dict]:
+        if guard is None:
+            return rs
+        from cbb_edge.ops.cadence import freeze_guard
+
+        kept, dropped = freeze_guard(rs, guard[0], now, guard[1])
+        guarded.extend(dropped)
+        return kept
+
     def keep(rs: list[dict]) -> list[dict]:
         if only is None:
-            return rs
-        return [r for r in rs if (r["model"]["version"], int(r["game"]["espn_game_id"])) in only]
+            return guard_rs(rs)
+        return guard_rs(
+            [r for r in rs if (r["model"]["version"], int(r["game"]["espn_game_id"])) in only]
+        )
 
     ctx = window_override(win["extra"], win["exclude"]) if win is not None else nullcontext()
     with ctx:
@@ -194,12 +212,14 @@ def project_all(
                     r["prospective"]["role"] = "challenger_availability_overlay"
                     r["prospective"]["code_sha"] = code_sha
                 out[f"{version}+avail"] = write_archive(
-                    stamp_schedule(av) if only is None else [], out_dir
+                    stamp_schedule(guard_rs(av)) if only is None else [], out_dir
                 )
     if win is not None:
         failed_or_note = {"tbd_extra": sorted(win["extra"]), "live_excluded": sorted(win["exclude"]),
                           "unprotected_no_live_evidence": sorted(win["unprotected"])}  # fmt: skip
         out["_schedule_window"] = {k: len(v) for k, v in failed_or_note.items()}
+    if guard is not None:
+        out["_freeze_guard"] = {"minutes": guard[1], "dropped": len(guarded)}
     if used_rows:  # the exact ESPN rows behind this run's fallback records
         stamp = now.strftime("%Y%m%dT%H%M%SZ")
         p = out_dir / "schedule_rows" / f"{stamp}.jsonl"
@@ -214,6 +234,26 @@ def project_all(
         }  # fmt: skip
     write_manifest(out_dir, now, code_sha, roster_commit)
     return out, failed
+
+
+def resolve_guard(
+    minutes: float, existing_archive: str | None, season: int
+) -> tuple[tuple[dict[tuple[str, int], pd.Timestamp], float] | None, str]:
+    """(guard for ``project_all``, status). If the archive cannot be read the guard cannot know
+    which games are covered (the workflow's fetch step creates the directory even when the fetch
+    fails). It never aborts or drops records then: this run may be a game's only pre-tip
+    forecast. It projects UNGUARDED and reports it. Evaluation integrity rests on verified push
+    provenance (``wave14.VerifiedPush`` quarantines any record pushed at/after tip), not on this
+    guard."""
+    if minutes <= 0:
+        return None, "DISABLED"
+    arch = Path(existing_archive) if existing_archive else None
+    if arch is None or not (arch / "projections").is_dir():
+        print(f"freeze guard: UNGUARDED_ARCHIVE_UNREADABLE ({arch})", file=sys.stderr)
+        return None, "UNGUARDED_ARCHIVE_UNREADABLE"
+    from cbb_edge.ops.cadence import latest_pre_tip_as_of
+
+    return (latest_pre_tip_as_of(arch, season), minutes), "ACTIVE"
 
 
 def main() -> None:
@@ -239,8 +279,14 @@ def main() -> None:
     )
     ap.add_argument("--schedule-archive", default=None,
                     help="schedule-archive checkout (Wave 11: archived ESPN fallback rows)")  # fmt: skip
+    ap.add_argument("--freeze-guard-min", type=float, default=0.0,
+                    help="skip new records for already-covered games tipping within this many "
+                         "minutes (>= job timeout); 0 disables (cadence.freeze_guard)")  # fmt: skip
+    ap.add_argument("--existing-archive", default=None,
+                    help="projections-archive checkout the freeze guard reads (required with it)")  # fmt: skip
     a = ap.parse_args()
     now = pd.Timestamp(datetime.now(UTC))
+    guard, guard_status = resolve_guard(a.freeze_guard_min, a.existing_archive, a.season)
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     seasons = list(range(a.season - a.warmup, a.season + 1))
     # provenance (Wave 8): the code commit and the roster-archive commit each record was
@@ -292,7 +338,10 @@ def main() -> None:
     )
     out, failed = project_all(a.season, now, a.horizon_h, Path(a.out), a.roster_dir,
                               a.availability_dir, code_sha, roster_commit, only, live,
-                              sources)  # fmt: skip
+                              sources, guard)  # fmt: skip
+    if a.freeze_guard_min > 0:
+        out["_freeze_guard"] = {"minutes": a.freeze_guard_min, "dropped": 0,
+                                **out.get("_freeze_guard", {}), "status": guard_status}  # fmt: skip
     out["_live_scoreboard"] = {"observations": len(live), "failed_dates": failed_dates}
     out["_schedule_completion"] = {k: completion.get(k) for k in (
         "sdv_games", "fallback_games", "shared_games")} | {

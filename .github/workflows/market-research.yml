@@ -141,21 +141,23 @@ jobs:
         # monitor sees the newest snapshot older than its threshold, request one capture. The
         # capture workflow's serialized concurrency group prevents overlap; a gap already missed
         # stays a gap (never backfilled with invented quotes).
+        # cbb_edge.ops.dispatch_guard: a production run queued > 30 min (e.g. the 0-job orphan a
+        # 502'd dispatch left behind, run 43467050714) no longer blocks recovery; a listing
+        # failure now SKIPS (fail closed) instead of being read as "0 active".
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          stale=$(python -c "import json;print(json.load(open('research_out/latest/health.json'))['findings']['latest_snapshot_stale'])")
-          echo "latest_snapshot_stale=$stale"
-          active=$(gh run list --workflow kalshi-capture.yml --limit 20 --json status,event \
-            --jq '[.[] | select(.event != "pull_request" and (.status=="queued" or .status=="in_progress" or .status=="pending"))] | length' || echo 0)
-          echo "kalshi-capture runs already queued/in progress: $active"
-          if [ "$stale" = "True" ] && [ "$active" = "0" ]; then
+          flag=""
+          gh run list --workflow kalshi-capture.yml --limit 20 \
+            --json databaseId,status,conclusion,event,createdAt > capture_runs.json || flag="--listing-failed"
+          python -m cbb_edge.ops.dispatch_guard capture-recovery \
+            --health research_out/latest/health.json --runs capture_runs.json $flag | tee capture_recovery.json
+          action=$(python -c "import json;print(json.load(open('capture_recovery.json'))['action'])" 2>/dev/null || echo SKIP)
+          if [ "$action" = "DISPATCH" ]; then
             gh workflow run kalshi-capture.yml --ref main
             echo "dispatched kalshi-capture"
-          elif [ "$stale" = "True" ]; then
-            echo "capture is stale but a run is already waiting for a runner; not stacking another"
           fi
 
       - name: Recover backlogged Kalshi as-of model panel (bounded and fail-closed)
