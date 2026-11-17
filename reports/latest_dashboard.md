@@ -1,4 +1,4 @@
-# Roster confirmation scorecard — 20261116T122306Z
+# Roster confirmation scorecard — 20261117T140053Z
 
 | measure | value |
 |---|---|
@@ -12,7 +12,7 @@
 | teams CONFLICTED | 0 (0.0%) |
 | teams STALE | 0 (0.0%) |
 | teams UNKNOWN | 0 (0.0%) |
-| official players | 5509 |
+| official players | 5507 |
 | player identity match rate | 99.8% |
 | unresolved players | 11 |
 | stale ESPN team sources | 67 |

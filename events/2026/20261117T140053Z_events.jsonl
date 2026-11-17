@@ -1,0 +1,6 @@
+{"stamp": "20261117T140053Z", "event": "player_added", "team_id": "T0039", "player_key": "P5313825", "name": "Gustavo Guimaraes"}
+{"stamp": "20261117T140053Z", "event": "player_added", "team_id": "T0157", "player_key": "P5460134", "name": "Junior Kemm"}
+{"stamp": "20261117T140053Z", "event": "player_removed", "team_id": "T0039", "player_key": "N:T0039:gustavo guimaraes", "name": "Gustavo Guimar\u00e3es"}
+{"stamp": "20261117T140053Z", "event": "player_removed", "team_id": "T0157", "player_key": "N:T0157:junior kemm", "name": "Junior Kemm"}
+{"stamp": "20261117T140053Z", "event": "player_removed", "team_id": "T0042", "player_key": "P5184134", "name": "Nicolas Ortiz"}
+{"stamp": "20261117T140053Z", "event": "player_removed", "team_id": "T0117", "player_key": "P5314852", "name": "Brayden Johnson"}
