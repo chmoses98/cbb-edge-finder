@@ -1,10 +1,10 @@
-# P-ROSTER-1 prospective scoreboard — 20261117T140354Z
+# P-ROSTER-1 prospective scoreboard — 20261118T134612Z
 
 Locked protocol: `research/hypotheses/WAVE7.md` §7. Base = `pure-0.5.0` (frozen), P-ROSTER-1 = `pure-0.5.0+roster`, incumbent `pure-0.2.0` shown for reference. error = actual − projected home margin; paired Δ = |e_roster| − |e_base| (negative = P-ROSTER-1 better). Only games whose whole evidence chain passed the pre-tip gate are counted.
 
 ## Sample size first: **game 1 N = 215**
 
-Pre-tip gate: VALID 659 · INVALID 1 · UNSCORABLE 0 · PENDING 12 (INVALID / UNSCORABLE games are never scored and never reconstructed; see `integrity_gate.csv`).
+Pre-tip gate: VALID 714 · INVALID 1 · UNSCORABLE 0 · PENDING 13 (INVALID / UNSCORABLE games are never scored and never reconstructed; see `integrity_gate.csv`).
 
 Intervals need N ≥ 20 games on ≥ 10 distinct days; until then they are suppressed. **No table here decides anything during 2026–27.**
 
@@ -18,15 +18,15 @@ Intervals need N ≥ 20 games on ≥ 10 distinct days; until then they are suppr
 
 | slice | N | base MAE | roster MAE | Δ MAE | base RMSE | roster RMSE | Δ RMSE | base bias | roster bias | % improved | mean paired Δ | 90% CI (day bootstrap) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| game_2 | **204** | 9.72 | 9.62 | -0.10 | 12.14 | 12.02 | -0.11 | -0.21 | -1.33 | 52% | -0.10 | [-0.34, 0.19] |
-| game_3 | **162** | 9.63 | 9.60 | -0.04 | 12.21 | 12.28 | 0.07 | 0.02 | -0.70 | 53% | -0.04 | suppressed (N<20 or <10 days) |
+| game_2 | **206** | 9.79 | 9.72 | -0.08 | 12.26 | 12.19 | -0.07 | -0.38 | -1.50 | 52% | -0.08 | [-0.33, 0.22] |
+| game_3 | **170** | 9.81 | 9.81 | -0.01 | 12.32 | 12.44 | 0.12 | -0.02 | -0.71 | 53% | -0.01 | [-0.27, 0.24] |
 
 ## PRIMARY (preregistered WAVE7 §7 slices): game 1 = min(games seen) 0; games 2–3 = 1–2
 
 | slice | N | base MAE | roster MAE | Δ MAE | base RMSE | roster RMSE | Δ RMSE | base bias | roster bias | % improved | mean paired Δ | 90% CI (day bootstrap) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | game_1 | **215** | 9.84 | 9.79 | -0.05 | 12.49 | 12.31 | -0.17 | 0.82 | -1.02 | 51% | -0.05 | [-0.31, 0.30] |
-| games_2_3 | **366** | 9.68 | 9.61 | -0.07 | 12.17 | 12.14 | -0.03 | -0.11 | -1.05 | 53% | -0.07 | [-0.25, 0.16] |
+| games_2_3 | **376** | 9.80 | 9.76 | -0.05 | 12.29 | 12.30 | 0.02 | -0.22 | -1.14 | 52% | -0.05 | [-0.23, 0.17] |
 
 ## PRIMARY by confidence of the side(s) that triggered the overlay
 
@@ -34,8 +34,8 @@ Intervals need N ≥ 20 games on ≥ 10 distinct days; until then they are suppr
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | game_1 / CONFIRMED | **209** | 9.94 | 9.84 | -0.10 | 12.58 | 12.38 | -0.20 | 0.94 | -0.90 | 52% | -0.10 | [-0.34, 0.31] |
 | game_1 / LIKELY | **6** | 6.52 | 8.05 | 1.53 | 8.55 | 9.71 | 1.16 | -3.22 | -4.91 | 17% | 1.53 | suppressed (N<20 or <10 days) |
-| games_2_3 / CONFIRMED | **352** | 9.70 | 9.64 | -0.05 | 12.15 | 12.14 | -0.00 | -0.16 | -1.13 | 52% | -0.05 | [-0.24, 0.18] |
-| games_2_3 / LIKELY | **14** | 9.30 | 8.87 | -0.43 | 12.79 | 12.07 | -0.71 | 1.07 | 0.98 | 79% | -0.43 | suppressed (N<20 or <10 days) |
+| games_2_3 / CONFIRMED | **361** | 9.77 | 9.73 | -0.04 | 12.18 | 12.20 | 0.02 | -0.19 | -1.14 | 52% | -0.04 | [-0.23, 0.19] |
+| games_2_3 / LIKELY | **15** | 10.68 | 10.50 | -0.18 | 14.59 | 14.49 | -0.10 | -1.00 | -1.31 | 73% | -0.18 | suppressed (N<20 or <10 days) |
 
 ## Intermediate (each team's first game, by archived snapshot)
 
@@ -53,8 +53,8 @@ Intervals need N ≥ 20 games on ≥ 10 distinct days; until then they are suppr
 | slice | N | base MAE | roster MAE | Δ MAE | base RMSE | roster RMSE | Δ RMSE | base bias | roster bias | % improved | mean paired Δ | 90% CI (day bootstrap) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | team_game_1 | **215** | 9.84 | 9.79 | -0.05 | 12.49 | 12.31 | -0.17 | 0.82 | -1.02 | 51% | -0.05 | [-0.31, 0.30] |
-| team_game_2 | **256** | 9.41 | 9.41 | -0.00 | 11.92 | 11.80 | -0.11 | 0.08 | -1.05 | 52% | -0.00 | [-0.21, 0.22] |
-| team_game_3 | **254** | 9.86 | 9.71 | -0.15 | 12.34 | 12.24 | -0.10 | -0.18 | -0.94 | 54% | -0.15 | [-0.40, 0.10] |
+| team_game_2 | **258** | 9.48 | 9.49 | 0.01 | 12.02 | 11.95 | -0.08 | -0.06 | -1.19 | 51% | 0.01 | [-0.19, 0.23] |
+| team_game_3 | **262** | 9.97 | 9.84 | -0.13 | 12.40 | 12.34 | -0.06 | -0.20 | -0.94 | 53% | -0.13 | [-0.36, 0.12] |
 
 ## Diagnostic: game-1 |continuity adjustment| buckets
 
@@ -96,15 +96,15 @@ Pre-tip ESTIMATE (separate): BASE 146.2 false minutes / 9.5 players per team ove
 
 ## Snapshot integrity
 
-* games_scored: 659
-* truth_snapshot_before_as_of: 659
-* base_and_roster_same_run: 659
-* margin_base_consistent: 659
-* roster_records_with_code_sha: 659
-* truth_evidence_complete: 659
-* base_committed_before_tip: 659
+* games_scored: 714
+* truth_snapshot_before_as_of: 714
+* base_and_roster_same_run: 714
+* margin_base_consistent: 714
+* roster_records_with_code_sha: 714
+* truth_evidence_complete: 714
+* base_committed_before_tip: 714
 * base_commit_unknown: 0
-* roster_committed_before_tip: 659
+* roster_committed_before_tip: 714
 * roster_commit_unknown: 0
-* truth_committed_before_tip: 659
+* truth_committed_before_tip: 714
 * truth_commit_unknown: 0
