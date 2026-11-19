@@ -1,30 +1,29 @@
-# Roster confirmation scorecard — 20261118T133301Z
+# Roster confirmation scorecard — 20261119T122900Z
 
 | measure | value |
 |---|---|
 | D-I men's basketball teams (NCAA directory) | 365 |
 | official athletics domains verified | 365 (100.0%) |
-| official roster pages found | 361 (98.9%) |
-| official pages CURRENT | 354 (97.0%) |
+| official roster pages found | 360 (98.6%) |
+| official pages CURRENT | 353 (96.7%) |
 | official pages PROBABLY_CURRENT | 6 (1.6%) |
-| teams CONFIRMED | 358 (98.1%) |
-| teams LIKELY | 5 (1.4%) |
+| teams CONFIRMED | 359 (98.4%) |
+| teams LIKELY | 6 (1.6%) |
 | teams CONFLICTED | 0 (0.0%) |
 | teams STALE | 0 (0.0%) |
-| teams UNKNOWN | 2 (0.5%) |
-| official players | 5518 |
-| player identity match rate | 99.3% |
-| unresolved players | 39 |
+| teams UNKNOWN | 0 (0.0%) |
+| official players | 5508 |
+| player identity match rate | 99.8% |
+| unresolved players | 11 |
 | stale ESPN team sources | 67 |
 
-## Teams not yet confirmed or likely (7)
+## Teams not yet confirmed or likely (6)
 
-* `T0054` — roster page: roster_not_found
 * `T0171` — roster page: home_unreachable
-* `T0184` — confidence UNKNOWN: official_roster_unidentified
+* `T0184` — roster page: home_unreachable
 * `T0190` — roster page: home_unreachable
 * `T0225` — official page UNKNOWN: no_label_no_new_player_evidence
-* `T0305` — confidence UNKNOWN: official_roster_unidentified
+* `T0305` — roster page: home_unreachable
 * `T0349` — roster page: home_unreachable
 
 ## Not D-I this season (season-aware membership; not counted)
