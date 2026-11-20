@@ -1,42 +1,36 @@
-# Prospective readiness / observability — 2026-11-20T03:41:42.310105+00:00
+# Prospective readiness / observability — 2026-11-20T13:39:27.030470+00:00
 
-Window: 2026-11-20T03:41:42.310105+00:00 → 2026-11-27T03:41:42.310105+00:00. Operational report: nothing here predicts or tunes anything.
+Window: 2026-11-20T13:39:27.030470+00:00 → 2026-11-27T13:39:27.030470+00:00. Operational report: nothing here predicts or tunes anything.
 
-**ALERTS: 2 CRITICAL, 54 WARNING**
+**ALERTS: 0 CRITICAL, 50 WARNING**
 
 * `WARNING` **UNRESOLVED_IDENTITY_MATERIAL** — team_id=T0168, minutes_at_stake=22.7
 * `WARNING` **TBD_GAME_UNPROTECTED** — espn_game_id=401926007, date_placeholder=2026-11-15T05:00:00+00:00, last_live_observation=2026-10-06T18:39:34.935495+00:00
 * `WARNING` **TBD_GAME_UNPROTECTED** — espn_game_id=401920545, date_placeholder=2026-11-17T05:00:00+00:00, last_live_observation=2026-10-06T18:39:36.925904+00:00
 * `WARNING` **TBD_GAME_UNPROTECTED** — espn_game_id=401928854, date_placeholder=2026-11-14T05:00:00+00:00, last_live_observation=2026-10-09T06:21:42.868071+00:00
 * `WARNING` **SCHEDULE_RECONCILIATION_AMBIGUOUS** — espn_game_id=401925923, sdv_game_id=401931195
-* `WARNING` **SCHEDULE_SOURCE_DISAGREEMENT** — espn_game_id=401921691, field=conference_competition, sdv=True, espn=False
-* `WARNING` **SCHEDULE_SOURCE_DISAGREEMENT** — espn_game_id=401921692, field=conference_competition, sdv=True, espn=False
-* `CRITICAL` **SCHEDULE_IDENTITY_DISAGREEMENT_IMMINENT** — espn_game_id=401921691, field=teams, sdv=-1 vs -2, espn=152 vs -2
-* `CRITICAL` **SCHEDULE_IDENTITY_DISAGREEMENT_IMMINENT** — espn_game_id=401921692, field=teams, sdv=-1 vs -2, espn=93 vs -2
-* `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401919019, sdv=5 vs 45, espn=45 vs 5
-* `WARNING` **SCHEDULE_ORIENTATION_RECONCILED** — espn_game_id=401918959, sdv=93 vs 152, espn=152 vs 93
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925953, last_listed=2026-10-06T05:09:07.649611+00:00, latest_fetch_of_date=2026-11-03T21:41:52.747318+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926005, last_listed=2026-10-06T05:09:08.644907+00:00, latest_fetch_of_date=2026-11-05T01:57:10.361102+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401928387, last_listed=2026-10-06T05:09:10.609019+00:00, latest_fetch_of_date=2026-11-06T23:34:38.119968+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925954, last_listed=2026-10-06T05:09:10.609019+00:00, latest_fetch_of_date=2026-11-06T23:34:38.119968+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401928387, last_listed=2026-10-06T05:09:10.609019+00:00, latest_fetch_of_date=2026-11-06T23:34:38.119968+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926006, last_listed=2026-10-06T05:09:12.634285+00:00, latest_fetch_of_date=2026-11-08T23:09:47.718359+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925840, last_listed=2026-10-06T18:39:34.935495+00:00, latest_fetch_of_date=2026-11-17T00:15:13.828089+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926007, last_listed=2026-10-06T18:39:34.935495+00:00, latest_fetch_of_date=2026-11-17T00:15:13.828089+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925840, last_listed=2026-10-06T18:39:34.935495+00:00, latest_fetch_of_date=2026-11-17T00:15:13.828089+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925955, last_listed=2026-10-06T18:39:36.925904+00:00, latest_fetch_of_date=2026-11-19T04:57:22.109383+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401920545, last_listed=2026-10-06T18:39:36.925904+00:00, latest_fetch_of_date=2026-11-19T04:57:22.109383+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925956, last_listed=2026-10-06T18:39:39.938021+00:00, latest_fetch_of_date=2026-11-20T03:41:29.670397+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926008, last_listed=2026-10-06T18:39:41.933236+00:00, latest_fetch_of_date=2026-11-20T03:41:31.711892+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925957, last_listed=2026-10-06T18:39:43.928136+00:00, latest_fetch_of_date=2026-11-20T03:41:33.710414+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401928399, last_listed=2026-10-06T18:39:43.928136+00:00, latest_fetch_of_date=2026-11-20T03:41:33.710414+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926009, last_listed=2026-10-06T18:39:46.925648+00:00, latest_fetch_of_date=2026-11-20T03:41:36.696796+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925959, last_listed=2026-10-06T18:39:47.934573+00:00, latest_fetch_of_date=2026-11-14T06:46:04.104516+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926010, last_listed=2026-10-06T18:39:47.934573+00:00, latest_fetch_of_date=2026-11-14T06:46:04.104516+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925956, last_listed=2026-10-06T18:39:39.938021+00:00, latest_fetch_of_date=2026-11-20T13:39:14.437601+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926008, last_listed=2026-10-06T18:39:41.933236+00:00, latest_fetch_of_date=2026-11-20T13:39:16.532472+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401928399, last_listed=2026-10-06T18:39:43.928136+00:00, latest_fetch_of_date=2026-11-20T13:39:18.448247+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925957, last_listed=2026-10-06T18:39:43.928136+00:00, latest_fetch_of_date=2026-11-20T13:39:18.448247+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926009, last_listed=2026-10-06T18:39:46.925648+00:00, latest_fetch_of_date=2026-11-20T13:39:21.585894+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925959, last_listed=2026-10-06T18:39:47.934573+00:00, latest_fetch_of_date=2026-11-20T13:39:22.540989+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926010, last_listed=2026-10-06T18:39:47.934573+00:00, latest_fetch_of_date=2026-11-20T13:39:22.540989+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925960, last_listed=2026-10-06T18:39:51.932381+00:00, latest_fetch_of_date=2026-11-04T06:50:04.327862+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401909776, last_listed=2026-10-06T18:39:51.932381+00:00, latest_fetch_of_date=2026-11-04T06:50:04.327862+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926011, last_listed=2026-10-06T18:39:54.941959+00:00, latest_fetch_of_date=2026-11-04T06:50:07.315940+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925961, last_listed=2026-10-06T18:39:55.936677+00:00, latest_fetch_of_date=2026-10-28T06:56:01.412092+00:00
-* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926012, last_listed=2026-10-06T18:39:58.954890+00:00, latest_fetch_of_date=2026-11-04T06:50:11.378835+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401919764, last_listed=2026-10-06T18:39:58.954890+00:00, latest_fetch_of_date=2026-11-04T06:50:11.378835+00:00
+* `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401926012, last_listed=2026-10-06T18:39:58.954890+00:00, latest_fetch_of_date=2026-11-04T06:50:11.378835+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925962, last_listed=2026-10-06T18:40:02.936853+00:00, latest_fetch_of_date=2026-11-04T06:50:15.348055+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401923397, last_listed=2026-10-06T18:40:10.927353+00:00, latest_fetch_of_date=2026-11-11T06:50:45.474724+00:00
 * `WARNING` **FALLBACK_GAME_DISAPPEARED** — espn_game_id=401925963, last_listed=2026-10-06T18:40:20.969617+00:00, latest_fetch_of_date=2026-11-04T06:50:33.304950+00:00
@@ -112,16 +106,17 @@ Window: 2026-11-20T03:41:42.310105+00:00 → 2026-11-27T03:41:42.310105+00:00. O
 | ESPN rows excluded (fail closed) | 1 |
 | — ambiguous_reconciliation | 1 |
 | shared SDV/ESPN games | 6076 |
-| — exact match | 5896 |
-| — field-reconciled to ESPN (game stays SDV-native) | 178 |
+| — exact match | 5936 |
+| — field-reconciled to ESPN (game stays SDV-native) | 140 |
 | —— conference_competition | 73 |
-| —— teams | 77 |
-| —— tip | 59 |
-| —— venue | 45 |
+| —— notes | 2 |
+| —— teams | 75 |
+| —— tip | 21 |
+| —— venue | 44 |
 | —— teams: different_teams | 0 |
-| —— teams: orientation_swap | 2 |
+| —— teams: orientation_swap | 0 |
 | —— teams: team_metadata | 75 |
-| — unresolved (ESPN row not a valid observation; SDV kept) | 2 |
+| — unresolved (ESPN row not a valid observation; SDV kept) | 0 |
 | — ambiguous (excluded, fail closed) | 0 |
 | window D-I games absent from BOTH sources | 0 |
 
@@ -129,18 +124,19 @@ Window: 2026-11-20T03:41:42.310105+00:00 → 2026-11-27T03:41:42.310105+00:00. O
 
 | measure | games |
 |---|---|
-| games total (D-I vs D-I / all) | 302 / 385 |
+| games total (D-I vs D-I / all) | 303 / 386 |
 | announced tip | 299 |
-| TBD / placeholder / unknown | 3 |
+| TBD / placeholder / unknown | 4 |
 | schedule source: SDV | 299 |
-| schedule source: ESPN fallback (absent from SDV) | 3 |
+| schedule source: ESPN fallback (absent from SDV) | 4 |
 | on the live scoreboard but ABSENT from both projection sources | 0 |
-| valid pre-game snapshot available now | 51 |
-| baseline projection possible | 302 |
-| P-ROSTER-1 eligible (a side with input substitution) | 302 |
-| roster status (both sides CONFIRMED) | 296 |
-| currently at risk of becoming unscorable | 0 |
+| valid pre-game snapshot available now | 60 |
+| baseline projection possible | 303 |
+| P-ROSTER-1 eligible (a side with input substitution) | 303 |
+| roster status (both sides CONFIRMED) | 297 |
+| currently at risk of becoming unscorable | 9 |
 
+* inside the 30 h window without a snapshot for every version: 9
 
 ## Opening-week observability (per game)
 
@@ -148,7 +144,6 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 
 | tip | game | home | away | in exp. | pure-0.2.0 | pure-0.3.0 | pure-0.4.0 | pure-0.5.0 | pure-0.5.0+roster | roster snapshot | confidence | P-ROSTER-1 eligible | gate | settled | scored |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 2026-11-17T05:00 TBD | 401920545 | T0203 | T0196 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261116T122306Z | CONFIRMED/CONFIRMED | yes | PENDING | no | no |
 | 2026-11-17T16:00 | 401920904 | T0026 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
 | 2026-11-17T17:00 | 401928360 | T0291 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
 | 2026-11-17T17:00 | 401927381 | T0046 | T0216 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261117T140053Z | CONFIRMED/CONFIRMED | yes | VALID | yes | yes |
@@ -289,42 +284,42 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-19T03:00 | 401911456 | T0250 | T0038 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261118T133301Z | CONFIRMED/CONFIRMED | yes | VALID | yes | yes |
 | 2026-11-19T03:30 | 401920158 | T0014 | T0209 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261118T133301Z | CONFIRMED/CONFIRMED | yes | VALID | yes | yes |
 | 2026-11-19T03:30 | 401920516 | T0001 | T0249 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261118T133301Z | CONFIRMED/CONFIRMED | yes | VALID | yes | yes |
-| 2026-11-19T19:30 | 401920517 | T0130 | T0031 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-19T22:00 | 401920519 | T0001 | T0045 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-19T23:00 | 401918959 | T0071 | T0046 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:00 | 401928826 | T0311 | T0274 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:00 | 401928812 | T0350 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
-| 2026-11-20T00:00 | 401926144 | T0347 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
-| 2026-11-20T00:00 | 401923304 | T0271 | T0146 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:00 | 401920878 | T0137 | T0171 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/LIKELY | yes | nan | no | no |
-| 2026-11-20T00:00 | 401920413 | T0215 | T0067 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:00 | 401916318 | T0089 | T0235 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:00 | 401912211 | T0022 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
-| 2026-11-20T00:00 | 401911021 | T0085 | T0179 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:00 | 401902280 | T0180 | T0055 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:30 | 401929373 | T0355 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
-| 2026-11-20T00:30 | 401926814 | T0197 | T0105 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T00:30 | 401919005 | T0228 | T0313 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T01:00 | 401906867 | T0115 | T0117 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T01:00 | 401918950 | T0048 | T0030 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T01:00 | 401929409 | T0343 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
-| 2026-11-20T01:00 | 401927375 | T0217 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
-| 2026-11-20T01:00 | 401921028 | T0345 | T0135 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T01:00 | 401920845 | T0363 | T0283 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T01:00 | 401919050 | T0301 | T0111 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T01:30 | 401920888 | T0128 | T0284 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T01:30 | 401920520 | T0249 | T0080 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T02:00 | 401930884 | T0264 | T0095 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T02:00 | 401928388 | T0331 | T0289 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T02:00 | 401928354 | T0265 | T0279 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T02:00 | 401925941 | T0124 | T0361 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T02:00 | 401911534 | T0081 | T0307 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T03:00 | 401925916 | T0267 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
-| 2026-11-20T03:00 | 401920349 | T0012 | T0009 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T03:00 | 401918056 | T0013 | T0369 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T03:30 | 401917536 | T0280 | T0314 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T04:00 | 401920518 | T0220 | T0112 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-20T04:00 | 401926773 | T0016 | T0360 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-19T19:30 | 401920517 | T0130 | T0031 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-19T22:00 | 401920519 | T0001 | T0045 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-19T23:00 | 401918959 | T0071 | T0046 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401928826 | T0311 | T0274 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401928812 | T0350 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401926144 | T0347 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401923304 | T0271 | T0146 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401920878 | T0137 | T0171 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/LIKELY | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401920413 | T0215 | T0067 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401916318 | T0089 | T0235 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401912211 | T0022 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401911021 | T0085 | T0179 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:00 | 401902280 | T0180 | T0055 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:30 | 401929373 | T0355 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
+| 2026-11-20T00:30 | 401926814 | T0197 | T0105 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T00:30 | 401919005 | T0228 | T0313 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T01:00 | 401906867 | T0115 | T0117 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T01:00 | 401918950 | T0048 | T0030 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T01:00 | 401929409 | T0343 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
+| 2026-11-20T01:00 | 401927375 | T0217 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
+| 2026-11-20T01:00 | 401921028 | T0345 | T0135 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T01:00 | 401920845 | T0363 | T0283 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T01:00 | 401919050 | T0301 | T0111 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T01:30 | 401920888 | T0128 | T0284 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T01:30 | 401920520 | T0249 | T0080 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T02:00 | 401930884 | T0264 | T0095 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T02:00 | 401928388 | T0331 | T0289 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T02:00 | 401928354 | T0265 | T0279 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T02:00 | 401925941 | T0124 | T0361 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T02:00 | 401911534 | T0081 | T0307 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T03:00 | 401925916 | T0267 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | yes | no |
+| 2026-11-20T03:00 | 401920349 | T0012 | T0009 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T03:00 | 401918056 | T0013 | T0369 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T03:30 | 401917536 | T0280 | T0314 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T04:00 | 401920518 | T0220 | T0112 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
+| 2026-11-20T04:00 | 401926773 | T0016 | T0360 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | yes | no |
 | 2026-11-20T16:00 | 401918454 | T0323 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
 | 2026-11-20T17:00 | 401925841 | T0236 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
 | 2026-11-20T17:00 | 401909698 | T0028 | T0325 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
@@ -354,7 +349,7 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-21T00:00 | 401925927 | T0310 | T0287 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T00:00 | 401924844 | T0194 | T0148 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T00:00 | 401924736 | T0079 | T0241 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T00:00 | 401921692 | nan | nan | no | – | – | – | – | – | nan | None/None | no | nan | no | no |
+| 2026-11-21T00:00 | 401921692 | T0046 | T0128 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T00:00 | 401921107 | T0202 | T0359 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T00:00 | 401921007 | T0147 | T0064 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T00:00 | 401920922 | T0057 | T0320 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
@@ -382,18 +377,18 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-21T02:00 | 401928795 | T0037 | T0276 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T02:00 | 401920137 | T0038 | T0342 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T02:00 | 401912710 | T0072 | T0129 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T02:30 | 401921691 | nan | nan | no | – | – | – | – | – | nan | None/None | no | nan | no | no |
+| 2026-11-21T02:30 | 401921691 | T0071 | T0284 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T03:00 | 401925664 | T0131 | T0167 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T04:00 | 401911252 | T0296 | T0063 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T16:00 | 401924884 | T0178 | T0285 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T16:00 | 401922284 | T0247 | T0341 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T17:00 | 401925756 | T0060 | T0196 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T17:00 | 401923402 | T0052 | T0083 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T18:00 | 401921811 | T0050 | T0367 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T18:00 | 401923312 | T0373 | T0077 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T18:00 | 401921169 | T0151 | T0222 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T18:00 | 401920948 | T0203 | T0195 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-21T18:30 | 401919828 | T0319 | T0371 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T16:00 | 401924884 | T0178 | T0285 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T16:00 | 401922284 | T0247 | T0341 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T17:00 | 401925756 | T0060 | T0196 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T17:00 | 401923402 | T0052 | T0083 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T18:00 | 401921811 | T0050 | T0367 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T18:00 | 401923312 | T0373 | T0077 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T18:00 | 401921169 | T0151 | T0222 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T18:00 | 401920948 | T0203 | T0195 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-21T18:30 | 401919828 | T0319 | T0371 | yes | ✓ | ✓ | ✓ | ✓ | ✓ | 20261119T122900Z | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-21T19:00 | 401929452 | T0119 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
 | 2026-11-21T19:00 | 401928819 | T0332 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
 | 2026-11-21T19:00 | 401924882 | T0297 | T0299 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
@@ -446,11 +441,11 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-22T17:00 | 401911024 | T0042 | T0088 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-22T18:00 | 401902281 | T0180 | T0075 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-22T18:00 | 401929023 | T0182 | T0319 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-22T18:00 | 401921088 | T0235 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
 | 2026-11-22T18:00 | 401920736 | T0040 | T0193 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-22T18:00 | 401919809 | T0334 | T0205 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-22T18:00 | 401912212 | T0022 | T0058 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-22T18:00 | 401909527 | T0126 | T0188 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
-| 2026-11-22T18:00 | 401921088 | T0235 | nan | no | – | – | – | – | – | nan | CONFIRMED/None | yes | nan | no | no |
 | 2026-11-22T19:00 | 401928802 | T0049 | T0023 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-22T19:00 | 401925942 | T0361 | T0344 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-22T19:00 | 401921748 | T0189 | T0353 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
@@ -548,3 +543,4 @@ TBD = ESPN has not set the tip time (00:00 ET placeholder). After the placeholde
 | 2026-11-24T20:00 | 401929285 | T0021 | T0169 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-24T20:00 | 401920546 | T0196 | T0343 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
 | 2026-11-24T20:30 | 401924267 | T0172 | T0139 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
+| 2026-11-24T21:00 | 401929035 | T0373 | T0368 | yes | – | – | – | – | – | nan | CONFIRMED/CONFIRMED | yes | nan | no | no |
