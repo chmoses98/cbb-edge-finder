@@ -1,0 +1,5 @@
+https://docs.kalshi.com/api-reference/events/get-event-fee-changes.md
+https://docs.kalshi.com/api-reference/exchange/get-series-fee-changes.md
+https://docs.kalshi.com/getting_started/fee_rounding.md
+https://docs.kalshi.com/margin-rest/fees/get-fee-tier-rates.md
+https://docs.kalshi.com/margin-rest/fees/get-fee-tiers.md
