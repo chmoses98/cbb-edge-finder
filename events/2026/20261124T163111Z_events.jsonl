@@ -1,0 +1,38 @@
+{"stamp": "20261124T163111Z", "event": "player_added", "team_id": "T0305", "player_key": "N:T0305:harrison stewart harrison stewart", "name": "Harrison Stewart Harrison Stewart"}
+{"stamp": "20261124T163111Z", "event": "player_added", "team_id": "T0305", "player_key": "N:T0305:jake pampolina jake pampolina", "name": "Jake Pampolina Jake Pampolina"}
+{"stamp": "20261124T163111Z", "event": "player_added", "team_id": "T0305", "player_key": "N:T0305:kamai samuels kamai samuels", "name": "Kamai Samuels Kamai Samuels"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P4684795", "name": "De'Ante Green"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5177250", "name": "Trent Mosquera"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5177575", "name": "Cbo Newton"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0035", "player_key": "P5241344", "name": "Houran Dan"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5241697", "name": "Roddy Jones"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5241698", "name": "James Jones"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5242123", "name": "Mekhi Turner"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5242403", "name": "Victor Payne Jr."}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5243027", "name": "Brayden Jackson"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5243056", "name": "Jayden Mott"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5248487", "name": "Raphel Laurent"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5312654", "name": "Daniel James"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5312655", "name": "Elijah Parker"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5312656", "name": "Ashton Reynolds"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5312657", "name": "Rashawn Tibby"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5313169", "name": "Caleb Hollenbeck"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5313561", "name": "Caleb Sanders"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5314364", "name": "Ty Owens"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5314733", "name": "Dane Christensen"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5315084", "name": "Davante Hackett"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5460898", "name": "Jhace Johnson"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5460899", "name": "David Smith"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5460900", "name": "Matt Goodwin"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5460901", "name": "Colin Langdon"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5460902", "name": "Jacori Ervin"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0184", "player_key": "P5460903", "name": "Carson Gretz"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5462476", "name": "Kamai Samuels"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5462477", "name": "CohenJ Gonzales"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5462478", "name": "Shaun Arnold"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5462479", "name": "Jake Pampolina"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5462480", "name": "Kyler Fox"}
+{"stamp": "20261124T163111Z", "event": "player_removed", "team_id": "T0305", "player_key": "P5462481", "name": "Harrison Stewart"}
+{"stamp": "20261124T163111Z", "event": "confidence_changed", "team_id": "T0054", "confidence": "LIKELY", "previous": "CONFIRMED"}
+{"stamp": "20261124T163111Z", "event": "confidence_changed", "team_id": "T0184", "confidence": "UNKNOWN", "previous": "LIKELY"}
+{"stamp": "20261124T163111Z", "event": "confidence_changed", "team_id": "T0305", "confidence": "UNKNOWN", "previous": "LIKELY"}

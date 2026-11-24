@@ -1,0 +1,126 @@
+{
+ "teams": 365,
+ "roster_pages_found": 361,
+ "by_platform": {
+  "sidearm": 327,
+  "wmt": 29,
+  "presto": 5
+ },
+ "by_method": {
+  "known_url": 361
+ },
+ "requests": 367,
+ "not_found": [
+  {
+   "team_id": "T0171",
+   "base_url": "https://lrtrojans.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://lrtrojans.com",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mens-basketball/roster",
+     "result": "robots_disallowed"
+    },
+    {
+     "url": "https://lrtrojans.com/sports/mbkb/2026-27/roster",
+     "result": "robots_disallowed"
+    }
+   ]
+  },
+  {
+   "team_id": "T0190",
+   "base_url": "https://gocolgateraiders.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://gocolgateraiders.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+     "url": "https://gocolgateraiders.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    }
+   ]
+  },
+  {
+   "team_id": "T0054",
+   "base_url": "https://gocrimson.com/",
+   "platform": "sidearm",
+   "error": "roster_not_found",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://gocrimson.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://gocrimson.com/sports/mens-basketball/roster",
+     "players": 0
+    },
+    {
+     "url": "https://gocrimson.com/",
+     "result": "ok",
+     "final_url": "https://gocrimson.com/"
+    },
+    {
+     "url": "https://gocrimson.com/sports/mens-basketball/roster",
+     "result": "ok",
+     "final_url": "https://gocrimson.com/sports/mens-basketball/roster",
+     "players": 0
+    },
+    {
+     "url": "https://gocrimson.com/sports/mbkb/2026-27/roster",
+     "result": "ok",
+     "final_url": "https://gocrimson.com/sports/mbkb/2026-27/roster",
+     "players": 0
+    },
+    {
+     "url": "https://gocrimson.com/sports/mens-basketball",
+     "result": "ok",
+     "final_url": "https://gocrimson.com/sports/mens-basketball"
+    },
+    {
+     "url": "https://gocrimson.com/sports/mens-basketball/schedule",
+     "result": "ok",
+     "final_url": "https://gocrimson.com/sports/mens-basketball/schedule"
+    }
+   ]
+  },
+  {
+   "team_id": "T0349",
+   "base_url": "https://www.omavs.com",
+   "platform": "unknown",
+   "error": "home_unreachable",
+   "redirect_to": null,
+   "linked_to": null,
+   "attempts": [
+    {
+     "url": "https://www.omavs.com",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mens-basketball/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    },
+    {
+     "url": "https://www.omavs.com/sports/mbkb/2026-27/roster",
+     "result": "robots_unavailable:fetch_failed:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without"
+    }
+   ]
+  }
+ ],
+ "redirects": {},
+ "linked": {}
+}
