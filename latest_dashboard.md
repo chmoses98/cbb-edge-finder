@@ -1,10 +1,10 @@
-# P-ROSTER-1 prospective scoreboard — 20261125T201428Z
+# P-ROSTER-1 prospective scoreboard — 20261126T131537Z
 
 Locked protocol: `research/hypotheses/WAVE7.md` §7. Base = `pure-0.5.0` (frozen), P-ROSTER-1 = `pure-0.5.0+roster`, incumbent `pure-0.2.0` shown for reference. error = actual − projected home margin; paired Δ = |e_roster| − |e_base| (negative = P-ROSTER-1 better). Only games whose whole evidence chain passed the pre-tip gate are counted.
 
 ## Sample size first: **game 1 N = 215**
 
-Pre-tip gate: VALID 1056 · INVALID 1 · UNSCORABLE 0 · PENDING 36 (INVALID / UNSCORABLE games are never scored and never reconstructed; see `integrity_gate.csv`).
+Pre-tip gate: VALID 1114 · INVALID 1 · UNSCORABLE 0 · PENDING 16 (INVALID / UNSCORABLE games are never scored and never reconstructed; see `integrity_gate.csv`).
 
 Intervals need N ≥ 20 games on ≥ 10 distinct days; until then they are suppressed. **No table here decides anything during 2026–27.**
 
@@ -96,15 +96,15 @@ Pre-tip ESTIMATE (separate): BASE 146.2 false minutes / 9.5 players per team ove
 
 ## Snapshot integrity
 
-* games_scored: 1056
-* truth_snapshot_before_as_of: 1056
-* base_and_roster_same_run: 1056
-* margin_base_consistent: 1056
-* roster_records_with_code_sha: 1056
-* truth_evidence_complete: 1056
-* base_committed_before_tip: 1056
+* games_scored: 1114
+* truth_snapshot_before_as_of: 1114
+* base_and_roster_same_run: 1114
+* margin_base_consistent: 1114
+* roster_records_with_code_sha: 1114
+* truth_evidence_complete: 1114
+* base_committed_before_tip: 1114
 * base_commit_unknown: 0
-* roster_committed_before_tip: 1056
+* roster_committed_before_tip: 1114
 * roster_commit_unknown: 0
-* truth_committed_before_tip: 1056
+* truth_committed_before_tip: 1114
 * truth_commit_unknown: 0
